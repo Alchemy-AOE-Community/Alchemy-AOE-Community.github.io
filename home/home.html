@@ -28,7 +28,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: auto; /* Changed to auto to allow scrolling if needed */
             position: relative;
         }
         header {
@@ -54,7 +54,7 @@
             justify-content: center;
             align-content: stretch;
             align-items: stretch;
-            height: calc(100vh - 100px);
+            min-height: calc(100vh - 100px); /* Changed to min-height */
         }
         .nav-group {
             position: relative;
@@ -303,13 +303,13 @@
         </div>
         <div class="nav-group seasons" aria-label="Competitions section" role="region">
             <div class="title-bar"><h3>COMPETITIONS</h3></div>
-            <a href="../ALS1/ALS1.html">ALS1</a>
-            <a href="../ALS2/ALS2.html">ALS2</a>
-            <a href="../ALS3/ALS3.html"></a>
-            <a href="../ALS4/ALS4.html"></a>
-            <a href="../ALS5/ALS5.html"></a>
-            <a href="../ALS6/ALS6.html"></a>
-            <a href="../ALS7/ALS7.html"></a>
+            <a href="/ALS1/ALS1.html">ALS1</a>
+            <a href="/ALS2/ALS2.html">ALS2</a>
+            <a href="/ALS3/ALS3.html"></a>
+            <a href="/ALS4/ALS4.html"></a>
+            <a href="/ALS5/ALS5.html"></a>
+            <a href="/ALS6/ALS6.html"></a>
+            <a href="/ALS7/ALS7.html"></a>
             <a href="#">ALS8</a>
         </div>
     </div>
