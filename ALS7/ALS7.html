@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join the Alchemy AOE Community for Age of Empires map resources, competitions, and more.">
+    <meta name="keywords" content="Age of Empires, AOE, community, maps, competitions">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Alchemy AOE Community</title>
+    <style>
+        :root {
+            --base-padding: 0.4em;
+            --slight-shift: 0.1em;
+            --button-size: 48px;
+            --gap: 4px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: black;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-image: 
+                url('../format_images/MapCrest.png'),
+                url('../format_images/MapCrest.png');
+            background-size: 160px 138.56px;
+            background-position: 
+                center,
+                calc(50% + 80px) calc(50% + 69.28px);
+            background-repeat: repeat;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: var(--base-padding) 0 var(--base-padding) var(--base-padding);
+            text-align: center;
+            border-bottom: 2px solid #666;
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: calc(var(--button-size) + 2 * var(--base-padding) + 2 * var(--gap));
+        }
+        header .header-content {
+            flex-grow: 1;
+            text-align: center;
+            overflow: hidden;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin: 0;
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .home-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: calc(var(--base-padding) + var(--slight-shift));
+            width: var(--button-size);
+            height: var(--button-size);
+            background-image: url('../format_images/home.jpg');
+            background-size: cover;
+            background-position: center;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 0;
+            font-size: 0;
+            overflow: hidden;
+            box-sizing: content-box;
+        }
+        .home-button:hover {
+            opacity: 0.8;
+        }
+        .home-button:hover::after {
+            content: "HOME";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .main-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas: "resources sprint1 sprint2";
+            grid-template-rows: 1fr;
+            gap: 0.6em;
+            padding: 0.6em;
+            background-color: transparent;
+            justify-content: center;
+            align-content: stretch;
+            align-items: stretch;
+            height: calc(100vh - 100px);
+        }
+        .nav-group {
+            position: relative;
+            border: 2px solid #666;
+            border-radius: 8px;
+            padding: 0.3em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            width: 100%;
+            min-width: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+        .nav-group::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #555;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        .nav-group.resources { grid-area: resources; }
+        .nav-group.sprint1 { grid-area: sprint1; }
+        .nav-group.sprint2 { grid-area: sprint2; }
+        .nav-group .title-bar {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: 2.5em;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            border-bottom: 1px solid #000;
+        }
+        .nav-group .title-bar + * {
+            margin-top: 2.5em;
+        }
+        .nav-group h3, .nav-group p {
+            position: relative;
+            z-index: 2;
+        }
+        .nav-group h3 {
+            font-size: 1.4em;
+            text-align: center;
+            line-height: normal;
+            margin: 0;
+            padding: 0;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        .nav-group.resources p, .nav-group.sprint1 p {
+            font-size: 1.1em;
+            text-align: justify;
+            padding: 0 0.5em;
+            margin-top: 3em;
+            overflow: auto;
+        }
+        footer {
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 0.4em;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 2px solid #666;
+        }
+        footer a {
+            text-decoration: none;
+            margin: 0 0.5em;
+        }
+        footer a:hover, footer a:focus {
+            color: black;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.5em;
+            margin-top: 0.5em;
+        }
+        .nav-button {
+            width: var(--button-size);
+            height: var(--button-size);
+            background-color: #fff;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: content-box;
+        }
+        .nav-button:hover {
+            opacity: 0.8;
+        }
+        .nav-button:hover::after {
+            content: attr(data-label);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "resources"
+                    "sprint1"
+                    "sprint2";
+                grid-template-rows: repeat(3, auto);
+                gap: 0.6em;
+            }
+            .nav-group {
+                min-height: 200px;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                height: auto;
+                padding: 0.4em;
+            }
+            .home-button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: calc(var(--base-padding) + var(--slight-shift));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>ALCHEMY LEAGUE SEASON</h1>
+        </div>
+        <button class="home-button" onclick="window.location.href='../home.html'"></button>
+    </header>
+
+    <div class="main-content">
+        <div class="nav-group resources" aria-label="Resources section" role="region">
+            <div class="title-bar"><h3>RESOURCES</h3></div>
+            <p>
+            The Alchemy AOE Community is a free and non-profit organization of random map scripters, tournament hosts, content creators, and skilled players dedicated to the advancement of custom random maps in Age of Empires II: Definitive Edition.
+            </p>
+            <p>
+            We are independent from the official Age of Empires developers, allowing us to prioritize creativity and free expression over marketing returns.
+            </p>
+        </div>
+        <div class="nav-group sprint1" aria-label="Sprint 1 section" role="region">
+            <div class="title-bar"><h3>SPRINT 1</h3></div>
+            <p>
+            The Alchemy AOE Community publishes quality standards for custom random maps, curating the finished products to feature in thematic competitions.
+            </p>
+            <p>
+            Our skill calculator, matchmaking algorithms, and custom map creation software are without equal in the AOE2 universe.
+            </p>
+            <p>
+            Join us to help Age of Empires II reach its full potential.
+            </p>
+        </div>
+        <div class="nav-group sprint2" aria-label="Sprint 2 section" role="region">
+            <div class="title-bar"><h3>SPRINT 2</h3></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Alchemy AOE Community</p>
+        <div class="button-container"></div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', async function() {
+            // Home button positioning
+            const button = document.querySelector('.home-button');
+            const header = document.querySelector('header');
+            const topGap = parseFloat(getComputedStyle(header).paddingTop);
+            const slightShift = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slight-shift'));
+            button.style.top = '50%';
+            button.style.transform = 'translateY(-50%)';
+            button.style.left = `${topGap + slightShift}px`;
+
+            // Detect current season from filename
+            const path = window.location.pathname;
+            const match = path.match(/ALS(\d+)/i); // Case-insensitive
+            if (!match) {
+                console.warn('No season number detected in filename:', path);
+                return;
+            }
+            const currentSeason = parseInt(match[1], 10);
+            console.log(`Current Season: ${currentSeason}`);
+
+            // Update header
+            const headerTitle = document.querySelector('header h1');
+            headerTitle.textContent = `ALCHEMY LEAGUE SEASON ${currentSeason}`;
+
+            // Update footer copyright
+            const footerText = document.querySelector('footer p');
+            footerText.textContent = `© 2025 Alchemy AOE Community - Season ${currentSeason}`;
+
+            // Navigation buttons
+            const container = document.querySelector('.button-container');
+
+            // Check previous season for left arrow
+            if (currentSeason > 1) {
+                const prevUrl = `../ALS${currentSeason - 1}/ALS${currentSeason - 1}.html`;
+                console.log(`Checking previous season: ${prevUrl}`);
+                try {
+                    const response = await fetch(prevUrl, { method: 'GET' });
+                    console.log(`Previous season ALS${currentSeason - 1}: Status ${response.status}, OK: ${response.ok}`);
+                    if (response.ok) {
+                        const leftButton = document.createElement('button');
+                        leftButton.className = 'nav-button';
+                        leftButton.innerHTML = '←';
+                        leftButton.setAttribute('data-label', `Season ${currentSeason - 1}`);
+                        leftButton.setAttribute('aria-label', `Navigate to Season ${currentSeason - 1}`);
+                        leftButton.onclick = () => window.location.href = prevUrl;
+                        container.appendChild(leftButton);
+                    } else {
+                        console.warn(`Previous season ALS${currentSeason - 1} not found: Status ${response.status}`);
+                    }
+                } catch (err) {
+                    console.error(`Error fetching previous season ALS${currentSeason - 1}:`, err);
+                    // Fallback: Create left arrow if season > 1
+                    const leftButton = document.createElement('button');
+                    leftButton.className = 'nav-button';
+                    leftButton.innerHTML = '←';
+                    leftButton.setAttribute('data-label', `Season ${currentSeason - 1}`);
+                    leftButton.setAttribute('aria-label', `Navigate to Season ${currentSeason - 1}`);
+                    leftButton.onclick = () => window.location.href = prevUrl;
+                    container.appendChild(leftButton);
+                    console.log('Fallback: Created left arrow due to fetch failure');
+                }
+            }
+
+            // Check next season for right arrow
+            const nextUrl = `../ALS${currentSeason + 1}/ALS${currentSeason + 1}.html`;
+            console.log(`Checking next season: ${nextUrl}`);
+            try {
+                const response = await fetch(nextUrl, { method: 'GET' });
+                console.log(`Next season ALS${currentSeason + 1}: Status ${response.status}, OK: ${response.ok}`);
+                if (response.ok) {
+                    const rightButton = document.createElement('button');
+                    rightButton.className = 'nav-button';
+                    rightButton.innerHTML = '→';
+                    rightButton.setAttribute('data-label', `Season ${currentSeason + 1}`);
+                    rightButton.setAttribute('aria-label', `Navigate to Season ${currentSeason + 1}`);
+                    rightButton.onclick = () => window.location.href = nextUrl;
+                    container.appendChild(rightButton);
+                } else {
+                    console.warn(`Next season ALS${currentSeason + 1} not found: Status ${response.status}`);
+                }
+            } catch (err) {
+                console.error(`Error fetching next season ALS${currentSeason + 1}:`, err);
+            }
+        });
+    </script>
+</body>
+</html>
