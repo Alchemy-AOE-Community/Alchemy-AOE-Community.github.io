@@ -24,8 +24,8 @@
         body {
             font-family: Arial, sans-serif;
             background-image: 
-                url('../format_images/MapCrest.png'),
-                url('../format_images/MapCrest.png');
+                url('images/MapCrest.png'),
+                url('images/MapCrest.png');
             background-size: 160px 138.56px;
             background-position: 
                 center,
@@ -69,7 +69,7 @@
             left: calc(var(--base-padding) + var(--slight-shift));
             width: var(--button-size);
             height: var(--button-size);
-            background-image: url('../format_images/home.jpg');
+            background-image: url('images/home.jpg');
             background-size: cover;
             background-position: center;
             border: 2px solid black;
@@ -224,6 +224,11 @@
             padding: 2px 6px;
             border-radius: 3px;
         }
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 0.5em;
+        }
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -257,7 +262,7 @@
         <div class="header-content">
             <h1>ALCHEMY LEAGUE SEASON</h1>
         </div>
-        <button class="home-button" onclick="window.location.href='../home.html'"></button>
+        <button class="home-button" aria-label="Go to homepage" onclick="window.location.href='index.html'"></button>
     </header>
 
     <div class="main-content">
@@ -305,13 +310,24 @@
 
             // Detect current season from filename
             const path = window.location.pathname;
-            const match = path.match(/ALS(\d+)/i); // Case-insensitive
-            if (!match) {
+            let currentSeason;
+            const match = path.match(/ALS(\d+)\.html/i);
+            if (match) {
+                currentSeason = parseInt(match[1], 10);
+                console.log(`Detected season from filename: ALS${currentSeason}`);
+            } else if (path.includes('index.html')) {
+                currentSeason = 0; // Assume index.html is Season 0 or adjust as needed
+                console.log('Detected index.html, setting season to 0');
+            } else {
                 console.warn('No season number detected in filename:', path);
+                // Display error message in footer
+                const footer = document.querySelector('footer');
+                const errorMsg = document.createElement('p');
+                errorMsg.className = 'error-message';
+                errorMsg.textContent = 'Error: Unable to detect season. Navigation may be limited.';
+                footer.appendChild(errorMsg);
                 return;
             }
-            const currentSeason = parseInt(match[1], 10);
-            console.log(`Current Season: ${currentSeason}`);
 
             // Update header
             const headerTitle = document.querySelector('header h1');
@@ -319,62 +335,75 @@
 
             // Update footer copyright
             const footerText = document.querySelector('footer p');
-            footerText.textContent = `© 2025 Alchemy AOE Community - Season ${currentSeason}`;
+            footerText.textContent = `© ${new Date().getFullYear()} Alchemy AOE Community - Season ${currentSeason}`;
 
             // Navigation buttons
             const container = document.querySelector('.button-container');
 
             // Check previous season for left arrow
-            if (currentSeason > 1) {
-                const prevUrl = `../ALS${currentSeason - 1}/ALS${currentSeason - 1}.html`;
+            if (currentSeason > 0) { // Changed to > 0 to allow Season 0 to have a next button
+                const prevSeason = currentSeason - 1;
+                const prevUrl = prevSeason === 0 ? 'index.html' : `ALS${prevSeason}.html`;
                 console.log(`Checking previous season: ${prevUrl}`);
                 try {
                     const response = await fetch(prevUrl, { method: 'GET' });
-                    console.log(`Previous season ALS${currentSeason - 1}: Status ${response.status}, OK: ${response.ok}`);
+                    console.log(`Previous season ${prevSeason}: Status ${response.status}, OK: ${response.ok}`);
                     if (response.ok) {
                         const leftButton = document.createElement('button');
                         leftButton.className = 'nav-button';
                         leftButton.innerHTML = '←';
-                        leftButton.setAttribute('data-label', `Season ${currentSeason - 1}`);
-                        leftButton.setAttribute('aria-label', `Navigate to Season ${currentSeason - 1}`);
+                        leftButton.setAttribute('data-label', `Season ${prevSeason}`);
+                        leftButton.setAttribute('aria-label', `Navigate to Season ${prevSeason}`);
                         leftButton.onclick = () => window.location.href = prevUrl;
                         container.appendChild(leftButton);
                     } else {
-                        console.warn(`Previous season ALS${currentSeason - 1} not found: Status ${response.status}`);
+                        console.warn(`Previous season ${prevSeason} not found: Status ${response.status}`);
                     }
                 } catch (err) {
-                    console.error(`Error fetching previous season ALS${currentSeason - 1}:`, err);
-                    // Fallback: Create left arrow if season > 1
+                    console.error(`Error fetching previous season ${prevSeason}:`, err);
+                    // Fallback: Create button anyway for local testing
                     const leftButton = document.createElement('button');
                     leftButton.className = 'nav-button';
                     leftButton.innerHTML = '←';
-                    leftButton.setAttribute('data-label', `Season ${currentSeason - 1}`);
-                    leftButton.setAttribute('aria-label', `Navigate to Season ${currentSeason - 1}`);
+                    leftButton.setAttribute('data-label', `Season ${prevSeason}`);
+                    leftButton.setAttribute('aria-label', `Navigate to Season ${prevSeason}`);
                     leftButton.onclick = () => window.location.href = prevUrl;
                     container.appendChild(leftButton);
-                    console.log('Fallback: Created left arrow due to fetch failure');
+                    console.log(`Fallback: Created left button for ${prevUrl}`);
                 }
+            } else {
+                console.log('No previous season for Season 0');
             }
 
             // Check next season for right arrow
-            const nextUrl = `../ALS${currentSeason + 1}/ALS${currentSeason + 1}.html`;
+            const nextSeason = currentSeason + 1;
+            const nextUrl = `ALS${nextSeason}.html`;
             console.log(`Checking next season: ${nextUrl}`);
             try {
                 const response = await fetch(nextUrl, { method: 'GET' });
-                console.log(`Next season ALS${currentSeason + 1}: Status ${response.status}, OK: ${response.ok}`);
+                console.log(`Next season ${nextSeason}: Status ${response.status}, OK: ${response.ok}`);
                 if (response.ok) {
                     const rightButton = document.createElement('button');
                     rightButton.className = 'nav-button';
                     rightButton.innerHTML = '→';
-                    rightButton.setAttribute('data-label', `Season ${currentSeason + 1}`);
-                    rightButton.setAttribute('aria-label', `Navigate to Season ${currentSeason + 1}`);
+                    rightButton.setAttribute('data-label', `Season ${nextSeason}`);
+                    rightButton.setAttribute('aria-label', `Navigate to Season ${nextSeason}`);
                     rightButton.onclick = () => window.location.href = nextUrl;
                     container.appendChild(rightButton);
                 } else {
-                    console.warn(`Next season ALS${currentSeason + 1} not found: Status ${response.status}`);
+                    console.warn(`Next season ${nextSeason} not found: Status ${response.status}`);
                 }
             } catch (err) {
-                console.error(`Error fetching next season ALS${currentSeason + 1}:`, err);
+                console.error(`Error fetching next season ${nextSeason}:`, err);
+                // Fallback: Create button for local testing
+                const rightButton = document.createElement('button');
+                rightButton.className = 'nav-button';
+                rightButton.innerHTML = '→';
+                rightButton.setAttribute('data-label', `Season ${nextSeason}`);
+                rightButton.setAttribute('aria-label', `Navigate to Season ${nextSeason}`);
+                rightButton.onclick = () => window.location.href = nextUrl;
+                container.appendChild(rightButton);
+                console.log(`Fallback: Created right button for ${nextUrl}`);
             }
         });
     </script>
