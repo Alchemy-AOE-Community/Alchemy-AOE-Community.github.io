@@ -6,13 +6,20 @@
     <meta name="description" content="Join the Alchemy AOE Community for Age of Empires map resources, competitions, and more.">
     <meta name="keywords" content="Age of Empires, AOE, community, maps, competitions">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <title>Alchemy AOE Community</title>
+    <title>Season 0 -- Alchemy League</title>
     <style>
         :root {
             --base-padding: 0.4em;
             --slight-shift: 0.1em;
             --button-size: 48px;
-            --gap: 4px;
+            --gap: 0.6em;
+            --hierarchy-spacing: 60;
+            --hierarchy-top-node-y: 31.25; /* Row 1: HDBK and PSRM, scaled for viewBox */
+            --hierarchy-middle-node-y: 93.75; /* Row 2: CSRM3, CSRM5, CSRM7, CSRM9, CSRM11 */
+            --hierarchy-middle-node-y2: 156.25; /* Row 3: CSRM4, CSRM6, CSRM8, CSRM10 */
+            --hierarchy-bottom-node-y: 218.75; /* Row 4: GSRM */
+            --header-height: 3.84em; /* Matches homepage (~61.44px) */
+            --footer-height: 2em; /* Matches homepage (~36.8px, collapsed margins) */
         }
 
         * {
@@ -32,7 +39,7 @@
                 calc(50% + 80px) calc(50% + 69.28px);
             background-repeat: repeat;
             background-color: #f4f4f4;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -46,18 +53,22 @@
             position: relative;
             display: flex;
             align-items: center;
-            min-height: calc(var(--button-size) + 2 * var(--base-padding) + 2 * var(--gap));
+            justify-content: space-between;
+            height: var(--header-height);
+            flex-shrink: 0;
         }
         header .header-content {
             flex-grow: 1;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
         header h1 {
             font-size: 2.2em;
-            margin: 0;
+            margin: 0 0.5em;
             display: inline-block;
-            max-width: 100%;
+            max-width: calc(100% - 2 * (var(--button-size) + 1em));
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -96,109 +107,15 @@
             padding: 2px 6px;
             border-radius: 3px;
         }
-        .main-content {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-areas: "resources sprint1 sprint2";
-            grid-template-rows: 1fr;
-            gap: 0.6em;
-            padding: 0.6em;
-            background-color: transparent;
-            justify-content: center;
-            align-content: stretch;
-            align-items: stretch;
-            height: calc(100vh - 100px);
-        }
-        .nav-group {
-            position: relative;
-            border: 2px solid #666;
-            border-radius: 8px;
-            padding: 0.3em;
+        .nav-button-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-            width: 100%;
-            min-width: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: #ffffff;
-        }
-        .nav-group::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #555;
-            opacity: 0.3;
-            z-index: 0;
-        }
-        .nav-group.resources { grid-area: resources; }
-        .nav-group.sprint1 { grid-area: sprint1; }
-        .nav-group.sprint2 { grid-area: sprint2; }
-        .nav-group .title-bar {
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            width: calc(100% + 4px);
-            height: 2.5em;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            border-bottom: 1px solid #000;
-        }
-        .nav-group .title-bar + * {
-            margin-top: 2.5em;
-        }
-        .nav-group h3, .nav-group p {
-            position: relative;
-            z-index: 2;
-        }
-        .nav-group h3 {
-            font-size: 1.4em;
-            text-align: center;
-            line-height: normal;
-            margin: 0;
-            padding: 0;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        }
-        .nav-group.resources p, .nav-group.sprint1 p {
-            font-size: 1.1em;
-            text-align: justify;
-            padding: 0 0.5em;
-            margin-top: 3em;
-            overflow: auto;
-        }
-        footer {
-            background-color: rgba(255, 255, 255, 0.75);
-            padding: 0.4em;
-            text-align: center;
-            font-size: 0.9em;
-            border-top: 2px solid #666;
-        }
-        footer a {
-            text-decoration: none;
-            margin: 0 0.5em;
-        }
-        footer a:hover, footer a:focus {
-            color: black;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
             gap: 0.5em;
-            margin-top: 0.5em;
+            align-items: center;
         }
         .nav-button {
             width: var(--button-size);
-            height: var(--button-size);
-            background-color: #fff;
+            height: 48px;
+            background-size: cover;
             border: 2px solid black;
             border-radius: 5px;
             cursor: pointer;
@@ -207,6 +124,12 @@
             align-items: center;
             justify-content: center;
             box-sizing: content-box;
+        }
+        .nav-button.left {
+            background-image: url('images/Left_Arrow.jpg');
+        }
+        .nav-button.right {
+            background-image: url('images/Right_Arrow.jpg');
         }
         .nav-button:hover {
             opacity: 0.8;
@@ -224,186 +147,468 @@
             padding: 2px 6px;
             border-radius: 3px;
         }
-        .error-message {
-            color: red;
-            font-size: 0.8em;
-            margin-top: 0.5em;
+        .main-content {
+            flex: 1 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1.5fr;
+            grid-template-areas: 
+                "banner summary definitions"
+                "sprint1 sprint2 sprint2";
+            grid-template-rows: 1.3fr 2.5fr;
+            gap: var(--gap);
+            padding: var(--base-padding);
+            background-color: transparent;
+            justify-content: center;
+            align-content: stretch;
+            align-items: stretch;
+            max-height: calc(100vh - var(--header-height) - var(--footer-height));
+        }
+        .nav-group, .image-box {
+            position: relative;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 0.3em;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            width: 100%;
+            min-width: 0;
+            height: 100%;
+            background-color: #ffffff;
+        }
+        .nav-group.definitions {
+            overflow: visible; /* Remove scrollbar */
+        }
+        .nav-group::after, .image-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #555;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        .image-box {
+            grid-area: banner;
+            background-size: 100% 100%;
+            background-position: center;
+        }
+        .nav-group.definitions { 
+            grid-area: definitions;
+        }
+        .nav-group.summary { 
+            grid-area: summary;
+        }
+        .main-content > .nav-group.sprint1 { 
+            grid-area: sprint1;
+            grid-column: 1 / span 3;
+            width: calc(50% - (var(--gap) / 2));
+        }
+        .main-content > .nav-group.sprint2 { 
+            grid-area: sprint2;
+            grid-column: 1 / span 3;
+            width: calc(50% - (var(--gap) / 2));
+            margin-left: calc(50% + (var(--gap) / 2));
+        }
+        .nav-group .title-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2.5em;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            border-bottom: 1px solid #000;
+        }
+        .nav-group .title-bar + * {
+            margin-top: 2.5em;
+        }
+        .nav-group h3 {
+            font-size: 1.4em;
+            text-align: center;
+            line-height: 2.5em;
+            margin: 0;
+            padding: 0;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        .nav-group.sprint1 p, .nav-group.sprint2 p {
+            font-size: 0.9em;
+            text-align: justify;
+            padding: 0 0.5em;
+            margin-top: 1.5em;
+        }
+        .hierarchy-svg {
+            width: 100%;
+            height: calc(100% - 2.5em);
+            position: relative;
+            z-index: 2;
+        }
+        .hierarchy-node {
+            fill: rgba(255, 255, 255, 0.8);
+            stroke: #000;
+            stroke-width: 2;
+            cursor: pointer;
+            rx: 5;
+            ry: 5;
+        }
+        .hierarchy-node:hover {
+            opacity: 0.8;
+        }
+        .hierarchy-text {
+            font-size: 16px;
+            text-anchor: middle;
+            dominant-baseline: central;
+            fill: #000;
+            pointer-events: none;
+        }
+        .hierarchy-arrow {
+            stroke: #000;
+            stroke-width: 2;
+            marker-end: url(#arrowhead);
+        }
+        .hierarchy-line {
+            stroke: #000;
+            stroke-width: 2;
+        }
+        footer {
+            background-color: rgba(255, 255, 255, 0.75);
+            border-top: 2px solid #666;
+            flex-shrink: 0;
+            z-index: 1;
+            height: var(--footer-height); /* ~36.8px */
+            padding: var(--base-padding); /* 0.4em ~6.4px top/bottom */
+            display: flex; /* Center content */
+            justify-content: center; /* Horizontal centering */
+            align-items: center; /* Vertical centering */
+            overflow: auto; /* Ensure margin collapse */
+        }
+        footer p {
+            margin: 0; /* Remove margins for Flexbox centering */
+            color: black;
+            line-height: 1.5; /* ~21.6px at font-size: 0.9em */
+            font-size: 0.9em; /* Matches homepage */
+            text-align: center; /* Fallback for horizontal centering */
+        }
+        footer a {
+            text-decoration: none;
+            margin: 0 0.5em;
+        }
+        footer a:hover, footer a:focus {
+            color: black;
         }
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
                 grid-template-areas:
-                    "resources"
+                    "banner"
+                    "definitions"
+                    "summary"
                     "sprint1"
                     "sprint2";
-                grid-template-rows: repeat(3, auto);
-                gap: 0.6em;
+                grid-template-rows: 80px 120px 80px 300px 300px;
+                gap: var(--gap);
+                max-height: calc(100vh - var(--header-height) - var(--footer-height));
             }
-            .nav-group {
-                min-height: 200px;
+            .nav-group, .image-box {
+                min-height: 120px;
             }
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                height: auto;
-                padding: 0.4em;
+            .nav-group.sprint1 p, .nav-group.sprint2 p {
+                font-size: 0.8em;
+                margin-top: 1em;
             }
-            .home-button {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                left: calc(var(--base-padding) + var(--slight-shift));
+            .nav-group.sprint1,
+            .nav-group.sprint2 {
+                grid-column: auto;
+                width: 100%;
+                margin-left: 0;
+            }
+            .nav-group.definitions {
+                overflow: visible;
+            }
+            .hierarchy-svg {
+                height: calc(100% - 2.5em);
+                transform: scale(0.7);
+                transform-origin: top left;
+            }
+            .hierarchy-node {
+                rx: 3;
+                ry: 3;
+            }
+            .hierarchy-text {
+                font-size: 12px;
+            }
+            .hierarchy-arrow,
+            .hierarchy-line {
+                stroke-width: 1.6;
+            }
+            footer {
+                height: var(--footer-height);
+                padding: var(--base-padding);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: auto;
+            }
+            footer p {
+                margin: 0;
+                line-height: 1.5;
+                font-size: 0.9em;
+                text-align: center;
+            }
+            footer a {
+                text-decoration: none;
+                margin: 0 0.5em;
+            }
+            footer a:hover, footer a:focus {
+                color: black;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <h1>ALCHEMY LEAGUE SEASON</h1>
-        </div>
         <button class="home-button" aria-label="Go to homepage" onclick="window.location.href='index.html'"></button>
+        <div class="header-content">
+            <div class="nav-button-container" id="left-nav"></div>
+            <h1>ALCHEMY LEAGUE SEASON</h1>
+            <div class="nav-button-container" id="right-nav"></div>
+        </div>
     </header>
 
     <div class="main-content">
-        <div class="nav-group resources" aria-label="Resources section" role="region">
-            <div class="title-bar"><h3>RESOURCES</h3></div>
-            <p>
-            The Alchemy AOE Community is a free and non-profit organization of random map scripters, tournament hosts, content creators, and skilled players dedicated to the advancement of custom random maps in Age of Empires II: Definitive Edition.
-            </p>
-            <p>
-            We are independent from the official Age of Empires developers, allowing us to prioritize creativity and free expression over marketing returns.
-            </p>
+        <div class="image-box" aria-label="Season Banner" role="img" id="season-banner"></div>
+        <div class="nav-group definitions" aria-label="Definitions section" role="region">
+            <div class="title-bar"><h3>DEFINITIONS</h3></div>
+            <svg class="hierarchy-svg" viewBox="0 0 800 250" role="img" aria-labelledby="hierarchy-title hierarchy-desc">
+                <title id="hierarchy-title">Alchemy League Definitions Hierarchy</title>
+                <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK and PSRM at the top, connected to CSRM3 through CSRM11 in two staggered rows, which all connect to GSRM at the bottom.</desc>
+                <defs>
+                    <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="5" refY="2" orient="auto">
+                        <polygon points="0 0, 5 2, 0 4" fill="#000" />
+                    </marker>
+                </defs>
+                <!-- HDBK Node -->
+                <rect x="10" y="15.625" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="HDBK Definition" role="button" />
+                <text x="66.25" y="31.25" class="hierarchy-text">HDBK</text>
+                <!-- PSRM Node -->
+                <rect x="202.5" y="15.625" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="PSRM Definition" role="button" />
+                <text x="258.75" y="31.25" class="hierarchy-text">PSRM</text>
+                <!-- CSRM Nodes: First Row (CSRM3, CSRM5, CSRM7, CSRM9, CSRM11) -->
+                <rect x="18.75" y="78.125" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM3 Definition" role="button" />
+                <text x="75" y="93.75" class="hierarchy-text">CSRM3</text>
+                <rect x="181.25" y="78.125" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM5 Definition" role="button" />
+                <text x="237.5" y="93.75" class="hierarchy-text">CSRM5</text>
+                <rect x="343.75" y="78.125" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM7 Definition" role="button" />
+                <text x="400" y="93.75" class="hierarchy-text">CSRM7</text>
+                <rect x="506.25" y="78.125" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM9 Definition" role="button" />
+                <text x="562.5" y="93.75" class="hierarchy-text">CSRM9</text>
+                <rect x="668.75" y="78.125" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM11 Definition" role="button" />
+                <text x="725" y="93.75" class="hierarchy-text">CSRM11</text>
+                <!-- CSRM Nodes: Second Row (CSRM4, CSRM6, CSRM8, CSRM10) -->
+                <rect x="100" y="140.625" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM4 Definition" role="button" />
+                <text x="156.25" y="156.25" class="hierarchy-text">CSRM4</text>
+                <rect x="262.5" y="140.625" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM6 Definition" role="button" />
+                <text x="318.75" y="156.25" class="hierarchy-text">CSRM6</text>
+                <rect x="425" y="140.625" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM8 Definition" role="button" />
+                <text x="481.25" y="156.25" class="hierarchy-text">CSRM8</text>
+                <rect x="587.5" y="140.625" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="CSRM10 Definition" role="button" />
+                <text x="643.75" y="156.25" class="hierarchy-text">CSRM10</text>
+                <!-- GSRM Node -->
+                <rect x="321.25" y="203.125" width="112.5" height="31.25" class="hierarchy-node" tabindex="0" aria-label="GSRM Definition" role="button" />
+                <text x="377.5" y="218.75" class="hierarchy-text">GSRM</text>
+                <!-- Arrows and Lines -->
+                <!-- HDBK to PSRM -->
+                <line x1="122.5" y1="31.25" x2="202.5" y2="31.25" class="hierarchy-arrow" />
+                <!-- PSRM to Horizontal Line 1 -->
+                <line x1="258.75" y1="46.875" x2="258.75" y2="62.5" class="hierarchy-arrow" />
+                <!-- Horizontal Line 1 -->
+                <line x1="75" y1="62.5" x2="725" y2="62.5" class="hierarchy-line" />
+                <!-- Horizontal Line 1 to CSRM First Row -->
+                <line x1="75" y1="62.5" x2="75" y2="78.125" class="hierarchy-arrow" />
+                <line x1="237.5" y1="62.5" x2="237.5" y2="78.125" class="hierarchy-arrow" />
+                <line x1="400" y1="62.5" x2="400" y2="78.125" class="hierarchy-arrow" />
+                <line x1="562.5" y1="62.5" x2="562.5" y2="78.125" class="hierarchy-arrow" />
+                <line x1="725" y1="62.5" x2="725" y2="78.125" class="hierarchy-arrow" />
+                <!-- Horizontal Line 1 to CSRM Second Row -->
+                <line x1="156.25" y1="62.5" x2="156.25" y2="140.625" class="hierarchy-arrow" />
+                <line x1="318.75" y1="62.5" x2="318.75" y2="140.625" class="hierarchy-arrow" />
+                <line x1="481.25" y1="62.5" x2="481.25" y2="140.625" class="hierarchy-arrow" />
+                <line x1="643.75" y1="62.5" x2="643.75" y2="140.625" class="hierarchy-arrow" />
+                <!-- CSRM First Row to Horizontal Line 2 -->
+                <line x1="75" y1="109.375" x2="75" y2="187.5" class="hierarchy-arrow" />
+                <line x1="237.5" y1="109.375" x2="237.5" y2="187.5" class="hierarchy-arrow" />
+                <line x1="400" y1="109.375" x2="400" y2="187.5" class="hierarchy-arrow" />
+                <line x1="562.5" y1="109.375" x2="562.5" y2="187.5" class="hierarchy-arrow" />
+                <line x1="725" y1="109.375" x2="725" y2="187.5" class="hierarchy-arrow" />
+                <!-- CSRM Second Row to Horizontal Line 2 -->
+                <line x1="156.25" y1="171.875" x2="156.25" y2="187.5" class="hierarchy-arrow" />
+                <line x1="318.75" y1="171.875" x2="318.75" y2="187.5" class="hierarchy-arrow" />
+                <line x1="481.25" y1="171.875" x2="481.25" y2="187.5" class="hierarchy-arrow" />
+                <line x1="643.75" y1="171.875" x2="643.75" y2="187.5" class="hierarchy-arrow" />
+                <!-- Horizontal Line 2 -->
+                <line x1="75" y1="187.5" x2="725" y2="187.5" class="hierarchy-line" />
+                <!-- Horizontal Line 2 to GSRM -->
+                <line x1="377.5" y1="187.5" x2="377.5" y2="203.125" class="hierarchy-arrow" />
+            </svg>
+        </div>
+        <div class="nav-group summary" aria-label="Summary section" role="region">
+            <div class="title-bar"><h3>SUMMARY</h3></div>
+            <p>Sample summary text 1</p>
+            <p>Sample summary text 2</p>
+            <p>Sample summary text 3</p>
         </div>
         <div class="nav-group sprint1" aria-label="Sprint 1 section" role="region">
             <div class="title-bar"><h3>SPRINT 1</h3></div>
-            <p>
-            The Alchemy AOE Community publishes quality standards for custom random maps, curating the finished products to feature in thematic competitions.
-            </p>
-            <p>
-            Our skill calculator, matchmaking algorithms, and custom map creation software are without equal in the AOE2 universe.
-            </p>
-            <p>
-            Join us to help Age of Empires II reach its full potential.
-            </p>
+            <p>SAMPLE SPRINT 1 TEXT1</p>
+            <p>SAMPLE SPRINT 1 TEXT2</p>
+            <p>SAMPLE SPRINT 1 TEXT3</p>
         </div>
         <div class="nav-group sprint2" aria-label="Sprint 2 section" role="region">
             <div class="title-bar"><h3>SPRINT 2</h3></div>
+            <p>SAMPLE SPRINT 2 TEXT1</p>
+            <p>SAMPLE SPRINT 2 TEXT2</p>
+            <p>SAMPLE SPRINT 2 TEXT3</p>
         </div>
     </div>
 
     <footer>
         <p>© 2025 Alchemy AOE Community</p>
-        <div class="button-container"></div>
     </footer>
 
     <script>
         window.addEventListener('load', async function() {
-            // Home button positioning
-            const button = document.querySelector('.home-button');
-            const header = document.querySelector('header');
-            const topGap = parseFloat(getComputedStyle(header).paddingTop);
-            const slightShift = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slight-shift'));
-            button.style.top = '50%';
-            button.style.transform = 'translateY(-50%)';
-            button.style.left = `${topGap + slightShift}px`;
+            try {
+                // Home button positioning
+                const button = document.querySelector('.home-button');
+                const header = document.querySelector('header');
+                const topGap = parseFloat(getComputedStyle(header).paddingTop);
+                const slightShift = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slight-shift'));
+                button.style.top = '50%';
+                button.style.transform = 'translateY(-50%)';
+                button.style.left = `${topGap + slightShift}px`;
 
-            // Detect current season from filename
-            const path = window.location.pathname;
-            let currentSeason;
-            const match = path.match(/ALS(\d+)\.html/i);
-            if (match) {
-                currentSeason = parseInt(match[1], 10);
-                console.log(`Detected season from filename: ALS${currentSeason}`);
-            } else if (path.includes('index.html')) {
-                currentSeason = 0; // Assume index.html is Season 0 or adjust as needed
-                console.log('Detected index.html, setting season to 0');
-            } else {
-                console.warn('No season number detected in filename:', path);
-                // Display error message in footer
-                const footer = document.querySelector('footer');
-                const errorMsg = document.createElement('p');
-                errorMsg.className = 'error-message';
-                errorMsg.textContent = 'Error: Unable to detect season. Navigation may be limited.';
-                footer.appendChild(errorMsg);
-                return;
-            }
+                // Detect current season from filename
+                const path = window.location.pathname;
+                let currentSeason;
+                const match = path.match(/ALS(\d+)\.html/i);
+                if (match) {
+                    currentSeason = parseInt(match[1], 10);
+                    console.log(`Detected season from filename: ALS${currentSeason}`);
+                } else if (path.includes('index.html') || path === '/' || path === '') {
+                    currentSeason = 0;
+                    console.log('Detected index.html or root, setting season to 0');
+                } else {
+                    console.warn('No season number detected in filename:', path);
+                    const alert = document.createElement('div');
+                    alert.style.position = 'fixed';
+                    alert.style.top = '10px';
+                    alert.style.right = '10px';
+                    alert.style.background = '#f88';
+                    alert.style.padding = '10px';
+                    alert.style.border = '1px solid #f00';
+                    alert.textContent = 'Error: Unable to detect season. Navigation may be limited.';
+                    document.body.appendChild(alert);
+                    setTimeout(() => alert.remove(), 5000);
+                    currentSeason = 0; // Fallback to season 0
+                }
 
-            // Update header
-            const headerTitle = document.querySelector('header h1');
-            headerTitle.textContent = `ALCHEMY LEAGUE SEASON ${currentSeason}`;
+                // Update header
+                const headerTitle = document.querySelector('header h1');
+                headerTitle.textContent = `ALCHEMY LEAGUE SEASON ${currentSeason}`;
 
-            // Update footer copyright
-            const footerText = document.querySelector('footer p');
-            footerText.textContent = `© ${new Date().getFullYear()} Alchemy AOE Community - Season ${currentSeason}`;
+                // Update document title
+                document.title = `Season ${currentSeason} -- Alchemy League`;
 
-            // Navigation buttons
-            const container = document.querySelector('.button-container');
+                // Update banner image
+                const banner = document.querySelector('#season-banner');
+                banner.style.backgroundImage = `url('images/ALS${currentSeason}_Banner.jpg')`;
 
-            // Check previous season for left arrow
-            if (currentSeason > 0) { // Changed to > 0 to allow Season 0 to have a next button
-                const prevSeason = currentSeason - 1;
-                const prevUrl = prevSeason === 0 ? 'index.html' : `ALS${prevSeason}.html`;
-                console.log(`Checking previous season: ${prevUrl}`);
+                // Update footer copyright
+                const footerText = document.querySelector('footer p');
+                footerText.textContent = `© ${new Date().getFullYear()} Alchemy AOE Community`;
+
+                // Navigation buttons
+                const leftContainer = document.querySelector('#left-nav');
+                const rightContainer = document.querySelector('#right-nav');
+
+                // Function to create navigation button
+                function createNavButton(direction, season, url, container) {
+                    const button = document.createElement('button');
+                    button.className = `nav-button ${direction}`;
+                    button.setAttribute('data-label', `Season ${season}`);
+                    button.setAttribute('aria-label', `Navigate to Season ${season}`);
+                    button.onclick = () => window.location.href = url;
+                    container.appendChild(button);
+                    console.log(`Added ${direction} button for Season ${season} (${url})`);
+                }
+
+                // Check previous season for left arrow
+                if (currentSeason > 0) {
+                    const prevSeason = currentSeason - 1;
+                    const prevUrl = prevSeason === 0 ? 'index.html' : `ALS${prevSeason}.html`;
+                    console.log(`Checking previous season: ${prevUrl}`);
+                    try {
+                        const response = await fetch(prevUrl, { method: 'HEAD' });
+                        console.log(`Previous season ${prevSeason}: Status ${response.status}, OK: ${response.ok}`);
+                        if (response.ok) {
+                            createNavButton('left', prevSeason, prevUrl, leftContainer);
+                        } else {
+                            console.warn(`Previous season ${prevSeason} not found (status: ${response.status})`);
+                        }
+                    } catch (err) {
+                        console.error(`Error fetching previous season ${prevSeason}:`, err);
+                        createNavButton('left', prevSeason, prevUrl, leftContainer);
+                    }
+                } else {
+                    console.log('No previous season (currentSeason = 0)');
+                }
+
+                // Check next season for right arrow
+                const nextSeason = currentSeason + 1;
+                const nextUrl = `ALS${nextSeason}.html`;
+                console.log(`Checking next season: ${nextUrl}`);
                 try {
-                    const response = await fetch(prevUrl, { method: 'GET' });
-                    console.log(`Previous season ${prevSeason}: Status ${response.status}, OK: ${response.ok}`);
+                    const response = await fetch(nextUrl, { method: 'HEAD' });
+                    console.log(`Next season ${nextSeason}: Status ${response.status}, OK: ${response.ok}`);
                     if (response.ok) {
-                        const leftButton = document.createElement('button');
-                        leftButton.className = 'nav-button';
-                        leftButton.innerHTML = '←';
-                        leftButton.setAttribute('data-label', `Season ${prevSeason}`);
-                        leftButton.setAttribute('aria-label', `Navigate to Season ${prevSeason}`);
-                        leftButton.onclick = () => window.location.href = prevUrl;
-                        container.appendChild(leftButton);
+                        createNavButton('right', nextSeason, nextUrl, rightContainer);
                     } else {
-                        console.warn(`Previous season ${prevSeason} not found: Status ${response.status}`);
+                        console.warn(`Next season ${nextSeason} not found (status: ${response.status})`);
                     }
                 } catch (err) {
-                    console.error(`Error fetching previous season ${prevSeason}:`, err);
-                    // Fallback: Create button anyway for local testing
-                    const leftButton = document.createElement('button');
-                    leftButton.className = 'nav-button';
-                    leftButton.innerHTML = '←';
-                    leftButton.setAttribute('data-label', `Season ${prevSeason}`);
-                    leftButton.setAttribute('aria-label', `Navigate to Season ${prevSeason}`);
-                    leftButton.onclick = () => window.location.href = prevUrl;
-                    container.appendChild(leftButton);
-                    console.log(`Fallback: Created left button for ${prevUrl}`);
+                    console.error(`Error fetching next season ${nextSeason}:`, err);
+                    createNavButton('right', nextSeason, nextUrl, rightContainer);
                 }
-            } else {
-                console.log('No previous season for Season 0');
-            }
 
-            // Check next season for right arrow
-            const nextSeason = currentSeason + 1;
-            const nextUrl = `ALS${nextSeason}.html`;
-            console.log(`Checking next season: ${nextUrl}`);
-            try {
-                const response = await fetch(nextUrl, { method: 'GET' });
-                console.log(`Next season ${nextSeason}: Status ${response.status}, OK: ${response.ok}`);
-                if (response.ok) {
-                    const rightButton = document.createElement('button');
-                    rightButton.className = 'nav-button';
-                    rightButton.innerHTML = '→';
-                    rightButton.setAttribute('data-label', `Season ${nextSeason}`);
-                    rightButton.setAttribute('aria-label', `Navigate to Season ${nextSeason}`);
-                    rightButton.onclick = () => window.location.href = nextUrl;
-                    container.appendChild(rightButton);
-                } else {
-                    console.warn(`Next season ${nextSeason} not found: Status ${response.status}`);
-                }
+                // Add interactivity to hierarchy nodes
+                document.querySelectorAll('.hierarchy-node').forEach(node => {
+                    node.addEventListener('click', () => {
+                        const label = node.nextElementSibling.textContent;
+                        alert(`Definition for ${label}: [Insert description here]`);
+                    });
+                    node.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            node.click();
+                        }
+                    });
+                });
             } catch (err) {
-                console.error(`Error fetching next season ${nextSeason}:`, err);
-                // Fallback: Create button for local testing
-                const rightButton = document.createElement('button');
-                rightButton.className = 'nav-button';
-                rightButton.innerHTML = '→';
-                rightButton.setAttribute('data-label', `Season ${nextSeason}`);
-                rightButton.setAttribute('aria-label', `Navigate to Season ${nextSeason}`);
-                rightButton.onclick = () => window.location.href = nextUrl;
-                container.appendChild(rightButton);
-                console.log(`Fallback: Created right button for ${nextUrl}`);
+                console.error('Script error:', err);
+                const alert = document.createElement('div');
+                alert.style.position = 'fixed';
+                alert.style.top = '10px';
+                alert.style.right = '10px';
+                alert.style.background = '#f88';
+                alert.style.padding = '10px';
+                alert.style.border = '1px solid #f00';
+                alert.textContent = 'An error occurred. Navigation buttons may not work.';
+                document.body.appendChild(alert);
+                setTimeout(() => alert.remove(), 5000);
             }
         });
     </script>
