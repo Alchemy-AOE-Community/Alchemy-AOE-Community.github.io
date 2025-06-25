@@ -6,20 +6,20 @@
     <meta name="description" content="Join the Alchemy AOE Community for Age of Empires map resources, competitions, and more.">
     <meta name="keywords" content="Age of Empires, AOE, community, maps, competitions">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <title>Season 2025 -- Alchemy definitions</title>
+    <link rel="preload" href="images/ALS0_Banner.jpg" as="image">
+    <title>Season 2025 -- Alchemy League</title>
     <style>
         :root {
             --base-padding: 0.4em;
             --slight-shift: 0.1em;
             --button-size: 48px;
             --gap: 0.6em;
-            --hierarchy-spacing: 60;
-            --hierarchy-top-node-y: 71.875; /* Row 1: HDBK and PSRM */
-            --hierarchy-middle-node-y: 215.625; /* Row 2: CSRM3, CSRM5, CSRM7, CSRM9, CSRM11 */
-            --hierarchy-middle-node-y2: 359.375; /* Row 3: CSRM4, CSRM6, CSRM8, CSRM10 */
-            --hierarchy-bottom-node-y: 503.125; /* Row 4: GSRM */
-            --header-height: 3.84em; /* Matches homepage (~61.44px) */
-            --footer-height: 2em; /* Matches homepage (~36.8px, collapsed margins) */
+            --header-height: 3.84em;
+            --footer-height: 2em;
+            --box-gap: 1%;
+            --category-banner-height: 2.5em;
+            --subcategory-banner-height: 1.8em;
+            --subcategory-gap: 0.2em;
         }
 
         * {
@@ -42,7 +42,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
         header {
@@ -54,7 +54,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: var(--header-height);
+            height: calc(var(--button-size) + 2 * var(--base-padding) + 4px);
             flex-shrink: 0;
         }
         header .header-content {
@@ -149,53 +149,65 @@
         }
         .main-content {
             flex: 1 0 auto;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            grid-template-rows: repeat(8, 1fr);
-            gap: var(--gap);
+            position: relative;
             padding: var(--base-padding);
             background-color: transparent;
-            max-height: calc(100vh - var(--header-height) - var(--footer-height));
         }
-        .image-box {
-            grid-column: 1 / 3;
-            grid-row: 1 / 4;
-        }
-        .nav-group.summary {
-            grid-column: 3 / 5;
-            grid-row: 1 / 6;
-        }
-        .nav-group.definitions {
-            grid-column: 5 / 7;
-            grid-row: 1 / 6;
-        }
-        .nav-group.quicklinks {
-            grid-column: 1 / 3;
-            grid-row: 4 / 6;
-        }
-        .nav-group.sprint1 {
-            grid-column: 1 / 4;
-            grid-row: 6 / 9;
-        }
-        .nav-group.sprint2 {
-            grid-column: 4 / 7;
-            grid-row: 6 / 9;
-        }
-        .nav-group, .image-box {
-            position: relative;
+        .image-box, .nav-group {
+            position: absolute;
             border: 2px solid #000;
             border-radius: 8px;
-            padding: 0.3em;
             box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-            width: 100%;
-            min-width: 0;
-            height: 100%;
             background-color: #ffffff;
         }
         .image-box {
+            left: 1%;
+            width: 27%;
+            top: 1%;
+            height: 39.6%;
+            background-image: url('images/fallback_banner.jpg');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
+            padding: var(--base-padding);
+        }
+        .nav-group.summary {
+            left: 29%;
+            width: 27%;
+            top: 1%;
+            height: 39.6%;
+            padding: var(--base-padding);
+        }
+        .nav-group.definitions {
+            left: 57%;
+            width: 42%;
+            top: 1%;
+            height: 74%;
+            padding: var(--base-padding);
+        }
+        .nav-group.sprint1, .nav-group.sprint2 {
+            padding: var(--base-padding) var(--base-padding) 0 var(--base-padding);
+        }
+        .nav-group.sprint1 {
+            left: 1%;
+            width: 27%;
+            top: 41.6%;
+            height: 57.4%;
+        }
+        .nav-group.sprint2 {
+            left: 29%;
+            width: 27%;
+            top: 41.6%;
+            height: 57.4%;
+        }
+        .nav-group.map-information {
+            left: 57%;
+            width: 42%;
+            top: 76%;
+            height: 23%;
+            display: flex;
+            flex-direction: column;
+            padding: var(--base-padding);
         }
         .nav-group .title-bar {
             position: absolute;
@@ -203,7 +215,7 @@
             left: 2px;
             right: 2px;
             width: calc(100% - 4px);
-            height: 2.5em;
+            height: var(--category-banner-height);
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 6px 6px 0 0;
             display: flex;
@@ -212,67 +224,184 @@
             z-index: 1;
             border-bottom: 1px solid #000;
         }
-        .nav-group.quicklinks .title-bar {
-            height: 2.5em;
-        }
-        .nav-group .title-bar + * {
-            margin-top: 2.5em;
-        }
-        .nav-group.quicklinks .title-bar + * {
-            margin-top: 2.5em;
-        }
         .nav-group h3 {
             font-size: 1.4em;
             text-align: center;
-            line-height: 2.5em;
+            line-height: var(--category-banner-height);
             margin: 0;
             padding: 0;
             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
         }
-        .nav-group.quicklinks h3 {
-            font-size: 1.4em;
-            line-height: 2.5em;
+        .nav-group .content {
+            margin-top: calc(var(--category-banner-height) + var(--base-padding));
+            height: calc(100% - var(--category-banner-height) - var(--base-padding));
+            overflow: auto;
+            padding: 0;
         }
-        .nav-group.sprint1 p, .nav-group.sprint2 p {
+        .nav-group.sprint1 .content p, .nav-group.sprint2 .content p {
             font-size: 0.9em;
             text-align: justify;
-            padding: 0 0.5em;
-            margin-top: 1.5em;
         }
-        .nav-group.quicklinks .quicklinks-buttons {
-            display: flex;
-            flex-direction: row;
-            gap: 0.5em;
-            margin: 2.5em 0.5em 0.3em 0.5em;
-            height: calc(100% - 2.8em);
-            align-items: center;
-        }
-        .nav-group.quicklinks .quicklinks-buttons button {
-            flex: 1;
+        .nav-group.summary .content p {
             font-size: 0.9em;
-            padding: 0.5em;
+            text-align: center;
+        }
+        .subcategory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1.5fr;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .subcategory-box {
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            background-color: #ffffff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            margin: var(--subcategory-gap);
+            min-height: 8em;
+        }
+        .subcategory-box.notes {
+            grid-row: 1;
+            grid-column: 1;
+        }
+        .subcategory-box.resources {
+            grid-row: 1;
+            grid-column: 2;
+        }
+        .subcategory-box.results {
+            grid-row: 2;
+            grid-column: 1 / 3;
+        }
+        .subcategory-box .title-bar {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            width: calc(100% - 4px);
+            height: var(--subcategory-banner-height);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            border-bottom: 1px solid #000;
+        }
+        .subcategory-box h4 {
+            font-size: 1.1em;
+            text-align: center;
+            line-height: var(--subcategory-banner-height);
+            margin: 0;
+            padding: 0;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        .subcategory-box .content {
+            margin-top: calc(var(--subcategory-banner-height) + var(--subcategory-gap));
+            flex: 1;
+            overflow: auto;
+            padding: var(--subcategory-gap);
+        }
+        .subcategory-box p {
+            font-size: 0.8em;
+            text-align: justify;
+            margin: 0;
+        }
+        .button-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .resources-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 10px;
+            width: 100%;
+            height: 100%;
+        }
+        .resources-buttons a {
+            width: 100%;
+            height: auto;
+            padding: 0.1em;
             border: 2px solid black;
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.9);
             cursor: pointer;
             text-align: center;
+            font-size: 0.8em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .resources-buttons a:hover {
+            opacity: 0.8;
+        }
+        .nav-group.map-information .quicklinks-table {
+            width: 98%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .nav-group.map-information .quicklinks-table tr:first-child {
+            height: 30%;
+        }
+        .nav-group.map-information .quicklinks-table tr:last-child {
+            height: 70%;
+        }
+        .nav-group.map-information .quicklinks-table td {
+            width: 11.11%;
+            border: 1px solid #000;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 0.8em;
+            white-space: normal;
+            word-wrap: break-word;
+            padding: 0.2em;
+        }
+        .nav-group.map-information .quicklinks-buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 0.3em;
+            margin: 0.3em;
+            align-items: stretch;
+            padding: 0.3em;
+        }
+        .quicklinks-buttons a {
+            flex: 1;
+            font-size: 0.8em;
+            padding: 0.2em;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 251, 0.9);
+            cursor: pointer;
+            text-align: center;
             white-space: normal;
             word-wrap: break-word;
             line-height: 1.2;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .nav-group.quicklinks .quicklinks-buttons button:hover {
+        .quicklinks-buttons a:hover {
             opacity: 0.8;
         }
         .hierarchy-svg {
             width: 100%;
-            height: calc(100% - 2.5em);
+            height: calc(100% - var(--category-banner-height));
             position: relative;
             z-index: 2;
         }
         .hierarchy-node {
-            fill: rgba(255, 255, 255, 0.8);
+            fill: rgba(255, 255, 251, 0.8);
             stroke: #000;
-            stroke-width: 2;
+            stroke-width: 0.25;
             cursor: pointer;
             rx: 5;
             ry: 5;
@@ -281,7 +410,7 @@
             opacity: 0.8;
         }
         .hierarchy-text {
-            font-size: 16px;
+            font-size: 12%;
             text-anchor: middle;
             dominant-baseline: central;
             fill: #000;
@@ -289,15 +418,15 @@
         }
         .hierarchy-arrow {
             stroke: #000;
-            stroke-width: 2;
+            stroke-width: 0.25;
             marker-end: url(#arrowhead);
         }
         .hierarchy-line {
             stroke: #000;
-            stroke-width: 2;
+            stroke-width: 0.25;
         }
         footer {
-            background-color: rgba(255, 255, 255, 0.75);
+            background-color: rgba(255, 255, 251, 0.75);
             border-top: 2px solid #666;
             flex-shrink: 0;
             z-index: 1;
@@ -324,116 +453,122 @@
         }
         @media (max-width: 768px) {
             .main-content {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                grid-template-areas:
-                    "banner"
-                    "quicklinks"
-                    "definitions"
-                    "summary"
-                    "sprint1"
-                    "sprint2";
+                position: static;
+                display: flex;
+                flex-direction: column;
+                gap: var(--gap);
+            }
+            .image-box, .nav-group {
+                position: static;
+                width: calc(100% - 2 * var(--base-padding));
+                height: auto;
+                min-height: 100px;
             }
             .image-box {
-                grid-column: 1 / 2;
-                grid-row: auto;
                 height: 46.4px;
-            }
-            .nav-group.summary {
-                grid-column: 1 / 2;
-                grid-row: auto;
-            }
-            .nav-group.definitions {
-                grid-column: 1 / 2;
-                grid-row: auto;
-            }
-            .nav-group.quicklinks {
-                grid-column: 1 / 2;
-                grid-row: auto;
-            }
-            .nav-group.sprint1 {
-                grid-column: 1 / 2;
-                grid-row: auto;
-            }
-            .nav-group.sprint2 {
-                grid-column: 1 / 2;
-                grid-row: auto;
-            }
-            .nav-group, .image-box {
-                min-height: 0;
-            }
-            .image-box {
                 background-size: 100% 100%;
                 background-position: center;
+                padding: var(--base-padding);
             }
-            .nav-group.quicklinks {
+            .nav-group.summary, .nav-group.definitions, .nav-group.map-information {
+                padding: var(--base-padding);
+            }
+            .nav-group.sprint1, .nav-group.sprint2 {
+                padding: var(--base-padding) var(--base-padding) 0 var(--base-padding);
+            }
+            .nav-group .content {
+                margin-top: var(--category-banner-height);
                 height: auto;
-                border: 2px solid #000;
-                border-radius: 8px;
+                overflow: visible;
+                padding: 0;
             }
-            .nav-group.quicklinks .title-bar {
-                height: 2.5em;
+            .subcategory-grid {
+                display: flex;
+                flex-direction: column;
+                gap: var(--subcategory-gap);
+                height: auto;
+                padding-bottom: var(--subcategory-gap);
             }
-            .nav-group.quicklinks .title-bar + * {
-                margin-top: 2.5em;
+            .subcategory-box {
+                height: auto;
+                min-height: 8em;
+                padding: 0;
+                margin: var(--subcategory-gap);
             }
-            .nav-group.quicklinks h3 {
-                font-size: 1.4em;
-                line-height: 2.5em;
+            .subcategory-box .content {
+                margin-top: var(--subcategory-banner-height);
+                height: auto;
+                overflow: visible;
+                padding: var(--subcategory-gap);
             }
-            .nav-group.quicklinks .quicklinks-buttons {
+            .subcategory-box.resources {
+                display: block;
+            }
+            .subcategory-box p {
+                font-size: 0.7em;
+            }
+            .button-container {
+                height: auto;
+                display: block;
+            }
+            .resources-buttons {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, auto);
+                gap: 5px;
+                height: auto;
+            }
+            .resources-buttons a {
+                font-size: 0.7em;
+                width: 100%;
+                height: auto;
+                padding: 0.1em;
+            }
+            .nav-group.map-information {
+                display: block;
+            }
+            .nav-group.map-information .quicklinks-table {
+                width: 98%;
+                height: auto;
+                margin-bottom: 0.3em;
+            }
+            .nav-group.map-information .quicklinks-table tr:first-child {
+                height: 20px;
+            }
+            .nav-group.map-information .quicklinks-table tr:last-child {
+                height: auto;
+            }
+            .nav-group.map-information .quicklinks-table td {
+                font-size: 0.7em;
+                padding: 0.1em;
+            }
+            .nav-group.map-information .quicklinks-buttons {
                 flex-direction: column;
                 gap: 0.3em;
-                margin: 2.5em 0.5em 0.3em 0.5em;
-                align-items: stretch;
+                margin: 0.3em;
+                height: auto;
+                padding: 0;
             }
-            .nav-group.quicklinks .quicklinks-buttons button {
-                font-size: 0.8em;
-                padding: 0.4em;
-            }
-            .nav-group.sprint1 p, .nav-group.sprint2 p {
-                font-size: 0.8em;
-                margin-top: 1em;
-            }
-            .nav-group.definitions {
-                overflow: visible;
+            .quicklinks-buttons a {
+                font-size: 0.7em;
+                padding: 0.15em;
+                height: 20px;
+                line-height: 1.1;
             }
             .hierarchy-svg {
-                height: calc(100% - 2.5em);
+                height: auto;
                 transform: scale(0.7);
                 transform-origin: top left;
             }
             .hierarchy-node {
                 rx: 3;
                 ry: 3;
+                stroke-width: 0.25;
             }
             .hierarchy-text {
-                font-size: 12px;
+                font-size: 12%;
             }
-            .hierarchy-arrow,
-            .hierarchy-line {
-                stroke-width: 1.6;
-            }
-            footer {
-                height: var(--footer-height);
-                padding: var(--base-padding);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                overflow: auto;
-            }
-            footer p {
-                margin: 0;
-                line-height: 1.5;
-                font-size: 0.9em;
-                text-align: center;
-            }
-            footer a {
-                text-decoration: none;
-                margin: 0 0.5em;
-            }
-            footer a:hover, footer a:focus {
-                color: black;
+            .hierarchy-arrow, .hierarchy-line {
+                stroke-width: 1;
             }
         }
     </style>
@@ -450,106 +585,278 @@
 
     <div class="main-content">
         <div class="image-box" aria-label="Season Banner" role="img" id="season-banner"></div>
-        <div class="nav-group quicklinks" aria-label="Quick Links section" role="region">
-            <div class="title-bar"><h3>QUICK LINKS</h3></div>
-            <div class="quicklinks-buttons">
-                <button aria-label="Sign Up">Sign Up</button>
-                <button aria-label="View Signups">View Signups</button>
-                <button aria-label="Civilization Draft">Civilization Draft</button>
-                <button aria-label="Map Draft">Map Draft</button>
+        <div class="nav-group summary" aria-label="Summary section" role="region">
+            <div class="title-bar"><h3>SUMMARY</h3></div>
+            <div class="content">
+                <p>Civilization Draft: <a href="https://aoe2cm.net/preset/EjvqT">https://aoe2cm.net/preset/EjvqT</a></p>
+                <p></p>
+                <p></p>
             </div>
         </div>
         <div class="nav-group definitions" aria-label="Definitions section" role="region">
             <div class="title-bar"><h3>DEFINITIONS</h3></div>
-            <svg class="hierarchy-svg" viewBox="0 0 800 575" role="img" aria-labelledby="hierarchy-title hierarchy-desc">
-                <title id="hierarchy-title">Alchemy League Definitions Hierarchy</title>
-                <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK and PSRM at the top, connected to CSRM3 through CSRM11 in two staggered rows, which all connect to GSRM at the bottom.</desc>
-                <defs>
-                    <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="5" refY="2" orient="auto">
-                        <polygon points="0 0, 5 2, 0 4" fill="#000" />
-                    </marker>
-                </defs>
-                <!-- HDBK Node -->
-                <rect x="10" y="15.625" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="HDBK Definition" role="button" />
-                <text x="66.25" y="71.875" class="hierarchy-text">HDBK</text>
-                <!-- PSRM Node -->
-                <rect x="202.5" y="15.625" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="PSRM Definition" role="button" />
-                <text x="258.75" y="71.875" class="hierarchy-text">PSRM</text>
-                <!-- CSRM Nodes: First Row (CSRM3, CSRM5, CSRM7, CSRM9, CSRM11) -->
-                <rect x="18.75" y="159.375" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM3 Definition" role="button" />
-                <text x="75" y="215.625" class="hierarchy-text">CSRM3</text>
-                <rect x="181.25" y="159.375" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM5 Definition" role="button" />
-                <text x="237.5" y="215.625" class="hierarchy-text">CSRM5</text>
-                <rect x="343.75" y="159.375" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM7 Definition" role="button" />
-                <text x="400" y="215.625" class="hierarchy-text">CSRM7</text>
-                <rect x="506.25" y="159.375" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM9 Definition" role="button" />
-                <text x="562.5" y="215.625" class="hierarchy-text">CSRM9</text>
-                <rect x="668.75" y="159.375" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM11 Definition" role="button" />
-                <text x="725" y="215.625" class="hierarchy-text">CSRM11</text>
-                <!-- CSRM Nodes: Second Row (CSRM4, CSRM6, CSRM8, CSRM10) -->
-                <rect x="100" y="303.125" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM4 Definition" role="button" />
-                <text x="156.25" y="359.375" class="hierarchy-text">CSRM4</text>
-                <rect x="262.5" y="303.125" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM6 Definition" role="button" />
-                <text x="318.75" y="359.375" class="hierarchy-text">CSRM6</text>
-                <rect x="425" y="303.125" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM8 Definition" role="button" />
-                <text x="481.25" y="359.375" class="hierarchy-text">CSRM8</text>
-                <rect x="587.5" y="303.125" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="CSRM10 Definition" role="button" />
-                <text x="643.75" y="359.375" class="hierarchy-text">CSRM10</text>
-                <!-- GSRM Node -->
-                <rect x="321.25" y="446.875" width="112.5" height="112.5" class="hierarchy-node" tabindex="0" aria-label="GSRM Definition" role="button" />
-                <text x="377.5" y="503.125" class="hierarchy-text">GSRM</text>
-                <!-- Arrows and Lines -->
-                <!-- HDBK to PSRM -->
-                <line x1="122.5" y1="71.875" x2="202.5" y2="71.875" class="hierarchy-arrow" />
-                <!-- PSRM to Horizontal Line 1 -->
-                <line x1="258.75" y1="128.125" x2="258.75" y2="143.75" class="hierarchy-arrow" />
-                <!-- Horizontal Line 1 -->
-                <line x1="75" y1="143.75" x2="725" y2="143.75" class="hierarchy-line" />
-                <!-- Horizontal Line 1 to CSRM First Row -->
-                <line x1="75" y1="143.75" x2="75" y2="159.375" class="hierarchy-arrow" />
-                <line x1="237.5" y1="143.75" x2="237.5" y2="159.375" class="hierarchy-arrow" />
-                <line x1="400" y1="143.75" x2="400" y2="159.375" class="hierarchy-arrow" />
-                <line x1="562.5" y1="143.75" x2="562.5" y2="159.375" class="hierarchy-arrow" />
-                <line x1="725" y1="143.75" x2="725" y2="159.375" class="hierarchy-arrow" />
-                <!-- Horizontal Line 1 to CSRM Second Row -->
-                <line x1="156.25" y1="143.75" x2="156.25" y2="303.125" class="hierarchy-arrow" />
-                <line x1="318.75" y1="143.75" x2="318.75" y2="303.125" class="hierarchy-arrow" />
-                <line x1="481.25" y1="143.75" x2="481.25" y2="303.125" class="hierarchy-arrow" />
-                <line x1="643.75" y1="143.75" x2="643.75" y2="303.125" class="hierarchy-arrow" />
-                <!-- CSRM First Row to Horizontal Line 2 -->
-                <line x1="75" y1="271.875" x2="75" y2="431.25" class="hierarchy-arrow" />
-                <line x1="237.5" y1="271.875" x2="237.5" y2="431.25" class="hierarchy-arrow" />
-                <line x1="400" y1="271.875" x2="400" y2="431.25" class="hierarchy-arrow" />
-                <line x1="562.5" y1="271.875" x2="562.5" y2="431.25" class="hierarchy-arrow" />
-                <line x1="725" y1="271.875" x2="725" y2="431.25" class="hierarchy-arrow" />
-                <!-- CSRM Second Row to Horizontal Line 2 -->
-                <line x1="156.25" y1="415.625" x2="156.25" y2="431.25" class="hierarchy-arrow" />
-                <line x1="318.75" y1="415.625" x2="318.75" y2="431.25" class="hierarchy-arrow" />
-                <line x1="481.25" y1="415.625" x2="481.25" y2="431.25" class="hierarchy-arrow" />
-                <line x1="643.75" y1="415.625" x2="643.75" y2="431.25" class="hierarchy-arrow" />
-                <!-- Horizontal Line 2 -->
-                <line x1="75" y1="431.25" x2="725" y2="431.25" class="hierarchy-line" />
-                <!-- Horizontal Line 2 to GSRM -->
-                <line x1="377.5" y1="431.25" x2="377.5" y2="446.875" class="hierarchy-arrow" />
-            </svg>
-        </div>
-        <div class="nav-group summary" aria-label="Summary section" role="region">
-            <div class="title-bar"><h3>SUMMARY</h3></div>
-            <p>Sample summary text 1</p>
-            <p>Sample summary text 2</p>
-            <p>Sample summary text 3</p>
+            <div class="content">
+                <svg class="hierarchy-svg" viewBox="0 0 100 72" role="img" aria-labelledby="hierarchy-title hierarchy-desc" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                    <title id="hierarchy-title">Alchemy League Definitions Hierarchy</title>
+                    <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK at the top, connected downward to MTHD-002, MTHD-003, MTHD-004, MTHD-005, MTHD-006, and PSRM in a row, which connect to CSRM3 through CSRM11 in two staggered rows, all connecting to GSRM, which connects to STND-002, STND-003, and STND-004 at the bottom.</desc>
+                    <defs>
+                        <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="5" refY="2" orient="auto">
+                            <polygon points="0 0, 5 2, 0 4" fill="#000" />
+                        </marker>
+                    </defs>
+                    <!-- HDBK Node -->
+                    <a href="#" data-folder="CHEM-HDBK-L007" target="_blank" tabindex="0" aria-label="HDBK-L007" role="button" class="pdf-link">
+                        <rect x="44.9" y="2" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="50" y="7.1" class="hierarchy-text">HDBK-L007</text>
+                    </a>
+                    <!-- Second Row Nodes (MTHD-002, MTHD-003, MTHD-004, MTHD-005, MTHD-006, PSRM) -->
+                    <a href="#" data-folder="CHEM-MTHD-002" target="_blank" tabindex="0" aria-label="MTHD-002" role="button" class="pdf-link">
+                        <rect x="5.9" y="13.96" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="11" y="19.06" class="hierarchy-text">MTHD-002</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-MTHD-003" target="_blank" tabindex="0" aria-label="MTHD-003" role="button" class="pdf-link">
+                        <rect x="19.9" y="13.96" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="25" y="19.06" class="hierarchy-text">MTHD-003</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-MTHD-004" target="_blank" tabindex="0" aria-label="MTHD-004" role="button" class="pdf-link">
+                        <rect x="33.9" y="13.96" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="39" y="19.06" class="hierarchy-text">MTHD-004</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-MTHD-005" target="_blank" tabindex="0" aria-label="MTHD-005" role="button" class="pdf-link">
+                        <rect x="47.9" y="13.96" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="53" y="19.06" class="hierarchy-text">MTHD-005</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-MTHD-006" target="_blank" tabindex="0" aria-label="MTHD-006" role="button" class="pdf-link">
+                        <rect x="61.9" y="13.96" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="67" y="19.06" class="hierarchy-text">MTHD-006</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-PSRM-ESR-1" target="_blank" tabindex="0" aria-label="PSRM-ESR-1" role="button" class="pdf-link">
+                        <rect x="75.9" y="13.96" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="81" y="19.06" class="hierarchy-text">PSRM-ESR-1</text>
+                    </a>
+                    <!-- First Row CSRM Nodes -->
+                    <a href="#" data-folder="CHEM-CSRM-ESR-01" target="_blank" tabindex="0" aria-label="CSRM-ESR-01" role="button" class="pdf-link">
+                        <rect x="5.9" y="25.92" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="11" y="31.02" class="hierarchy-text">CSRM-ESR-01</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-CSRM-ESR-02" target="_blank" tabindex="0" aria-label="CSRM-ESR-02" role="button" class="pdf-link">
+                        <rect x="24.9" y="25.92" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="30" y="31.02" class="hierarchy-text">CSRM-ESR-02</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-CSRM-ESR-03" target="_blank" tabindex="0" aria-label="CSRM-ESR-03" role="button" class="pdf-link">
+                        <rect x="43.9" y="25.92" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="49" y="31.02" class="hierarchy-text">CSRM-ESR-03</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-CSRM-ESR-04" target="_blank" tabindex="0" aria-label="CSRM-ESR-04" role="button" class="pdf-link">
+                        <rect x="62.9" y="25.92" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="68" y="31.02" class="hierarchy-text">CSRM-ESR-04</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-CSRM-ESR-05" target="_blank" tabindex="0" aria-label="CSRM-ESR-05" role="button" class="pdf-link">
+                        <rect x="81.9" y="25.92" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="87" y="31.02" class="hierarchy-text">CSRM-ESR-05</text>
+                    </a>
+                    <!-- Second Row CSRM Nodes -->
+                    <a href="#" data-folder="CHEM-CSRM-ESR-06" target="_blank" tabindex="0" aria-label="CSRM-ESR-06" role="button" class="pdf-link">
+                        <rect x="14.9" y="37.88" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="20" y="42.98" class="hierarchy-text">CSRM-ESR-06</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-CSRM-ESR-07" target="_blank" tabindex="0" aria-label="CSRM-ESR-07" role="button" class="pdf-link">
+                        <rect x="33.9" y="37.88" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="39" y="42.98" class="hierarchy-text">CSRM-ESR-07</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-CSRM-ESR-08" target="_blank" tabindex="0" aria-label="CSRM-ESR-08" role="button" class="pdf-link">
+                        <rect x="52.9" y="37.88" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="58" y="42.98" class="hierarchy-text">CSRM-ESR-08</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-CSRM-ESR-09" target="_blank" tabindex="0" aria-label="CSRM-ESR-09" role="button" class="pdf-link">
+                        <rect x="71.9" y="37.88" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="77" y="42.98" class="hierarchy-text">CSRM-ESR-09</text>
+                    </a>
+                    <!-- GSRM Node -->
+                    <a href="#" data-folder="CHEM-GSRM-ESR-1" target="_blank" tabindex="0" aria-label="GSRM-ESR-1" role="button" class="pdf-link">
+                        <rect x="44.9" y="49.84" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="50" y="54.94" class="hierarchy-text">GSRM-ESR-1</text>
+                    </a>
+                    <!-- STND Nodes -->
+                    <a href="#" data-folder="CHEM-STND-002" target="_blank" tabindex="0" aria-label="STND-002" role="button" class="pdf-link">
+                        <rect x="24.9" y="61.8" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="30" y="66.9" class="hierarchy-text">STND-002</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-STND-003" target="_blank" tabindex="0" aria-label="STND-003" role="button" class="pdf-link">
+                        <rect x="44.9" y="61.8" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="50" y="66.9" class="hierarchy-text">STND-003</text>
+                    </a>
+                    <a href="#" data-folder="CHEM-STND-004" target="_blank" tabindex="0" aria-label="STND-004" role="button" class="pdf-link">
+                        <rect x="64.9" y="61.8" width="10.2" height="10.2" class="hierarchy-node"/>
+                        <text x="70" y="66.9" class="hierarchy-text">STND-004</text>
+                    </a>
+                    <!-- Connecting Lines -->
+                    <!-- HDBK to Second Row -->
+                    <line x1="50" y1="12.2" x2="50" y2="12.96" class="hierarchy-arrow"/>
+                    <line x1="11" y1="12.96" x2="81" y2="12.96" class="hierarchy-line"/>
+                    <line x1="11" y1="12.96" x2="11" y2="13.96" class="hierarchy-arrow"/>
+                    <line x1="25" y1="12.96" x2="25" y2="13.96" class="hierarchy-arrow"/>
+                    <line x1="39" y1="12.96" x2="39" y2="13.96" class="hierarchy-arrow"/>
+                    <line x1="53" y1="12.96" x2="53" y2="13.96" class="hierarchy-arrow"/>
+                    <line x1="67" y1="12.96" x2="67" y2="13.96" class="hierarchy-arrow"/>
+                    <line x1="81" y1="12.96" x2="81" y2="13.96" class="hierarchy-arrow"/>
+                    <!-- PSRM to CSRM -->
+                    <line x1="81" y1="24.16" x2="81" y2="24.92" class="hierarchy-arrow"/>
+                    <line x1="11" y1="24.92" x2="87" y2="24.92" class="hierarchy-line"/>
+                    <!-- to first row -->
+                    <line x1="11" y1="24.92" x2="11" y2="25.92" class="hierarchy-arrow"/>
+                    <line x1="30" y1="24.92" x2="30" y2="25.92" class="hierarchy-arrow"/>
+                    <line x1="49" y1="24.92" x2="49" y2="25.92" class="hierarchy-arrow"/>
+                    <line x1="68" y1="24.92" x2="68" y2="25.92" class="hierarchy-arrow"/>
+                    <line x1="87" y1="24.92" x2="87" y2="25.92" class="hierarchy-arrow"/>
+                    <!-- to second row -->
+                    <line x1="20" y1="24.92" x2="20" y2="37.88" class="hierarchy-arrow"/>
+                    <line x1="39" y1="24.92" x2="39" y2="37.88" class="hierarchy-arrow"/>
+                    <line x1="58" y1="24.92" x2="58" y2="37.88" class="hierarchy-arrow"/>
+                    <line x1="77" y1="24.92" x2="77" y2="37.88" class="hierarchy-arrow"/>
+                    <!-- CSRM to GSRM -->
+                    <!-- Lines from First Row CSRM to Horizontal Line for GSRM -->
+                    <line x1="11" y1="36.12" x2="11" y2="48.84" class="hierarchy-arrow"/>
+                    <line x1="30" y1="36.12" x2="30" y2="48.84" class="hierarchy-arrow"/>
+                    <line x1="49" y1="36.12" x2="49" y2="48.84" class="hierarchy-arrow"/>
+                    <line x1="68" y1="36.12" x2="68" y2="48.84" class="hierarchy-arrow"/>
+                    <line x1="87" y1="36.12" x2="87" y2="48.84" class="hierarchy-arrow"/>
+                    <!-- Lines from Second Row CSRM to Horizontal Line for GSRM -->
+                    <line x1="20" y1="48.08" x2="20" y2="48.84" class="hierarchy-arrow"/>
+                    <line x1="39" y1="48.08" x2="39" y2="48.84" class="hierarchy-arrow"/>
+                    <line x1="58" y1="48.08" x2="58" y2="48.84" class="hierarchy-arrow"/>
+                    <line x1="77" y1="48.08" x2="77" y2="48.84" class="hierarchy-arrow"/>
+                    <!-- Horizontal line for GSRM -->
+                    <line x1="11" y1="48.84" x2="87" y2="48.84" class="hierarchy-line"/>
+                    <!-- Line from Horizontal Line to GSRM -->
+                    <line x1="50" y1="48.84" x2="50" y2="49.84" class="hierarchy-arrow"/>
+                    <!-- GSRM to STND -->
+                    <line x1="50" y1="60.04" x2="50" y2="60.8" class="hierarchy-arrow"/>
+                    <line x1="30" y1="60.8" x2="70" y2="60.8" class="hierarchy-line"/>
+                    <line x1="30" y1="60.8" x2="30" y2="61.8" class="hierarchy-arrow"/>
+                    <line x1="50" y1="60.8" x2="50" y2="61.8" class="hierarchy-arrow"/>
+                    <line x1="70" y1="60.8" x2="70" y2="61.8" class="hierarchy-arrow"/>
+                </svg>
+            </div>
         </div>
         <div class="nav-group sprint1" aria-label="Sprint 1 section" role="region">
             <div class="title-bar"><h3>SPRINT 1</h3></div>
-            <p>SAMPLE SPRINT 1 TEXT1</p>
-            <p>SAMPLE SPRINT 1 TEXT2</p>
-            <p>SAMPLE SPRINT 1 TEXT3</p>
+            <div class="content">
+                <div class="subcategory-grid">
+                    <div class="subcategory-box notes" aria-label="Sprint 1 Notes section" role="region">
+                        <div class="title-bar"><h4>NOTES</h4></div>
+                        <div class="content">
+                            <p>Participant "cerasito" lacked minimum required games to register (84/100). Exception granted due to being close to target with normal win rate. Player may compete for prize.</p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="subcategory-box resources" aria-label="Sprint 1 Resources section" role="region">
+                        <div class="title-bar"><h4>RESOURCES</h4></div>
+                        <div class="content">
+                            <div class="button-container">
+                                <div class="resources-buttons">
+                                    <a href="ALS7_Resources/Sprint1/_Registration.ods">Registration</a>
+                                    <a href="ALS7_Resources/Sprint1/_Seeding_Summary.ods">Seeding Summary</a>
+                                    <a href="ALS7_Resources/Sprint1/_Seeding_Apparent.ods">Seeding Apparent</a>
+                                    <a href="ALS7_Resources/Sprint1/_Seeding_Full.ods">Seeding Full</a>
+                                    <a href="ALS7_Resources/Sprint1/_Round_by_Round.ods">Roundwise</a>
+                                    <a href="https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w">Live Scoreboard</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subcategory-box results" aria-label="Sprint 1 Results section" role="region">
+                        <div class="title-bar"><h4>RESULTS</h4></div>
+                        <div class="content">
+                            <p></p>
+                            <p>TBD</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="nav-group sprint2" aria-label="Sprint 2 section" role="region">
             <div class="title-bar"><h3>SPRINT 2</h3></div>
-            <p>SAMPLE SPRINT 2 TEXT1</p>
-            <p>SAMPLE SPRINT 2 TEXT2</p>
-            <p>SAMPLE SPRINT 2 TEXT3</p>
+            <div class="content">
+                <div class="subcategory-grid">
+                    <div class="subcategory-box notes" aria-label="Sprint 2 Notes section" role="region">
+                        <div class="title-bar"><h4>NOTES</h4></div>
+                        <div class="content">
+                            <p></p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="subcategory-box resources" aria-label="Sprint 2 Resources section" role="region">
+                        <div class="title-bar"><h4>RESOURCES</h4></div>
+                        <div class="content">
+                            <div class="button-container">
+                                <div class="resources-buttons">
+                                    <a href="ALS7_Resources/Sprint2/_Registration.ods">Registration</a>
+                                    <a href="ALS7_Resources/Sprint2/_Seeding_Summary.ods">Seeding Summary</a>
+                                    <a href="ALS7_Resources/Sprint2/_Seeding_Apparent.ods">Seeding Apparent</a>
+                                    <a href="ALS7_Resources/Sprint2/_Seeding_Full.ods">Seeding Full</a>
+                                    <a href="ALS7_Resources/Sprint2/_Round_by_Round.ods">Roundwise</a>
+                                    <a href="#">Live Scoreboard</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subcategory-box results" aria-label="Sprint 2 Results section" role="region">
+                        <div class="title-bar"><h4>RESULTS</h4></div>
+                        <div class="content">
+                            <p></p>
+                            <p>TBD</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-group map-information" aria-label="Map Information section" role="region">
+            <div class="title-bar"><h3>MAP INFORMATION</h3></div>
+            <div class="content">
+                <table class="quicklinks-table">
+                    <tr>
+                        <td>Round</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Featured Map</td>
+                        <td>ESR_02 "Graveyards"</td>
+                        <td>ESR_09 "Team_Glaciers"</td>
+                        <td>ESR_03 "Moats"</td>
+                        <td>ESR_08 "Shipwreck"</td>
+                        <td>ESR_04 "Paradise_Island"</td>
+                        <td>ESR_06 "Seasons"</td>
+                        <td>ESR_05 "Prairie"</td>
+                        <td>ESR_01 "Canals"</td>
+                    </tr>
+                    <tr>
+                        <td>Creator</td>
+                        <td>Jasouki</td>
+                        <td>welcometorapture</td>
+                        <td>Zetnus</td>
+                        <td>TechChariot</td>
+                        <td>Magico</td>
+                        <td>Biscuits</td>
+                        <td>TechChariot</td>
+                        <td>Zetnus</td>
+                    </tr>
+                </table>
+                <div class="quicklinks-buttons">
+                    <a href="ALS7_Resources/Map_Contest.ods" role="button" aria-label="Contest">Contest</a>
+                    <a href="https://aoe2cm.net/preset/nOxHA" role="button" aria-label="Draft">Draft</a>
+                    <a href="ALS7_Resources/Map_Archive.zip" role="button" aria-label="Archive">Archive</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -560,7 +867,6 @@
     <script>
         window.addEventListener('load', async function() {
             try {
-                // Home button positioning
                 const button = document.querySelector('.home-button');
                 const header = document.querySelector('header');
                 const topGap = parseFloat(getComputedStyle(header).paddingTop);
@@ -569,51 +875,40 @@
                 button.style.transform = 'translateY(-50%)';
                 button.style.left = `${topGap + slightShift}px`;
 
-                // Detect current season from filename
                 const path = window.location.pathname;
                 let currentSeason;
                 const match = path.match(/ALS(\d+)\.html/i);
                 if (match) {
                     currentSeason = parseInt(match[1], 10);
-                    console.log(`Detected season from filename: ALS${currentSeason}`);
                 } else if (path.includes('index.html') || path === '/' || path === '') {
                     currentSeason = 0;
-                    console.log('Detected index.html or root, setting season to 0');
                 } else {
-                    console.warn('No season number detected in filename:', path);
-                    const alert = document.createElement('div');
-                    alert.style.position = 'fixed';
-                    alert.style.top = '10px';
-                    alert.style.right = '10px';
-                    alert.style.background = '#f88';
-                    alert.style.padding = '10px';
-                    alert.style.border = '1px solid #f00';
-                    alert.textContent = 'Error: Unable to detect season. Navigation buttons may not work.';
-                    document.body.appendChild(alert);
-                    setTimeout(() => alert.remove(), 5000);
-                    currentSeason = 0; // Fallback to season 0
+                    currentSeason = 0;
                 }
 
-                // Update header
                 const headerTitle = document.querySelector('header h1');
                 headerTitle.textContent = `ALCHEMY LEAGUE SEASON ${currentSeason}`;
 
-                // Update document title
                 document.title = `Season ${currentSeason} -- Alchemy League`;
 
-                // Update banner image
                 const banner = document.querySelector('#season-banner');
-                banner.style.backgroundImage = `url('images/ALS${currentSeason}_Banner.jpg')`;
+                const bannerUrl = `images/ALS${currentSeason}_Banner.jpg`;
+                const img = new Image();
+                img.src = bannerUrl;
+                img.onload = () => {
+                    banner.style.backgroundImage = `url('${bannerUrl}')`;
+                };
+                img.onerror = () => {
+                    banner.style.backgroundImage = `url('images/fallback_banner.jpg')`;
+                };
 
-                // Update footer copyright
                 const footerText = document.querySelector('footer p');
                 footerText.textContent = `© ${new Date().getFullYear()} Alchemy AOE Community`;
 
-                // Navigation buttons
                 const leftContainer = document.querySelector('#left-nav');
                 const rightContainer = document.querySelector('#right-nav');
+                const availableSeasons = [0, 1, 2, 3];
 
-                // Function to create navigation button
                 function createNavButton(direction, season, url, container) {
                     const button = document.createElement('button');
                     button.className = `nav-button ${direction}`;
@@ -621,72 +916,49 @@
                     button.setAttribute('aria-label', `Navigate to Season ${season}`);
                     button.onclick = () => window.location.href = url;
                     container.appendChild(button);
-                    console.log(`Added ${direction} button for Season ${season} (${url})`);
                 }
 
-                // Check previous season for left arrow
-                if (currentSeason > 0) {
+                if (availableSeasons.includes(currentSeason - 1)) {
                     const prevSeason = currentSeason - 1;
                     const prevUrl = prevSeason === 0 ? 'index.html' : `ALS${prevSeason}.html`;
-                    console.log(`Checking previous season: ${prevUrl}`);
-                    try {
-                        const response = await fetch(prevUrl, { method: 'HEAD' });
-                        console.log(`Previous season ${prevSeason}: Status ${response.status}, OK: ${response.ok}`);
-                        if (response.ok) {
-                            createNavButton('left', prevSeason, prevUrl, leftContainer);
-                        } else {
-                            console.warn(`Previous season ${prevSeason} not found (status: ${response.status})`);
-                        }
-                    } catch (err) {
-                        console.error(`Error fetching previous season ${prevSeason}:`, err);
-                        createNavButton('left', prevSeason, prevUrl, leftContainer);
-                    }
-                } else {
-                    console.log('No previous season (currentSeason = 0)');
+                    createNavButton('left', prevSeason, prevUrl, leftContainer);
                 }
 
-                // Check next season for right arrow
-                const nextSeason = currentSeason + 1;
-                const nextUrl = `ALS${nextSeason}.html`;
-                console.log(`Checking next season: ${nextUrl}`);
-                try {
-                    const response = await fetch(nextUrl, { method: 'HEAD' });
-                    console.log(`Next season ${nextSeason}: Status ${response.status}, OK: ${response.ok}`);
-                    if (response.ok) {
-                        createNavButton('right', nextSeason, nextUrl, rightContainer);
-                    } else {
-                        console.warn(`Next season ${nextSeason} not found (status: ${response.status})`);
-                    }
-                } catch (err) {
-                    console.error(`Error fetching next season ${nextSeason}:`, err);
+                if (availableSeasons.includes(currentSeason + 1)) {
+                    const nextSeason = currentSeason + 1;
+                    const nextUrl = `ALS${nextSeason}.html`;
                     createNavButton('right', nextSeason, nextUrl, rightContainer);
                 }
 
-                // Add interactivity to hierarchy nodes
-                document.querySelectorAll('.hierarchy-node').forEach(node => {
-                    node.addEventListener('click', () => {
-                        const label = node.nextElementSibling.textContent;
-                        alert(`Definition for ${label}: [Insert description here]`);
-                    });
-                    node.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            node.click();
+                // Handle PDF link clicks
+                document.querySelectorAll('.pdf-link').forEach(link => {
+                    link.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        const folder = link.getAttribute('data-folder');
+                        const repo = 'Alchemy-AOE-Community/CHEM-Published-Specifications';
+                        const branch = 'download-to-click-links';
+                        const apiUrl = `https://api.github.com/repos/${repo}/contents/${folder}?ref=${branch}`;
+                        const fallbackUrl = `https://github.com/${repo}/tree/${branch}/${folder}`;
+
+                        try {
+                            const response = await fetch(apiUrl);
+                            if (!response.ok) throw new Error('API request failed');
+                            const files = await response.json();
+                            const pdfFile = files.find(file => file.name.toLowerCase().endsWith('.pdf'));
+                            if (pdfFile) {
+                                const pdfUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${folder}/${pdfFile.name}`;
+                                window.open(pdfUrl, '_blank');
+                            } else {
+                                window.open(fallbackUrl, '_blank');
+                            }
+                        } catch (error) {
+                            console.error('Error fetching PDF:', error);
+                            window.open(fallbackUrl, '_blank');
                         }
                     });
                 });
             } catch (err) {
                 console.error('Script error:', err);
-                const alert = document.createElement('div');
-                alert.style.position = 'fixed';
-                alert.style.top = '10px';
-                alert.style.right = '10px';
-                alert.style.background = '#f88';
-                alert.style.padding = '10px';
-                alert.style.border = '1px solid #f00';
-                alert.textContent = 'An error occurred. Navigation buttons may not work.';
-                document.body.appendChild(alert);
-                setTimeout(() => alert.remove(), 5000);
             }
         });
     </script>
