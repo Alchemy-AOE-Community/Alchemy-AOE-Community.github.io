@@ -4,59 +4,57 @@
   <meta charset="UTF-8">
   <title>Redirecting to latest PDF…</title>
   <script>
-  (async ()=>{
-    // 1) grab the ?file=… parameter
+  (async()=>{
+    // 1) Grab the caller’s prefix (= also the subfolder name)
     const prefix = new URLSearchParams(location.search).get('file');
     if (!prefix) {
       document.body.textContent = 'Error: no “?file=” parameter provided.';
       return;
     }
 
-    // 2) repo info for your PDFs
+    // 2) Repo info for your PDFs
     const owner  = 'Alchemy-AOE-Community';
     const repo   = 'CHEM-Published-Specifications';
     const branch = 'download-to-click-links';
-    const path   = '';  // sub-folder within the repo, if any
+    const folder = encodeURIComponent(prefix);  // subfolder exactly named after prefix
 
-    // 3) list the directory via GitHub API
-    const api = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+    // 3) List that folder via GitHub API
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?ref=${branch}`;
     let dir;
     try {
-      const r = await fetch(api);
-      if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
-      dir = await r.json();
+      const res = await fetch(apiUrl);
+      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+      dir = await res.json();
     } catch (e) {
-      document.body.textContent = 'Error fetching file list: ' + e;
+      document.body.textContent = 'Error fetching folder “' + prefix + '”: ' + e;
       return;
     }
 
-    // 4) filter by prefix, sort, pick the latest
+    // 4) Filter and sort filenames in that folder
     const matches = dir
       .map(item => item.name)
       .filter(name => name.startsWith(prefix))
       .sort();
     if (!matches.length) {
-      document.body.textContent = `No files starting with “${prefix}” found.`;
+      document.body.textContent = `No files beginning with “${prefix}” found.`;
       return;
     }
     const latest = matches.pop();
 
-    // 5) build the raw.githubusercontent URL & redirect
-    //    raw URL format: https://raw.githubusercontent.com/OWNER/REPO/BRANCH/PATH/FILENAME
-    const target = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}${latest}`;
+    // 5) Build the raw.githubusercontent URL & redirect
+    const target = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder}/${latest}`;
     window.location.replace(target);
   })();
   </script>
 </head>
 <body>
-  <p>Redirecting… if you’re not forwarded, <a id="fallback" href="#">click here</a>.</p>
+  <p>Redirecting… if that fails, <a id="fallback" href="#">click here</a>.</p>
   <script>
-    // When replace() happens, the new URL doesn’t update location.hash.
-    // So we capture it manually:
-    const originalReplace = window.location.replace;
-    window.location.replace = function(u) {
+    // Monkey-patch replace so we can set the fallback link
+    const orig = window.location.replace;
+    window.location.replace = (u)=>{
       document.getElementById('fallback').href = u;
-      originalReplace.call(window.location, u);
+      orig.call(window.location, u);
     };
   </script>
 </body>
