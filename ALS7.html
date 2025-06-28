@@ -399,15 +399,12 @@
             z-index: 2;
         }
         .hierarchy-node {
-            fill: rgba(255, 255, 251, 0.8);
+            fill: none;
             stroke: #000;
-            stroke-width: 0.25;
+            stroke-width: 0.5;
             cursor: pointer;
-            rx: 5;
-            ry: 5;
-        }
-        .hierarchy-node:hover {
-            opacity: 0.8;
+            rx: 3;
+            ry: 3;
         }
         .hierarchy-node.csrm {
             fill: none;
@@ -415,11 +412,24 @@
             ry: 0;
         }
         .hierarchy-text {
-            font-size: 12%;
+            font-size: 14%;
+            font-weight: bold;
             text-anchor: middle;
             dominant-baseline: central;
             fill: #000;
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .text-background {
+            fill: rgba(255, 255, 255, 0.8);
+            stroke: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .pdf-link:hover .hierarchy-text,
+        .pdf-link:hover .text-background {
+            opacity: 1;
         }
         .hierarchy-arrow {
             stroke: #000;
@@ -565,12 +575,23 @@
                 transform-origin: top left;
             }
             .hierarchy-node {
-                rx: 3;
-                ry: 3;
-                stroke-width: 0.25;
+                rx: 2;
+                ry: 2;
+                stroke-width: 0.5;
             }
             .hierarchy-text {
-                font-size: 12%;
+                font-size: 14%;
+                font-weight: bold;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            .text-background {
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            .pdf-link:hover .hierarchy-text,
+            .pdf-link:hover .text-background {
+                opacity: 1;
             }
             .hierarchy-arrow, .hierarchy-line {
                 stroke-width: 1;
@@ -603,213 +624,395 @@
             <div class="content">
                 <svg class="hierarchy-svg" viewBox="0 0 100 100" role="img" aria-labelledby="hierarchy-title hierarchy-desc" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                     <title id="hierarchy-title">Alchemy League Definitions Hierarchy</title>
-                    <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK at the top, connected downward to MTHD-002, MTHD-003, MTHD-004, MTHD-005, MTHD-006, and PSRM in a row. PSRM connects to CSRM-01 through CSRM-05 in a row and CSRM-06 through CSRM-09 in a staggered row below, with a 10.4-unit center-to-center gap and 0.2-unit edge-to-edge gap for a pronounced interlocking appearance, positioned slightly below previous placement. CSRM nodes are rhomboid-shaped with 110-degree obtuse angles at top and bottom and 70-degree acute angles at left and right, oriented with a vertical top-to-bottom axis. All arrows to CSRM nodes (CSRM-01 through CSRM-09) point to their top corners. CSRM images are upright (0-degree rotation), with horizontal text and no fill overlay. Other nodes are fully opaque squares. All CSRM nodes connect to GSRM, which connects to STND-002, STND-003, and STND-004 at the bottom.</desc>
+                    <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK at the top, centered, connected downward to PSRM-ESR-1, MTHD-002, MTHD-003, MTHD-004, MTHD-005, and MTHD-006 in a row, with PSRM on the left and MTHD nodes shifted to the right. PSRM connects to CSRM-01 through CSRM-05 in a row and CSRM-06 through CSRM-09 in a staggered row below, all shifted to the right, with a 10.4-unit center-to-center gap and 0.2-unit edge-to-edge gap for a pronounced interlocking appearance. CSRM nodes are rhomboid-shaped with 110-degree obtuse angles at top and bottom and 70-degree acute angles at left and right, oriented with a vertical top-to-bottom axis. All arrows to CSRM nodes point to their top corners. CSRM images are upright (0-degree rotation), with horizontal text split into two lines (first four letters on top, followed by dash and suffix), visible only on hover with a semi-transparent background that fully covers the node (image and text) without intersecting adjacent nodes. HDBK, PSRM, MTHD, GSRM, and STND nodes have background images clipped to rounded rectangles, sourced from images/Handbook.jpg, images/Procurement_Spec.jpg, images/Method.jpg, images/General_Spec.jpg, and images/Standard.jpg respectively. All nodes have text split into two lines (first four letters on top, followed by dash and digits/suffix), visible only on hover with a semi-transparent background. All text in hierarchy nodes is bold. All nodes have a doubled border thickness (stroke-width: 0.5). Non-CSRM nodes (HDBK, PSRM, MTHD, GSRM, STND) have rounded corners with increased radius (rx: 3, ry: 3 in main view; rx: 2, ry: 2 in responsive view) for a near-circular appearance. CSRM nodes retain sharp rhomboid shapes (rx: 0, ry: 0). All CSRM nodes connect to GSRM, which connects to STND-001, STND-002, STND-003, and STND-004 at the bottom, all shifted slightly to the left. PSRM also connects directly to STND-001 with a multi-section arrow that avoids intersecting any nodes.</desc>
                     <defs>
                         <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="5" refY="2" orient="auto">
                             <polygon points="0 0, 5 2, 0 4" fill="#000" />
                         </marker>
-                        <!-- Clip paths for CSRM nodes with rhomboid shape -->
+                        <!-- Clip paths for CSRM nodes (unchanged) -->
                         <clipPath id="clip-csrm-01">
-                            <polygon points="3.72,44.55 11,39.45 18.28,44.55 11,49.65"/>
+                            <polygon points="13.22,46.035 21.22,40.425 29.22,46.035 21.22,51.645"/>
                         </clipPath>
                         <clipPath id="clip-csrm-02">
-                            <polygon points="22.72,44.55 30,39.45 37.28,44.55 30,49.65"/>
+                            <polygon points="32.72,46.035 40.72,40.425 48.72,46.035 40.72,51.645"/>
                         </clipPath>
                         <clipPath id="clip-csrm-03">
-                            <polygon points="41.72,44.55 49,39.45 56.28,44.55 49,49.65"/>
+                            <polygon points="52.22,46.035 60.22,40.425 68.22,46.035 60.22,51.645"/>
                         </clipPath>
                         <clipPath id="clip-csrm-04">
-                            <polygon points="60.72,44.55 68,39.45 75.28,44.55 68,49.65"/>
+                            <polygon points="71.72,46.035 79.72,40.425 87.72,46.035 79.72,51.645"/>
                         </clipPath>
                         <clipPath id="clip-csrm-05">
-                            <polygon points="79.72,44.55 87,39.45 94.28,44.55 87,49.65"/>
+                            <polygon points="91.22,46.035 99.22,40.425 107.22,46.035 99.22,51.645"/>
                         </clipPath>
                         <clipPath id="clip-csrm-06">
-                            <polygon points="12.72,54.95 20,49.85 27.28,54.95 20,60.05"/>
+                            <polygon points="22.72,54.95 30.72,49.325 38.72,54.95 30.72,60.575"/>
                         </clipPath>
                         <clipPath id="clip-csrm-07">
-                            <polygon points="31.72,54.95 39,49.85 46.28,54.95 39,60.05"/>
+                            <polygon points="42.22,54.95 50.22,49.325 58.22,54.95 50.22,60.575"/>
                         </clipPath>
                         <clipPath id="clip-csrm-08">
-                            <polygon points="50.72,54.95 58,49.85 65.28,54.95 58,60.05"/>
+                            <polygon points="61.72,54.95 69.72,49.325 77.72,54.95 69.72,60.575"/>
                         </clipPath>
                         <clipPath id="clip-csrm-09">
-                            <polygon points="69.72,54.95 77,49.85 84.28,54.95 77,60.05"/>
+                            <polygon points="81.22,54.95 89.22,49.325 97.22,54.95 89.22,60.575"/>
+                        </clipPath>
+                        <!-- Clip paths for HDBK, PSRM, MTHD, GSRM, STND nodes (updated rx, ry) -->
+                        <clipPath id="clip-hdbk">
+                            <rect x="39.329" y="2" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-psrm">
+                            <rect x="1.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-mthd-002">
+                            <rect x="16.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-mthd-003">
+                            <rect x="31.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-mthd-004">
+                            <rect x="46.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-mthd-005">
+                            <rect x="61.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-mthd-006">
+                            <rect x="76.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm">
+                            <rect x="40.829" y="68" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-stnd-001">
+                            <rect x="0.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-stnd-002">
+                            <rect x="20.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-stnd-003">
+                            <rect x="40.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-stnd-004">
+                            <rect x="60.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
                         </clipPath>
                     </defs>
-                    <!-- HDBK Node -->
+                    <!-- HDBK Node (with background image) -->
                     <a href="#" data-folder="CHEM-HDBK-L007" target="_blank" tabindex="0" aria-label="HDBK-L007" role="button" class="pdf-link">
-                        <rect x="44.9" y="2" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="50" y="7.1" class="hierarchy-text">HDBK-L007</text>
+                        <g>
+                            <g clip-path="url(#clip-hdbk)">
+                                <image x="39.329" y="2" width="12.342" height="12.342" href="images/Handbook.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="39.329" y="2" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="39.329" y="2" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="45.5" class="hierarchy-text">
+                                <tspan x="45.5" dy="6.671">HDBK</tspan>
+                                <tspan x="45.5" dy="2.5">-L007</tspan>
+                            </text>
+                        </g>
                     </a>
-                    <!-- Second Row Nodes (MTHD-002 to PSRM) -->
+                    <!-- PSRM Node (with background image) -->
+                    <a href="#" data-folder="CHEM-PSRM-ESR-1" target="_blank" tabindex="0" aria-label="PSRM-ESR-1" role="button" class="pdf-link">
+                        <g>
+                            <g clip-path="url(#clip-psrm)">
+                                <image x="1.829" y="22" width="12.342" height="12.342" href="images/Procurement_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="1.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="1.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="8" class="hierarchy-text">
+                                <tspan x="8" dy="26.671">PSRM</tspan>
+                                <tspan x="8" dy="2.5">-ESR-1</tspan>
+                            </text>
+                        </g>
+                    </a>
+                    <!-- MTHD Nodes (with background image) -->
                     <a href="#" data-folder="CHEM-MTHD-002" target="_blank" tabindex="0" aria-label="MTHD-002" role="button" class="pdf-link">
-                        <rect x="5.9" y="22" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="11" y="27.1" class="hierarchy-text">MTHD-002</text>
+                        <g>
+                            <g clip-path="url(#clip-mthd-002)">
+                                <image x="16.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="16.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="16.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="23" class="hierarchy-text">
+                                <tspan x="23" dy="26.671">MTHD</tspan>
+                                <tspan x="23" dy="2.5">-002</tspan>
+                            </text>
+                        </g>
                     </a>
                     <a href="#" data-folder="CHEM-MTHD-003" target="_blank" tabindex="0" aria-label="MTHD-003" role="button" class="pdf-link">
-                        <rect x="19.9" y="22" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="25" y="27.1" class="hierarchy-text">MTHD-003</text>
+                        <g>
+                            <g clip-path="url(#clip-mthd-003)">
+                                <image x="31.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="31.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="31.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="38" class="hierarchy-text">
+                                <tspan x="38" dy="26.671">MTHD</tspan>
+                                <tspan x="38" dy="2.5">-003</tspan>
+                            </text>
+                        </g>
                     </a>
                     <a href="#" data-folder="CHEM-MTHD-004" target="_blank" tabindex="0" aria-label="MTHD-004" role="button" class="pdf-link">
-                        <rect x="33.9" y="22" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="39" y="27.1" class="hierarchy-text">MTHD-004</text>
+                        <g>
+                            <g clip-path="url(#clip-mthd-004)">
+                                <image x="46.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="46.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="46.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="53" class="hierarchy-text">
+                                <tspan x="53" dy="26.671">MTHD</tspan>
+                                <tspan x="53" dy="2.5">-004</tspan>
+                            </text>
+                        </g>
                     </a>
                     <a href="#" data-folder="CHEM-MTHD-005" target="_blank" tabindex="0" aria-label="MTHD-005" role="button" class="pdf-link">
-                        <rect x="47.9" y="22" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="53" y="27.1" class="hierarchy-text">MTHD-005</text>
+                        <g>
+                            <g clip-path="url(#clip-mthd-005)">
+                                <image x="61.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="61.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="61.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="68" class="hierarchy-text">
+                                <tspan x="68" dy="26.671">MTHD</tspan>
+                                <tspan x="68" dy="2.5">-005</tspan>
+                            </text>
+                        </g>
                     </a>
                     <a href="#" data-folder="CHEM-MTHD-006" target="_blank" tabindex="0" aria-label="MTHD-006" role="button" class="pdf-link">
-                        <rect x="61.9" y="22" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="67" y="27.1" class="hierarchy-text">MTHD-006</text>
+                        <g>
+                            <g clip-path="url(#clip-mthd-006)">
+                                <image x="76.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="76.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="76.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="83" class="hierarchy-text">
+                                <tspan x="83" dy="26.671">MTHD</tspan>
+                                <tspan x="83" dy="2.5">-006</tspan>
+                            </text>
+                        </g>
                     </a>
-                    <a href="#" data-folder="CHEM-PSRM-ESR-1" target="_blank" tabindex="0" aria-label="PSRM-ESR-1" role="button" class="pdf-link">
-                        <rect x="75.9" y="22" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="81" y="27.1" class="hierarchy-text">PSRM-ESR-1</text>
-                    </a>
-                    <!-- First Row CSRM Nodes -->
+                    <!-- CSRM Nodes (unchanged) -->
                     <a href="#" data-folder="CHEM-CSRM-ESR-01" target="_blank" tabindex="0" aria-label="CSRM-ESR-01" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-01)">
-                                <image x="3.72" y="39.45" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_01_Canals/Gallery/canals1.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="13.22" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_01_Canals/Gallery/canals1.PNG" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="3.72,44.55 11,39.45 18.28,44.55 11,49.65" class="hierarchy-node csrm"/>
-                            <text x="11" y="44.55" class="hierarchy-text">CSRM-ESR-01</text>
+                            <polygon points="13.22,46.035 21.22,40.425 29.22,46.035 21.22,51.645" class="hierarchy-node csrm"/>
+                            <polygon points="13.22,46.035 21.22,40.425 29.22,46.035 21.22,51.645" class="text-background"/>
+                            <text x="21.22" class="hierarchy-text">
+                                <tspan x="21.22" dy="44.785">CSRM</tspan>
+                                <tspan x="21.22" dy="2">-ESR-01</tspan>
+                            </text>
                         </g>
                     </a>
                     <a href="#" data-folder="CHEM-CSRM-ESR-02" target="_blank" tabindex="0" aria-label="CSRM-ESR-02" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-02)">
-                                <image x="22.72" y="39.45" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Jasouki/Workshop_Jasouki/ESR_02_Graveyards/Gallery/Graveyards_01.png" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="32.72" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Jasouki/Workshop_Jasouki/ESR_02_Graveyards/Gallery/Graveyards_01.png" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="22.72,44.55 30,39.45 37.28,44.55 30,49.65" class="hierarchy-node csrm"/>
-                            <text x="30" y="44.55" class="hierarchy-text">CSRM-ESR-02</text>
+                            <polygon points="32.72,46.035 40.72,40.425 48.72,46.035 40.72,51.645" class="hierarchy-node csrm"/>
+                            <polygon points="32.72,46.035 40.72,40.425 48.72,46.035 40.72,51.645" class="text-background"/>
+                            <text x="40.72" class="hierarchy-text">
+                                <tspan x="40.72" dy="44.785">CSRM</tspan>
+                                <tspan x="40.72" dy="2">-ESR-02</tspan>
+                            </text>
                         </g>
                     </a>
                     <a href="#" data-folder="CHEM-CSRM-ESR-03" target="_blank" tabindex="0" aria-label="CSRM-ESR-03" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-03)">
-                                <image x="41.72" y="39.45" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_03_Moats/Gallery/moats2.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="52.22" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_03_Moats/Gallery/moats2.PNG" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="41.72,44.55 49,39.45 56.28,44.55 49,49.65" class="hierarchy-node csrm"/>
-                            <text x="49" y="44.55" class="hierarchy-text">CSRM-ESR-03</text>
+                            <polygon points="52.22,46.035 60.22,40.425 68.22,46.035 60.22,51.645" class="hierarchy-node csrm"/>
+                            <polygon points="52.22,46.035 60.22,40.425 68.22,46.035 60.22,51.645" class="text-background"/>
+                            <text x="60.22" class="hierarchy-text">
+                                <tspan x="60.22" dy="44.785">CSRM</tspan>
+                                <tspan x="60.22" dy="2">-ESR-03</tspan>
+                            </text>
                         </g>
                     </a>
                     <a href="#" data-folder="CHEM-CSRM-ESR-04" target="_blank" tabindex="0" aria-label="CSRM-ESR-04" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-04)">
-                                <image x="60.72" y="39.45" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Magico/Workshop_Magico/ESR_04_Paradise_Island/Gallery/Full_view_of_Map.png" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="71.72" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Magico/Workshop_Magico/ESR_04_Paradise_Island/Gallery/Full_view_of_Map.png" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="60.72,44.55 68,39.45 75.28,44.55 68,49.65" class="hierarchy-node csrm"/>
-                            <text x="68" y="44.55" class="hierarchy-text">CSRM-ESR-04</text>
+                            <polygon points="71.72,46.035 79.72,40.425 87.72,46.035 79.72,51.645" class="hierarchy-node csrm"/>
+                            <polygon points="71.72,46.035 79.72,40.425 87.72,46.035 79.72,51.645" class="text-background"/>
+                            <text x="79.72" class="hierarchy-text">
+                                <tspan x="79.72" dy="44.785">CSRM</tspan>
+                                <tspan x="79.72" dy="2">-ESR-04</tspan>
+                            </text>
                         </g>
                     </a>
                     <a href="#" data-folder="CHEM-CSRM-ESR-05" target="_blank" tabindex="0" aria-label="CSRM-ESR-05" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-05)">
-                                <image x="79.72" y="39.45" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_05_Prairie/Gallery/Overview.png" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="91.22" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_05_Prairie/Gallery/Overview.png" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="79.72,44.55 87,39.45 94.28,44.55 87,49.65" class="hierarchy-node csrm"/>
-                            <text x="87" y="44.55" class="hierarchy-text">CSRM-ESR-05</text>
+                            <polygon points="91.22,46.035 99.22,40.425 107.22,46.035 99.22,51.645" class="hierarchy-node csrm"/>
+                            <polygon points="91.22,46.035 99.22,40.425 107.22,46.035 99.22,51.645" class="text-background"/>
+                            <text x="99.22" class="hierarchy-text">
+                                <tspan x="99.22" dy="44.785">CSRM</tspan>
+                                <tspan x="99.22" dy="2">-ESR-05</tspan>
+                            </text>
                         </g>
                     </a>
-                    <!-- Second Row CSRM Nodes -->
                     <a href="#" data-folder="CHEM-CSRM-ESR-06" target="_blank" tabindex="0" aria-label="CSRM-ESR-06" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-06)">
-                                <image x="12.72" y="49.85" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Biscuits/Workshop_Biscuits/ESR_06_Seasons/Gallery/Overview.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="22.72" y="49.325" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Biscuits/Workshop_Biscuits/ESR_06_Seasons/Gallery/Overview.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="12.72,54.95 20,49.85 27.28,54.95 20,60.05" class="hierarchy-node csrm"/>
-                            <text x="20" y="54.95" class="hierarchy-text">CSRM-ESR-06</text>
+                            <polygon points="22.72,54.95 30.72,49.325 38.72,54.95 30.72,60.575" class="hierarchy-node csrm"/>
+                            <polygon points="22.72,54.95 30.72,49.325 38.72,54.95 30.72,60.575" class="text-background"/>
+                            <text x="30.72" class="hierarchy-text">
+                                <tspan x="30.72" dy="53.7">CSRM</tspan>
+                                <tspan x="30.72" dy="2">-ESR-06</tspan>
+                            </text>
                         </g>
                     </a>
                     <a href="#" data-folder="CHEM-CSRM-ESR-07" target="_blank" tabindex="0" aria-label="CSRM-ESR-07" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-07)">
-                                <image x="31.72" y="49.85" width="14.56" height="10.2" href="https://liquipedia.net/ageofempires/File:Sherwood_Forest.png" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="42.22" y="49.325" width="16.016" height="11.22" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="31.72,54.95 39,49.85 46.28,54.95 39,60.05" class="hierarchy-node csrm"/>
-                            <text x="39" y="54.95" class="hierarchy-text">CSRM-ESR-07</text>
+                            <polygon points="42.22,54.95 50.22,49.325 58.22,54.95 50.22,60.575" class="hierarchy-node csrm"/>
+                            <polygon points="42.22,54.95 50.22,49.325 58.22,54.95 50.22,60.575" class="text-background"/>
+                            <text x="50.22" class="hierarchy-text">
+                                <tspan x="50.22" dy="53.7">CSRM</tspan>
+                                <tspan x="50.22" dy="2">-ESR-07</tspan>
+                            </text>
                         </g>
                     </a>
                     <a href="#" data-folder="CHEM-CSRM-ESR-08" target="_blank" tabindex="0" aria-label="CSRM-ESR-08" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-08)">
-                                <image x="50.72" y="49.85" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_08_Shipwreck/Gallery/Overview.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="61.72" y="49.325" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_08_Shipwreck/Gallery/Overview.PNG" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="50.72,54.95 58,49.85 65.28,54.95 58,60.05" class="hierarchy-node csrm"/>
-                            <text x="58" y="54.95" class="hierarchy-text">CSRM-ESR-08</text>
+                            <polygon points="61.72,54.95 69.72,49.325 77.72,54.95 69.72,60.575" class="hierarchy-node csrm"/>
+                            <polygon points="61.72,54.95 69.72,49.325 77.72,54.95 69.72,60.575" class="text-background"/>
+                            <text x="69.72" class="hierarchy-text">
+                                <tspan x="69.72" dy="53.7">CSRM</tspan>
+                                <tspan x="69.72" dy="2">-ESR-08</tspan>
+                            </text>
                         </g>
                     </a>
                     <a href="#" data-folder="CHEM-CSRM-ESR-09" target="_blank" tabindex="0" aria-label="CSRM-ESR-09" role="button" class="pdf-link">
                         <g>
                             <g clip-path="url(#clip-csrm-09)">
-                                <image x="69.72" y="49.85" width="14.56" height="10.2" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_welcometorapture/ESR_09_Team_Glaciers/Gallery/ESR_09_overview.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="81.22" y="49.325" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_welcometorapture/ESR_09_Team_Glaciers/Gallery/ESR_09_overview.PNG" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="69.72,54.95 77,49.85 84.28,54.95 77,60.05" class="hierarchy-node csrm"/>
-                            <text x="77" y="54.95" class="hierarchy-text">CSRM-ESR-09</text>
+                            <polygon points="81.22,54.95 89.22,49.325 97.22,54.95 89.22,60.575" class="hierarchy-node csrm"/>
+                            <polygon points="81.22,54.95 89.22,49.325 97.22,54.95 89.22,60.575" class="text-background"/>
+                            <text x="89.22" class="hierarchy-text">
+                                <tspan x="89.22" dy="53.7">CSRM</tspan>
+                                <tspan x="89.22" dy="2">-ESR-09</tspan>
+                            </text>
                         </g>
                     </a>
-                    <!-- GSRM Node -->
+                    <!-- GSRM Node (with background image) -->
                     <a href="#" data-folder="CHEM-GSRM-ESR-1" target="_blank" tabindex="0" aria-label="GSRM-ESR-1" role="button" class="pdf-link">
-                        <rect x="44.9" y="68" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="50" y="73.1" class="hierarchy-text">GSRM-ESR-1</text>
+                        <g>
+                            <g clip-path="url(#clip-gsrm)">
+                                <image x="40.829" y="68" width="12.342" height="12.342" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="40.829" y="68" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="40.829" y="68" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="47" class="hierarchy-text">
+                                <tspan x="47" dy="72.671">GSRM</tspan>
+                                <tspan x="47" dy="2.5">-ESR-1</tspan>
+                            </text>
+                        </g>
                     </a>
-                    <!-- STND Nodes -->
+                    <!-- STND Nodes (with background image) -->
+                    <a href="#" data-folder="CHEM-STND-001" target="_blank" tabindex="0" aria-label="STND-001" role="button" class="pdf-link">
+                        <g>
+                            <g clip-path="url(#clip-stnd-001)">
+                                <image x="0.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="0.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="0.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="7" class="hierarchy-text">
+                                <tspan x="7" dy="90.811">STND</tspan>
+                                <tspan x="7" dy="2.5">-001</tspan>
+                            </text>
+                        </g>
+                    </a>
                     <a href="#" data-folder="CHEM-STND-002" target="_blank" tabindex="0" aria-label="STND-002" role="button" class="pdf-link">
-                        <rect x="24.9" y="90" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="30" y="95.1" class="hierarchy-text">STND-002</text>
+                        <g>
+                            <g clip-path="url(#clip-stnd-002)">
+                                <image x="20.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="20.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="20.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="27" class="hierarchy-text">
+                                <tspan x="27" dy="90.811">STND</tspan>
+                                <tspan x="27" dy="2.5">-002</tspan>
+                            </text>
+                        </g>
                     </a>
                     <a href="#" data-folder="CHEM-STND-003" target="_blank" tabindex="0" aria-label="STND-003" role="button" class="pdf-link">
-                        <rect x="44.9" y="90" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="50" y="95.1" class="hierarchy-text">STND-003</text>
+                        <g>
+                            <g clip-path="url(#clip-stnd-003)">
+                                <image x="40.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="40.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="40.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="47" class="hierarchy-text">
+                                <tspan x="47" dy="90.811">STND</tspan>
+                                <tspan x="47" dy="2.5">-003</tspan>
+                            </text>
+                        </g>
                     </a>
                     <a href="#" data-folder="CHEM-STND-004" target="_blank" tabindex="0" aria-label="STND-004" role="button" class="pdf-link">
-                        <rect x="64.9" y="90" width="10.2" height="10.2" class="hierarchy-node" fill="rgb(255, 255, 251)"/>
-                        <text x="70" y="95.1" class="hierarchy-text">STND-004</text>
+                        <g>
+                            <g clip-path="url(#clip-stnd-004)">
+                                <image x="60.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="60.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="60.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
+                            <text x="67" class="hierarchy-text">
+                                <tspan x="67" dy="90.811">STND</tspan>
+                                <tspan x="67" dy="2.5">-004</tspan>
+                            </text>
+                        </g>
                     </a>
-                    <!-- Connecting Lines -->
-                    <!-- HDBK to Second Row -->
-                    <line x1="50" y1="12.2" x2="50" y2="17" class="hierarchy-arrow"/>
-                    <line x1="11" y1="17" x2="81" y2="17" class="hierarchy-line"/>
-                    <line x1="11" y1="17" x2="11" y2="22" class="hierarchy-arrow"/>
-                    <line x1="25" y1="17" x2="25" y2="22" class="hierarchy-arrow"/>
-                    <line x1="39" y1="17" x2="39" y2="22" class="hierarchy-arrow"/>
-                    <line x1="53" y1="17" x2="53" y2="22" class="hierarchy-arrow"/>
-                    <line x1="67" y1="17" x2="67" y2="22" class="hierarchy-arrow"/>
-                    <line x1="81" y1="17" x2="81" y2="22" class="hierarchy-arrow"/>
-                    <!-- PSRM to CSRM -->
-                    <line x1="81" y1="32.2" x2="81" y2="37" class="hierarchy-arrow"/>
-                    <line x1="11" y1="37" x2="87" y2="37" class="hierarchy-line"/>
-                    <!-- To First Row CSRM -->
-                    <line x1="11" y1="37" x2="11" y2="39.45" class="hierarchy-arrow"/>
-                    <line x1="30" y1="37" x2="30" y2="39.45" class="hierarchy-arrow"/>
-                    <line x1="49" y1="37" x2="49" y2="39.45" class="hierarchy-arrow"/>
-                    <line x1="68" y1="37" x2="68" y2="39.45" class="hierarchy-arrow"/>
-                    <line x1="87" y1="37" x2="87" y2="39.45" class="hierarchy-arrow"/>
-                    <!-- To Second Row CSRM -->
-                    <line x1="20" y1="37" x2="20" y2="49.85" class="hierarchy-arrow"/>
-                    <line x1="39" y1="37" x2="39" y2="49.85" class="hierarchy-arrow"/>
-                    <line x1="58" y1="37" x2="58" y2="49.85" class="hierarchy-arrow"/>
-                    <line x1="77" y1="37" x2="77" y2="49.85" class="hierarchy-arrow"/>
-                    <!-- CSRM to GSRM -->
-                    <line x1="11" y1="49.65" x2="11" y2="63" class="hierarchy-arrow"/>
-                    <line x1="30" y1="49.65" x2="30" y2="63" class="hierarchy-arrow"/>
-                    <line x1="49" y1="49.65" x2="49" y2="63" class="hierarchy-arrow"/>
-                    <line x1="68" y1="49.65" x2="68" y2="63" class="hierarchy-arrow"/>
-                    <line x1="87" y1="49.65" x2="87" y2="63" class="hierarchy-arrow"/>
-                    <line x1="20" y1="60.05" x2="20" y2="63" class="hierarchy-arrow"/>
-                    <line x1="39" y1="60.05" x2="39" y2="63" class="hierarchy-arrow"/>
-                    <line x1="58" y1="60.05" x2="58" y2="63" class="hierarchy-arrow"/>
-                    <line x1="77" y1="60.05" x2="77" y2="63" class="hierarchy-arrow"/>
-                    <line x1="11" y1="63" x2="87" y2="63" class="hierarchy-line"/>
-                    <line x1="50" y1="63" x2="50" y2="68" class="hierarchy-arrow"/>
-                    <!-- GSRM to STND -->
-                    <line x1="50" y1="78.2" x2="50" y2="85" class="hierarchy-arrow"/>
-                    <line x1="30" y1="85" x2="70" y2="85" class="hierarchy-line"/>
-                    <line x1="30" y1="85" x2="30" y2="90" class="hierarchy-arrow"/>
-                    <line x1="50" y1="85" x2="50" y2="90" class="hierarchy-arrow"/>
-                    <line x1="70" y1="85" x2="70" y2="90" class="hierarchy-arrow"/>
+                    <!-- Connecting Lines (unchanged) -->
+                    <line x1="45.5" y1="14.342" x2="45.5" y2="18" class="hierarchy-arrow"/>
+                    <line x1="8" y1="18" x2="83" y2="18" class="hierarchy-line"/>
+                    <line x1="8" y1="18" x2="8" y2="22" class="hierarchy-arrow"/>
+                    <line x1="23" y1="18" x2="23" y2="22" class="hierarchy-arrow"/>
+                    <line x1="38" y1="18" x2="38" y2="22" class="hierarchy-arrow"/>
+                    <line x1="53" y1="18" x2="53" y2="22" class="hierarchy-arrow"/>
+                    <line x1="68" y1="18" x2="68" y2="22" class="hierarchy-arrow"/>
+                    <line x1="83" y1="18" x2="83" y2="22" class="hierarchy-arrow"/>
+                    <line x1="8" y1="34.342" x2="8" y2="38" class="hierarchy-arrow"/>
+                    <line x1="8" y1="38" x2="99.22" y2="38" class="hierarchy-line"/>
+                    <line x1="21.22" y1="38" x2="21.22" y2="40.425" class="hierarchy-arrow"/>
+                    <line x1="40.72" y1="38" x2="40.72" y2="40.425" class="hierarchy-arrow"/>
+                    <line x1="60.22" y1="38" x2="60.22" y2="40.425" class="hierarchy-arrow"/>
+                    <line x1="79.72" y1="38" x2="79.72" y2="40.425" class="hierarchy-arrow"/>
+                    <line x1="99.22" y1="38" x2="99.22" y2="40.425" class="hierarchy-arrow"/>
+                    <line x1="30.72" y1="38" x2="30.72" y2="49.325" class="hierarchy-arrow"/>
+                    <line x1="50.22" y1="38" x2="50.22" y2="49.325" class="hierarchy-arrow"/>
+                    <line x1="69.72" y1="38" x2="69.72" y2="49.325" class="hierarchy-arrow"/>
+                    <line x1="89.22" y1="38" x2="89.22" y2="49.325" class="hierarchy-arrow"/>
+                    <line x1="21.22" y1="51.645" x2="21.22" y2="63" class="hierarchy-arrow"/>
+                    <line x1="40.72" y1="51.645" x2="40.72" y2="63" class="hierarchy-arrow"/>
+                    <line x1="60.22" y1="51.645" x2="60.22" y2="63" class="hierarchy-arrow"/>
+                    <line x1="79.72" y1="51.645" x2="79.72" y2="63" class="hierarchy-arrow"/>
+                    <line x1="99.22" y1="51.645" x2="99.22" y2="63" class="hierarchy-arrow"/>
+                    <line x1="30.72" y1="60.575" x2="30.72" y2="63" class="hierarchy-arrow"/>
+                    <line x1="50.22" y1="60.575" x2="50.22" y2="63" class="hierarchy-arrow"/>
+                    <line x1="69.72" y1="60.575" x2="69.72" y2="63" class="hierarchy-arrow"/>
+                    <line x1="89.22" y1="60.575" x2="89.22" y2="63" class="hierarchy-arrow"/>
+                    <line x1="21.22" y1="63" x2="99.22" y2="63" class="hierarchy-line"/>
+                    <line x1="47" y1="63" x2="47" y2="68" class="hierarchy-arrow"/>
+                    <line x1="47" y1="80.342" x2="47" y2="83.24" class="hierarchy-arrow"/>
+                    <line x1="27" y1="83.24" x2="67" y2="83.24" class="hierarchy-line"/>
+                    <line x1="27" y1="83.24" x2="27" y2="86.14" class="hierarchy-arrow"/>
+                    <line x1="47" y1="83.24" x2="47" y2="86.14" class="hierarchy-arrow"/>
+                    <line x1="67" y1="83.24" x2="67" y2="86.14" class="hierarchy-arrow"/>
+                    <line x1="8" y1="34.342" x2="8" y2="38" class="hierarchy-arrow"/>
+                    <line x1="8" y1="38" x2="7" y2="38" class="hierarchy-line"/>
+                    <line x1="7" y1="38" x2="7" y2="86.14" class="hierarchy-arrow"/>
                 </svg>
             </div>
         </div>
@@ -1022,7 +1225,7 @@
                                 const pdfUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${folder}/${pdfFile.name}`;
                                 window.open(pdfUrl, '_blank');
                             } else {
-                                window.open(fallbackUrl, '_Forgotten');
+                                window.open(fallbackUrl, '_blank');
                             }
                         } catch (error) {
                             console.error('Error fetching PDF:', error);

@@ -2,6 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!--
+    RedirectLatest.html
+    -------------------
+    Purpose:
+      Redirects to the “latest” PDF in a subfolder whose name matches the
+      ?file=PREFIX query‐parameter.  Fits inside the
+      Alchemy-AOE-Community.github.io Pages site.
+
+    Usage (for Writer/PDF links):
+      https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=PREFIX
+
+    Example:
+      To point at the latest CHEM-HDBK-L2 file, use
+         https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-HDBK-L2
+
+    Notes:
+      • PREFIX must exactly match the subfolder name under
+        CHEM-Published-Specifications (branch download-to-click-links).
+      • The script will fetch GitHub’s API, sort names, and auto-redirect
+        clients to the raw.githubusercontent.com URL of the newest file.
+  -->
+
   <title>Redirecting to latest PDF…</title>
   <script>
   (async()=>{
