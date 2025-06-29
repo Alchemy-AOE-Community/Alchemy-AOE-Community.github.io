@@ -1,0 +1,246 @@
+html { 
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    color: black;
+    background-image: 
+        url('../images/MapCrest.png'),
+        url('../images/MapCrest.png');
+    background-size: 160px 138.56px;
+    background-position: 
+        center,
+        calc(50% + 80px) calc(50% + 69.28px);
+    background-repeat: repeat;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 2px solid #666;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.main-content.grid-home {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto); 
+    gap: 1rem;
+}
+
+.main-content.grid-seasons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto); 
+    gap: 1rem;
+}
+
+.nav-group {
+    border: 2px solid #666;
+    border-radius: 1rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    background-color: rgba(255,255,255,0.9);
+
+    background-blend-mode: lighten;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nav-group .nav-group__title {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+
+.nav-group .nav-group__title h2 {
+    margin: 0;
+    padding: 1rem 0.5rem;
+}
+
+.nav-group__image {
+    background-blend-mode: initial;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-group__image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.nav-group .nav-group__content {
+    font-size: 1rem;
+    text-align: justify;
+    padding: 1rem;
+    display: grid;
+    gap: 1rem
+}
+
+.nav-group .nav-group__content table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.nav-group .nav-group__content table td {
+    border: 1px solid #000;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1rem;
+    white-space: normal;
+    word-wrap: break-word;
+    padding: 0.25em;
+    font-size: 0.75rem;
+}
+
+.nav-group .nav-group__content a {
+    display: block;
+    width: 75%;
+    padding: 1rem;
+    text-decoration: none;
+    border-radius: 1rem;
+    text-align: center;
+    margin: 0.5rem auto;
+    font-size: 1rem;
+    border: 1px solid #777;
+    line-height: 1.5rem;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.nav-group .nav-group__content a:hover, .nav-group .nav-group__content a:focus {
+    background-color: rgba(240, 240, 240, 0.6);
+    outline: 2px solid #333;
+}
+
+.nav-group.maps {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Image_Maps.jpg'); }
+.nav-group.docs {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Image_Documents.jpg'); }
+.nav-group.refs {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Image_OutsideRefs.jpg'); }
+.nav-group.seasons {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Season_Mashup.jpg'); }
+
+.nav-group.about { grid-area: 1 / 1 / 2 / 2; }
+.nav-group.mission { grid-area: 1 / 2 / 2 / 3; }
+.nav-group.maps {  grid-area: 1 / 3 / 2 / 4; }
+.nav-group.people { grid-area: 1 / 4 / 2 / 5; }
+.nav-group.docs { grid-area: 2 / 1 / 3 / 2; }
+.nav-group.refs { grid-area: 2 / 2 / 3 / 3;  }
+.nav-group.seasons { grid-area: 2 / 3 / 3 / 5;  }
+
+.nav-group.seasons a {
+    display: flex;
+    background-size: 100% 100%;
+    min-height: 140px;
+    aspect-ratio: 1 / 1;
+
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    
+    align-items: center; 
+    justify-content: center; 
+    justify-items: center; 
+
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 0px 0px 4px #000;
+}
+
+.nav-group.seasons > .nav-group__content {
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem; 
+    padding: 2rem;
+    margin: 0;
+
+}
+
+.nav-group.seasons a:nth-child(1) { background-image: url('../images/ALS1_Banner.png'); }
+.nav-group.seasons a:nth-child(2) { background-image: url('../images/ALS2_Banner.png'); }
+.nav-group.seasons a:nth-child(3) { background-image: url('../images/ALS3_Banner.png'); }
+.nav-group.seasons a:nth-child(4) { background-image: url('../images/ALS4_Banner.png'); }
+.nav-group.seasons a:nth-child(5) { background-image: url('../images/ALS5_Banner.jpg'); }
+.nav-group.seasons a:nth-child(6) { background-image: url('../images/ALS6_Banner.jpg'); }
+.nav-group.seasons a:nth-child(7) { background-image: url('../images/ALS7_Banner.jpg'); }
+.nav-group.seasons a:nth-child(8) { background-image: url('../images/ALS8_Banner.jpg'); }
+
+.content-notes {
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.content-notes .content-notes__title {
+    text-align: center;
+    border-bottom: 1px solid #000;
+    margin: 0;
+    padding: 0;
+}
+
+.content-notes .content-notes__content {
+    padding: 1rem;
+}
+
+footer {
+    margin-top: 1rem;
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 2px solid #666;
+}
+
+footer a {
+    text-decoration: none;
+    margin: 0 0.5em;
+}
+footer a:hover, footer a:focus {
+    color: black;
+} 
+
+.home-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 3rem;
+    height: 3rem;
+    background-image: url('../images/home.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+}
+.home-button:hover {
+    opacity: 0.8;
+}
+.home-button:hover::after {
+    content: "HOME";
+    font-size: 0.75rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2px 4px;
+}

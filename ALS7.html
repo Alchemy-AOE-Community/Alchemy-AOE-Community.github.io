@@ -6,398 +6,10 @@
     <meta name="description" content="Join the Alchemy AOE Community for Age of Empires map resources, competitions, and more.">
     <meta name="keywords" content="Age of Empires, AOE, community, maps, competitions">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="preload" href="images/ALS0_Banner.jpg" as="image">
     <title>Season 7 -- Alchemy League</title>
-    <style>
-        :root {
-            --base-padding: 0.4em;
-            --slight-shift: 0.1em;
-            --button-size: 48px;
-            --gap: 0.6em;
-            --header-height: 3.84em;
-            --footer-height: 2em;
-            --box-gap: 1%;
-            --category-banner-height: 2.5em;
-            --subcategory-banner-height: 1.8em;
-            --subcategory-gap: 0.2em;
-        }
+    <link rel="stylesheet" href="style/style.css" />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            color: black;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-image: 
-                url('images/MapCrest.png'),
-                url('images/MapCrest.png');
-            background-size: 160px 138.56px;
-            background-position: 
-                center,
-                calc(50% + 80px) calc(50% + 69.28px);
-            background-repeat: repeat;
-            background-color: #f4f4f4;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            position: relative;
-        }
-        header {
-            background-color: rgba(255, 255, 255, 0.75);
-            padding: var(--base-padding) 0 var(--base-padding) var(--base-padding);
-            text-align: center;
-            border-bottom: 2px solid #666;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: calc(var(--button-size) + 2 * var(--base-padding) + 4px);
-            flex-shrink: 0;
-        }
-        header .header-content {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        header h1 {
-            font-size: 2.2em;
-            margin: 0 0.5em;
-            display: inline-block;
-            max-width: calc(100% - 2 * (var(--button-size) + 1em));
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .home-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: calc(var(--base-padding) + var(--slight-shift));
-            width: var(--button-size);
-            height: var(--button-size);
-            background-image: url('images/home.jpg');
-            background-size: cover;
-            background-position: center;
-            border: 2px solid black;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 0;
-            font-size: 0;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-        .home-button:hover {
-            opacity: 0.8;
-        }
-        .home-button:hover::after {
-            content: "HOME";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14px;
-            color: white;
-            text-shadow: 1px 1px 2px black;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 2px 6px;
-            border-radius: 3px;
-        }
-        .nav-button-container {
-            display: flex;
-            gap: 0.5em;
-            align-items: center;
-        }
-        .nav-button {
-            width: var(--button-size);
-            height: 48px;
-            background-size: cover;
-            border: 2px solid black;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-        }
-        .nav-button.left {
-            background-image: url('images/Left_Arrow.jpg');
-        }
-        .nav-button.right {
-            background-image: url('images/Right_Arrow.jpg');
-        }
-        .nav-button:hover {
-            opacity: 0.8;
-        }
-        .nav-button:hover::after {
-            content: attr(data-label);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14px;
-            color: white;
-            text-shadow: 1px 1px 2px black;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 2px 6px;
-            border-radius: 3px;
-        }
-        .main-content {
-            flex: 1 0 auto;
-            position: relative;
-            padding: var(--base-padding);
-            background-color: transparent;
-        }
-        .image-box, .nav-group {
-            position: absolute;
-            border: 2px solid #000;
-            border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-            background-color: #ffffff;
-        }
-        .image-box {
-            left: 1%;
-            width: 27%;
-            top: 1%;
-            height: 39.6%;
-            background-image: url('images/fallback_banner.jpg');
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            padding: var(--base-padding);
-        }
-        .nav-group.summary {
-            left: 29%;
-            width: 27%;
-            top: 1%;
-            height: 39.6%;
-            padding: var(--base-padding);
-        }
-        .nav-group.definitions {
-            left: 57%;
-            width: 42%;
-            top: 1%;
-            height: 74%;
-            padding: var(--base-padding);
-        }
-        .nav-group.sprint1, .nav-group.sprint2 {
-            padding: var(--base-padding) var(--base-padding) 0 var(--base-padding);
-        }
-        .nav-group.sprint1 {
-            left: 1%;
-            width: 27%;
-            top: 41.6%;
-            height: 57.4%;
-        }
-        .nav-group.sprint2 {
-            left: 29%;
-            width: 27%;
-            top: 41.6%;
-            height: 57.4%;
-        }
-        .nav-group.map-information {
-            left: 57%;
-            width: 42%;
-            top: 76%;
-            height: 23%;
-            display: flex;
-            flex-direction: column;
-            padding: var(--base-padding);
-        }
-        .nav-group .title-bar {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            width: calc(100% - 4px);
-            height: var(--category-banner-height);
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 6px 6px 0 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            border-bottom: 1px solid #000;
-        }
-        .nav-group h3 {
-            font-size: 1.4em;
-            text-align: center;
-            line-height: var(--category-banner-height);
-            margin: 0;
-            padding: 0;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        }
-        .nav-group .content {
-            margin-top: calc(var(--category-banner-height) + var(--base-padding));
-            height: calc(100% - var(--category-banner-height) - var(--base-padding));
-            overflow: auto;
-            padding: 0;
-        }
-        .nav-group.sprint1 .content p, .nav-group.sprint2 .content p {
-            font-size: 0.9em;
-            text-align: justify;
-        }
-        .nav-group.summary .content p {
-            font-size: 0.9em;
-            text-align: center;
-        }
-        .subcategory-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1.5fr;
-            height: 100%;
-            box-sizing: border-box;
-        }
-        .subcategory-box {
-            border: 2px solid #000;
-            border-radius: 8px;
-            padding: 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            background-color: #ffffff;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            margin: var(--subcategory-gap);
-            min-height: 8em;
-        }
-        .subcategory-box.notes {
-            grid-row: 1;
-            grid-column: 1;
-        }
-        .subcategory-box.resources {
-            grid-row: 1;
-            grid-column: 2;
-        }
-        .subcategory-box.results {
-            grid-row: 2;
-            grid-column: 1 / 3;
-        }
-        .subcategory-box .title-bar {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            width: calc(100% - 4px);
-            height: var(--subcategory-banner-height);
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 6px 6px 0 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            border-bottom: 1px solid #000;
-        }
-        .subcategory-box h4 {
-            font-size: 1.1em;
-            text-align: center;
-            line-height: var(--subcategory-banner-height);
-            margin: 0;
-            padding: 0;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        }
-        .subcategory-box .content {
-            margin-top: calc(var(--subcategory-banner-height) + var(--subcategory-gap));
-            flex: 1;
-            overflow: auto;
-            padding: var(--subcategory-gap);
-        }
-        .subcategory-box p {
-            font-size: 0.8em;
-            text-align: justify;
-            margin: 0;
-        }
-        .button-container {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .resources-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(3, auto);
-            gap: 10px;
-            width: 100%;
-            height: 100%;
-        }
-        .resources-buttons a {
-            width: 100%;
-            height: auto;
-            padding: 0.1em;
-            border: 2px solid black;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.9);
-            cursor: pointer;
-            text-align: center;
-            font-size: 0.8em;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .resources-buttons a:hover {
-            opacity: 0.8;
-        }
-        .nav-group.map-information .quicklinks-table {
-            width: 98%;
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-        .nav-group.map-information .quicklinks-table tr:first-child {
-            height: 30%;
-        }
-        .nav-group.map-information .quicklinks-table tr:last-child {
-            height: 70%;
-        }
-        .nav-group.map-information .quicklinks-table td {
-            width: 11.11%;
-            border: 1px solid #000;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 0.8em;
-            white-space: normal;
-            word-wrap: break-word;
-            padding: 0.2em;
-        }
-        .nav-group.map-information .quicklinks-buttons {
-            display: flex;
-            flex-direction: row;
-            gap: 0.3em;
-            margin: 0.3em;
-            align-items: stretch;
-            padding: 0.3em;
-        }
-        .quicklinks-buttons a {
-            flex: 1;
-            font-size: 0.8em;
-            padding: 0.2em;
-            border: 2px solid black;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 251, 0.9);
-            cursor: pointer;
-            text-align: center;
-            white-space: normal;
-            word-wrap: break-word;
-            line-height: 1.2;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .quicklinks-buttons a:hover {
-            opacity: 0.8;
-        }
-        .hierarchy-svg {
-            width: 100%;
-            height: calc(100% - var(--category-banner-height));
-            position: relative;
-            z-index: 2;
-        }
+    <style>
         .hierarchy-node {
             fill: none;
             stroke: #000;
@@ -427,10 +39,6 @@
             opacity: 0;
             transition: opacity 0.2s ease;
         }
-        .pdf-link:hover .hierarchy-text,
-        .pdf-link:hover .text-background {
-            opacity: 1;
-        }
         .hierarchy-arrow {
             stroke: #000;
             stroke-width: 0.25;
@@ -440,189 +48,192 @@
             stroke: #000;
             stroke-width: 0.25;
         }
-        footer {
-            background-color: rgba(255, 255, 251, 0.75);
-            border-top: 2px solid #666;
-            flex-shrink: 0;
-            z-index: 1;
-            height: var(--footer-height);
+
+        .image-box, .nav-group {
+            position: static;
+            width: calc(100% - 2 * var(--base-padding));
+            height: auto;
+            min-height: 100px;
+        }
+        .image-box {
+            height: 46.4px;
+            background-size: 100% 100%;
+            background-position: center;
             padding: var(--base-padding);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
         }
-        footer p {
-            margin: 0;
-            color: black;
-            line-height: 1.5;
-            font-size: 0.9em;
-            text-align: center;
+        .hierarchy-svg {
+            height: auto;
+            width: auto;
+            transform: scale(0.9);
         }
-        footer a {
-            text-decoration: none;
-            margin: 0 0.5em;
+        .hierarchy-node {
+            rx: 2;
+            ry: 2;
+            stroke-width: 0.5;
         }
-        footer a:hover, footer a:focus {
-            color: black;
+        .hierarchy-text {
+            font-size: 14%;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
-        @media (max-width: 768px) {
-            .main-content {
-                position: static;
-                display: flex;
-                flex-direction: column;
-                gap: var(--gap);
-            }
-            .image-box, .nav-group {
-                position: static;
-                width: calc(100% - 2 * var(--base-padding));
-                height: auto;
-                min-height: 100px;
-            }
-            .image-box {
-                height: 46.4px;
-                background-size: 100% 100%;
-                background-position: center;
-                padding: var(--base-padding);
-            }
-            .nav-group.summary, .nav-group.definitions, .nav-group.map-information {
-                padding: var(--base-padding);
-            }
-            .nav-group.sprint1, .nav-group.sprint2 {
-                padding: var(--base-padding) var(--base-padding) 0 var(--base-padding);
-            }
-            .nav-group .content {
-                margin-top: var(--category-banner-height);
-                height: auto;
-                overflow: visible;
-                padding: 0;
-            }
-            .subcategory-grid {
-                display: flex;
-                flex-direction: column;
-                gap: var(--subcategory-gap);
-                height: auto;
-                padding-bottom: var(--subcategory-gap);
-            }
-            .subcategory-box {
-                height: auto;
-                min-height: 8em;
-                padding: 0;
-                margin: var(--subcategory-gap);
-            }
-            .subcategory-box .content {
-                margin-top: var(--subcategory-banner-height);
-                height: auto;
-                overflow: visible;
-                padding: var(--subcategory-gap);
-            }
-            .subcategory-box.resources {
-                display: block;
-            }
-            .subcategory-box p {
-                font-size: 0.7em;
-            }
-            .button-container {
-                height: auto;
-                display: block;
-            }
-            .resources-buttons {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(3, auto);
-                gap: 5px;
-                height: auto;
-            }
-            .resources-buttons a {
-                font-size: 0.7em;
-                width: 100%;
-                height: auto;
-                padding: 0.1em;
-            }
-            .nav-group.map-information {
-                display: block;
-            }
-            .nav-group.map-information .quicklinks-table {
-                width: 98%;
-                height: auto;
-                margin-bottom: 0.3em;
-            }
-            .nav-group.map-information .quicklinks-table tr:first-child {
-                height: 20px;
-            }
-            .nav-group.map-information .quicklinks-table tr:last-child {
-                height: auto;
-            }
-            .nav-group.map-information .quicklinks-table td {
-                font-size: 0.7em;
-                padding: 0.1em;
-            }
-            .nav-group.map-information .quicklinks-buttons {
-                flex-direction: column;
-                gap: 0.3em;
-                margin: 0.3em;
-                height: auto;
-                padding: 0;
-            }
-            .quicklinks-buttons a {
-                font-size: 0.7em;
-                padding: 0.15em;
-                height: 20px;
-                line-height: 1.1;
-            }
-            .hierarchy-svg {
-                height: auto;
-                transform: scale(0.7);
-                transform-origin: top left;
-            }
-            .hierarchy-node {
-                rx: 2;
-                ry: 2;
-                stroke-width: 0.5;
-            }
-            .hierarchy-text {
-                font-size: 14%;
-                font-weight: bold;
-                opacity: 0;
-                transition: opacity 0.2s ease;
-            }
-            .text-background {
-                opacity: 0;
-                transition: opacity 0.2s ease;
-            }
-            .pdf-link:hover .hierarchy-text,
-            .pdf-link:hover .text-background {
-                opacity: 1;
-            }
-            .hierarchy-arrow, .hierarchy-line {
-                stroke-width: 1;
-            }
+        .text-background {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .pdf-link:hover .hierarchy-text,
+        .pdf-link:hover .text-background {
+            opacity: 1;
+        }
+        .hierarchy-arrow, .hierarchy-line {
+            stroke-width: 1;
         }
     </style>
 </head>
 <body>
     <header>
-        <button class="home-button" aria-label="Go to homepage" onclick="window.location.href='index.html'"></button>
+        <a href="index.html" class="home-button" aria-label="Go to homepage"></a>
         <div class="header-content">
-            <div class="nav-button-container" id="left-nav"></div>
-            <h1>ALCHEMY LEAGUE SEASON</h1>
-            <div class="nav-button-container" id="right-nav"></div>
+            <h1>ALCHEMY LEAGUE SEASON 7</h1>
         </div>
     </header>
 
-    <div class="main-content">
-        <div class="image-box" aria-label="Season Banner" role="img" id="season-banner"></div>
+    <div class="main-content grid-seasons">
+        <div class="nav-group" aria-label="Season Banner" role="img">
+            <div class="nav-group__image">
+                <img src="images/ALS7_Banner.jpg" alt="season banner" />
+            </div>
+
+        </div>
+
         <div class="nav-group summary" aria-label="Summary section" role="region">
-            <div class="title-bar"><h3>SUMMARY</h3></div>
-            <div class="content">
-                <p>Civilization Draft: <a href="https://aoe2cm.net/preset/EjvqT" target="_blank">https://aoe2cm.net/preset/EjvqT</a></p>
-                <p></p>
-                <p></p>
+            <div class="nav-group__title">
+                <h2>Drafts</h2>
+            </div>
+            <div class="nav-group__content">
+                <a href="https://aoe2cm.net/preset/EjvqT" target="_blank">Civilization draft</a>
+                <a href="https://aoe2cm.net/preset/nOxHA" target="_blank">Map draft</a>
             </div>
         </div>
+
+        <div class="nav-group map-information" aria-label="Map Information section" role="region">
+            <div class="nav-group__title">
+                <h2>Map Information</h2>
+            </div>
+            <div class="nav-group__content">
+                <table>
+                    <tr>
+                        <td>Round</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Featured Map</td>
+                        <td>ESR_02 "Graveyards"</td>
+                        <td>ESR_09 "Team_Glaciers"</td>
+                        <td>ESR_03 "Moats"</td>
+                        <td>ESR_08 "Shipwreck"</td>
+                        <td>ESR_04 "Paradise_Island"</td>
+                        <td>ESR_06 "Seasons"</td>
+                        <td>ESR_05 "Prairie"</td>
+                        <td>ESR_01 "Canals"</td>
+                    </tr>
+                    <tr>
+                        <td>Creator</td>
+                        <td>Jasouki</td>
+                        <td>welcometorapture</td>
+                        <td>Zetnus</td>
+                        <td>TechChariot</td>
+                        <td>Magico</td>
+                        <td>Biscuits</td>
+                        <td>TechChariot</td>
+                        <td>Zetnus</td>
+                    </tr>
+                </table>
+                <div class="quicklinks-buttons">
+                    <a href="ALS7_Resources/Map_Contest.ods" target="_blank" role="button" aria-label="Contest">Contest</a>
+                    <a href="https://aoe2cm.net/preset/nOxHA" target="_blank" role="button" aria-label="Draft">Draft</a>
+                    <a href="ALS7_Resources/Map_Archive.zip" target="_blank" role="button" aria-label="Archive">Archive</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-group sprint1" aria-label="Sprint 1 section" role="region">
+            <div class="nav-group__title">
+                <h2>Sprint 1</h2>
+            </div>
+            <div class="nav-group__content">
+                <div class="content-notes">
+                    <div class="content-notes__title">
+                        <h3>Resources</h3>
+                    </div>
+                    <div class="content-notes__content">
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Registration.ods" target="_blank" download>Registration</a> 
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Summary.ods" target="_blank" download>Seeding Summary</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Apparent.ods" target="_blank" download>Seeding Apparent</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Full.ods" target="_blank" download>Seeding Full</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Round_by_Round.ods" target="_blank" download>Roundwise</a>
+                        <a href="https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w" target="_blank">Live Scoreboard</a>
+                    </div>
+                </div>
+                <div class="content-notes">
+                    <div class="content-notes__title">
+                        <h3>Notes</h3>
+                    </div>
+                    <div class="content-notes__content">
+                        <p>Participant "cerasito" lacked minimum required games to register (84/100). Exception granted due to being close to target with normal win rate. Player may compete for prize.</p>
+                    </div>
+                </div>
+                <div class="content-notes">
+                    <div class="content-notes__title">
+                        <h3>Results</h3>
+                    </div>
+                    <div class="content-notes__content">
+                        TBA
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-group sprint2" aria-label="Sprint 2 section" role="region">
+            <div class="nav-group__title"><h2>Sprint 2</h2></div>
+            <div class="nav-group__content">
+                <div class="content-notes">
+                    <div class="content-notes__title">
+                        <h3>Resources</h3>
+                    </div>
+                    <div class="content-notes__content">
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Registration.ods" target="_blank" download>Registration</a> 
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Summary.ods" target="_blank" download>Seeding Summary</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Apparent.ods" target="_blank" download>Seeding Apparent</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Full.ods" target="_blank" download>Seeding Full</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Round_by_Round.ods" target="_blank" download>Roundwise</a>
+                        <a href="#" target="_blank">Live Scoreboard</a>
+                    </div>
+                </div>
+                <div class="content-notes">
+                    <div class="content-notes__title">
+                        <h3>Results</h3>
+                    </div>
+                    <div class="content-notes__content">
+                        TBA
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
         <div class="nav-group definitions" aria-label="Definitions section" role="region">
-            <div class="title-bar"><h3>DEFINITIONS</h3></div>
-            <div class="content">
-                <svg class="hierarchy-svg" viewBox="0 0 100 100" role="img" aria-labelledby="hierarchy-title hierarchy-desc" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <div class="nav-group__title">
+                <h2>Definitions</h2>
+            </div>
+            <div class="nav-group__content">
+                <svg class="hierarchy-svg" viewBox="0 0 100 100" role="img" width="100%" aria-labelledby="hierarchy-title hierarchy-desc" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                     <title id="hierarchy-title">Alchemy League Definitions Hierarchy</title>
                     <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK at the top, centered, connected downward to PSRM-ESR-1, MTHD-002, MTHD-003, MTHD-004, MTHD-005, and MTHD-006 in a row, with PSRM on the left and MTHD nodes shifted to the right. PSRM connects to CSRM-01 through CSRM-05 in a row and CSRM-06 through CSRM-09 in a staggered row below, all shifted to the right, with a 10.4-unit center-to-center gap and 0.2-unit edge-to-edge gap for a pronounced interlocking appearance. CSRM nodes are rhomboid-shaped with 110-degree obtuse angles at top and bottom and 70-degree acute angles at left and right, oriented with a vertical top-to-bottom axis. All arrows to CSRM nodes point to their top corners. CSRM images are upright (0-degree rotation), with horizontal text split into two lines (first four letters on top, followed by dash and suffix), visible only on hover with a semi-transparent background that fully covers the node (image and text) without intersecting adjacent nodes. HDBK, PSRM, MTHD, GSRM, and STND nodes have background images clipped to rounded rectangles, sourced from images/Handbook.jpg, images/Procurement_Spec.jpg, images/Method.jpg, images/General_Spec.jpg, and images/Standard.jpg respectively. All nodes have text split into two lines (first four letters on top, followed by dash and digits/suffix), visible only on hover with a semi-transparent background. All text in hierarchy nodes is bold. All nodes have a doubled border thickness (stroke-width: 0.5). Non-CSRM nodes (HDBK, PSRM, MTHD, GSRM, STND) have rounded corners with increased radius (rx: 3, ry: 3 in main view; rx: 2, ry: 2 in responsive view) for a near-circular appearance. CSRM nodes retain sharp rhomboid shapes (rx: 0, ry: 0). All CSRM nodes connect to GSRM, which connects to STND-001, STND-002, STND-003, and STND-004 at the bottom, all shifted slightly to the left. PSRM also connects directly to STND-001 with a multi-section arrow that avoids intersecting any nodes.</desc>
                     <defs>
@@ -1016,142 +627,18 @@
                 </svg>
             </div>
         </div>
-        <div class="nav-group sprint1" aria-label="Sprint 1 section" role="region">
-            <div class="title-bar"><h3>SPRINT 1</h3></div>
-            <div class="content">
-                <div class="subcategory-grid">
-                    <div class="subcategory-box notes" aria-label="Sprint 1 Notes section" role="region">
-                        <div class="title-bar"><h4>NOTES</h4></div>
-                        <div class="content">
-                            <p>Participant "cerasito" lacked minimum required games to register (84/100). Exception granted due to being close to target with normal win rate. Player may compete for prize.</p>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="subcategory-box resources" aria-label="Sprint 1 Resources section" role="region">
-                        <div class="title-bar"><h4>RESOURCES</h4></div>
-                        <div class="content">
-                            <div class="button-container">
-                                <div class="resources-buttons">
-                                    <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Registration.ods" target="_blank" download>Registration</a> 
-                                    <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Summary.ods" target="_blank" download>Seeding Summary</a>
-                                    <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Apparent.ods" target="_blank" download>Seeding Apparent</a>
-                                    <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Full.ods" target="_blank" download>Seeding Full</a>
-                                    <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Round_by_Round.ods" target="_blank" download>Roundwise</a>
-                                    <a href="https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w" target="_blank">Live Scoreboard</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subcategory-box results" aria-label="Sprint 1 Results section" role="region">
-                        <div class="title-bar"><h4>RESULTS</h4></div>
-                        <div class="content">
-                            <p></p>
-                            <p>TBD</p>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="nav-group sprint2" aria-label="Sprint 2 section" role="region">
-            <div class="title-bar"><h3>SPRINT 2</h3></div>
-            <div class="content">
-                <div class="subcategory-grid">
-                    <div class="subcategory-box notes" aria-label="Sprint 2 Notes section" role="region">
-                        <div class="title-bar"><h4>NOTES</h4></div>
-                        <div class="content">
-                            <p></p>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="subcategory-box resources" aria-label="Sprint 2 Resources section" role="region">
-                        <div class="title-bar"><h4>RESOURCES</h4></div>
-                        <div class="content">
-                            <div class="button-container">
-                                <div class="resources-buttons">
-                                    <a href="ALS7_Resources/Sprint2/_Registration.ods" target="_blank">Registration</a>
-                                    <a href="ALS7_Resources/Sprint2/_Seeding_Summary.ods" target="_blank">Seeding Summary</a>
-                                    <a href="ALS7_Resources/Sprint2/_Seeding_Apparent.ods" target="_blank">Seeding Apparent</a>
-                                    <a href="ALS7_Resources/Sprint2/_Seeding_Full.ods" target="_blank">Seeding Full</a>
-                                    <a href="ALS7_Resources/Sprint2/_Round_by_Round.ods" target="_blank">Roundwise</a>
-                                    <a href="#" target="_blank">Live Scoreboard</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subcategory-box results" aria-label="Sprint 2 Results section" role="region">
-                        <div class="title-bar"><h4>RESULTS</h4></div>
-                        <div class="content">
-                            <p></p>
-                            <p>TBD</p>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="nav-group map-information" aria-label="Map Information section" role="region">
-            <div class="title-bar"><h3>MAP INFORMATION</h3></div>
-            <div class="content">
-                <table class="quicklinks-table">
-                    <tr>
-                        <td>Round</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>Featured Map</td>
-                        <td>ESR_02 "Graveyards"</td>
-                        <td>ESR_09 "Team_Glaciers"</td>
-                        <td>ESR_03 "Moats"</td>
-                        <td>ESR_08 "Shipwreck"</td>
-                        <td>ESR_04 "Paradise_Island"</td>
-                        <td>ESR_06 "Seasons"</td>
-                        <td>ESR_05 "Prairie"</td>
-                        <td>ESR_01 "Canals"</td>
-                    </tr>
-                    <tr>
-                        <td>Creator</td>
-                        <td>Jasouki</td>
-                        <td>welcometorapture</td>
-                        <td>Zetnus</td>
-                        <td>TechChariot</td>
-                        <td>Magico</td>
-                        <td>Biscuits</td>
-                        <td>TechChariot</td>
-                        <td>Zetnus</td>
-                    </tr>
-                </table>
-                <div class="quicklinks-buttons">
-                    <a href="ALS7_Resources/Map_Contest.ods" target="_blank" role="button" aria-label="Contest">Contest</a>
-                    <a href="https://aoe2cm.net/preset/nOxHA" target="_blank" role="button" aria-label="Draft">Draft</a>
-                    <a href="ALS7_Resources/Map_Archive.zip" target="_blank" role="button" aria-label="Archive">Archive</a>
-                </div>
-            </div>
-        </div>
     </div>
 
     <footer>
-        <p>© 2025 Alchemy AOE Community</p>
+        <p>© 2025 Alchemy AOE Community. All rights reserved. | 
+        <a href="#">Contact</a> | 
+        <a href="#">Privacy</a> | 
+        <a href="https://discord.gg/h9DvzHBNPr" target="_blank" rel="noopener noreferrer">Discord</a></p>
     </footer>
 
     <script>
         window.addEventListener('load', async function() {
             try {
-                const button = document.querySelector('.home-button');
-                const header = document.querySelector('header');
-                const topGap = parseFloat(getComputedStyle(header).paddingTop);
-                const slightShift = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slight-shift'));
-                button.style.top = '50%';
-                button.style.transform = 'translateY(-50%)';
-                button.style.left = `${topGap + slightShift}px`;
-
                 const path = window.location.pathname;
                 let currentSeason;
                 const match = path.match(/ALS(\d+)\.html/i);
@@ -1167,17 +654,6 @@
                 headerTitle.textContent = `ALCHEMY LEAGUE SEASON ${currentSeason}`;
 
                 document.title = `Season ${currentSeason} -- Alchemy League`;
-
-                const banner = document.querySelector('#season-banner');
-                const bannerUrl = `images/ALS${currentSeason}_Banner.jpg`;
-                const img = new Image();
-                img.src = bannerUrl;
-                img.onload = () => {
-                    banner.style.backgroundImage = `url('${bannerUrl}')`;
-                };
-                img.onerror = () => {
-                    banner.style.backgroundImage = `url('images/fallback_banner.jpg')`;
-                };
 
                 const footerText = document.querySelector('footer p');
                 footerText.textContent = `© ${new Date().getFullYear()} Alchemy AOE Community`;
