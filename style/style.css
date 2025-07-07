@@ -11,7 +11,7 @@ body {
     background-image: 
         url('../images/MapCrest.png'),
         url('../images/MapCrest.png');
-    background-size: 160px 138.56px;
+    background-size: 160px 160px;
     background-position: 
         center,
         calc(50% + 80px) calc(50% + 69.28px);
@@ -23,7 +23,7 @@ header {
     background-color: rgba(255, 255, 255, 0.75);
     padding: 1rem;
     text-align: center;
-    border-bottom: 2px solid #666;
+    border-bottom: 2px solid #000000;
     margin-bottom: 1rem;
 }
 
@@ -38,14 +38,6 @@ header h1 {
     margin: 0 auto;
 }
 
-.main-content.grid-home {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, auto); 
-    gap: 1rem;
-}
-
 .main-content.grid-seasons {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -54,22 +46,20 @@ header h1 {
 }
 
 .nav-group {
-    border: 2px solid #666;
-    border-radius: 1rem;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
     background-color: rgba(255,255,255,0.9);
-
     background-blend-mode: lighten;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    border: 2px solid #000000;
+    border-radius: 1rem;
 }
 
 .nav-group .nav-group__title {
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
     background-color: rgba(255, 255, 255, 0.75);
     text-align: center;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     border-bottom: 1px solid #000;
 }
 
@@ -93,9 +83,6 @@ header h1 {
 .nav-group .nav-group__content {
     font-size: 1rem;
     text-align: justify;
-    padding: 1rem;
-    display: grid;
-    gap: 1rem
 }
 
 .nav-group .nav-group__content table {
@@ -109,7 +96,7 @@ header h1 {
     vertical-align: middle;
     font-size: 1rem;
     white-space: normal;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
     padding: 0.25em;
     font-size: 0.75rem;
 }
@@ -123,7 +110,7 @@ header h1 {
     text-align: center;
     margin: 0.5rem auto;
     font-size: 1rem;
-    border: 1px solid #777;
+    border: 1px solid #000000;
     line-height: 1.5rem;
     color: #000;
     background-color: rgba(255, 255, 255, 0.75);
@@ -131,48 +118,25 @@ header h1 {
 
 .nav-group .nav-group__content a:hover, .nav-group .nav-group__content a:focus {
     background-color: rgba(240, 240, 240, 0.6);
-    outline: 2px solid #333;
+    outline: 2px solid #000000;
 }
 
-.nav-group.maps {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Image_Maps.jpg'); }
-.nav-group.docs {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Image_Documents.jpg'); }
-.nav-group.refs {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Image_OutsideRefs.jpg'); }
-.nav-group.seasons {background-color: rgba(255,255,255,0.3);  background-image: url('../images/Season_Mashup.jpg'); }
+.nav-group.people  { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_People.jpg'); }
+.nav-group.maps { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_Maps.jpg'); }
+.nav-group.docs { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_Documents.jpg'); }
+.nav-group.refs { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_OutsideRefs.jpg'); }
+.nav-group.seasons { background-color: rgba(255,255,255,0.3); background-image: url('../images/Season_Mashup.jpg'); }
 
-.nav-group.about { grid-area: 1 / 1 / 2 / 2; }
-.nav-group.mission { grid-area: 1 / 2 / 2 / 3; }
-.nav-group.maps {  grid-area: 1 / 3 / 2 / 4; }
-.nav-group.people { grid-area: 1 / 4 / 2 / 5; }
-.nav-group.docs { grid-area: 2 / 1 / 3 / 2; }
-.nav-group.refs { grid-area: 2 / 2 / 3 / 3;  }
-.nav-group.seasons { grid-area: 2 / 3 / 3 / 5;  }
 
 .nav-group.seasons a {
     display: flex;
     background-size: 100% 100%;
-    min-height: 140px;
-    aspect-ratio: 1 / 1;
-
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    
     align-items: center; 
     justify-content: center; 
     justify-items: center; 
-
     font-size: 1.5rem;
     color: #fff;
     text-shadow: 0px 0px 4px #000;
-}
-
-.nav-group.seasons > .nav-group__content {
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem; 
-    padding: 2rem;
-    margin: 0;
-
 }
 
 .nav-group.seasons a:nth-child(1) { background-image: url('../images/ALS1_Banner.png'); }
@@ -208,7 +172,7 @@ footer {
     padding: 1rem;
     text-align: center;
     font-size: 0.9rem;
-    border-top: 2px solid #666;
+    border-top: 2px solid #000000;
 }
 
 footer a {
