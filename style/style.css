@@ -121,12 +121,6 @@ header h1 {
     outline: 2px solid #000000;
 }
 
-.nav-group.people  { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_People.jpg'); }
-.nav-group.maps { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_Maps.jpg'); }
-.nav-group.docs { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_Documents.jpg'); }
-.nav-group.refs { background-color: rgba(255,255,255,0.3); background-image: url('../images/Image_OutsideRefs.jpg'); }
-.nav-group.seasons { background-color: rgba(255,255,255,0.3); background-image: url('../images/Season_Mashup.jpg'); }
-
 
 .nav-group.seasons a {
     display: flex;
