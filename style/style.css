@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     color: black;
     background-image: 
         url('../images/MapCrest.png'),
@@ -17,6 +17,9 @@ body {
         calc(50% + 80px) calc(50% + 69.28px);
     background-repeat: repeat;
     background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 header {
@@ -34,15 +37,8 @@ header h1 {
 }
 
 .main-content {
-    max-width: 1400px;
     margin: 0 auto;
-}
-
-.main-content.grid-seasons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto); 
-    gap: 1rem;
+    flex-grow: 1;
 }
 
 .nav-group {
@@ -121,27 +117,6 @@ header h1 {
     outline: 2px solid #000000;
 }
 
-
-.nav-group.seasons a {
-    display: flex;
-    background-size: 100% 100%;
-    align-items: center; 
-    justify-content: center; 
-    justify-items: center; 
-    font-size: 1.5rem;
-    color: #fff;
-    text-shadow: 0px 0px 4px #000;
-}
-
-.nav-group.seasons a:nth-child(1) { background-image: url('../images/ALS1_Banner.png'); }
-.nav-group.seasons a:nth-child(2) { background-image: url('../images/ALS2_Banner.png'); }
-.nav-group.seasons a:nth-child(3) { background-image: url('../images/ALS3_Banner.png'); }
-.nav-group.seasons a:nth-child(4) { background-image: url('../images/ALS4_Banner.png'); }
-.nav-group.seasons a:nth-child(5) { background-image: url('../images/ALS5_Banner.jpg'); }
-.nav-group.seasons a:nth-child(6) { background-image: url('../images/ALS6_Banner.jpg'); }
-.nav-group.seasons a:nth-child(7) { background-image: url('../images/ALS7_Banner.jpg'); }
-.nav-group.seasons a:nth-child(8) { background-image: url('../images/ALS8_Banner.jpg'); }
-
 .content-notes {
     border: 2px solid #000;
     border-radius: 8px;
@@ -161,12 +136,13 @@ header h1 {
 }
 
 footer {
-    margin-top: 1rem;
     background-color: rgba(255, 255, 255, 0.75);
-    padding: 1rem;
+    padding: 0.6rem;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     border-top: 2px solid #000000;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 footer a {

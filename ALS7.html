@@ -8,12 +8,55 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <title>Season 7 -- Alchemy League</title>
     <link rel="stylesheet" href="style/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
     <style>
+        #spreadsheet-container table tr:nth-child(1),
+        #spreadsheet-container table tr:nth-child(2),
+        #spreadsheet-container-sprint2 table tr:nth-child(1),
+        #spreadsheet-container-sprint2 table tr:nth-child(2) {
+            background-color: #cccccc;
+        }
+        #spreadsheet-container table tr:nth-child(n+3):nth-child(odd),
+        #spreadsheet-container-sprint2 table tr:nth-child(n+3):nth-child(odd) {
+            background-color: #ffffff;
+        }
+        #spreadsheet-container table tr:nth-child(n+3):nth-child(even),
+        #spreadsheet-container-sprint2 table tr:nth-child(n+3):nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        #spreadsheet-container table tr:nth-child(1) th,
+        #spreadsheet-container table tr:nth-child(1) td,
+        #spreadsheet-container table tr:nth-child(2) th,
+        #spreadsheet-container table tr:nth-child(2) td,
+        #spreadsheet-container-sprint2 table tr:nth-child(1) th,
+        #spreadsheet-container-sprint2 table tr:nth-child(1) td,
+        #spreadsheet-container-sprint2 table tr:nth-child(2) th,
+        #spreadsheet-container-sprint2 table tr:nth-child(2) td {
+            text-align: center;
+        }
+        #results-container table tr:nth-child(1),
+        #results-container-sprint2 table tr:nth-child(1) {
+            background-color: #cccccc;
+        }
+        #results-container table tr:nth-child(n+2):nth-child(odd),
+        #results-container-sprint2 table tr:nth-child(n+2):nth-child(odd) {
+            background-color: #ffffff;
+        }
+        #results-container table tr:nth-child(n+2):nth-child(even),
+        #results-container-sprint2 table tr:nth-child(n+2):nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        #results-container table tr:nth-child(1) th,
+        #results-container table tr:nth-child(1) td,
+        #results-container-sprint2 table tr:nth-child(1) th,
+        #results-container-sprint2 table tr:nth-child(1) td {
+            text-align: center;
+        }
         .hierarchy-node {
             fill: none;
             stroke: #000;
-            stroke-width: 0.5;
+            stroke-width: 0.2;
             cursor: pointer;
             rx: 3;
             ry: 3;
@@ -24,69 +67,428 @@
             ry: 0;
         }
         .hierarchy-text {
-            font-size: 14%;
+            font-size: 10%;
             font-weight: bold;
             text-anchor: middle;
             dominant-baseline: central;
             fill: #000;
-            pointer-events: none;
             opacity: 0;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.3s ease;
         }
         .text-background {
             fill: rgba(255, 255, 255, 0.8);
             stroke: none;
             opacity: 0;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.3s ease;
         }
         .hierarchy-arrow {
             stroke: #000;
-            stroke-width: 0.25;
+            stroke-width: 0.125;
             marker-end: url(#arrowhead);
         }
         .hierarchy-line {
             stroke: #000;
-            stroke-width: 0.25;
+            stroke-width: 0.125;
         }
-
         .image-box, .nav-group {
             position: static;
-            width: calc(100% - 2 * var(--base-padding));
-            height: auto;
+            width: 100%;
+            height: 100%;
             min-height: 100px;
+            box-sizing: border-box;
+            padding: var(--base-padding, 10px);
         }
         .image-box {
-            height: 46.4px;
-            background-size: 100% 100%;
+            background-size: cover;
             background-position: center;
-            padding: var(--base-padding);
+            padding: var(--base-padding, 10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-group__image img {
+            transform-origin: center;
         }
         .hierarchy-svg {
+            width: 100%;
             height: auto;
-            width: auto;
-            transform: scale(0.9);
+            max-width: 1200px;
+            margin: 0 auto;
+            display: block;
         }
         .hierarchy-node {
             rx: 2;
             ry: 2;
-            stroke-width: 0.5;
-        }
-        .hierarchy-text {
-            font-size: 14%;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        .text-background {
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            stroke-width: 0.2;
         }
         .pdf-link:hover .hierarchy-text,
         .pdf-link:hover .text-background {
             opacity: 1;
         }
         .hierarchy-arrow, .hierarchy-line {
-            stroke-width: 1;
+            stroke-width: 0.5;
+        }
+        .information-left table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            display: table;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .information-left table th,
+        .information-left table td {
+            padding: 8px;
+            border: 1px solid #000;
+            text-align: center;
+            font-size: 1em;
+        }
+        .information-left table th {
+            font-weight: bold;
+        }
+        .information-left table tr:nth-child(1) {
+            background-color: #cccccc;
+        }
+        .information-left table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        .information-left table tr:nth-child(odd):not(:first-child) {
+            background-color: #f2f2f2;
+        }
+        .information-left .nav-group__content {
+            height: 100%;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .nav-group.information-left {
+            padding: 0;
+        }
+        .main-content.grid-seasons {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr 1fr 1fr;
+            grid-template-rows: 350px auto 2117px;
+            gap: 20px;
+            padding: var(--base-padding, 10px);
+            box-sizing: border-box;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+        .nav-group[aria-label="Season Banner"] {
+            grid-column: 2;
+            grid-row: 1;
+            width: 100%;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+        }
+        .nav-group[aria-label="Season Banner"] .nav-group__image {
+            height: 100%;
+        }
+        .nav-group[aria-label="Season Banner"] .image-box {
+            height: 100%;
+            padding: 0;
+        }
+        .nav-group[aria-label="Season Banner"] .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .nav-group.information-left {
+            grid-column: 2;
+            grid-row: 2;
+            width: 100%;
+        }
+        .nav-group.box1 {
+            grid-column: 3;
+            grid-row: 1 / 3;
+            width: 100%;
+        }
+        .nav-group.definitions {
+            grid-column: 4 / 6;
+            grid-row: 1 / 3;
+            min-width: 0;
+            max-width: 100%;
+            width: 100%;
+        }
+        .bottom-row {
+            grid-column: 2 / 6;
+            grid-row: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid #000;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+        }
+        .tabs {
+            display: flex;
+            justify-content: flex-start;
+            background-color: transparent;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #000;
+            cursor: pointer;
+            font-size: 1.2em;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .tab-button.active {
+            background-color: #cccccc;
+        }
+        .tab-content {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            overflow: auto;
+            border: none;
+            border-top: none;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: transparent;
+        }
+        .tab-content.active {
+            display: flex;
+        }
+        .sub-row {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 7.5fr 1.5fr 11fr;
+            gap: 20px;
+            background-color: transparent;
+        }
+        .nav-group.notes {
+            grid-column: 1;
+            grid-row: 1;
+        }
+        .buttons-container {
+            grid-column: 2;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #000;
+            border-radius: 10px;
+            min-width: 200px;
+        }
+        .buttons-container a {
+            width: fit-content;
+            padding: 20px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #000;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            white-space: nowrap;
+        }
+        .nav-group.seeding {
+            grid-column: 1 / 3;
+            grid-row: 2;
+        }
+        .nav-group.results {
+            grid-column: 1 / 4;
+            grid-row: 3;
+        }
+        .nav-group.embedded-sheet-box {
+            grid-column: 3;
+            grid-row: 1 / 3;
+        }
+        .nav-group.seeding,
+        .nav-group.results,
+        .nav-group.embedded-sheet-box,
+        .nav-group.notes {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #000;
+            border-radius: 10px;
+        }
+        .nav-group__content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+        }
+        .nav-group.seeding .nav-group__content,
+        .nav-group.results .nav-group__content {
+            flex: 0 0 auto;
+            overflow: visible;
+        }
+        #spreadsheet-container, #spreadsheet-container-sprint2,
+        #results-container, #results-container-sprint2 {
+            height: auto;
+            overflow: visible;
+        }
+        .nav-group.embedded-sheet-box iframe {
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #spreadsheet-container table, #spreadsheet-container-sprint2 table,
+        #results-container table, #results-container-sprint2 table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #spreadsheet-container th, #spreadsheet-container td,
+        #spreadsheet-container-sprint2 th, #spreadsheet-container-sprint2 td,
+        #results-container th, #results-container td,
+        #results-container-sprint2 th, #results-container-sprint2 td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        .nav-group__title {
+            margin: -10px -10px 10px -10px;
+            padding: 0 10px;
+            background-color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .seeding .nav-group__title, .results .nav-group__title, .embedded-sheet-box .nav-group__title, .notes .nav-group__title {
+            margin: -10px -10px 0 -10px;
+        }
+        .nav-group__title h2 {
+            font-size: 2em;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .seeding .nav-group__content, .results .nav-group__content, .embedded-sheet-box .nav-group__content, .notes .nav-group__content {
+            margin: 0 -10px -10px -10px;
+        }
+        .nav-group__content ul {
+            margin: 0;
+            padding: 10px 10px 10px 30px;
+            list-style-type: disc;
+        }
+        .nav-group__content ul li {
+            margin-bottom: 10px;
+        }
+        @media (min-width: 769px) {
+            .information-left table {
+                display: table;
+                overflow-x: visible;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-content.grid-seasons {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto auto;
+            }
+            .nav-group[aria-label="Season Banner"],
+            .nav-group.information-left,
+            .nav-group.box1,
+            .nav-group.definitions,
+            .bottom-row {
+                grid-column: 1 / -1;
+                grid-row: auto;
+                height: auto;
+                max-width: 100%;
+                width: 100%;
+            }
+            .bottom-row {
+                grid-template-columns: 1fr;
+            }
+            .sub-row {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr auto auto auto auto;
+                gap: 20px;
+            }
+            .nav-group.notes,
+            .buttons-container,
+            .nav-group.seeding,
+            .nav-group.embedded-sheet-box,
+            .nav-group.results {
+                grid-column: 1;
+                grid-row: auto;
+            }
+            .nav-group.definitions {
+                min-width: 100%;
+            }
+            .hierarchy-svg {
+                max-width: 100%;
+                transform: none;
+            }
+            .image-box {
+                height: auto;
+            }
+            .nav-group__image img {
+                transform: scale(0.5);
+                max-width: 100%;
+            }
+            .nav-group[aria-label="Season Banner"] .image-box {
+                height: auto;
+                padding: var(--base-padding, 10px);
+            }
+            .nav-group[aria-label="Season Banner"] .image-box img {
+                width: auto;
+                height: auto;
+                object-fit: contain;
+            }
+            .nav-group.embedded-sheet-box iframe {
+                height: 1411px;
+            }
+            .nav-group.information-left {
+                height: auto;
+                padding: var(--base-padding, 10px);
+            }
+            .information-left .nav-group__content {
+                padding: 0;
+            }
+            .information-left table th,
+            .information-left table td {
+                padding: 8px;
+                font-size: 1em;
+            }
+            .nav-group__title {
+                margin: -10px -10px 10px -10px;
+                padding: 0 10px;
+            }
+            .seeding .nav-group__title, .results .nav-group__title, .embedded-sheet-box .nav-group__title, .notes .nav-group__title {
+                margin: -10px -10px 0 -10px;
+            }
+            .nav-group__title h2 {
+                font-size: 1.6em;
+            }
+            .tab-button {
+                font-size: 1em;
+            }
+            .nav-group.seeding .nav-group__content,
+            .nav-group.results .nav-group__content {
+                flex: 0 0 auto;
+                overflow: visible;
+            }
+            .nav-group.notes, .nav-group.seeding, .nav-group.results, .nav-group.embedded-sheet-box {
+                border: 1px solid #000;
+                border-radius: 10px;
+            }
+            .buttons-container {
+                border: 1px solid #000;
+                border-radius: 10px;
+                min-width: auto;
+            }
+            .buttons-container a {
+                padding: 20px 10px;
+            }
+        }
+        .nav-group.box1 .nav-group__content ul li a {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            text-decoration: underline;
+            color: blue;
         }
     </style>
 </head>
@@ -101,530 +503,556 @@
     <div class="main-content grid-seasons">
         <div class="nav-group" aria-label="Season Banner" role="img">
             <div class="nav-group__image">
-                <img src="images/ALS7_Banner.jpg" alt="season banner" />
+                <div class="image-box">
+                    <img src="images/ALS7_Banner.jpg" alt="season banner" />
+                </div>
             </div>
-
         </div>
 
-        <div class="nav-group summary" aria-label="Summary section" role="region">
+        <div class="nav-group box1" aria-label="Box1 section" role="region">
             <div class="nav-group__title">
-                <h2>Drafts</h2>
+                <h2>Information</h2>
             </div>
             <div class="nav-group__content">
-                <a href="https://aoe2cm.net/preset/EjvqT" target="_blank">Civilization draft</a>
-                <a href="https://aoe2cm.net/preset/nOxHA" target="_blank">Map draft</a>
+                <ul>
+                    <li><a href="ALS7_Resources/Map_Contest.ods" target="_blank" download>Map Contest Results</a></li>
+                    <li><a href="https://aoe2cm.net/preset/nOxHA" target="_blank">Map Draft</a></li>
+                    <li><a href="ALS7_Resources/Map_Archive.zip" target="_blank" download>Map Archive</a></li>
+                    <li><a href="https://aoe2cm.net/preset/EjvqT" target="_blank">Civilization Draft</a></li>
+                </ul>
             </div>
         </div>
 
-        <div class="nav-group map-information" aria-label="Map Information section" role="region">
-            <div class="nav-group__title">
-                <h2>Map Information</h2>
-            </div>
+        <div class="nav-group information-left" aria-label="Information left section" role="region">
             <div class="nav-group__content">
                 <table>
                     <tr>
-                        <td>Round</td>
+                        <th>Round</th>
+                        <th>Featured Map</th>
+                        <th>Creator</th>
+                    </tr>
+                    <tr>
                         <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>Featured Map</td>
                         <td>ESR_02 "Graveyards"</td>
-                        <td>ESR_09 "Team_Glaciers"</td>
-                        <td>ESR_03 "Moats"</td>
-                        <td>ESR_08 "Shipwreck"</td>
-                        <td>ESR_04 "Paradise_Island"</td>
-                        <td>ESR_06 "Seasons"</td>
-                        <td>ESR_05 "Prairie"</td>
-                        <td>ESR_01 "Canals"</td>
+                        <td>Jasouki</td>
                     </tr>
                     <tr>
-                        <td>Creator</td>
-                        <td>Jasouki</td>
+                        <td>2</td>
+                        <td>ESR_09 "Team_Glaciers"</td>
                         <td>welcometorapture</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>ESR_03 "Moats"</td>
                         <td>Zetnus</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>ESR_08 "Shipwreck"</td>
                         <td>TechChariot</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>ESR_04 "Paradise_Island"</td>
                         <td>Magico</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>ESR_06 "Seasons"</td>
                         <td>Biscuits</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>ESR_05 "Prairie"</td>
                         <td>TechChariot</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>ESR_01 "Canals"</td>
                         <td>Zetnus</td>
                     </tr>
                 </table>
-                <div class="quicklinks-buttons">
-                    <a href="ALS7_Resources/Map_Contest.ods" target="_blank" role="button" aria-label="Contest">Contest</a>
-                    <a href="https://aoe2cm.net/preset/nOxHA" target="_blank" role="button" aria-label="Draft">Draft</a>
-                    <a href="ALS7_Resources/Map_Archive.zip" target="_blank" role="button" aria-label="Archive">Archive</a>
-                </div>
             </div>
         </div>
-
-        <div class="nav-group sprint1" aria-label="Sprint 1 section" role="region">
-            <div class="nav-group__title">
-                <h2>Sprint 1</h2>
-            </div>
-            <div class="nav-group__content">
-                <div class="content-notes">
-                    <div class="content-notes__title">
-                        <h3>Resources</h3>
-                    </div>
-                    <div class="content-notes__content">
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Registration.ods" target="_blank" download>Registration</a> 
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Summary.ods" target="_blank" download>Seeding Summary</a>
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Apparent.ods" target="_blank" download>Seeding Apparent</a>
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Full.ods" target="_blank" download>Seeding Full</a>
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Round_by_Round.ods" target="_blank" download>Roundwise</a>
-                        <a href="https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w" target="_blank">Live Scoreboard</a>
-                    </div>
-                </div>
-                <div class="content-notes">
-                    <div class="content-notes__title">
-                        <h3>Notes</h3>
-                    </div>
-                    <div class="content-notes__content">
-                        <p>Participant "cerasito" lacked minimum required games to register (84/100). Exception granted due to being close to target with normal win rate. Player may compete for prize.</p>
-                    </div>
-                </div>
-                <div class="content-notes">
-                    <div class="content-notes__title">
-                        <h3>Results</h3>
-                    </div>
-                    <div class="content-notes__content">
-                        TBA
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="nav-group sprint2" aria-label="Sprint 2 section" role="region">
-            <div class="nav-group__title"><h2>Sprint 2</h2></div>
-            <div class="nav-group__content">
-                <div class="content-notes">
-                    <div class="content-notes__title">
-                        <h3>Resources</h3>
-                    </div>
-                    <div class="content-notes__content">
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Registration.ods" target="_blank" download>Registration</a> 
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Summary.ods" target="_blank" download>Seeding Summary</a>
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Apparent.ods" target="_blank" download>Seeding Apparent</a>
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Full.ods" target="_blank" download>Seeding Full</a>
-                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Round_by_Round.ods" target="_blank" download>Roundwise</a>
-                        <a href="#" target="_blank">Live Scoreboard</a>
-                    </div>
-                </div>
-                <div class="content-notes">
-                    <div class="content-notes__title">
-                        <h3>Results</h3>
-                    </div>
-                    <div class="content-notes__content">
-                        TBA
-                    </div>
-                </div>
-            </div>
-        </div>
-        
 
         <div class="nav-group definitions" aria-label="Definitions section" role="region">
             <div class="nav-group__title">
                 <h2>Definitions</h2>
             </div>
             <div class="nav-group__content">
-                <svg class="hierarchy-svg" viewBox="0 0 100 100" role="img" width="100%" aria-labelledby="hierarchy-title hierarchy-desc" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <svg class="hierarchy-svg" viewBox="0 0 130 80" role="img" width="100%" aria-labelledby="hierarchy-title hierarchy-desc" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                     <title id="hierarchy-title">Alchemy League Definitions Hierarchy</title>
                     <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK at the top, centered, connected downward to PSRM-ESR-1, MTHD-002, MTHD-003, MTHD-004, MTHD-005, and MTHD-006 in a row, with PSRM on the left and MTHD nodes shifted to the right. PSRM connects to CSRM-01 through CSRM-05 in a row and CSRM-06 through CSRM-09 in a staggered row below, all shifted to the right, with a 10.4-unit center-to-center gap and 0.2-unit edge-to-edge gap for a pronounced interlocking appearance. CSRM nodes are rhomboid-shaped with 110-degree obtuse angles at top and bottom and 70-degree acute angles at left and right, oriented with a vertical top-to-bottom axis. All arrows to CSRM nodes point to their top corners. CSRM images are upright (0-degree rotation), with horizontal text split into two lines (first four letters on top, followed by dash and suffix), visible only on hover with a semi-transparent background that fully covers the node (image and text) without intersecting adjacent nodes. HDBK, PSRM, MTHD, GSRM, and STND nodes have background images clipped to rounded rectangles, sourced from images/Handbook.jpg, images/Procurement_Spec.jpg, images/Method.jpg, images/General_Spec.jpg, and images/Standard.jpg respectively. All nodes have text split into two lines (first four letters on top, followed by dash and digits/suffix), visible only on hover with a semi-transparent background. All text in hierarchy nodes is bold. All nodes have a doubled border thickness (stroke-width: 0.5). Non-CSRM nodes (HDBK, PSRM, MTHD, GSRM, STND) have rounded corners with increased radius (rx: 3, ry: 3 in main view; rx: 2, ry: 2 in responsive view) for a near-circular appearance. CSRM nodes retain sharp rhomboid shapes (rx: 0, ry: 0). All CSRM nodes connect to GSRM, which connects to STND-001, STND-002, STND-003, and STND-004 at the bottom, all shifted slightly to the left. PSRM also connects directly to STND-001 with a multi-section arrow that avoids intersecting any nodes.</desc>
                     <defs>
-                        <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="5" refY="2" orient="auto">
-                            <polygon points="0 0, 5 2, 0 4" fill="#000" />
+                        <marker id="arrowhead" markerWidth="2.5" markerHeight="2" refX="2.5" refY="1" orient="auto">
+                            <polygon points="0 0, 2.5 1, 0 2" fill="#000" />
                         </marker>
-                        <!-- Clip paths for CSRM nodes (unchanged) -->
+                        <!-- Clip paths for CSRM nodes -->
                         <clipPath id="clip-csrm-01">
-                            <polygon points="13.22,46.035 21.22,40.425 29.22,46.035 21.22,51.645"/>
+                            <polygon points="17.4912,30.5 25.4112,26 33.3312,30.5 25.4112,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-02">
-                            <polygon points="32.72,46.035 40.72,40.425 48.72,46.035 40.72,51.645"/>
+                            <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-03">
-                            <polygon points="52.22,46.035 60.22,40.425 68.22,46.035 60.22,51.645"/>
+                            <polygon points="62.6112,30.5 70.5312,26 78.4512,30.5 70.5312,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-04">
-                            <polygon points="71.72,46.035 79.72,40.425 87.72,46.035 79.72,51.645"/>
+                            <polygon points="85.1712,30.5 93.0912,26 101.0112,30.5 93.0912,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-05">
-                            <polygon points="91.22,46.035 99.22,40.425 107.22,46.035 99.22,51.645"/>
+                            <polygon points="107.7312,30.5 115.6512,26 123.5712,30.5 115.6512,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-06">
-                            <polygon points="22.72,54.95 30.72,49.325 38.72,54.95 30.72,60.575"/>
+                            <polygon points="28.7712,40.5 36.6912,36 44.6112,40.5 36.6912,45"/>
                         </clipPath>
                         <clipPath id="clip-csrm-07">
-                            <polygon points="42.22,54.95 50.22,49.325 58.22,54.95 50.22,60.575"/>
+                            <polygon points="51.3312,40.5 59.2512,36 67.1712,40.5 59.2512,45"/>
                         </clipPath>
                         <clipPath id="clip-csrm-08">
-                            <polygon points="61.72,54.95 69.72,49.325 77.72,54.95 69.72,60.575"/>
+                            <polygon points="73.8912,40.5 81.8112,36 89.7312,40.5 81.8112,45"/>
                         </clipPath>
                         <clipPath id="clip-csrm-09">
-                            <polygon points="81.22,54.95 89.22,49.325 97.22,54.95 89.22,60.575"/>
+                            <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45"/>
                         </clipPath>
-                        <!-- Clip paths for HDBK, PSRM, MTHD, GSRM, STND nodes (updated rx, ry) -->
+                        <!-- Clip paths for HDBK, PSRM, MTHD, GSRM, STND nodes -->
                         <clipPath id="clip-hdbk">
-                            <rect x="39.329" y="2" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="49.8" y="2" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-psrm">
-                            <rect x="1.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="4.8" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-mthd-002">
-                            <rect x="16.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="19.3836" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-mthd-003">
-                            <rect x="31.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="33.9672" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-mthd-004">
-                            <rect x="46.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="48.5508" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-mthd-005">
-                            <rect x="61.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="63.1344" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-mthd-006">
-                            <rect x="76.829" y="22" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="77.718" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-gsrm">
-                            <rect x="40.829" y="68" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="52.8" y="52.5" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-stnd-001">
-                            <rect x="0.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="4.8" y="66" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-stnd-002">
-                            <rect x="20.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="28.8" y="66" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-stnd-003">
-                            <rect x="40.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="52.8" y="66" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-stnd-004">
-                            <rect x="60.829" y="86.14" width="12.342" height="12.342" rx="3" ry="3"/>
+                            <rect x="76.8" y="66" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                     </defs>
-                    <!-- HDBK Node (with background image) -->
-                    <a href="#" data-folder="CHEM-HDBK-L007" target="_blank" tabindex="0" aria-label="HDBK-L007" role="button" class="pdf-link">
+                    <!-- HDBK Node -->
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-HDBK-L007" data-folder="CHEM-HDBK-L007" target="_blank" tabindex="0" aria-label="HDBK-L007" role="button" class="pdf-link">
                         <g>
+                            <title>HDBK-L007</title>
                             <g clip-path="url(#clip-hdbk)">
-                                <image x="39.329" y="2" width="12.342" height="12.342" href="images/Handbook.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="49.8" y="2" width="8" height="8" href="images/Handbook.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="39.329" y="2" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="39.329" y="2" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="45.5" class="hierarchy-text">
-                                <tspan x="45.5" dy="6.671">HDBK</tspan>
-                                <tspan x="45.5" dy="2.5">-L007</tspan>
-                            </text>
+                            <rect x="49.8" y="2" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="49.8" y="2" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="53.8" y="5.2" class="hierarchy-text">HDBK</text>
+                            <text x="53.8" y="6.8" class="hierarchy-text"> -L007</text>
                         </g>
                     </a>
-                    <!-- PSRM Node (with background image) -->
-                    <a href="#" data-folder="CHEM-PSRM-ESR-1" target="_blank" tabindex="0" aria-label="PSRM-ESR-1" role="button" class="pdf-link">
+                    <!-- PSRM Node -->
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-PSRM-ESR-1" data-folder="CHEM-PSRM-ESR-1" target="_blank" tabindex="0" aria-label="PSRM-ESR-1" role="button" class="pdf-link">
                         <g>
+                            <title>PSRM-ESR-1</title>
                             <g clip-path="url(#clip-psrm)">
-                                <image x="1.829" y="22" width="12.342" height="12.342" href="images/Procurement_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="4.8" y="14" width="8" height="8" href="images/Procurement_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="1.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="1.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="8" class="hierarchy-text">
-                                <tspan x="8" dy="26.671">PSRM</tspan>
-                                <tspan x="8" dy="2.5">-ESR-1</tspan>
-                            </text>
+                            <rect x="4.8" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="4.8" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="8.8" y="17.2" class="hierarchy-text">PSRM</text>
+                            <text x="8.8" y="18.8" class="hierarchy-text">-ESR-1</text>
                         </g>
                     </a>
-                    <!-- MTHD Nodes (with background image) -->
-                    <a href="#" data-folder="CHEM-MTHD-002" target="_blank" tabindex="0" aria-label="MTHD-002" role="button" class="pdf-link">
+                    <!-- MTHD Nodes -->
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-002" data-folder="CHEM-MTHD-002" target="_blank" tabindex="0" aria-label="MTHD-002" role="button" class="pdf-link">
                         <g>
+                            <title>MTHD-002</title>
                             <g clip-path="url(#clip-mthd-002)">
-                                <image x="16.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="19.3836" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="16.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="16.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="23" class="hierarchy-text">
-                                <tspan x="23" dy="26.671">MTHD</tspan>
-                                <tspan x="23" dy="2.5">-002</tspan>
-                            </text>
+                            <rect x="19.3836" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="19.3836" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="23.3836" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="23.3836" y="18.8" class="hierarchy-text">-002</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-MTHD-003" target="_blank" tabindex="0" aria-label="MTHD-003" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-003" data-folder="CHEM-MTHD-003" target="_blank" tabindex="0" aria-label="MTHD-003" role="button" class="pdf-link">
                         <g>
+                            <title>MTHD-003</title>
                             <g clip-path="url(#clip-mthd-003)">
-                                <image x="31.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="33.9672" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="31.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="31.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="38" class="hierarchy-text">
-                                <tspan x="38" dy="26.671">MTHD</tspan>
-                                <tspan x="38" dy="2.5">-003</tspan>
-                            </text>
+                            <rect x="33.9672" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="33.9672" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="37.9672" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="37.9672" y="18.8" class="hierarchy-text">-003</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-MTHD-004" target="_blank" tabindex="0" aria-label="MTHD-004" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-004" data-folder="CHEM-MTHD-004" target="_blank" tabindex="0" aria-label="MTHD-004" role="button" class="pdf-link">
                         <g>
+                            <title>MTHD-004</title>
                             <g clip-path="url(#clip-mthd-004)">
-                                <image x="46.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="48.5508" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="46.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="46.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="53" class="hierarchy-text">
-                                <tspan x="53" dy="26.671">MTHD</tspan>
-                                <tspan x="53" dy="2.5">-004</tspan>
-                            </text>
+                            <rect x="48.5508" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="48.5508" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="52.5508" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="52.5508" y="18.8" class="hierarchy-text">-004</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-MTHD-005" target="_blank" tabindex="0" aria-label="MTHD-005" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-005" data-folder="CHEM-MTHD-005" target="_blank" tabindex="0" aria-label="MTHD-005" role="button" class="pdf-link">
                         <g>
+                            <title>MTHD-005</title>
                             <g clip-path="url(#clip-mthd-005)">
-                                <image x="61.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="63.1344" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="61.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="61.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="68" class="hierarchy-text">
-                                <tspan x="68" dy="26.671">MTHD</tspan>
-                                <tspan x="68" dy="2.5">-005</tspan>
-                            </text>
+                            <rect x="63.1344" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="63.1344" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="67.1344" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="67.1344" y="18.8" class="hierarchy-text">-005</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-MTHD-006" target="_blank" tabindex="0" aria-label="MTHD-006" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-006" data-folder="CHEM-MTHD-006" target="_blank" tabindex="0" aria-label="MTHD-006" role="button" class="pdf-link">
                         <g>
+                            <title>MTHD-006</title>
                             <g clip-path="url(#clip-mthd-006)">
-                                <image x="76.829" y="22" width="12.342" height="12.342" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="77.718" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="76.829" y="22" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="76.829" y="22" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="83" class="hierarchy-text">
-                                <tspan x="83" dy="26.671">MTHD</tspan>
-                                <tspan x="83" dy="2.5">-006</tspan>
-                            </text>
+                            <rect x="77.718" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="77.718" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="81.718" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="81.718" y="18.8" class="hierarchy-text">-006</text>
                         </g>
                     </a>
-                    <!-- CSRM Nodes (unchanged) -->
-                    <a href="#" data-folder="CHEM-CSRM-ESR-01" target="_blank" tabindex="0" aria-label="CSRM-ESR-01" role="button" class="pdf-link">
+                    <!-- CSRM Nodes -->
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-01" data-folder="CHEM-CSRM-ESR-01" target="_blank" tabindex="0" aria-label="CSRM-ESR-01" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-01</title>
                             <g clip-path="url(#clip-csrm-01)">
-                                <image x="13.22" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_01_Canals/Gallery/canals1.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="17.4912" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_01_Canals/Gallery/canals1.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="13.22,46.035 21.22,40.425 29.22,46.035 21.22,51.645" class="hierarchy-node csrm"/>
-                            <polygon points="13.22,46.035 21.22,40.425 29.22,46.035 21.22,51.645" class="text-background"/>
-                            <text x="21.22" class="hierarchy-text">
-                                <tspan x="21.22" dy="44.785">CSRM</tspan>
-                                <tspan x="21.22" dy="2">-ESR-01</tspan>
-                            </text>
+                            <polygon points="17.4912,30.5 25.4112,26 33.3312,30.5 25.4112,35" class="hierarchy-node csrm"/>
+                            <polygon points="17.4912,30.5 25.4112,26 33.3312,30.5 25.4112,35" class="text-background"/>
+                            <text x="25.4112" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="25.4112" y="31.3" class="hierarchy-text">-ESR-01</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-02" target="_blank" tabindex="0" aria-label="CSRM-ESR-02" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-02" data-folder="CHEM-CSRM-ESR-02" target="_blank" tabindex="0" aria-label="CSRM-ESR-02" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-02</title>
                             <g clip-path="url(#clip-csrm-02)">
-                                <image x="32.72" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Jasouki/Workshop_Jasouki/ESR_02_Graveyards/Gallery/Graveyards_01.png" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="40.0512" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Jasouki/Workshop_Jasouki/ESR_02_Graveyards/Gallery/Graveyards_01.png" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="32.72,46.035 40.72,40.425 48.72,46.035 40.72,51.645" class="hierarchy-node csrm"/>
-                            <polygon points="32.72,46.035 40.72,40.425 48.72,46.035 40.72,51.645" class="text-background"/>
-                            <text x="40.72" class="hierarchy-text">
-                                <tspan x="40.72" dy="44.785">CSRM</tspan>
-                                <tspan x="40.72" dy="2">-ESR-02</tspan>
-                            </text>
+                            <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35" class="hierarchy-node csrm"/>
+                            <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35" class="text-background"/>
+                            <text x="47.9712" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="47.9712" y="31.3" class="text-background"> -ESR-02</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-03" target="_blank" tabindex="0" aria-label="CSRM-ESR-03" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-03" data-folder="CHEM-CSRM-ESR-03" target="_blank" tabindex="0" aria-label="CSRM-ESR-03" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-03</title>
                             <g clip-path="url(#clip-csrm-03)">
-                                <image x="52.22" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_03_Moats/Gallery/moats2.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="62.6112" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_03_Moats/Gallery/moats2.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="52.22,46.035 60.22,40.425 68.22,46.035 60.22,51.645" class="hierarchy-node csrm"/>
-                            <polygon points="52.22,46.035 60.22,40.425 68.22,46.035 60.22,51.645" class="text-background"/>
-                            <text x="60.22" class="hierarchy-text">
-                                <tspan x="60.22" dy="44.785">CSRM</tspan>
-                                <tspan x="60.22" dy="2">-ESR-03</tspan>
-                            </text>
+                            <polygon points="62.6112,30.5 70.5312,26 78.4512,30.5 70.5312,35" class="hierarchy-node csrm"/>
+                            <polygon points="62.6112,30.5 70.5312,26 78.4512,30.5 70.5312,35" class="text-background"/>
+                            <text x="70.5312" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="70.5312" y="31.3" class="hierarchy-text">-ESR-03</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-04" target="_blank" tabindex="0" aria-label="CSRM-ESR-04" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-04" data-folder="CHEM-CSRM-ESR-04" target="_blank" tabindex="0" aria-label="CSRM-ESR-04" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-04</title>
                             <g clip-path="url(#clip-csrm-04)">
-                                <image x="71.72" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Magico/Workshop_Magico/ESR_04_Paradise_Island/Gallery/Full_view_of_Map.png" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="85.1712" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Magico/Workshop_Magico/ESR_04_Paradise_Island/Gallery/Full_view_of_Map.png" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="71.72,46.035 79.72,40.425 87.72,46.035 79.72,51.645" class="hierarchy-node csrm"/>
-                            <polygon points="71.72,46.035 79.72,40.425 87.72,46.035 79.72,51.645" class="text-background"/>
-                            <text x="79.72" class="hierarchy-text">
-                                <tspan x="79.72" dy="44.785">CSRM</tspan>
-                                <tspan x="79.72" dy="2">-ESR-04</tspan>
-                            </text>
+                            <polygon points="85.1712,30.5 93.0912,26 101.0112,30.5 93.0912,35" class="hierarchy-node csrm"/>
+                            <polygon points="85.1712,30.5 93.0912,26 101.0112,30.5 93.0912,35" class="text-background"/>
+                            <text x="93.0912" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="93.0912" y="31.3" class="hierarchy-text">-ESR-04</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-05" target="_blank" tabindex="0" aria-label="CSRM-ESR-05" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-05" data-folder="CHEM-CSRM-ESR-05" target="_blank" tabindex="0" aria-label="CSRM-ESR-05" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-05</title>
                             <g clip-path="url(#clip-csrm-05)">
-                                <image x="91.22" y="40.425" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_05_Prairie/Gallery/Overview.png" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="107.7312" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_05_Prairie/Gallery/Overview.png" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="91.22,46.035 99.22,40.425 107.22,46.035 99.22,51.645" class="hierarchy-node csrm"/>
-                            <polygon points="91.22,46.035 99.22,40.425 107.22,46.035 99.22,51.645" class="text-background"/>
-                            <text x="99.22" class="hierarchy-text">
-                                <tspan x="99.22" dy="44.785">CSRM</tspan>
-                                <tspan x="99.22" dy="2">-ESR-05</tspan>
-                            </text>
+                            <polygon points="107.7312,30.5 115.6512,26 123.5712,30.5 115.6512,35" class="hierarchy-node csrm"/>
+                            <polygon points="107.7312,30.5 115.6512,26 123.5712,30.5 115.6512,35" class="text-background"/>
+                            <text x="115.6512" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="115.6512" y="31.3" class="hierarchy-text">-ESR-05</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-06" target="_blank" tabindex="0" aria-label="CSRM-ESR-06" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-06" data-folder="CHEM-CSRM-ESR-06" target="_blank" tabindex="0" aria-label="CSRM-ESR-06" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-06</title>
                             <g clip-path="url(#clip-csrm-06)">
-                                <image x="22.72" y="49.325" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Biscuits/Workshop_Biscuits/ESR_06_Seasons/Gallery/Overview.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="28.7712" y="36" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Biscuits/Workshop_Biscuits/ESR_06_Seasons/Gallery/Overview.jpg" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="22.72,54.95 30.72,49.325 38.72,54.95 30.72,60.575" class="hierarchy-node csrm"/>
-                            <polygon points="22.72,54.95 30.72,49.325 38.72,54.95 30.72,60.575" class="text-background"/>
-                            <text x="30.72" class="hierarchy-text">
-                                <tspan x="30.72" dy="53.7">CSRM</tspan>
-                                <tspan x="30.72" dy="2">-ESR-06</tspan>
-                            </text>
+                            <polygon points="28.7712,40.5 36.6912,36 44.6112,40.5 36.6912,45" class="hierarchy-node csrm"/>
+                            <polygon points="28.7712,40.5 36.6912,36 44.6112,40.5 36.6912,45" class="text-background"/>
+                            <text x="36.6912" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="36.6912" y="41.3" class="hierarchy-text">-ESR-06</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-07" target="_blank" tabindex="0" aria-label="CSRM-ESR-07" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-07" data-folder="CHEM-CSRM-ESR-07" target="_blank" tabindex="0" aria-label="CSRM-ESR-07" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-07</title>
                             <g clip-path="url(#clip-csrm-07)">
-                                <image x="42.22" y="49.325" width="16.016" height="11.22" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="51.3312" y="36" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="42.22,54.95 50.22,49.325 58.22,54.95 50.22,60.575" class="hierarchy-node csrm"/>
-                            <polygon points="42.22,54.95 50.22,49.325 58.22,54.95 50.22,60.575" class="text-background"/>
-                            <text x="50.22" class="hierarchy-text">
-                                <tspan x="50.22" dy="53.7">CSRM</tspan>
-                                <tspan x="50.22" dy="2">-ESR-07</tspan>
-                            </text>
+                            <polygon points="51.3312,40.5 59.2512,36 67.1712,40.5 59.2512,45" class="hierarchy-node csrm"/>
+                            <polygon points="51.3312,40.5 59.2512,36 67.1712,40.5 59.2512,45" class="text-background"/>
+                            <text x="59.2512" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="59.2512" y="41.3" class="hierarchy-text">-ESR-07</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-08" target="_blank" tabindex="0" aria-label="CSRM-ESR-08" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-08" data-folder="CHEM-CSRM-ESR-08" target="_blank" tabindex="0" aria-label="CSRM-ESR-08" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-08</title>
                             <g clip-path="url(#clip-csrm-08)">
-                                <image x="61.72" y="49.325" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_08_Shipwreck/Gallery/Overview.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="73.8912" y="36" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_08_Shipwreck/Gallery/Overview.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="61.72,54.95 69.72,49.325 77.72,54.95 69.72,60.575" class="hierarchy-node csrm"/>
-                            <polygon points="61.72,54.95 69.72,49.325 77.72,54.95 69.72,60.575" class="text-background"/>
-                            <text x="69.72" class="hierarchy-text">
-                                <tspan x="69.72" dy="53.7">CSRM</tspan>
-                                <tspan x="69.72" dy="2">-ESR-08</tspan>
-                            </text>
+                            <polygon points="73.8912,40.5 81.8112,36 89.7312,40.5 81.8112,45" class="hierarchy-node csrm"/>
+                            <polygon points="73.8912,40.5 81.8112,36 89.7312,40.5 81.8112,45" class="text-background"/>
+                            <text x="81.8112" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="81.8112" y="41.3" class="hierarchy-text">-ESR-08</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-CSRM-ESR-09" target="_blank" tabindex="0" aria-label="CSRM-ESR-09" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-09" data-folder="CHEM-CSRM-ESR-09" target="_blank" tabindex="0" aria-label="CSRM-ESR-09" role="button" class="pdf-link">
                         <g>
+                            <title>CSRM-ESR-09</title>
                             <g clip-path="url(#clip-csrm-09)">
-                                <image x="81.22" y="49.325" width="16.016" height="11.22" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_welcometorapture/ESR_09_Team_Glaciers/Gallery/ESR_09_overview.PNG" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="96.4512" y="36" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_welcometorapture/ESR_09_Team_Glaciers/Gallery/ESR_09_overview.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="81.22,54.95 89.22,49.325 97.22,54.95 89.22,60.575" class="hierarchy-node csrm"/>
-                            <polygon points="81.22,54.95 89.22,49.325 97.22,54.95 89.22,60.575" class="text-background"/>
-                            <text x="89.22" class="hierarchy-text">
-                                <tspan x="89.22" dy="53.7">CSRM</tspan>
-                                <tspan x="89.22" dy="2">-ESR-09</tspan>
-                            </text>
+                            <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45" class="hierarchy-node csrm"/>
+                            <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45" class="text-background"/>
+                            <text x="104.3712" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="104.3712" y="41.3" class="hierarchy-text">-ESR-09</text>
                         </g>
                     </a>
-                    <!-- GSRM Node (with background image) -->
-                    <a href="#" data-folder="CHEM-GSRM-ESR-1" target="_blank" tabindex="0" aria-label="GSRM-ESR-1" role="button" class="pdf-link">
+                    <!-- GSRM Node -->
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-ESR-1" data-folder="CHEM-GSRM-ESR-1" target="_blank" tabindex="0" aria-label="GSRM-ESR-1" role="button" class="pdf-link">
                         <g>
+                            <title>GSRM-ESR-1</title>
                             <g clip-path="url(#clip-gsrm)">
-                                <image x="40.829" y="68" width="12.342" height="12.342" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="52.8" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="40.829" y="68" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="40.829" y="68" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="47" class="hierarchy-text">
-                                <tspan x="47" dy="72.671">GSRM</tspan>
-                                <tspan x="47" dy="2.5">-ESR-1</tspan>
-                            </text>
+                            <rect x="52.8" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="52.8" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="56.8" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="56.8" y="57.3" class="hierarchy-text">-ESR-1</text>
                         </g>
                     </a>
-                    <!-- STND Nodes (with background image) -->
-                    <a href="#" data-folder="CHEM-STND-001" target="_blank" tabindex="0" aria-label="STND-001" role="button" class="pdf-link">
+                    <!-- STND Nodes -->
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-STND-001" data-folder="CHEM-STND-001" target="_blank" tabindex="0" aria-label="STND-001" role="button" class="pdf-link">
                         <g>
+                            <title>STND-001</title>
                             <g clip-path="url(#clip-stnd-001)">
-                                <image x="0.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="4.8" y="66" width="8" height="8" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="0.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="0.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="7" class="hierarchy-text">
-                                <tspan x="7" dy="90.811">STND</tspan>
-                                <tspan x="7" dy="2.5">-001</tspan>
-                            </text>
+                            <rect x="4.8" y="66" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="4.8" y="66" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="8.8" y="69.2" class="hierarchy-text">STND</text>
+                            <text x="8.8" y="70.8" class="hierarchy-text">-001</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-STND-002" target="_blank" tabindex="0" aria-label="STND-002" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-STND-002" data-folder="CHEM-STND-002" target="_blank" tabindex="0" aria-label="STND-002" role="button" class="pdf-link">
                         <g>
+                            <title>STND-002</title>
                             <g clip-path="url(#clip-stnd-002)">
-                                <image x="20.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="28.8" y="66" width="8" height="8" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="20.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="20.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="27" class="hierarchy-text">
-                                <tspan x="27" dy="90.811">STND</tspan>
-                                <tspan x="27" dy="2.5">-002</tspan>
-                            </text>
+                            <rect x="28.8" y="66" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="28.8" y="66" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="32.8" y="69.2" class="hierarchy-text">STND</text>
+                            <text x="32.8" y="70.8" class="hierarchy-text">-002</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-STND-003" target="_blank" tabindex="0" aria-label="STND-003" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-STND-003" data-folder="CHEM-STND-003" target="_blank" tabindex="0" aria-label="STND-003" role="button" class="pdf-link">
                         <g>
+                            <title>STND-003</title>
                             <g clip-path="url(#clip-stnd-003)">
-                                <image x="40.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="52.8" y="66" width="8" height="8" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="40.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="40.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="47" class="hierarchy-text">
-                                <tspan x="47" dy="90.811">STND</tspan>
-                                <tspan x="47" dy="2.5">-003</tspan>
-                            </text>
+                            <rect x="52.8" y="66" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="52.8" y="66" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="56.8" y="69.2" class="hierarchy-text">STND</text>
+                            <text x="56.8" y="70.8" class="hierarchy-text">-003</text>
                         </g>
                     </a>
-                    <a href="#" data-folder="CHEM-STND-004" target="_blank" tabindex="0" aria-label="STND-004" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-STND-004" data-folder="CHEM-STND-004" target="_blank" tabindex="0" aria-label="STND-004" role="button" class="pdf-link">
                         <g>
+                            <title>STND-004</title>
                             <g clip-path="url(#clip-stnd-004)">
-                                <image x="60.829" y="86.14" width="12.342" height="12.342" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="76.8" y="66" width="8" height="8" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="60.829" y="86.14" width="12.342" height="12.342" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="60.829" y="86.14" width="12.342" height="12.342" class="text-background" rx="3" ry="3"/>
-                            <text x="67" class="hierarchy-text">
-                                <tspan x="67" dy="90.811">STND</tspan>
-                                <tspan x="67" dy="2.5">-004</tspan>
-                            </text>
+                            <rect x="76.8" y="66" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="76.8" y="66" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="80.8" y="69.2" class="hierarchy-text">STND</text>
+                            <text x="80.8" y="70.8" class="hierarchy-text">-004</text>
                         </g>
                     </a>
-                    <!-- Connecting Lines (unchanged) -->
-                    <line x1="45.5" y1="14.342" x2="45.5" y2="18" class="hierarchy-arrow"/>
-                    <line x1="8" y1="18" x2="83" y2="18" class="hierarchy-line"/>
-                    <line x1="8" y1="18" x2="8" y2="22" class="hierarchy-arrow"/>
-                    <line x1="23" y1="18" x2="23" y2="22" class="hierarchy-arrow"/>
-                    <line x1="38" y1="18" x2="38" y2="22" class="hierarchy-arrow"/>
-                    <line x1="53" y1="18" x2="53" y2="22" class="hierarchy-arrow"/>
-                    <line x1="68" y1="18" x2="68" y2="22" class="hierarchy-arrow"/>
-                    <line x1="83" y1="18" x2="83" y2="22" class="hierarchy-arrow"/>
-                    <line x1="8" y1="34.342" x2="8" y2="38" class="hierarchy-arrow"/>
-                    <line x1="8" y1="38" x2="99.22" y2="38" class="hierarchy-line"/>
-                    <line x1="21.22" y1="38" x2="21.22" y2="40.425" class="hierarchy-arrow"/>
-                    <line x1="40.72" y1="38" x2="40.72" y2="40.425" class="hierarchy-arrow"/>
-                    <line x1="60.22" y1="38" x2="60.22" y2="40.425" class="hierarchy-arrow"/>
-                    <line x1="79.72" y1="38" x2="79.72" y2="40.425" class="hierarchy-arrow"/>
-                    <line x1="99.22" y1="38" x2="99.22" y2="40.425" class="hierarchy-arrow"/>
-                    <line x1="30.72" y1="38" x2="30.72" y2="49.325" class="hierarchy-arrow"/>
-                    <line x1="50.22" y1="38" x2="50.22" y2="49.325" class="hierarchy-arrow"/>
-                    <line x1="69.72" y1="38" x2="69.72" y2="49.325" class="hierarchy-arrow"/>
-                    <line x1="89.22" y1="38" x2="89.22" y2="49.325" class="hierarchy-arrow"/>
-                    <line x1="21.22" y1="51.645" x2="21.22" y2="63" class="hierarchy-arrow"/>
-                    <line x1="40.72" y1="51.645" x2="40.72" y2="63" class="hierarchy-arrow"/>
-                    <line x1="60.22" y1="51.645" x2="60.22" y2="63" class="hierarchy-arrow"/>
-                    <line x1="79.72" y1="51.645" x2="79.72" y2="63" class="hierarchy-arrow"/>
-                    <line x1="99.22" y1="51.645" x2="99.22" y2="63" class="hierarchy-arrow"/>
-                    <line x1="30.72" y1="60.575" x2="30.72" y2="63" class="hierarchy-arrow"/>
-                    <line x1="50.22" y1="60.575" x2="50.22" y2="63" class="hierarchy-arrow"/>
-                    <line x1="69.72" y1="60.575" x2="69.72" y2="63" class="hierarchy-arrow"/>
-                    <line x1="89.22" y1="60.575" x2="89.22" y2="63" class="hierarchy-arrow"/>
-                    <line x1="21.22" y1="63" x2="99.22" y2="63" class="hierarchy-line"/>
-                    <line x1="47" y1="63" x2="47" y2="68" class="hierarchy-arrow"/>
-                    <line x1="47" y1="80.342" x2="47" y2="83.24" class="hierarchy-arrow"/>
-                    <line x1="27" y1="83.24" x2="67" y2="83.24" class="hierarchy-line"/>
-                    <line x1="27" y1="83.24" x2="27" y2="86.14" class="hierarchy-arrow"/>
-                    <line x1="47" y1="83.24" x2="47" y2="86.14" class="hierarchy-arrow"/>
-                    <line x1="67" y1="83.24" x2="67" y2="86.14" class="hierarchy-arrow"/>
-                    <line x1="8" y1="34.342" x2="8" y2="38" class="hierarchy-arrow"/>
-                    <line x1="8" y1="38" x2="7" y2="38" class="hierarchy-line"/>
-                    <line x1="7" y1="38" x2="7" y2="86.14" class="hierarchy-arrow"/>
+                    <!-- Connecting Lines -->
+                    <line x1="53.8" y1="10" x2="53.8" y2="12" class="hierarchy-arrow"/>
+                    <line x1="8.8" y1="12" x2="81.718" y2="12" class="hierarchy-line"/>
+                    <line x1="8.8" y1="12" x2="8.8" y2="14" class="hierarchy-arrow"/>
+                    <line x1="23.3836" y1="12" x2="23.3836" y2="14" class="hierarchy-arrow"/>
+                    <line x1="37.9672" y1="12" x2="37.9672" y2="14" class="hierarchy-arrow"/>
+                    <line x1="52.5508" y1="12" x2="52.5508" y2="14" class="hierarchy-arrow"/>
+                    <line x1="67.1344" y1="12" x2="67.1344" y2="14" class="hierarchy-arrow"/>
+                    <line x1="81.718" y1="12" x2="81.718" y2="14" class="hierarchy-arrow"/>
+                    <line x1="8.8" y1="22" x2="8.8" y2="24" class="hierarchy-arrow"/>
+                    <line x1="8.8" y1="24" x2="115.6512" y2="24" class="hierarchy-line"/>
+                    <line x1="25.4112" y1="24" x2="25.4112" y2="26" class="hierarchy-arrow"/>
+                    <line x1="47.9712" y1="24" x2="47.9712" y2="26" class="hierarchy-arrow"/>
+                    <line x1="70.5312" y1="24" x2="70.5312" y2="26" class="hierarchy-arrow"/>
+                    <line x1="93.0912" y1="24" x2="93.0912" y2="26" class="hierarchy-arrow"/>
+                    <line x1="115.6512" y1="24" x2="115.6512" y2="26" class="hierarchy-arrow"/>
+                    <line x1="36.6912" y1="24" x2="36.6912" y2="36" class="hierarchy-arrow"/>
+                    <line x1="59.2512" y1="24" x2="59.2512" y2="36" class="hierarchy-arrow"/>
+                    <line x1="81.8112" y1="24" x2="81.8112" y2="36" class="hierarchy-arrow"/>
+                    <line x1="104.3712" y1="24" x2="104.3712" y2="36" class="hierarchy-arrow"/>
+                    <line x1="25.4112" y1="35" x2="25.4112" y2="48" class="hierarchy-arrow"/>
+                    <line x1="47.9712" y1="35" x2="47.9712" y2="48" class="hierarchy-arrow"/>
+                    <line x1="70.5312" y1="35" x2="70.5312" y2="48" class="hierarchy-arrow"/>
+                    <line x1="93.0912" y1="35" x2="93.0912" y2="48" class="hierarchy-arrow"/>
+                    <line x1="115.6512" y1="35" x2="115.6512" y2="48" class="hierarchy-arrow"/>
+                    <line x1="36.6912" y1="45" x2="36.6912" y2="48" class="hierarchy-arrow"/>
+                    <line x1="59.2512" y1="45" x2="59.2512" y2="48" class="hierarchy-arrow"/>
+                    <line x1="81.8112" y1="45" x2="81.8112" y2="48" class="hierarchy-arrow"/>
+                    <line x1="104.3712" y1="45" x2="104.3712" y2="48" class="hierarchy-arrow"/>
+                    <line x1="25.4112" y1="48" x2="115.6512" y2="48" class="hierarchy-line"/>
+                    <line x1="56.8" y1="48" x2="56.8" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="56.8" y1="60.5" x2="56.8" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="32.8" y1="63.25" x2="80.8" y2="63.25" class="hierarchy-line"/>
+                    <line x1="32.8" y1="63.25" x2="32.8" y2="66" class="hierarchy-arrow"/>
+                    <line x1="56.8" y1="63.25" x2="56.8" y2="66" class="hierarchy-arrow"/>
+                    <line x1="80.8" y1="63.25" x2="80.8" y2="66" class="hierarchy-arrow"/>
+                    <line x1="8.8" y1="22" x2="8.8" y2="63.25" class="hierarchy-line"/>
+                    <line x1="8.8" y1="63.25" x2="8.8" y2="66" class="hierarchy-arrow"/>
                 </svg>
+            </div>
+        </div>
+
+        <div class="bottom-row">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="sprint1">Sprint 1</button>
+                <button class="tab-button" data-tab="sprint2">Sprint 2</button>
+            </div>
+            <div class="tab-content active" id="sprint1" data-prize-ineligibles="2" data-prize-winners="8">
+                <div class="sub-row">
+                    <div class="nav-group notes" aria-label="Notes section" role="region">
+                        <div class="nav-group__title">
+                            <h2>NOTES</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <ul>
+                                <li>Participant "cerasito" lacked minimum required games to register (84/100). Exception granted due to being close to target with normal win rate. Player may compete for prize.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttons-container">
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Registration.ods" target="_blank" download>Registration</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Summary.ods" target="_blank" download>Seeding Summary</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Apparent.ods" target="_blank" download>Seeding Apparent</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Seeding_Full.ods" target="_blank" download>Seeding Full</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/_Round_by_Round.ods" target="_blank" download>Roundwise</a>
+                        <a href="https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w" target="_blank">Live Scoreboard</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/Results.ods" target="_blank" download>Results</a>
+                    </div>
+                    <div class="nav-group seeding" aria-label="Seeding section" role="region">
+                        <div class="nav-group__title">
+                            <h2>Seeding</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <div id="spreadsheet-container"></div>
+                        </div>
+                    </div>
+
+                    <div class="nav-group embedded-sheet-box" aria-label="Live Scoreboard section" role="region">
+                        <div class="nav-group__title">
+                            <h2>Live Scoreboard</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTvlsM1PKva5GtEtSMl-N_clMz1xuDmHnv8yoZnz7Yu_nejeLOvW1Wo9t2YG3ebTHXhXC9o0kaCAap9/pubhtml?gid=0&single=true" width="100%" height="100%" frameborder="0" title="Live Scoreboard"></iframe>
+                        </div>
+                    </div>
+                    <div class="nav-group results" aria-label="Results section" role="region">
+                        <div class="nav-group__title">
+                            <h2>Results</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <div id="results-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="sprint2" data-prize-ineligibles="2" data-prize-winners="8">
+                <div class="sub-row">
+                    <div class="nav-group notes" aria-label="Notes section" role="region">
+                        <div class="nav-group__title">
+                            <h2>NOTES</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <ul>
+                                <li>Template bullet point 1 for Notes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttons-container">
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Registration.ods" target="_blank" download>Registration</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Summary.ods" target="_blank" download>Seeding Summary</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Apparent.ods" target="_blank" download>Seeding Apparent</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Seeding_Full.ods" target="_blank" download>Seeding Full</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/_Round_by_Round.ods" target="_blank" download>Roundwise</a>
+                        <a href="https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w" target="_blank">Live Scoreboard</a>
+                        <a href="https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/Results.ods" target="_blank" download>Results</a>
+                    </div>
+                    <div class="nav-group seeding" aria-label="Seeding section" role="region">
+                        <div class="nav-group__title">
+                            <h2>Seeding</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <div id="spreadsheet-container-sprint2"></div>
+                        </div>
+                    </div>
+
+                    <div class="nav-group embedded-sheet-box" aria-label="Live Scoreboard section" role="region">
+                        <div class="nav-group__title">
+                            <h2>Live Scoreboard</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTvlsM1PKva5GtEtSMl-N_clMz1xuDmHnv8yoZnz7Yu_nejeLOvW1Wo9t2YG3ebTHXhXC9o0kaCAap9/pubhtml?gid=807253230&single=true" width="100%" height="100%" frameborder="0" title="Live Scoreboard Sprint 2"></iframe>
+                        </div>
+                    </div>
+                    <div class="nav-group results" aria-label="Results section" role="region">
+                        <div class="nav-group__title">
+                            <h2>Results</h2>
+                        </div>
+                        <div class="nav-group__content">
+                            <div id="results-container-sprint2"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -637,81 +1065,220 @@
     </footer>
 
     <script>
-        window.addEventListener('load', async function() {
-            try {
-                const path = window.location.pathname;
-                let currentSeason;
-                const match = path.match(/ALS(\d+)\.html/i);
-                if (match) {
-                    currentSeason = parseInt(match[1], 10);
-                } else if (path.includes('index.html') || path === '/' || path === '') {
-                    currentSeason = 0;
-                } else {
-                    currentSeason = 0;
-                }
-
-                const headerTitle = document.querySelector('header h1');
-                headerTitle.textContent = `ALCHEMY LEAGUE SEASON ${currentSeason}`;
-
-                document.title = `Season ${currentSeason} -- Alchemy League`;
-
-                const footerText = document.querySelector('footer p');
-                footerText.textContent = `© ${new Date().getFullYear()} Alchemy AOE Community`;
-
-                const leftContainer = document.querySelector('#left-nav');
-                const rightContainer = document.querySelector('#right-nav');
-                const availableSeasons = [0, 1, 2, 3];
-
-                function createNavButton(direction, season, url, container) {
-                    const button = document.createElement('button');
-                    button.className = `nav-button ${direction}`;
-                    button.setAttribute('data-label', `Season ${season}`);
-                    button.setAttribute('aria-label', `Navigate to Season ${season}`);
-                    button.onclick = () => window.location.href = url;
-                    container.appendChild(button);
-                }
-
-                if (availableSeasons.includes(currentSeason - 1)) {
-                    const prevSeason = currentSeason - 1;
-                    const prevUrl = prevSeason === 0 ? 'index.html' : `ALS${prevSeason}.html`;
-                    createNavButton('left', prevSeason, prevUrl, leftContainer);
-                }
-
-                if (availableSeasons.includes(currentSeason + 1)) {
-                    const nextSeason = currentSeason + 1;
-                    const nextUrl = `ALS${nextSeason}.html`;
-                    createNavButton('right', nextSeason, nextUrl, rightContainer);
-                }
-
-                document.querySelectorAll('.pdf-link').forEach(link => {
-                    link.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        const folder = link.getAttribute('data-folder');
-                        const repo = 'Alchemy-AOE-Community/CHEM-Published-Specifications';
-                        const branch = 'download-to-click-links';
-                        const apiUrl = `https://api.github.com/repos/${repo}/contents/${folder}?ref=${branch}`;
-                        const fallbackUrl = `https://github.com/${repo}/tree/${branch}/${folder}`;
-
-                        try {
-                            const response = await fetch(apiUrl);
-                            if (!response.ok) throw new Error('API request failed');
-                            const files = await response.json();
-                            const pdfFile = files.find(file => file.name.toLowerCase().endsWith('.pdf'));
-                            if (pdfFile) {
-                                const pdfUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${folder}/${pdfFile.name}`;
-                                window.open(pdfUrl, '_blank');
-                            } else {
-                                window.open(fallbackUrl, '_blank');
-                            }
-                        } catch (error) {
-                            console.error('Error fetching PDF:', error);
-                            window.open(fallbackUrl, '_blank');
-                        }
-                    });
+        // Script to log image loading errors for CSRM nodes
+        document.addEventListener('DOMContentLoaded', () => {
+            const csrmImages = document.querySelectorAll('.hierarchy-svg image');
+            csrmImages.forEach((img, index) => {
+                img.addEventListener('error', () => {
+                    console.error(`Failed to load image for CSRM node ${index + 1}: ${img.getAttribute('href')}`);
                 });
-            } catch (err) {
-                console.error('Script error:', err);
+                img.addEventListener('load', () => {
+                    console.log(`Successfully loaded image for CSRM node ${index + 1}: ${img.getAttribute('href')}`);
+                });
+            });
+        });
+    </script>
+    <script>
+        async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, skipRows = 0, maxRankDisplay = Infinity) {
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error('Failed to load ODS file');
+                }
+                const arrayBuffer = await response.arrayBuffer();
+                const workbook = XLSX.read(arrayBuffer, { type: 'array', cellStyles: true });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const html = sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay);
+                document.getElementById(containerId).innerHTML = '<div style="overflow-x: auto;">' + html + '</div>';
+                autoSizeColumns(containerId);
+            } catch (error) {
+                console.error(error);
+                document.getElementById(containerId).innerHTML = '<p style="padding:10px; text-align:center; margin:0;">Not Yet Calculated</p>';
             }
+        }
+
+        function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay) {
+            if (!worksheet || !worksheet['!ref']) return '<table></table>';
+            const range = XLSX.utils.decode_range(worksheet['!ref']);
+            const merges = worksheet['!merges'] || [];
+
+            let html = '<table>';
+            html += '<colgroup></colgroup>';
+
+            let rank = 1;
+            for (let row = range.s.r; row <= range.e.r; row++) {
+                if (row >= headerRows && (row - headerRows) < skipRows) continue; // Skip specified data rows
+
+                html += '<tr>';
+                // Add left column
+                if (row < headerRows) {
+                    if (row === 0) {
+                        const rowspanAttr = headerRows > 1 ? ' rowspan="2"' : '';
+                        html += `<td${rowspanAttr} style="background-color: #cccccc; text-align: center; white-space: normal; word-wrap: break-word;">${leftColumnLabel}</td>`;
+                    }
+                } else {
+                    let displayRank = (rank > maxRankDisplay) ? '~' : rank;
+                    html += `<td style="text-align: center;">${displayRank}</td>`;
+                    rank++;
+                }
+
+                for (let col = range.s.c; col <= range.e.c; col++) {
+                    const cellAddress = { r: row, c: col };
+                    const cellRef = XLSX.utils.encode_cell(cellAddress);
+
+                    let isMerged = false;
+                    let colspan = 1;
+                    let rowspan = 1;
+                    for (const merge of merges) {
+                        if (row >= merge.s.r && row <= merge.e.r && col >= merge.s.c && col <= merge.e.c) {
+                            if (row === merge.s.r && col === merge.s.c) {
+                                colspan = merge.e.c - merge.s.c + 1;
+                                rowspan = merge.e.r - merge.s.r + 1;
+                            } else {
+                                isMerged = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (isMerged) continue;
+
+                    const cell = worksheet[cellRef];
+                    let cellValue = cell ? XLSX.utils.format_cell(cell) : '';
+                    let style = '';
+                    if (cell && cell.s && cell.s.fill && cell.s.fill.fgColor && cell.s.fill.fgColor.rgb) {
+                        style = `background-color: #${cell.s.fill.fgColor.rgb};`;
+                    }
+
+                    const spanAttrs = (colspan > 1 ? ` colspan="${colspan}"` : '') + (rowspan > 1 ? ` rowspan="${rowspan}"` : '');
+                    html += `<td style="${style}"${spanAttrs}>${cellValue}</td>`;
+                }
+                html += '</tr>';
+            }
+            html += '</table>';
+            return html;
+        }
+
+        function autoSizeColumns(containerId) {
+            const table = document.querySelector(`#${containerId} table`);
+            if (!table) return;
+
+            const rows = Array.from(table.rows);
+            const numCols = Math.max(...rows.map(row => row.cells.length));
+            const colWidths = new Array(numCols).fill(0);
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            rows.forEach(row => {
+                Array.from(row.cells).forEach((cell, colIndex) => {
+                    const text = cell.textContent.trim();
+                    const computedStyle = window.getComputedStyle(cell);
+                    ctx.font = `${computedStyle.fontStyle} ${computedStyle.fontWeight} ${computedStyle.fontSize} ${computedStyle.fontFamily}`;
+                    let width;
+                    if (['Seed Number', 'Rank'].includes(text)) {
+                        const words = text.split(' ');
+                        let maxWordWidth = 0;
+                        words.forEach(word => {
+                            const metrics = ctx.measureText(word);
+                            maxWordWidth = Math.max(maxWordWidth, metrics.width);
+                        });
+                        const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+                        const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+                        const borderLeft = parseFloat(computedStyle.borderLeftWidth) || 0;
+                        const borderRight = parseFloat(computedStyle.borderRightWidth) || 0;
+                        const extra = paddingLeft + paddingRight + borderLeft + borderRight + 10;
+                        width = maxWordWidth + extra;
+                    } else {
+                        const textMetrics = ctx.measureText(text);
+                        const paddingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+                        const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+                        const borderLeft = parseFloat(computedStyle.borderLeftWidth) || 0;
+                        const borderRight = parseFloat(computedStyle.borderRightWidth) || 0;
+                        const extra = paddingLeft + paddingRight + borderLeft + borderRight + 10;
+                        width = textMetrics.width + extra;
+                    }
+
+                    if (cell.colSpan === 1) {
+                        colWidths[colIndex] = Math.max(colWidths[colIndex], width);
+                    } else {
+                        const avgWidth = width / cell.colSpan;
+                        for (let i = colIndex; i < colIndex + cell.colSpan; i++) {
+                            colWidths[i] = Math.max(colWidths[i] || 0, avgWidth);
+                        }
+                    }
+                });
+            });
+
+            let colgroup = table.querySelector('colgroup');
+            if (!colgroup) {
+                colgroup = document.createElement('colgroup');
+                table.insertBefore(colgroup, table.firstChild);
+            }
+            colgroup.innerHTML = '';
+            colWidths.forEach(width => {
+                const col = document.createElement('col');
+                col.style.width = `${width}px`;
+                colgroup.appendChild(col);
+            });
+        }
+
+        const prizeIneligibles1 = parseInt(document.getElementById('sprint1').dataset.prizeIneligibles) || 0;
+        const prizeIneligibles2 = parseInt(document.getElementById('sprint2').dataset.prizeIneligibles) || 0;
+        const prizeWinners1 = parseInt(document.getElementById('sprint1').dataset.prizeWinners) || Infinity;
+        const prizeWinners2 = parseInt(document.getElementById('sprint2').dataset.prizeWinners) || Infinity;
+
+        loadODS('ALS7_Resources/Sprint1/_Seeding_Full.ods', 'spreadsheet-container', 'Seed Number', 2, 0);
+        loadODS('ALS7_Resources/Sprint2/_Seeding_Full.ods', 'spreadsheet-container-sprint2', 'Seed Number', 2, 0);
+        loadODS('ALS7_Resources/Sprint1/Results.ods', 'results-container', 'Rank', 1, prizeIneligibles1, prizeWinners1);
+        loadODS('ALS7_Resources/Sprint2/Results.ods', 'results-container-sprint2', 'Rank', 1, prizeIneligibles2, prizeWinners2);
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeTab = localStorage.getItem('activeTab') || 'sprint1';
+
+            // Activate the saved tab
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            const activeButton = document.querySelector(`.tab-button[data-tab="${activeTab}"]`);
+            if (activeButton) activeButton.classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const activeContent = document.querySelector(`#${activeTab}`);
+            if (activeContent) activeContent.classList.add('active');
+
+            resizeButtons();
+
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    document.querySelector(`#${button.dataset.tab}`).classList.add('active');
+                    localStorage.setItem('activeTab', button.dataset.tab);
+                    resizeButtons();
+                });
+            });
+        });
+    </script>
+    <script>
+        function resizeButtons() {
+            const containers = document.querySelectorAll('.buttons-container');
+            containers.forEach(container => {
+                const buttons = container.querySelectorAll('a');
+                let maxWidth = 0;
+                buttons.forEach(button => {
+                    button.style.width = 'auto';
+                    const width = button.offsetWidth;
+                    if (width > maxWidth) maxWidth = width;
+                });
+                buttons.forEach(button => {
+                    button.style.width = `${maxWidth}px`;
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            resizeButtons();
         });
     </script>
 </body>
