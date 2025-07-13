@@ -346,7 +346,7 @@
         #results-container th, #results-container td,
         #results-container-sprint2 th, #results-container-sprint2 td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 8px 4px;
             text-align: left;
         }
         .nav-group__title {
@@ -489,6 +489,16 @@
             cursor: pointer;
             text-decoration: underline;
             color: blue;
+        }
+        #spreadsheet-container td:has(> a):hover,
+        #spreadsheet-container-sprint2 td:has(> a):hover,
+        #results-container td:has(> a):hover,
+        #results-container-sprint2 td:has(> a):hover {
+            box-shadow: 0 0 0 1px black;
+            border-radius: 4px;
+        }
+        #spreadsheet-container td a:hover, #spreadsheet-container-sprint2 td a:hover, #results-container td a:hover, #results-container-sprint2 td a:hover {
+            outline: none;
         }
     </style>
 </head>
@@ -762,7 +772,7 @@
                             <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35" class="hierarchy-node csrm"/>
                             <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35" class="text-background"/>
                             <text x="47.9712" y="29.7" class="hierarchy-text">CSRM</text>
-                            <text x="47.9712" y="31.3" class="text-background"> -ESR-02</text>
+                            <text x="47.9712" y="31.3" class="hierarchy-text">-ESR-02</text>
                         </g>
                     </a>
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-03" data-folder="CHEM-CSRM-ESR-03" target="_blank" tabindex="0" aria-label="CSRM-ESR-03" role="button" class="pdf-link">
@@ -845,7 +855,7 @@
                             </g>
                             <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45" class="hierarchy-node csrm"/>
                             <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45" class="text-background"/>
-                            <text x="104.4512" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="104.3712" y="39.7" class="hierarchy-text">CSRM</text>
                             <text x="104.3712" y="41.3" class="hierarchy-text">-ESR-09</text>
                         </g>
                     </a>
@@ -1079,7 +1089,39 @@
         });
     </script>
     <script>
-        async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, skipRows = 0, maxRankDisplay = Infinity) {
+        async function loadPlayerLinks(sprint) {
+            const file = `ALS7_Resources/${sprint}/Registration.ods`;
+            try {
+                const response = await fetch(file);
+                if (!response.ok) return {};
+                const arrayBuffer = await response.arrayBuffer();
+                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                const range = XLSX.utils.decode_range(worksheet['!ref']);
+                let nameCol = -1, linkCol = 2; // Hardcode linkCol to column 3 (0-indexed: 2)
+                // Scan header row 0 for name column
+                for (let col = range.s.c; col <= range.e.c; col++) {
+                    const cell = worksheet[XLSX.utils.encode_cell({r: 0, c: col})];
+                    const val = cell ? (cell.v || '').toLowerCase() : '';
+                    if (val.includes('player') || val.includes('name')) nameCol = col;
+                }
+                if (nameCol === -1) return {};
+                const map = {};
+                for (let row = 1; row <= range.e.r; row++) {
+                    const nameCell = worksheet[XLSX.utils.encode_cell({r: row, c: nameCol})];
+                    const linkCell = worksheet[XLSX.utils.encode_cell({r: row, c: linkCol})];
+                    if (nameCell && nameCell.v && linkCell && linkCell.v) {
+                        map[nameCell.v.trim()] = linkCell.v.trim();
+                    }
+                }
+                return map;
+            } catch (error) {
+                console.error(error);
+                return {};
+            }
+        }
+
+        async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, skipRows = 0, maxRankDisplay = Infinity, playerMap = {}) {
             try {
                 const response = await fetch(filePath);
                 if (!response.ok) {
@@ -1089,7 +1131,7 @@
                 const workbook = XLSX.read(arrayBuffer, { type: 'array', cellStyles: true });
                 const firstSheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[firstSheetName];
-                const html = sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay);
+                const html = sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay, playerMap);
                 document.getElementById(containerId).innerHTML = '<div style="overflow-x: auto;">' + html + '</div>';
                 autoSizeColumns(containerId);
             } catch (error) {
@@ -1098,10 +1140,24 @@
             }
         }
 
-        function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay) {
+        function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay, playerMap) {
             if (!worksheet || !worksheet['!ref']) return '<table></table>';
             const range = XLSX.utils.decode_range(worksheet['!ref']);
             const merges = worksheet['!merges'] || [];
+
+            // Find the player name column by scanning headers
+            let nameCol = -1;
+            for (let hrow = 0; hrow < headerRows; hrow++) {
+                for (let col = range.s.c; col <= range.e.c; col++) {
+                    const cell = worksheet[XLSX.utils.encode_cell({r: hrow, c: col})];
+                    const val = cell ? (cell.v || '').toLowerCase() : '';
+                    if (val.includes('player') || val.includes('name')) {
+                        nameCol = col;
+                        break;
+                    }
+                }
+                if (nameCol !== -1) break;
+            }
 
             let html = '<table>';
             html += '<colgroup></colgroup>';
@@ -1150,6 +1206,16 @@
                         style = `background-color: #${cell.s.fill.fgColor.rgb};`;
                     }
 
+                    // If this is a data row and the player name column, add hyperlink if available
+                    if (row >= headerRows && col === nameCol && cellValue) {
+                        const trimmedName = cellValue.trim();
+                        const link = playerMap[trimmedName];
+                        if (link) {
+                            cellValue = `<a href="${link}" target="_blank" style="text-decoration: underline; color: blue; background: none; border: none; padding: 0; margin: 0; cursor: pointer;">${cellValue}</a>`;
+                        }
+                        style += (style ? '; ' : '') + 'white-space: nowrap;';
+                    }
+
                     const spanAttrs = (colspan > 1 ? ` colspan="${colspan}"` : '') + (rowspan > 1 ? ` rowspan="${rowspan}"` : '');
                     html += `<td style="${style}"${spanAttrs}>${cellValue}</td>`;
                 }
@@ -1195,7 +1261,10 @@
                         const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
                         const borderLeft = parseFloat(computedStyle.borderLeftWidth) || 0;
                         const borderRight = parseFloat(computedStyle.borderRightWidth) || 0;
-                        const extra = paddingLeft + paddingRight + borderLeft + borderRight + 10;
+                        let extra = paddingLeft + paddingRight + borderLeft + borderRight + 10;
+                        if (cell.innerHTML.includes('<a ')) { // Add buffer for name columns
+                            extra += 20; // Additional buffer to prevent wrapping
+                        }
                         width = textMetrics.width + extra;
                     }
 
@@ -1228,10 +1297,16 @@
         const prizeWinners1 = parseInt(document.getElementById('sprint1').dataset.prizeWinners) || Infinity;
         const prizeWinners2 = parseInt(document.getElementById('sprint2').dataset.prizeWinners) || Infinity;
 
-        loadODS('ALS7_Resources/Sprint1/Seeding_Full.ods', 'spreadsheet-container', 'Seed Number', 2, 0);
-        loadODS('ALS7_Resources/Sprint2/Seeding_Full.ods', 'spreadsheet-container-sprint2', 'Seed Number', 2, 0);
-        loadODS('ALS7_Resources/Sprint1/Results.ods', 'results-container', 'Rank', 1, prizeIneligibles1, prizeWinners1);
-        loadODS('ALS7_Resources/Sprint2/Results.ods', 'results-container-sprint2', 'Rank', 1, prizeIneligibles2, prizeWinners2);
+        async function init() {
+            const playerLinksSprint1 = await loadPlayerLinks('Sprint1');
+            const playerLinksSprint2 = await loadPlayerLinks('Sprint2');
+            await loadODS('ALS7_Resources/Sprint1/Seeding_Full.ods', 'spreadsheet-container', 'Seed Number', 2, 0, Infinity, playerLinksSprint1);
+            await loadODS('ALS7_Resources/Sprint2/Seeding_Full.ods', 'spreadsheet-container-sprint2', 'Seed Number', 2, 0, Infinity, playerLinksSprint2);
+            await loadODS('ALS7_Resources/Sprint1/Results.ods', 'results-container', 'Rank', 1, prizeIneligibles1, prizeWinners1, playerLinksSprint1);
+            await loadODS('ALS7_Resources/Sprint2/Results.ods', 'results-container-sprint2', 'Rank', 1, prizeIneligibles2, prizeWinners2, playerLinksSprint2);
+        }
+
+        init();
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1279,6 +1354,36 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             resizeButtons();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const links = document.querySelectorAll('.pdf-link');
+          links.forEach(link => {
+            const texts = link.querySelectorAll('.hierarchy-text');
+            const background = link.querySelector('.text-background');
+            if (texts.length > 0 && background) {
+              let nodeWidth;
+              if (background.tagName === 'rect') {
+                nodeWidth = parseFloat(background.getAttribute('width'));
+              } else {
+                const points = background.getAttribute('points').split(' ').map(p => p.split(',').map(Number));
+                const xs = points.map(p => p[0]);
+                nodeWidth = Math.max(...xs) - Math.min(...xs);
+              }
+              let maxTextWidth = 0;
+              texts.forEach(text => {
+                const bbox = text.getBBox();
+                maxTextWidth = Math.max(maxTextWidth, bbox.width);
+              });
+              if (maxTextWidth > nodeWidth - 0.5) { // padding
+                texts.forEach(text => {
+                  text.setAttribute('textLength', nodeWidth - 0.5);
+                  text.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+                });
+              }
+            }
+          });
         });
     </script>
 </body>
