@@ -28,17 +28,20 @@
   <title>Redirecting to latest PDF…</title>
 <script>
 (async () => {
+  // 1) Grab the caller’s prefix
   const prefix = new URLSearchParams(location.search).get('file');
   if (!prefix) {
     document.body.textContent = 'Error: no “?file=” parameter provided.';
     return;
   }
 
-  const owner = 'Alchemy-AOE-Community';
-  const repo = 'CHEM-Published-Specifications';
+  // 2) Repo info
+  const owner  = 'Alchemy-AOE-Community';
+  const repo   = 'CHEM-Published-Specifications';
   const branch = 'download-to-click-links';
   const folder = encodeURIComponent(prefix);
 
+  // 3) Fetch folder listing
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?ref=${branch}`;
   let dir;
   try {
@@ -46,21 +49,31 @@
     if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
     dir = await res.json();
   } catch (e) {
-    document.body.textContent = 'Error fetching folder “' + prefix + '”: ' + e;
+    document.body.textContent = `Error fetching folder “${prefix}”: ${e}`;
     return;
   }
 
-  const matches = dir
+  // 4) Filter TO PDF files only, then natural-sort by name
+  const pdfNames = dir
+    .filter(item => item.type === 'file')                            // only real files
     .map(item => item.name)
-    .filter(name => name.startsWith(prefix) && name.toLowerCase().endsWith('.pdf'))
-    .sort();
-  if (!matches.length) {
+    .filter(name => 
+      name.toLowerCase().startsWith(prefix.toLowerCase()) &&         // prefix match
+      name.toLowerCase().endsWith('.pdf')                            // .pdf extension
+    )
+    .sort((a, b) => 
+      a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+    );
+
+  if (!pdfNames.length) {
     document.body.textContent = `No PDF files beginning with “${prefix}” found.`;
     return;
   }
-  const latest = matches.pop();
-  const target = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder}/${latest}`;
-  window.location.replace(target);
+
+  // 5) Redirect to the latest
+  const latestPdf = pdfNames.pop();
+  const targetUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder}/${latestPdf}`;
+  window.location.replace(targetUrl);
 })();
 </script>
 
