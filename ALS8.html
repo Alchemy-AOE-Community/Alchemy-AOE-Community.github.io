@@ -114,63 +114,93 @@
             <div class="nav-group__content">
                 <svg class="hierarchy-svg" viewBox="0 0 130 80" role="img" width="100%" aria-labelledby="hierarchy-title hierarchy-desc" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                     <title id="hierarchy-title">Alchemy League Definitions Hierarchy</title>
-                    <desc id="hierarchy-desc">A diagram showing the hierarchy of definitions: HDBK at the top, centered, connected downward to PSRM-ESR-1, MTHD-002, MTHD-003, MTHD-004, MTHD-005, and MTHD-006 in a row, with PSRM on the left and MTHD nodes shifted to the right. PSRM connects to CSRM-01 through CSRM-05 in a row and CSRM-06 through CSRM-09 in a staggered row below, all shifted to the right, with a 10.4-unit center-to-center gap and 0.2-unit edge-to-edge gap for a pronounced interlocking appearance. CSRM nodes are rhomboid-shaped with 110-degree obtuse angles at top and bottom and 70-degree acute angles at left and right, oriented with a vertical top-to-bottom axis. All arrows to CSRM nodes point to their top corners. CSRM images are upright (0-degree rotation), with horizontal text split into two lines (first four letters on top, followed by dash and suffix), visible only on hover with a semi-transparent background that fully covers the node (image and text) without intersecting adjacent nodes. HDBK, PSRM, MTHD, GSRM, and STND nodes have background images clipped to rounded rectangles, sourced from images/Handbook.jpg, images/Procurement_Spec.jpg, images/Method.jpg, images/General_Spec.jpg, and images/Standard.jpg respectively. All nodes have text split into two lines (first four letters on top, followed by dash and digits/suffix), visible only on hover with a semi-transparent background. All text in hierarchy nodes is bold. All nodes have a doubled border thickness (stroke-width: 0.5). Non-CSRM nodes (HDBK, PSRM, MTHD, GSRM, STND) have rounded corners with increased radius (rx: 3, ry: 3 in main view; rx: 2, ry: 2 in responsive view) for a near-circular appearance. CSRM nodes retain sharp rhomboid shapes (rx: 0, ry: 0). All CSRM nodes connect to GSRM, which connects to STND-001, STND-002, STND-003, and STND-004 at the bottom, all shifted slightly to the left. PSRM also connects directly to STND-001 with a multi-section arrow that avoids intersecting any nodes.</desc>
+                    <desc id="hierarchy-desc">A visual representation of how all of the references fit together.</desc>
                     <defs>
                         <marker id="arrowhead" markerWidth="2.5" markerHeight="2" refX="2.5" refY="1" orient="auto">
                             <polygon points="0 0, 2.5 1, 0 2" fill="#000" />
                         </marker>
                         <!-- Clip paths for CSRM nodes -->
                         <clipPath id="clip-csrm-01">
-                            <polygon points="17.4912,30.5 25.4112,26 33.3312,30.5 25.4112,35"/>
+                            <polygon points="11.96,30.5 19.88,26 27.8,30.5 19.88,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-02">
-                            <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35"/>
+                            <polygon points="34.52,30.5 42.44,26 50.36,30.5 42.44,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-03">
-                            <polygon points="62.6112,30.5 70.5312,26 78.4512,30.5 70.5312,35"/>
+                            <polygon points="57.08,30.5 65,26 72.92,30.5 65,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-04">
-                            <polygon points="85.1712,30.5 93.0912,26 101.0112,30.5 93.0912,35"/>
+                            <polygon points="79.64,30.5 87.56,26 95.48,30.5 87.56,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-05">
-                            <polygon points="107.7312,30.5 115.6512,26 123.5712,30.5 115.6512,35"/>
+                            <polygon points="102.2,30.5 110.12,26 118.04,30.5 110.12,35"/>
                         </clipPath>
                         <clipPath id="clip-csrm-06">
-                            <polygon points="28.7712,40.5 36.6912,36 44.6112,40.5 36.6912,45"/>
+                            <polygon points="23.24,40.5 31.16,36 39.08,40.5 31.16,45"/>
                         </clipPath>
                         <clipPath id="clip-csrm-07">
-                            <polygon points="51.3312,40.5 59.2512,36 67.1712,40.5 59.2512,45"/>
+                            <polygon points="45.8,40.5 53.72,36 61.64,40.5 53.72,45"/>
                         </clipPath>
                         <clipPath id="clip-csrm-08">
-                            <polygon points="73.8912,40.5 81.8112,36 89.7312,40.5 81.8112,45"/>
+                            <polygon points="68.36,40.5 76.28,36 84.2,40.5 76.28,45"/>
                         </clipPath>
                         <clipPath id="clip-csrm-09">
-                            <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45"/>
+                            <polygon points="90.92,40.5 98.84,36 106.76,40.5 98.84,45"/>
                         </clipPath>
                         <!-- Clip paths for HDBK, PSRM, MTHD, GSRM, STND nodes -->
                         <clipPath id="clip-hdbk">
                             <rect x="49.8" y="2" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
-                        <clipPath id="clip-psrm">
+                        <clipPath id="clip-psrm-002">
                             <rect x="4.8" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
-                        <clipPath id="clip-mthd-002">
+                        <clipPath id="clip-psrm-003">
                             <rect x="19.3836" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
-                        <clipPath id="clip-mthd-003">
+                        <clipPath id="clip-mthd-002">
                             <rect x="33.9672" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
-                        <clipPath id="clip-mthd-004">
+                        <clipPath id="clip-mthd-003">
                             <rect x="48.5508" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
-                        <clipPath id="clip-mthd-005">
+                        <clipPath id="clip-mthd-004">
                             <rect x="63.1344" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
-                        <clipPath id="clip-mthd-006">
+                        <clipPath id="clip-mthd-005">
                             <rect x="77.718" y="14" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
-                        <clipPath id="clip-gsrm">
-                            <rect x="52.8" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        <clipPath id="clip-mthd-006">
+                            <rect x="92.3016" y="14" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-mthd-007">
+                            <rect x="106.8852" y="14" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-01">
+                            <rect x="15.88" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-02">
+                            <rect x="38.44" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-03">
+                            <rect x="61" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-04">
+                            <rect x="83.56" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-05">
+                            <rect x="106.12" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-06">
+                            <rect x="27.16" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-07">
+                            <rect x="49.72" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-08">
+                            <rect x="72.28" y="52.5" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-gsrm-09">
+                            <rect x="94.84" y="52.5" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                         <clipPath id="clip-stnd-001">
                             <rect x="4.8" y="66" width="8" height="8" rx="3" ry="3"/>
@@ -183,6 +213,9 @@
                         </clipPath>
                         <clipPath id="clip-stnd-004">
                             <rect x="76.8" y="66" width="8" height="8" rx="3" ry="3"/>
+                        </clipPath>
+                        <clipPath id="clip-stnd-005">
+                            <rect x="117.2" y="66" width="8" height="8" rx="3" ry="3"/>
                         </clipPath>
                     </defs>
                     <!-- HDBK Node -->
@@ -198,11 +231,11 @@
                             <text x="53.8" y="6.8" class="hierarchy-text"> -L008</text>
                         </g>
                     </a>
-                    <!-- PSRM Node -->
+                    <!-- PSRM-002 Node -->
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-PSRM-002" data-folder="CHEM-PSRM-002" target="_blank" tabindex="0" aria-label="PSRM-002" role="button" class="pdf-link">
                         <g>
                             <title>PSRM-002</title>
-                            <g clip-path="url(#clip-psrm)">
+                            <g clip-path="url(#clip-psrm-002)">
                                 <image x="4.8" y="14" width="8" height="8" href="images/Procurement_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
                             <rect x="4.8" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
@@ -211,187 +244,308 @@
                             <text x="8.8" y="18.8" class="hierarchy-text">-002</text>
                         </g>
                     </a>
+                    <!-- PSRM-003 Node -->
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-PSRM-003" data-folder="CHEM-PSRM-003" target="_blank" tabindex="0" aria-label="PSRM-003" role="button" class="pdf-link">
+                        <g>
+                            <title>PSRM-003</title>
+                            <g clip-path="url(#clip-psrm-003)">
+                                <image x="19.3836" y="14" width="8" height="8" href="images/Procurement_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="19.3836" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="19.3836" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="23.3836" y="17.2" class="hierarchy-text">PSRM</text>
+                            <text x="23.3836" y="18.8" class="hierarchy-text">-003</text>
+                        </g>
+                    </a>
                     <!-- MTHD Nodes -->
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-002" data-folder="CHEM-MTHD-002" target="_blank" tabindex="0" aria-label="MTHD-002" role="button" class="pdf-link">
                         <g>
                             <title>MTHD-002</title>
                             <g clip-path="url(#clip-mthd-002)">
-                                <image x="19.3836" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="33.9672" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="19.3836" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="19.3836" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
-                            <text x="23.3836" y="17.2" class="hierarchy-text">MTHD</text>
-                            <text x="23.3836" y="18.8" class="hierarchy-text">-002</text>
+                            <rect x="33.9672" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="33.9672" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="37.9672" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="37.9672" y="18.8" class="hierarchy-text">-002</text>
                         </g>
                     </a>
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-003" data-folder="CHEM-MTHD-003" target="_blank" tabindex="0" aria-label="MTHD-003" role="button" class="pdf-link">
                         <g>
                             <title>MTHD-003</title>
                             <g clip-path="url(#clip-mthd-003)">
-                                <image x="33.9672" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="48.5508" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="33.9672" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="33.9672" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
-                            <text x="37.9672" y="17.2" class="hierarchy-text">MTHD</text>
-                            <text x="37.9672" y="18.8" class="hierarchy-text">-003</text>
+                            <rect x="48.5508" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="48.5508" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="52.5508" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="52.5508" y="18.8" class="hierarchy-text">-003</text>
                         </g>
                     </a>
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-004" data-folder="CHEM-MTHD-004" target="_blank" tabindex="0" aria-label="MTHD-004" role="button" class="pdf-link">
                         <g>
                             <title>MTHD-004</title>
                             <g clip-path="url(#clip-mthd-004)">
-                                <image x="48.5508" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="63.1344" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="48.5508" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="48.5508" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
-                            <text x="52.5508" y="17.2" class="hierarchy-text">MTHD</text>
-                            <text x="52.5508" y="18.8" class="hierarchy-text">-004</text>
+                            <rect x="63.1344" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="63.1344" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="67.1344" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="67.1344" y="18.8" class="hierarchy-text">-004</text>
                         </g>
                     </a>
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-005" data-folder="CHEM-MTHD-005" target="_blank" tabindex="0" aria-label="MTHD-005" role="button" class="pdf-link">
                         <g>
                             <title>MTHD-005</title>
                             <g clip-path="url(#clip-mthd-005)">
-                                <image x="63.1344" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="77.718" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="63.1344" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="63.1344" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
-                            <text x="67.1344" y="17.2" class="hierarchy-text">MTHD</text>
-                            <text x="67.1344" y="18.8" class="hierarchy-text">-005</text>
+                            <rect x="77.718" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="77.718" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="81.718" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="81.718" y="18.8" class="hierarchy-text">-005</text>
                         </g>
                     </a>
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-006" data-folder="CHEM-MTHD-006" target="_blank" tabindex="0" aria-label="MTHD-006" role="button" class="pdf-link">
                         <g>
                             <title>MTHD-006</title>
                             <g clip-path="url(#clip-mthd-006)">
-                                <image x="77.718" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="92.3016" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="77.718" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="77.718" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
-                            <text x="81.718" y="17.2" class="hierarchy-text">MTHD</text>
-                            <text x="81.718" y="18.8" class="hierarchy-text">-006</text>
+                            <rect x="92.3016" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="92.3016" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="96.3016" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="96.3016" y="18.8" class="hierarchy-text">-006</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-MTHD-007" data-folder="CHEM-MTHD-007" target="_blank" tabindex="0" aria-label="MTHD-007" role="button" class="pdf-link">
+                        <g>
+                            <title>MTHD-007</title>
+                            <g clip-path="url(#clip-mthd-007)">
+                                <image x="106.8852" y="14" width="8" height="8" href="images/Method.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="106.8852" y="14" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="106.8852" y="14" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="110.8852" y="17.2" class="hierarchy-text">MTHD</text>
+                            <text x="110.8852" y="18.8" class="hierarchy-text">-007</text>
                         </g>
                     </a>
                     <!-- CSRM Nodes -->
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-01" data-folder="CHEM-CSRM-ESR-01" target="_blank" tabindex="0" aria-label="CSRM-ESR-01" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-01" data-folder="CHEM-CSRM-01" target="_blank" tabindex="0" aria-label="CSRM-01" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-01</title>
+                            <title>CSRM-01</title>
                             <g clip-path="url(#clip-csrm-01)">
-                                <image x="17.4912" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_01_Canals/Gallery/canals1.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="11.96" y="26" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="17.4912,30.5 25.4112,26 33.3312,30.5 25.4112,35" class="hierarchy-node csrm"/>
-                            <polygon points="17.4912,30.5 25.4112,26 33.3312,30.5 25.4112,35" class="text-background"/>
-                            <text x="25.4112" y="29.7" class="hierarchy-text">CSRM</text>
-                            <text x="25.4112" y="31.3" class="hierarchy-text">-ESR-01</text>
+                            <polygon points="11.96,30.5 19.88,26 27.8,30.5 19.88,35" class="hierarchy-node csrm"/>
+                            <polygon points="11.96,30.5 19.88,26 27.8,30.5 19.88,35" class="text-background"/>
+                            <text x="19.88" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="19.88" y="31.3" class="hierarchy-text">-01</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-02" data-folder="CHEM-CSRM-ESR-02" target="_blank" tabindex="0" aria-label="CSRM-ESR-02" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-02" data-folder="CHEM-CSRM-02" target="_blank" tabindex="0" aria-label="CSRM-02" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-02</title>
+                            <title>CSRM-02</title>
                             <g clip-path="url(#clip-csrm-02)">
-                                <image x="40.0512" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Jasouki/Workshop_Jasouki/ESR_02_Graveyards/Gallery/Graveyards_01.png" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="34.52" y="26" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35" class="hierarchy-node csrm"/>
-                            <polygon points="40.0512,30.5 47.9712,26 55.8912,30.5 47.9712,35" class="text-background"/>
-                            <text x="47.9712" y="29.7" class="hierarchy-text">CSRM</text>
-                            <text x="47.9712" y="31.3" class="hierarchy-text">-ESR-02</text>
+                            <polygon points="34.52,30.5 42.44,26 50.36,30.5 42.44,35" class="hierarchy-node csrm"/>
+                            <polygon points="34.52,30.5 42.44,26 50.36,30.5 42.44,35" class="text-background"/>
+                            <text x="42.44" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="42.44" y="31.3" class="hierarchy-text">-02</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-03" data-folder="CHEM-CSRM-ESR-03" target="_blank" tabindex="0" aria-label="CSRM-ESR-03" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-03" data-folder="CHEM-CSRM-03" target="_blank" tabindex="0" aria-label="CSRM-03" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-03</title>
+                            <title>CSRM-03</title>
                             <g clip-path="url(#clip-csrm-03)">
-                                <image x="62.6112" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Zetnus/Workshop_Zetnus/ESR_03_Moats/Gallery/moats2.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="57.08" y="26" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="62.6112,30.5 70.5312,26 78.4512,30.5 70.5312,35" class="hierarchy-node csrm"/>
-                            <polygon points="62.6112,30.5 70.5312,26 78.4512,30.5 70.5312,35" class="text-background"/>
-                            <text x="70.5312" y="29.7" class="hierarchy-text">CSRM</text>
-                            <text x="70.5312" y="31.3" class="hierarchy-text">-ESR-03</text>
+                            <polygon points="57.08,30.5 65,26 72.92,30.5 65,35" class="hierarchy-node csrm"/>
+                            <polygon points="57.08,30.5 65,26 72.92,30.5 65,35" class="text-background"/>
+                            <text x="65" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="65" y="31.3" class="hierarchy-text">-03</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-04" data-folder="CHEM-CSRM-ESR-04" target="_blank" tabindex="0" aria-label="CSRM-ESR-04" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-04" data-folder="CHEM-CSRM-04" target="_blank" tabindex="0" aria-label="CSRM-04" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-04</title>
+                            <title>CSRM-04</title>
                             <g clip-path="url(#clip-csrm-04)">
-                                <image x="85.1712" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Magico/Workshop_Magico/ESR_04_Paradise_Island/Gallery/Full_view_of_Map.png" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="79.64" y="26" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="85.1712,30.5 93.0912,26 101.0112,30.5 93.0912,35" class="hierarchy-node csrm"/>
-                            <polygon points="85.1712,30.5 93.0912,26 101.0112,30.5 93.0912,35" class="text-background"/>
-                            <text x="93.0912" y="29.7" class="hierarchy-text">CSRM</text>
-                            <text x="93.0912" y="31.3" class="hierarchy-text">-ESR-04</text>
+                            <polygon points="79.64,30.5 87.56,26 95.48,30.5 87.56,35" class="hierarchy-node csrm"/>
+                            <polygon points="79.64,30.5 87.56,26 95.48,30.5 87.56,35" class="text-background"/>
+                            <text x="87.56" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="87.56" y="31.3" class="hierarchy-text">-04</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-05" data-folder="CHEM-CSRM-ESR-05" target="_blank" tabindex="0" aria-label="CSRM-ESR-05" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-05" data-folder="CHEM-CSRM-05" target="_blank" tabindex="0" aria-label="CSRM-05" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-05</title>
+                            <title>CSRM-05</title>
                             <g clip-path="url(#clip-csrm-05)">
-                                <image x="107.7312" y="26" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_05_Prairie/Gallery/Overview.png" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="102.2" y="26" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="107.7312,30.5 115.6512,26 123.5712,30.5 115.6512,35" class="hierarchy-node csrm"/>
-                            <polygon points="107.7312,30.5 115.6512,26 123.5712,30.5 115.6512,35" class="text-background"/>
-                            <text x="115.6512" y="29.7" class="hierarchy-text">CSRM</text>
-                            <text x="115.6512" y="31.3" class="hierarchy-text">-ESR-05</text>
+                            <polygon points="102.2,30.5 110.12,26 118.04,30.5 110.12,35" class="hierarchy-node csrm"/>
+                            <polygon points="102.2,30.5 110.12,26 118.04,30.5 110.12,35" class="text-background"/>
+                            <text x="110.12" y="29.7" class="hierarchy-text">CSRM</text>
+                            <text x="110.12" y="31.3" class="hierarchy-text">-05</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-06" data-folder="CHEM-CSRM-ESR-06" target="_blank" tabindex="0" aria-label="CSRM-ESR-06" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-06" data-folder="CHEM-CSRM-06" target="_blank" tabindex="0" aria-label="CSRM-06" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-06</title>
+                            <title>CSRM-06</title>
                             <g clip-path="url(#clip-csrm-06)">
-                                <image x="28.7712" y="36" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_Biscuits/Workshop_Biscuits/ESR_06_Seasons/Gallery/Overview.jpg" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="23.24" y="36" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="28.7712,40.5 36.6912,36 44.6112,40.5 36.6912,45" class="hierarchy-node csrm"/>
-                            <polygon points="28.7712,40.5 36.6912,36 44.6112,40.5 36.6912,45" class="text-background"/>
-                            <text x="36.6912" y="39.7" class="hierarchy-text">CSRM</text>
-                            <text x="36.6912" y="41.3" class="hierarchy-text">-ESR-06</text>
+                            <polygon points="23.24,40.5 31.16,36 39.08,40.5 31.16,45" class="hierarchy-node csrm"/>
+                            <polygon points="23.24,40.5 31.16,36 39.08,40.5 31.16,45" class="text-background"/>
+                            <text x="31.16" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="31.16" y="41.3" class="hierarchy-text">-06</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-07" data-folder="CHEM-CSRM-ESR-07" target="_blank" tabindex="0" aria-label="CSRM-ESR-07" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-07" data-folder="CHEM-CSRM-07" target="_blank" tabindex="0" aria-label="CSRM-07" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-07</title>
+                            <title>CSRM-07</title>
                             <g clip-path="url(#clip-csrm-07)">
-                                <image x="51.3312" y="36" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="45.8" y="36" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="51.3312,40.5 59.2512,36 67.1712,40.5 59.2512,45" class="hierarchy-node csrm"/>
-                            <polygon points="51.3312,40.5 59.2512,36 67.1712,40.5 59.2512,45" class="text-background"/>
-                            <text x="59.2512" y="39.7" class="hierarchy-text">CSRM</text>
-                            <text x="59.2512" y="41.3" class="hierarchy-text">-ESR-07</text>
+                            <polygon points="45.8,40.5 53.72,36 61.64,40.5 53.72,45" class="hierarchy-node csrm"/>
+                            <polygon points="45.8,40.5 53.72,36 61.64,40.5 53.72,45" class="text-background"/>
+                            <text x="53.72" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="53.72" y="41.3" class="hierarchy-text">-07</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-08" data-folder="CHEM-CSRM-ESR-08" target="_blank" tabindex="0" aria-label="CSRM-ESR-08" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-08" data-folder="CHEM-CSRM-08" target="_blank" tabindex="0" aria-label="CSRM-08" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-08</title>
+                            <title>CSRM-08</title>
                             <g clip-path="url(#clip-csrm-08)">
-                                <image x="73.8912" y="36" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_TechChariot/Workshop_TechChariot/ESR_08_Shipwreck/Gallery/Overview.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="68.36" y="36" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="73.8912,40.5 81.8112,36 89.7312,40.5 81.8112,45" class="hierarchy-node csrm"/>
-                            <polygon points="73.8912,40.5 81.8112,36 89.7312,40.5 81.8112,45" class="text-background"/>
-                            <text x="81.8112" y="39.7" class="hierarchy-text">CSRM</text>
-                            <text x="81.8112" y="41.3" class="hierarchy-text">-ESR-08</text>
+                            <polygon points="68.36,40.5 76.28,36 84.2,40.5 76.28,45" class="hierarchy-node csrm"/>
+                            <polygon points="68.36,40.5 76.28,36 84.2,40.5 76.28,45" class="text-background"/>
+                            <text x="76.28" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="76.28" y="41.3" class="hierarchy-text">-08</text>
                         </g>
                     </a>
-                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-ESR-09" data-folder="CHEM-CSRM-ESR-09" target="_blank" tabindex="0" aria-label="CSRM-ESR-09" role="button" class="pdf-link">
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-CSRM-09" data-folder="CHEM-CSRM-09" target="_blank" tabindex="0" aria-label="CSRM-09" role="button" class="pdf-link">
                         <g>
-                            <title>CSRM-ESR-09</title>
+                            <title>CSRM-09</title>
                             <g clip-path="url(#clip-csrm-09)">
-                                <image x="96.4512" y="36" width="15.84" height="9" href="https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/Workshop_welcometorapture/ESR_09_Team_Glaciers/Gallery/ESR_09_overview.PNG" onerror="this.href='images/Question_Mark.jpg'" preserveAspectRatio="xMidYMid slice"/>
+                                <image x="90.92" y="36" width="15.84" height="9" href="images/Question_Mark.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45" class="hierarchy-node csrm"/>
-                            <polygon points="96.4512,40.5 104.3712,36 112.2912,40.5 104.3712,45" class="text-background"/>
-                            <text x="104.3712" y="39.7" class="hierarchy-text">CSRM</text>
-                            <text x="104.3712" y="41.3" class="hierarchy-text">-ESR-09</text>
+                            <polygon points="90.92,40.5 98.84,36 106.76,40.5 98.84,45" class="hierarchy-node csrm"/>
+                            <polygon points="90.92,40.5 98.84,36 106.76,40.5 98.84,45" class="text-background"/>
+                            <text x="98.84" y="39.7" class="hierarchy-text">CSRM</text>
+                            <text x="98.84" y="41.3" class="hierarchy-text">-09</text>
                         </g>
                     </a>
-                    <!-- GSRM Node -->
+                    <!-- GSRM Nodes -->
                     <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-1" data-folder="CHEM-GSRM-UNK-1" target="_blank" tabindex="0" aria-label="GSRM-UNK-1" role="button" class="pdf-link">
                         <g>
                             <title>GSRM-UNK-1</title>
-                            <g clip-path="url(#clip-gsrm)">
-                                <image x="52.8" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            <g clip-path="url(#clip-gsrm-01)">
+                                <image x="15.88" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
                             </g>
-                            <rect x="52.8" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
-                            <rect x="52.8" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
-                            <text x="56.8" y="55.7" class="hierarchy-text">GSRM</text>
-                            <text x="56.8" y="57.3" class="hierarchy-text">-UNK-1</text>
+                            <rect x="15.88" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="15.88" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="19.88" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="19.88" y="57.3" class="hierarchy-text">-UNK-1</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-2" data-folder="CHEM-GSRM-UNK-2" target="_blank" tabindex="0" aria-label="GSRM-UNK-2" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-2</title>
+                            <g clip-path="url(#clip-gsrm-02)">
+                                <image x="38.44" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="38.44" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="38.44" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="42.44" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="42.44" y="57.3" class="hierarchy-text">-UNK-2</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-3" data-folder="CHEM-GSRM-UNK-3" target="_blank" tabindex="0" aria-label="GSRM-UNK-3" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-3</title>
+                            <g clip-path="url(#clip-gsrm-03)">
+                                <image x="61" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="61" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="61" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="65" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="65" y="57.3" class="hierarchy-text">-UNK-3</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-4" data-folder="CHEM-GSRM-UNK-4" target="_blank" tabindex="0" aria-label="GSRM-UNK-4" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-4</title>
+                            <g clip-path="url(#clip-gsrm-04)">
+                                <image x="83.56" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="83.56" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="83.56" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="87.56" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="87.56" y="57.3" class="hierarchy-text">-UNK-4</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-5" data-folder="CHEM-GSRM-UNK-5" target="_blank" tabindex="0" aria-label="GSRM-UNK-5" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-5</title>
+                            <g clip-path="url(#clip-gsrm-05)">
+                                <image x="106.12" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="106.12" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="106.12" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="110.12" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="110.12" y="57.3" class="hierarchy-text">-UNK-5</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-6" data-folder="CHEM-GSRM-UNK-6" target="_blank" tabindex="0" aria-label="GSRM-UNK-6" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-6</title>
+                            <g clip-path="url(#clip-gsrm-06)">
+                                <image x="27.16" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="27.16" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="27.16" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="31.16" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="31.16" y="57.3" class="hierarchy-text">-UNK-6</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-7" data-folder="CHEM-GSRM-UNK-7" target="_blank" tabindex="0" aria-label="GSRM-UNK-7" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-7</title>
+                            <g clip-path="url(#clip-gsrm-07)">
+                                <image x="49.72" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="49.72" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="49.72" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="53.72" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="53.72" y="57.3" class="hierarchy-text">-UNK-7</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-8" data-folder="CHEM-GSRM-UNK-8" target="_blank" tabindex="0" aria-label="GSRM-UNK-8" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-8</title>
+                            <g clip-path="url(#clip-gsrm-08)">
+                                <image x="72.28" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="72.28" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="72.28" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="76.28" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="76.28" y="57.3" class="hierarchy-text">-UNK-8</text>
+                        </g>
+                    </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-GSRM-UNK-9" data-folder="CHEM-GSRM-UNK-9" target="_blank" tabindex="0" aria-label="GSRM-UNK-9" role="button" class="pdf-link">
+                        <g>
+                            <title>GSRM-UNK-9</title>
+                            <g clip-path="url(#clip-gsrm-09)">
+                                <image x="94.84" y="52.5" width="8" height="8" href="images/General_Spec.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="94.84" y="52.5" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="94.84" y="52.5" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="98.84" y="55.7" class="hierarchy-text">GSRM</text>
+                            <text x="98.84" y="57.3" class="hierarchy-text">-UNK-9</text>
                         </g>
                     </a>
                     <!-- STND Nodes -->
@@ -443,44 +597,68 @@
                             <text x="80.8" y="70.8" class="hierarchy-text">-004</text>
                         </g>
                     </a>
+                    <a href="https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-STND-005" data-folder="CHEM-STND-005" target="_blank" tabindex="0" aria-label="STND-005" role="button" class="pdf-link">
+                        <g>
+                            <title>STND-005</title>
+                            <g clip-path="url(#clip-stnd-005)">
+                                <image x="117.2" y="66" width="8" height="8" href="images/Standard.jpg" preserveAspectRatio="xMidYMid slice"/>
+                            </g>
+                            <rect x="117.2" y="66" width="8" height="8" class="hierarchy-node" rx="3" ry="3"/>
+                            <rect x="117.2" y="66" width="8" height="8" class="text-background" rx="3" ry="3"/>
+                            <text x="121.2" y="69.2" class="hierarchy-text">STND</text>
+                            <text x="121.2" y="70.8" class="hierarchy-text">-005</text>
+                        </g>
+                    </a>
                     <!-- Connecting Lines -->
                     <line x1="53.8" y1="10" x2="53.8" y2="12" class="hierarchy-arrow"/>
-                    <line x1="8.8" y1="12" x2="81.718" y2="12" class="hierarchy-line"/>
+                    <line x1="8.8" y1="12" x2="121.2" y2="12" class="hierarchy-line"/>
                     <line x1="8.8" y1="12" x2="8.8" y2="14" class="hierarchy-arrow"/>
                     <line x1="23.3836" y1="12" x2="23.3836" y2="14" class="hierarchy-arrow"/>
                     <line x1="37.9672" y1="12" x2="37.9672" y2="14" class="hierarchy-arrow"/>
                     <line x1="52.5508" y1="12" x2="52.5508" y2="14" class="hierarchy-arrow"/>
                     <line x1="67.1344" y1="12" x2="67.1344" y2="14" class="hierarchy-arrow"/>
                     <line x1="81.718" y1="12" x2="81.718" y2="14" class="hierarchy-arrow"/>
-                    <line x1="8.8" y1="22" x2="8.8" y2="24" class="hierarchy-arrow"/>
-                    <line x1="8.8" y1="24" x2="115.6512" y2="24" class="hierarchy-line"/>
-                    <line x1="25.4112" y1="24" x2="25.4112" y2="26" class="hierarchy-arrow"/>
-                    <line x1="47.9712" y1="24" x2="47.9712" y2="26" class="hierarchy-arrow"/>
-                    <line x1="70.5312" y1="24" x2="70.5312" y2="26" class="hierarchy-arrow"/>
-                    <line x1="93.0912" y1="24" x2="93.0912" y2="26" class="hierarchy-arrow"/>
-                    <line x1="115.6512" y1="24" x2="115.6512" y2="26" class="hierarchy-arrow"/>
-                    <line x1="36.6912" y1="24" x2="36.6912" y2="36" class="hierarchy-arrow"/>
-                    <line x1="59.2512" y1="24" x2="59.2512" y2="36" class="hierarchy-arrow"/>
-                    <line x1="81.8112" y1="24" x2="81.8112" y2="36" class="hierarchy-arrow"/>
-                    <line x1="104.3712" y1="24" x2="104.3712" y2="36" class="hierarchy-arrow"/>
-                    <line x1="25.4112" y1="35" x2="25.4112" y2="48" class="hierarchy-arrow"/>
-                    <line x1="47.9712" y1="35" x2="47.9712" y2="48" class="hierarchy-arrow"/>
-                    <line x1="70.5312" y1="35" x2="70.5312" y2="48" class="hierarchy-arrow"/>
-                    <line x1="93.0912" y1="35" x2="93.0912" y2="48" class="hierarchy-arrow"/>
-                    <line x1="115.6512" y1="35" x2="115.6512" y2="48" class="hierarchy-arrow"/>
-                    <line x1="36.6912" y1="45" x2="36.6912" y2="48" class="hierarchy-arrow"/>
-                    <line x1="59.2512" y1="45" x2="59.2512" y2="48" class="hierarchy-arrow"/>
-                    <line x1="81.8112" y1="45" x2="81.8112" y2="48" class="hierarchy-arrow"/>
-                    <line x1="104.3712" y1="45" x2="104.3712" y2="48" class="hierarchy-arrow"/>
-                    <line x1="25.4112" y1="48" x2="115.6512" y2="48" class="hierarchy-line"/>
-                    <line x1="56.8" y1="48" x2="56.8" y2="52.5" class="hierarchy-arrow"/>
-                    <line x1="56.8" y1="60.5" x2="56.8" y2="63.25" class="hierarchy-arrow"/>
-                    <line x1="32.8" y1="63.25" x2="80.8" y2="63.25" class="hierarchy-line"/>
+                    <line x1="96.3016" y1="12" x2="96.3016" y2="14" class="hierarchy-arrow"/>
+                    <line x1="110.8852" y1="12" x2="110.8852" y2="14" class="hierarchy-arrow"/>
+                    <line x1="23.3836" y1="22" x2="23.3836" y2="24" class="hierarchy-arrow"/>
+                    <line x1="19.88" y1="24" x2="110.12" y2="24" class="hierarchy-line"/>
+                    <line x1="19.88" y1="24" x2="19.88" y2="26" class="hierarchy-arrow"/>
+                    <line x1="42.44" y1="24" x2="42.44" y2="26" class="hierarchy-arrow"/>
+                    <line x1="65" y1="24" x2="65" y2="26" class="hierarchy-arrow"/>
+                    <line x1="87.56" y1="24" x2="87.56" y2="26" class="hierarchy-arrow"/>
+                    <line x1="110.12" y1="24" x2="110.12" y2="26" class="hierarchy-arrow"/>
+                    <line x1="31.16" y1="24" x2="31.16" y2="36" class="hierarchy-arrow"/>
+                    <line x1="53.72" y1="24" x2="53.72" y2="36" class="hierarchy-arrow"/>
+                    <line x1="76.28" y1="24" x2="76.28" y2="36" class="hierarchy-arrow"/>
+                    <line x1="98.84" y1="24" x2="98.84" y2="36" class="hierarchy-arrow"/>
+                    <!-- Arrows from CSRMs to GSRMs -->
+                    <line x1="19.88" y1="35" x2="19.88" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="42.44" y1="35" x2="42.44" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="65" y1="35" x2="65" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="87.56" y1="35" x2="87.56" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="110.12" y1="35" x2="110.12" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="31.16" y1="45" x2="31.16" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="53.72" y1="45" x2="53.72" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="76.28" y1="45" x2="76.28" y2="52.5" class="hierarchy-arrow"/>
+                    <line x1="98.84" y1="45" x2="98.84" y2="52.5" class="hierarchy-arrow"/>
+                    <!-- Arrows from GSRMs to horizontal -->
+                    <line x1="19.88" y1="60.5" x2="19.88" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="42.44" y1="60.5" x2="42.44" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="65" y1="60.5" x2="65" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="87.56" y1="60.5" x2="87.56" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="110.12" y1="60.5" x2="110.12" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="31.16" y1="60.5" x2="31.16" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="53.72" y1="60.5" x2="53.72" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="76.28" y1="60.5" x2="76.28" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="98.84" y1="60.5" x2="98.84" y2="63.25" class="hierarchy-arrow"/>
+                    <line x1="19.88" y1="63.25" x2="110.12" y2="63.25" class="hierarchy-line"/>
                     <line x1="32.8" y1="63.25" x2="32.8" y2="66" class="hierarchy-arrow"/>
                     <line x1="56.8" y1="63.25" x2="56.8" y2="66" class="hierarchy-arrow"/>
                     <line x1="80.8" y1="63.25" x2="80.8" y2="66" class="hierarchy-arrow"/>
                     <line x1="8.8" y1="22" x2="8.8" y2="63.25" class="hierarchy-line"/>
                     <line x1="8.8" y1="63.25" x2="8.8" y2="66" class="hierarchy-arrow"/>
+                    <!-- Drop-down arrow from extended second row horizontal to STND-005 -->
+                    <line x1="121.2" y1="12" x2="121.2" y2="66" class="hierarchy-arrow"/>
                 </svg>
             </div>
         </div>
