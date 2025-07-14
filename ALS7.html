@@ -38,7 +38,7 @@
                     <li>Unique Round Robin System</li>
                     <li>Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two</li>
                     <li>Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool</li>
-                    <li>Players Matched Against Nearest Available Opponents, Minimizing Skill Gap While Supporting League Structure</li>
+                    <li>Players Matched Against Nearest Available Opponents, Minimizing Skill Gap</li>
                     <li>Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate</li>
                     <li>Winner Selection Independent of Skill, Depends Only On Participation and Performance</li>
                     <li>Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill</li>
@@ -49,9 +49,9 @@
         </div>
 
         <div class="nav-group reference-links" aria-label="Reference links section" role="region">
-            <a href="ALS7_Resources/Map_Contest.ods" target="_blank" download>Map Contest Results</a>
+            <a class="resource-link" data-file="Map_Contest.ods" download>Map Contest Results</a>
             <a href="https://aoe2cm.net/preset/nOxHA" target="_blank">Map Draft</a>
-            <a href="ALS7_Resources/Map_Archive.zip" target="_blank" download>Map Archive</a>
+            <a class="resource-link" data-file="Map_Archive.zip" download>Map Archive</a>
             <a href="https://aoe2cm.net/preset/EjvqT" target="_blank">Civilization Draft</a>
         </div>
 
@@ -604,7 +604,7 @@
         if (match && match[1]) {
             seasonNumber = parseInt(match[1], 10);
         } else {
-            seasonNumber = 7; // Fallback if inference fails (remove this line if you want strict inference)
+
         }
 
         const prizeIneligibles1 = parseInt(document.getElementById('sprint1').dataset.prizeIneligibles) || 0;
@@ -618,15 +618,17 @@
     <script src="scripts/tab_handler.js"></script>
     <script src="scripts/layout_adjuster.js"></script>
     <script src="scripts/data_loader.js"></script>
+    <script src="scripts/dynamic_content_updater.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             logCsrmImageErrors();
             adjustSvgTextLengths();
-            adjustDefinitionsHeight();
             initializeTabs();
             initDataLoaders();
             resizeButtons();
             adjustBottomRowHeight();
+            updateDynamicContent();
+            adjustDefinitionsHeight(); // Still call here for initial, but load event handles final
         });
     </script>
 </body>

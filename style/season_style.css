@@ -155,7 +155,7 @@
     display: grid;
     grid-template-columns: auto 1fr 1fr 1fr 1fr;
     grid-template-rows: 350px auto auto;
-    gap: 20px;
+    gap: 30px; /* Increased from 20px to fix padding issue */
     padding: var(--base-padding, 10px);
     box-sizing: border-box;
     max-width: 1920px;
@@ -191,6 +191,7 @@
     grid-row: 1;
     width: 100%;
     align-self: start;
+    min-height: 200px; /* Added to prevent height collapse and restore padding */
 }
 .nav-group.reference-links {
     grid-column: 3;
@@ -203,7 +204,7 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('images/Image_Links.jpg');
     background-size: cover;
     background-position: center;
-    padding: 5px;
+    padding: var(--base-padding, 10px); /* Adjusted to match other nav-groups */
     border: 1px solid #000;
     border-radius: 10px;
     min-height: auto;
@@ -532,4 +533,22 @@
 }
 #spreadsheet-container td a:hover, #spreadsheet-container-sprint2 td a:hover, #results-container td a:hover, #results-container-sprint2 td a:hover {
     outline: none;
+}
+
+.nav-group.definitions {
+    min-height: 50vh; /* Minimum 50% of viewport height to prevent collapse on smaller screens */
+}
+
+.nav-group.box1 {
+    min-height: 30vh; /* Minimum 30% of viewport height for INFORMATION box */
+    margin-bottom: 10px; /* Fallback gap if grid fails */
+}
+
+@media (max-height: 1080px) {
+    .nav-group.definitions {
+        min-height: 60vh; /* Taller min on shorter screens */
+    }
+    .nav-group.box1 {
+        min-height: 35vh;
+    }
 }

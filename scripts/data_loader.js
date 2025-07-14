@@ -1,33 +1,32 @@
 async function loadPlayerLinks(sprint) {
-  const file = `ALS${seasonNumber}_Resources/${sprint}/Registration.ods`;
-  try {
-    const response = await fetch(file);
-    if (!response.ok) return {};
-    const arrayBuffer = await response.arrayBuffer();
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    const range = XLSX.utils.decode_range(worksheet['!ref']);
-    let nameCol = -1, linkCol = 2; // Hardcode linkCol to column 3 (0-indexed: 2)
-    // Scan header row 0 for name column
-    for (let col = range.s.c; col <= range.e.c; col++) {
-      const cell = worksheet[XLSX.utils.encode_cell({r: 0, c: col})];
-      const val = cell ? (cell.v || '').toLowerCase() : '';
-      if (val.includes('player') || val.includes('name')) nameCol = col;
+    const file = `ALS${seasonNumber}_Resources/${sprint}/Registration.ods`;
+    try {
+        const response = await fetch(file);
+        if (!response.ok) return {}; // Silent fail
+        const arrayBuffer = await response.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const range = XLSX.utils.decode_range(worksheet['!ref']);
+        let nameCol = -1, linkCol = 2; // Hardcode linkCol to column 3 (0-indexed: 2)
+        // Scan header row 0 for name column
+        for (let col = range.s.c; col <= range.e.c; col++) {
+            const cell = worksheet[XLSX.utils.encode_cell({r: 0, c: col})];
+            const val = cell ? (cell.v || '').toLowerCase() : '';
+            if (val.includes('player') || val.includes('name')) nameCol = col;
+        }
+        if (nameCol === -1) return {};
+        const map = {};
+        for (let row = 1; row <= range.e.r; row++) {
+            const nameCell = worksheet[XLSX.utils.encode_cell({r: row, c: nameCol})];
+            const linkCell = worksheet[XLSX.utils.encode_cell({r: row, c: linkCol})];
+            if (nameCell && nameCell.v && linkCell && linkCell.v) {
+                map[nameCell.v.trim()] = linkCell.v.trim();
+            }
+        }
+        return map;
+    } catch (error) {
+        return {}; // Silent fail, no console.error
     }
-    if (nameCol === -1) return {};
-    const map = {};
-    for (let row = 1; row <= range.e.r; row++) {
-      const nameCell = worksheet[XLSX.utils.encode_cell({r: row, c: nameCol})];
-      const linkCell = worksheet[XLSX.utils.encode_cell({r: row, c: linkCol})];
-      if (nameCell && nameCell.v && linkCell && linkCell.v) {
-        map[nameCell.v.trim()] = linkCell.v.trim();
-      }
-    }
-    return map;
-  } catch (error) {
-    console.error(error);
-    return {};
-  }
 }
 
 async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, skipRows = 0, maxRankDisplay = Infinity, playerMap = {}) {
@@ -48,6 +47,7 @@ async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, s
     document.getElementById(containerId).innerHTML = '<p style="padding:10px; text-align:center; margin:0;">Not Yet Calculated</p>';
   }
 }
+
 
 function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay, playerMap) {
   if (!worksheet || !worksheet['!ref']) return '<table></table>';
