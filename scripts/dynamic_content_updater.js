@@ -20,7 +20,8 @@ function updateDynamicContent() {
         if (link.classList.contains('resource-link')) {
             const sprint = link.dataset.sprint;
             const file = link.dataset.file;
-            link.href = `https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS${seasonNumber}_Resources/${sprint}/${file}`;
+            const sprintPath = sprint ? `${sprint}/` : ''; // Conditionally add sprint path
+            link.href = `https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS${seasonNumber}_Resources/${sprintPath}${file}`;
             link.target = '_blank';
         } else if (link.href.includes('ALS')) {
             link.href = link.href.replace(/ALS\d+_Resources/g, `ALS${seasonNumber}_Resources`);
