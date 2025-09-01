@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<article class="content competitions-page">
+
+  
+  <div class="page page-content">
+    <h1>{{ page.title }}</h1>
+    {{ content }}
+
+    <div class="competition-list">
+      {%- for competition in site.competitions -%}
+      <div class="competition-list__link">
+        <a class=""
+          href="{{ competition.url | relative_url }}" 
+          {% if competition.image_path %}
+          style="background-image: url('{{ '/assets/images/competitions/' | append: competition.image_path | relative_url }}');"
+          {% endif %}
+          >
+            {{ competition.title | escape }}
+        </a>
+        </div>
+      {%- endfor -%}
+      </div>
+  </div>
+
+</article>

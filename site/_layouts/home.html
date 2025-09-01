@@ -1,0 +1,56 @@
+---
+layout: default
+---
+{% capture content_competitions %}
+  {%- if site.competitions.size > 0 -%}
+    <div class="competition-list">
+      {%- for competition in site.competitions -%}
+      <div class="competition-list__link">
+        <a class=""
+          href="{{ competition.url | relative_url }}" 
+          {% if competition.image_path %}
+          style="background-image: url('{{ '/assets/images/competitions/' | append: competition.image_path | relative_url }}');"
+          {% endif %}
+          >
+            {{ competition.title | escape }}
+        </a>
+        </div>
+      {%- endfor -%}
+      </div>
+  {%- endif -%}
+{% endcapture %}
+
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  <div class="flex-container">
+    <div class="flex-content quarter">
+      {% include block.html title="About us" content=page.content_about %}
+    </div>
+    <div class="flex-content quarter">
+      {% include block.html title="Our mission" content=page.content_mission %}
+    </div>
+    <div class="flex-content quarter">
+      {% include block.html title="Documents" content=page.content_documents background="assets/images/home/documents.jpg" %}
+    </div>
+    <div class="flex-content quarter">
+      {% include block.html title="Maps" content=page.content_maps background="assets/images/home/maps.jpg" %}
+    </div>
+
+    <div class="flex-content quarter">
+      {% include block.html title="RMS references" content=page.content_rms_references background="assets/images/home/references.jpg" %}
+    </div>
+    <div class="flex-content quarter">
+      {% include block.html title="People" content=page.content_people background="assets/images/home/people.jpg" %}
+    </div>
+    <div class="flex-content quarter">
+      {% include block.html title="Competitions" content=content_competitions %}
+    </div>
+  </div>
+
+</div>

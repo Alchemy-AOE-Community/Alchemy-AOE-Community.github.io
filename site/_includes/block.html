@@ -1,0 +1,12 @@
+<div class="block {% if include.height %} not-full-height{% endif %}{% if include.raw %} raw{% endif %}" {% if include.background %} style="background-image: url('{{ include.background }}');" {% endif %}>
+    <div class="block__title">
+        <h2>{{ include.title }}</h2>
+    </div>
+    <div class="block__content">
+        {% if include.raw %}
+            {{ include.content }}
+        {% else %}
+            {{ include.content | markdownify }}
+        {% endif %}
+    </div>
+</div>
