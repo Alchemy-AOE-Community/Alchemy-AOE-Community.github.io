@@ -26,59 +26,56 @@
   -->
 
   <title>Redirecting to latest PDF…</title>
-  <script>
-  (async()=>{
-    // 1) Grab the caller’s prefix (= also the subfolder name)
-    const prefix = new URLSearchParams(location.search).get('file');
-    if (!prefix) {
-      document.body.textContent = 'Error: no “?file=” parameter provided.';
-      return;
-    }
+<script>
+(async () => {
+  // 1) Grab the caller’s prefix
+  const prefix = new URLSearchParams(location.search).get('file');
+  if (!prefix) {
+    document.body.textContent = 'Error: no “?file=” parameter provided.';
+    return;
+  }
 
-    // 2) Repo info for your PDFs
-    const owner  = 'Alchemy-AOE-Community';
-    const repo   = 'CHEM-Published-Specifications';
-    const branch = 'download-to-click-links';
-    const folder = encodeURIComponent(prefix);  // subfolder exactly named after prefix
+  // 2) Repo info
+  const owner  = 'Alchemy-AOE-Community';
+  const repo   = 'CHEM-Published-Specifications';
+  const branch = 'download-to-click-links';
+  const folder = encodeURIComponent(prefix);
 
-    // 3) List that folder via GitHub API
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?ref=${branch}`;
-    let dir;
-    try {
-      const res = await fetch(apiUrl);
-      if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
-      dir = await res.json();
-    } catch (e) {
-      document.body.textContent = 'Error fetching folder “' + prefix + '”: ' + e;
-      return;
-    }
+  // 3) Fetch folder listing
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?ref=${branch}`;
+  let dir;
+  try {
+    const res = await fetch(apiUrl);
+    if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+    dir = await res.json();
+  } catch (e) {
+    document.body.textContent = `Error fetching folder “${prefix}”: ${e}`;
+    return;
+  }
 
-    // 4) Filter and sort filenames in that folder
-    const matches = dir
-      .map(item => item.name)
-      .filter(name => name.startsWith(prefix))
-      .sort();
-    if (!matches.length) {
-      document.body.textContent = `No files beginning with “${prefix}” found.`;
-      return;
-    }
-    const latest = matches.pop();
+  // 4) Filter TO PDF files only, then natural-sort by name
+  const pdfNames = dir
+    .filter(item => item.type === 'file')                            // only real files
+    .map(item => item.name)
+    .filter(name => 
+      name.toLowerCase().startsWith(prefix.toLowerCase()) &&         // prefix match
+      name.toLowerCase().endsWith('.pdf')                            // .pdf extension
+    )
+    .sort((a, b) => 
+      a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+    );
 
-    // 5) Build the raw.githubusercontent URL & redirect
-    const target = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder}/${latest}`;
-    window.location.replace(target);
-  })();
-  </script>
-</head>
-<body>
-  <p>Redirecting… if that fails, <a id="fallback" href="#">click here</a>.</p>
-  <script>
-    // Monkey-patch replace so we can set the fallback link
-    const orig = window.location.replace;
-    window.location.replace = (u)=>{
-      document.getElementById('fallback').href = u;
-      orig.call(window.location, u);
-    };
-  </script>
+  if (!pdfNames.length) {
+    document.body.textContent = `No PDF files beginning with “${prefix}” found.`;
+    return;
+  }
+
+  // 5) Redirect to the latest
+  const latestPdf = pdfNames.pop();
+  const targetUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder}/${latestPdf}`;
+  window.location.replace(targetUrl);
+})();
+</script>
+
 </body>
 </html>

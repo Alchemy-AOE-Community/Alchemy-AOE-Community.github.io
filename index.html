@@ -8,6 +8,90 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style/style.css" />
     <title>Alchemy AOE Community</title>
+    <style>
+        .main-content.grid-home
+        {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 340px 415px;
+            gap: var(--grid-gap, 10px); /* Fallback to 10px if --grid-gap is undefined */
+            max-width: 1900px; /* Moved from style.css */
+            margin: 0 auto; /* Ensures centering */
+            height: 775px;
+            grid-template-areas:
+                "about mission docs seasons"
+                "maps refs people seasons";
+        }
+
+        .nav-group.about { grid-area: about; }
+        .nav-group.mission { grid-area: mission; }
+        .nav-group.docs { grid-area: docs; }
+        .nav-group.maps { grid-area: maps; }
+        .nav-group.refs { grid-area: refs; }
+        .nav-group.people { grid-area: people; }
+        .nav-group.seasons { grid-area: seasons; }
+
+        .nav-group.docs,
+        .nav-group.maps,
+        .nav-group.refs,
+        .nav-group.people,
+        .nav-group.seasons {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .nav-group.docs { background-image: url('images/Image_Documents.jpg'); }
+        .nav-group.maps { background-image: url('images/Image_Maps.jpg'); }
+        .nav-group.refs { background-image: url('images/Image_OutsideRefs.jpg'); }
+        .nav-group.people { background-image: url('images/Image_People.jpg'); }
+        .nav-group.seasons { background-image: url('images/Season_Mashup.jpg'); }
+
+        .nav-group.about > .nav-group__content,
+        .nav-group.mission > .nav-group__content {
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        .nav-group.about > .nav-group__content p,
+        .nav-group.mission > .nav-group__content p {
+            margin-bottom: 10px;
+        }
+
+        .nav-group.about > .nav-group__content p:last-child,
+        .nav-group.mission > .nav-group__content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .nav-group.seasons > .nav-group__content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 3px;
+            padding: 3px;
+            height: calc(100% - var(--title-height));
+        }
+
+        .nav-group.seasons a {
+            height: 140px;
+            padding: 3px;
+            width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5rem;
+            text-shadow: 0px 0px 4px #000;
+            background-size: 100% 100%;
+        }
+
+        .nav-group.seasons a:nth-child(1) { background-image: url('images/ALS1_Banner.png'); }
+        .nav-group.seasons a:nth-child(2) { background-image: url('images/ALS2_Banner.png'); }
+        .nav-group.seasons a:nth-child(3) { background-image: url('images/ALS3_Banner.png'); }
+        .nav-group.seasons a:nth-child(4) { background-image: url('images/ALS4_Banner.png'); }
+        .nav-group.seasons a:nth-child(5) { background-image: url('images/ALS5_Banner.jpg'); }
+        .nav-group.seasons a:nth-child(6) { background-image: url('images/ALS6_Banner.jpg'); }
+        .nav-group.seasons a:nth-child(7) { background-image: url('images/ALS7_Banner.jpg'); }
+        .nav-group.seasons a:nth-child(8) { background-image: url('images/ALS8_Banner.jpg'); }
+    </style>
 </head>
 <body>
     <header>
@@ -15,67 +99,47 @@
     </header>
 
     <div class="main-content grid-home">
-        <div class="nav-group about" aria-label="About Us section" role="region">
+        <section class="nav-group about">
             <div class="nav-group__title">
-                <h2>About us</h2>
+                <h2>ABOUT US</h2>
             </div>
             <div class="nav-group__content">
-                <p>
-                    The Alchemy AOE Community is a free and non-profit organization of random map scripters, tournament hosts, content creators, and skilled players dedicated to the advancement of custom random maps in Age of Empires II: Definitive Edition.
-                </p>
-                <p>
-                    We are independent from the official Age of Empires developers, allowing us to prioritize creativity and free expression over marketing returns.
-                </p>
+                <p>The Alchemy AOE Community is a free and non-profit organization of random map scripters, tournament hosts, content creators, and skilled players dedicated to the advancement of custom random maps in Age of Empires II: Definitive Edition.</p>
+                <p>We are independent from the official Age of Empires developers, allowing us to prioritize creativity and free expression over marketing returns.</p>
             </div>
-        </div>
-        <div class="nav-group mission" aria-label="Our Mission section" role="region">
+        </section>
+        <section class="nav-group mission">
             <div class="nav-group__title">
-                <h2>Our mission</h2>
+                <h2>OUR MISSION</h2>
             </div>
             <div class="nav-group__content">
-                <p>
-                    The Alchemy AOE Community publishes quality standards for custom random maps, curating the finished products to feature in thematic competitions.
-                </p>
-                <p>
-                    Our skill calculator, matchmaking algorithms, and custom map creation software are without equal in the AOE2 universe.
-                </p>
-                <p>
-                    Join us to help Age of Empires II reach its full potential.
-                </p>
+                <p>The Alchemy AOE Community publishes quality standards for custom random maps, curating the finished products to feature in thematic competitions.</p>
+                <p>Our skill calculator, matchmaking algorithms, and custom map creation software are without equal in the AOE2 universe.</p>
+                <p>Join us to help Age of Empires II reach its full potential.</p>
             </div>
-        </div>
-        <div class="nav-group maps" aria-label="Maps section" role="region">
+        </section>
+        <section class="nav-group docs">
             <div class="nav-group__title">
-                <h2>Maps</h2>
+                <h2>DOCUMENTS</h2>
+            </div>
+            <div class="nav-group__content">
+                <a href="#">Charter</a>
+                <a href="https://github.com/Alchemy-AOE-Community/CHEM-Published-Specifications">Specifications</a>
+            </div>
+        </section>
+        <section class="nav-group maps">
+            <div class="nav-group__title">
+                <h2>MAPS</h2>
             </div>
             <div class="nav-group__content">
                 <a href="https://github.com/Alchemy-AOE-Community/CHEM-Competition-Map-Packs">League Collections</a>
                 <a href="https://github.com/f-istvan/Current-Alchemy-League-Map-Downloader/tree/main">Autodownloader</a>
                 <a href="https://github.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/tree/_About_">Repository</a>
             </div>
-        </div>
-        <div class="nav-group people" aria-label="People section" role="region">
+        </section>
+        <section class="nav-group refs">
             <div class="nav-group__title">
-                <h2>People</h2>
-            </div>
-            <div class="nav-group__content">
-                <a href="../Map_Team.html">Map Scripters</a>
-                <a href="#">Map Quality Team</a>
-                <a href="#">Content Creators</a>
-            </div>
-        </div>
-        <div class="nav-group docs" aria-label="Documents section" role="region">
-            <div class="nav-group__title">
-                <h2>Documents</h2>
-            </div>
-            <div class="nav-group__content">
-                <a href="#">Charter</a>
-                <a href="https://github.com/Alchemy-AOE-Community/CHEM-Published-Specifications">Specifications</a>
-            </div>
-        </div>
-        <div class="nav-group refs" aria-label="References section" role="region">
-            <div class="nav-group__title">
-                <h2>RMS references</h2>
+                <h2>RMS REFERENCES</h2>
             </div>
             <div class="nav-group__content">
                 <a href="https://docs.google.com/document/d/1jnhZXoeL9mkRUJxcGlKnO98fIwFKStP_OBozpr0CHXo/">Scripting Guide</a>
@@ -84,10 +148,20 @@
                 <a href="https://ugc.aoe2.rocks/general/">Game Mechanics</a>
                 <a href="https://ca2map.streamlit.app/">Icon Creator</a>
             </div>
-        </div> 
-        <div class="nav-group seasons" aria-label="Competitions section" role="region">
+        </section>
+        <section class="nav-group people">
             <div class="nav-group__title">
-                <h2>Competitions</h2>
+                <h2>PEOPLE</h2>
+            </div>
+            <div class="nav-group__content">
+                <a href="../Map_Team.html">Map Scripters</a>
+                <a href="#">Map Quality Team</a>
+                <a href="#">Content Creators</a>
+            </div>
+        </section>
+        <section class="nav-group seasons">
+            <div class="nav-group__title">
+                <h2>COMPETITIONS</h2>
             </div>
             <div class="nav-group__content">
                 <a href="ALS1.html">ALS1</a>
@@ -99,7 +173,7 @@
                 <a href="ALS7.html">ALS7</a>
                 <a href="ALS8.html">ALS8</a>
             </div>
-        </div>
+        </section>
     </div>
 
     <footer>

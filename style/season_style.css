@@ -1,0 +1,585 @@
+#spreadsheet-container table tr:nth-child(1),
+#spreadsheet-container table tr:nth-child(2),
+#spreadsheet-container-sprint2 table tr:nth-child(1),
+#spreadsheet-container-sprint2 table tr:nth-child(2) {
+    background-color: #cccccc;
+}
+#spreadsheet-container table tr:nth-child(n+3):nth-child(odd),
+#spreadsheet-container-sprint2 table tr:nth-child(n+3):nth-child(odd) {
+    background-color: #ffffff;
+}
+#spreadsheet-container table tr:nth-child(n+3):nth-child(even),
+#spreadsheet-container-sprint2 table tr:nth-child(n+3):nth-child(even) {
+    background-color: #f2f2f2;
+}
+#spreadsheet-container table tr:nth-child(1) th,
+#spreadsheet-container table tr:nth-child(1) td,
+#spreadsheet-container table tr:nth-child(2) th,
+#spreadsheet-container table tr:nth-child(2) td,
+#spreadsheet-container-sprint2 table tr:nth-child(1) th,
+#spreadsheet-container-sprint2 table tr:nth-child(1) td,
+#spreadsheet-container-sprint2 table tr:nth-child(2) th,
+#spreadsheet-container-sprint2 table tr:nth-child(2) td {
+    text-align: center;
+}
+#results-container table tr:nth-child(1),
+#results-container-sprint2 table tr:nth-child(1) {
+    background-color: #cccccc;
+}
+#results-container table tr:nth-child(n+2):nth-child(odd),
+#results-container-sprint2 table tr:nth-child(n+2):nth-child(odd) {
+    background-color: #ffffff;
+}
+#results-container table tr:nth-child(n+2):nth-child(even),
+#results-container-sprint2 table tr:nth-child(n+2):nth-child(even) {
+    background-color: #f2f2f2;
+}
+#results-container table tr:nth-child(1) th,
+#results-container table tr:nth-child(1) td,
+#results-container-sprint2 table tr:nth-child(1) th,
+#results-container-sprint2 table tr:nth-child(1) td {
+    text-align: center;
+}
+.hierarchy-node {
+    fill: none;
+    stroke: #000;
+    stroke-width: 0.2;
+    cursor: pointer;
+    rx: 3;
+    ry: 3;
+}
+.hierarchy-node.csrm {
+    fill: none;
+    rx: 0;
+    ry: 0;
+}
+.hierarchy-text {
+    font-size: 10%;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: central;
+    fill: #000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.text-background {
+    fill: rgba(255, 255, 255, 0.8);
+    stroke: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.hierarchy-arrow {
+    stroke: #000;
+    stroke-width: 0.125;
+    marker-end: url(#arrowhead);
+}
+.hierarchy-line {
+    stroke: #000;
+    stroke-width: 0.125;
+}
+.image-box, .nav-group {
+    position: static;
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    box-sizing: border-box;
+    padding: var(--base-padding, 10px);
+}
+.image-box {
+    background-size: cover;
+    background-position: center;
+    padding: var(--base-padding, 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-group__image img {
+    transform-origin: center;
+}
+.hierarchy-svg {
+    width: 100%;
+    height: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: block;
+}
+.hierarchy-node {
+    rx: 2;
+    ry: 2;
+    stroke-width: 0.2;
+}
+.pdf-link:hover .hierarchy-text,
+.pdf-link:hover .text-background {
+    opacity: 1;
+}
+.hierarchy-arrow, .hierarchy-line {
+    stroke-width: 0.5;
+}
+.information-left table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    display: table;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.information-left table th,
+.information-left table td {
+    padding: 8px;
+    border: 1px solid #000;
+    text-align: center;
+    font-size: 1em;
+}
+.information-left table th {
+    font-weight: bold;
+}
+.information-left table tr:nth-child(1) {
+    background-color: #cccccc;
+}
+.information-left table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+.information-left table tr:nth-child(odd):not(:first-child) {
+    background-color: #f2f2f2;
+}
+.information-left .nav-group__content {
+    height: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.nav-group.information-left {
+    padding: 0;
+}
+.main-content.grid-seasons {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr 1fr;
+    grid-template-rows: 350px auto auto;
+    gap: 30px; /* Increased from 20px to fix padding issue */
+    padding: var(--base-padding, 10px);
+    box-sizing: border-box;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+.nav-group[aria-label="Season Banner"] {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+.nav-group[aria-label="Season Banner"] .nav-group__image {
+    height: 100%;
+}
+.nav-group[aria-label="Season Banner"] .image-box {
+    height: 100%;
+    padding: 0;
+}
+.nav-group[aria-label="Season Banner"] .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.nav-group.information-left {
+    grid-column: 2;
+    grid-row: 2;
+    width: 100%;
+}
+.nav-group.box1 {
+    grid-column: 3;
+    grid-row: 1;
+    width: 100%;
+    align-self: start;
+    min-height: 200px; /* Added to prevent height collapse and restore padding */
+}
+.nav-group.reference-links {
+    grid-column: 3;
+    grid-row: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../images/Image_Links.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: var(--base-padding, 10px); /* Adjusted to match other nav-groups */
+    border: 1px solid #000;
+    border-radius: 10px;
+    min-height: auto;
+    height: auto;
+    align-self: end;
+}
+.nav-group.reference-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    white-space: normal;
+    word-wrap: break-word;
+    margin: 0 5px;
+}
+.nav-group.definitions {
+    grid-column: 4 / 6;
+    grid-row: 1 / 3;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../images/Image_Definitions.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.bottom-row {
+    grid-column: 2 / 6;
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+}
+.tabs {
+    display: flex;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+.tab-button {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.tab-button.active {
+    background-color: #cccccc;
+}
+.tab-content {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    border: none;
+    border-top: none;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: transparent;
+}
+.tab-content.active {
+    display: flex;
+}
+.sub-row {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 7.5fr 1.5fr 11fr;
+    gap: 20px;
+    background-color: transparent;
+}
+.nav-group.notes {
+    grid-column: 1;
+    grid-row: 1;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../images/Image_Notes.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.buttons-container {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    min-width: 200px;
+}
+.buttons-container a {
+    width: fit-content;
+    padding: 20px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    white-space: nowrap;
+}
+.nav-group.seeding {
+    grid-column: 1 / 3;
+    grid-row: 2;
+}
+.nav-group.results {
+    grid-column: 1 / 4;
+    grid-row: 3;
+}
+.nav-group.embedded-sheet-box {
+    grid-column: 3;
+    grid-row: 1 / 3;
+}
+.nav-group.seeding,
+.nav-group.results,
+.nav-group.embedded-sheet-box,
+.nav-group.notes {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+.nav-group__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+.nav-group.seeding .nav-group__content,
+.nav-group.results .nav-group__content {
+    flex: 0 0 auto;
+    overflow: visible;
+}
+#spreadsheet-container, #spreadsheet-container-sprint2,
+#results-container, #results-container-sprint2 {
+    height: auto;
+    overflow: visible;
+}
+.nav-group.embedded-sheet-box iframe {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+}
+#spreadsheet-container table, #spreadsheet-container-sprint2 table,
+#results-container table, #results-container-sprint2 table {
+    border-collapse: collapse;
+    width: 100%;
+}
+#spreadsheet-container th, #spreadsheet-container td,
+#spreadsheet-container-sprint2 th, #spreadsheet-container-sprint2 td,
+#results-container th, #results-container td,
+#results-container-sprint2 th, #results-container-sprint2 td {
+    border: 1px solid #000;
+    padding: 8px 4px;
+    text-align: left;
+}
+.nav-group__title {
+    margin: -10px -10px 10px -10px;
+    padding: 0 10px;
+    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.seeding .nav-group__title, .results .nav-group__title, .embedded-sheet-box .nav-group__title, .notes .nav-group__title {
+    margin: -10px -10px 0 -10px;
+}
+.nav-group__title h2 {
+    font-size: 2em;
+    margin: 0;
+    text-transform: uppercase;
+}
+.seeding .nav-group__content, .results .nav-group__content, .embedded-sheet-box .nav-group__content, .notes .nav-group__content {
+    margin: 0 -10px -10px -10px;
+}
+.nav-group__content ul {
+    margin: 0;
+    padding: 10px 10px 10px 30px;
+    list-style-type: disc;
+}
+.nav-group__content ul li {
+    margin-bottom: 10px;
+}
+@media (min-width: 769px) {
+    .information-left table {
+        display: table;
+        overflow-x: visible;
+    }
+}
+@media (max-width: 768px) {
+    .main-content.grid-seasons {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+    }
+    .nav-group[aria-label="Season Banner"],
+    .nav-group.information-left,
+    .nav-group.box1,
+    .nav-group.definitions,
+    .bottom-row {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        height: auto;
+        max-width: 100%;
+        width: 100%;
+    }
+    .nav-group.reference-links {
+        flex-direction: column;
+        align-self: auto;
+    }
+    .bottom-row {
+        grid-template-columns: 1fr;
+    }
+    .sub-row {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto auto auto auto;
+        gap: 20px;
+    }
+    .nav-group.notes,
+    .buttons-container,
+    .nav-group.seeding,
+    .nav-group.embedded-sheet-box,
+    .nav-group.results {
+        grid-column: 1;
+        grid-row: auto;
+    }
+    .nav-group.definitions {
+        min-width: 100%;
+    }
+    .hierarchy-svg {
+        max-width: 100%;
+        transform: none;
+    }
+    .image-box {
+        height: auto;
+    }
+    .nav-group__image img {
+        transform: scale(0.5);
+        max-width: 100%;
+    }
+    .nav-group[aria-label="Season Banner"] .image-box {
+        height: auto;
+        padding: var(--base-padding, 10px);
+    }
+    .nav-group[aria-label="Season Banner"] .image-box img {
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+    .nav-group.embedded-sheet-box iframe {
+        height: 1411px;
+    }
+    .nav-group.information-left {
+        height: auto;
+        padding: var(--base-padding, 10px);
+    }
+    .information-left .nav-group__content {
+        padding: 0;
+    }
+    .information-left table th,
+    .information-left table td {
+        padding: 8px;
+        font-size: 1em;
+    }
+    .nav-group__title {
+        margin: -10px -10px 10px -10px;
+        padding: 0 10px;
+    }
+    .seeding .nav-group__title, .results .nav-group__title, .embedded-sheet-box .nav-group__title, .notes .nav-group__title {
+        margin: -10px -10px 0 -10px;
+    }
+    .nav-group__title h2 {
+        font-size: 1.6em;
+    }
+    .tab-button {
+        font-size: 1em;
+    }
+    .nav-group.seeding .nav-group__content,
+    .nav-group.results .nav-group__content {
+        flex: 0 0 auto;
+        overflow: visible;
+    }
+    .nav-group.notes, .nav-group.seeding, .nav-group.results, .nav-group.embedded-sheet-box {
+        border: 1px solid #000;
+        border-radius: 10px;
+    }
+    .buttons-container {
+        border: 1px solid #000;
+        border-radius: 10px;
+        min-width: auto;
+    }
+    .buttons-container a {
+        padding: 20px 10px;
+    }
+}
+.nav-group.box1 .nav-group__content ul li a {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+#spreadsheet-container td:has(> a):hover,
+#spreadsheet-container-sprint2 td:has(> a):hover,
+#results-container td:has(> a):hover,
+#results-container-sprint2 td:has(> a):hover {
+    box-shadow: 0 0 0 3px black;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+}
+#spreadsheet-container td a:hover, #spreadsheet-container-sprint2 td a:hover, #results-container td a:hover, #results-container-sprint2 td a:hover {
+    outline: none;
+}
+
+.nav-group.definitions {
+    min-height: 50vh; /* Minimum 50% of viewport height to prevent collapse on smaller screens */
+}
+
+.nav-group.box1 {
+    min-height: 30vh; /* Minimum 30% of viewport height for INFORMATION box */
+    margin-bottom: 10px; /* Fallback gap if grid fails */
+}
+
+@media (max-height: 1080px) {
+    .nav-group.definitions {
+        min-height: 60vh; /* Taller min on shorter screens */
+    }
+    .nav-group.box1 {
+        min-height: 35vh;
+    }
+}
+
+/* New styles for navigation arrows */
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.33vw; /* Reduced from 10vw to ~1/3 for closer positioning */
+}
+
+.navigation-arrow {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.5; /* Decreased default opacity */
+}
+
+.navigation-arrow img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.navigation-arrow:hover {
+    opacity: 1; /* Increase to full opacity on hover for "bold" effect */
+}
