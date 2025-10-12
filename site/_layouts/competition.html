@@ -37,6 +37,11 @@ layout: default
       </div>
 
       <div class="flex-content half page competition-information">
+
+        {% if page.show_definitions %}
+        <div id="definitions-container"></div>
+        {% endif %}
+
         {% if page.information %}
         <h2>Information</h2>
         {{ page.information | markdownify }}
@@ -143,3 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initDataLoaders();
 });
 </script>
+{% if page.show_definitions %}
+<script src="{% link assets/js/definitions-handler.js %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initDefinitions('{{ page.competition_name }}');
+});
+</script>
+{% endif %}

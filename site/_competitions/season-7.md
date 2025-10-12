@@ -16,6 +16,8 @@ information: |
   - Standard Victory Condition, With Antiquity Mode On
   - Custom Map Pool, Reworked Ensemble Studios Original Maps
 
+show_definitions: true
+
 map_contest_results: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Map_Contest.ods
 map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Map_Archive.zip
 
