@@ -34,6 +34,11 @@ layout: default
           </tbody>
         </table>
         {% endif %}
+        <div class="spacer"></div>
+        <div class="competition-information__links">
+          {% if page.map_contest_results %} <a href="{{ page.map_contest_results }}">Map Contest Results</a> {% endif %}
+          {% if page.map_archive %} <a href="{{ page.map_archive }}">Map Archive</a> {% endif %}
+        </div>
       </div>
 
       <div class="flex-content half page competition-information">
@@ -48,8 +53,6 @@ layout: default
         {% endif %}
 
         <div class="competition-information__links">
-          {% if page.map_contest_results %} <a href="{{ page.map_contest_results }}">Map Contest Results</a> {% endif %}
-          {% if page.map_archive %} <a href="{{ page.map_archive }}">Map Archive</a> {% endif %}
           {% if page.sign_up_form %} <a href="{{ page.sign_up_form }}">Sign Up</a> {% endif %}
           {% if page.sign_up_sheet %} <a href="{{ page.sign_up_sheet }}">View Sign Ups</a> {% endif %}
           {% if page.draft_maps %} <a href="{{ page.draft_maps }}">Map Draft</a> {% endif %}
@@ -114,7 +117,7 @@ layout: default
             </div>
             {% endif %}
             <div class="tab-pane" id="tab-{{ forloop.index }}-results" data-group="sprint-info-{{ forloop.index }}">
-              <div class="sprint-results" id="result-container-{{ forloop.index }}">
+              <div class="sprint-results" id="results-container-{{ forloop.index }}">
                 Results not yet calculated
               </div>
             </div>
