@@ -4,8 +4,19 @@ layout: default
 <article class="content competition-page">
 
   <div class="container page header">
-    <!-- todo: previous/next buttons --> 
+    {% if page.previous.url %}
+      <a class="header-navigation header-navigation-previous" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+    {% else %}
+      <span class="header-navigation header-navigation-placeholder"></span>
+    {% endif %}
+
     <h1>{{ page.title | escape }}</h1>
+
+    {% if page.next.url %}
+      <a class="header-navigation header-navigation-next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+    {% else %}
+      <span class="header-navigation header-navigation-placeholder"></span>
+    {% endif %}
   </div>
 
   <div class="spacer"></div>
