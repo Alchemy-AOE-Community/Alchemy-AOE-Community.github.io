@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Alchemy Treasury Wallet Submit</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#f6f8fa; color:#111; margin:0; padding:24px; }
+    .card { max-width:920px; margin:24px auto; background:#fff; border-radius:8px; padding:18px; box-shadow:0 6px 20px rgba(17,24,39,0.06); }
+    h1 { margin:0 0 10px; font-size:18px; }
+    label { display:block; margin-top:12px; font-size:13px; color:#333; }
+    input[type=text], textarea, select { width:100%; padding:10px; margin-top:6px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; box-sizing:border-box; }
+    textarea { min-height:76px; resize:vertical; }
+    .row { display:flex; gap:12px; margin-top:12px; }
+    .row > * { flex:1; }
+    button { margin-top:14px; padding:10px 14px; border:0; border-radius:8px; background:#0366d6; color:#fff; font-weight:600; cursor:pointer; }
+    button.secondary { background:#e6edf8; color:#0b3a66; }
+    pre { background:#0f1724; color:#ecfeff; padding:12px; border-radius:6px; overflow:auto; max-height:360px; margin-top:12px; font-size:13px; }
+    .hint { font-size:12px; color:#555; margin-top:8px; }
+    table { width:100%; border-collapse:collapse; margin-top:12px; font-size:13px; }
+    th, td { text-align:left; padding:8px; border-bottom:1px solid #eef2f7; }
+    th { background:#f8fafc; font-weight:600; }
+    .note { color:#6b7280; font-size:12px; }
+    .inline { display:inline-block; margin-left:8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Alchemy Treasury Wallet Submit</h1>
+    <div class="note">Connect Phantom, send a small SOL payment to the tournament wallet, capture the tx signature and submit it to your Apps Script verifier.</div>
+
+    <label for="webapp">Apps Script Web App URL</label>
+    <input id="webapp" type="text" value="https://script.google.com/macros/s/AKfycbx1ouo15poXk5JzXKgNp0UVgdV0kUM5ahOzoTN-5EhT7Z8sc9VtBriIc9b1Vgg0SkVT/exec" />
+
+    <label for="tournament">Tournament Address</label>
+    <input id="tournament" type="text" value="REPLACE_WITH_TOURNAMENT_ADDRESS" />
+
+    <label for="apikey">API Key (embedded or saved)</label>
+    <input id="apikey" type="text" value="314159" readonly />
+    <div class="hint">Replace EMBEDDED_API_KEY below in the script with your key, or Save Key Locally after loading the page.</div>
+
+    <label for="amount">Amount to send (SOL)</label>
+    <input id="amount" type="text" placeholder="0.01" />
+
+    <label for="network">Network / RPC</label>
+    <select id="network">
+      <option value="mainnet">mainnet</option>
+      <option value="devnet">devnet</option>
+    </select>
+
+    <div class="row">
+      <div>
+        <button id="connectBtn">Connect Phantom</button>
+      </div>
+      <div>
+        <button id="sendBtn" class="secondary">Send From Phantom</button>
+      </div>
+    </div>
+
+    <label for="tx">Or paste an existing transaction signature to submit only</label>
+    <input id="tx" type="text" placeholder="Paste tx signature (optional)" />
+
+    <div class="row">
+      <button id="submitBtn">Submit Signature to Ledger</button>
+      <button id="saveKey" class="secondary">Save Key Locally</button>
+    </div>
+
+    <div class="row">
+      <button id="clearKey" class="secondary">Clear Saved Key</button>
+      <div style="align-self:center" class="note">Saved key stored under <code>alchemy_treasury_api_key</code></div>
+    </div>
+
+    <label for="message">Message (optional)</label>
+    <textarea id="message" placeholder="Optional message to appear in the ledger row"></textarea>
+
+    <div id="resultArea"></div>
+    <pre id="output">Output will appear here after actions.</pre>
+  </div>
+
+  <!-- Load solana web3 via CDN -->
+  <script src="https://unpkg.com/@solana/web3.js@1.73.0/lib/index.iife.js"></script>
+
+  <script>
+    // ====== EMBEDDED API KEY (place your real key here) ======
+    // Replace with your APP_API_KEY before pushing (or leave as placeholder and save locally)
+    const EMBEDDED_API_KEY = 'REPLACE_WITH_REAL_KEY';
+    // =========================================================
+
+    // Elements
+    const out = document.getElementById('output');
+    const webappInput = document.getElementById('webapp');
+    const apiInput = document.getElementById('apikey');
+    const tournamentInput = document.getElementById('tournament');
+    const amountInput = document.getElementById('amount');
+    const networkSelect = document.getElementById('network');
+    const connectBtn = document.getElementById('connectBtn');
+    const sendBtn = document.getElementById('sendBtn');
+    const txInput = document.getElementById('tx');
+    const submitBtn = document.getElementById('submitBtn');
+    const saveKeyBtn = document.getElementById('saveKey');
+    const clearKeyBtn = document.getElementById('clearKey');
+    const messageInput = document.getElementById('message');
+    const resultArea = document.getElementById('resultArea');
+
+    // localStorage keys
+    const STORAGE_KEY = 'alchemy_treasury_api_key';
+    const STORAGE_WEB = 'alchemy_treasury_webapp';
+    const STORAGE_TOURNAMENT = 'alchemy_treasury_tournament';
+
+    // Prefill values if stored
+    const storedKey = localStorage.getItem(STORAGE_KEY);
+    const storedWeb = localStorage.getItem(STORAGE_WEB);
+    const storedTournament = localStorage.getItem(STORAGE_TOURNAMENT);
+    if (storedWeb) webappInput.value = storedWeb;
+    if (storedTournament) tournamentInput.value = storedTournament;
+    if (EMBEDDED_API_KEY && EMBEDDED_API_KEY !== 'REPLACE_WITH_REAL_KEY') {
+      apiInput.value = EMBEDDED_API_KEY;
+    } else if (storedKey) {
+      apiInput.value = storedKey;
+    }
+
+    function show(v){ out.textContent = typeof v === 'string' ? v : JSON.stringify(v, null, 2); }
+
+    saveKeyBtn.addEventListener('click', () => {
+      const k = (apiInput.value || '').trim();
+      const w = (webappInput.value || '').trim();
+      const t = (tournamentInput.value || '').trim();
+      if (!k) { show('Enter or embed an API key before saving locally.'); return; }
+      if (!w) { show('Enter Web App URL before saving.'); return; }
+      if (!t) { show('Enter Tournament address before saving.'); return; }
+      localStorage.setItem(STORAGE_KEY, k);
+      localStorage.setItem(STORAGE_WEB, w);
+      localStorage.setItem(STORAGE_TOURNAMENT, t);
+      show('API key, Web App URL, and tournament address saved locally.');
+    });
+
+    clearKeyBtn.addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(STORAGE_WEB);
+      localStorage.removeItem(STORAGE_TOURNAMENT);
+      apiInput.value = EMBEDDED_API_KEY && EMBEDDED_API_KEY !== 'REPLACE_WITH_REAL_KEY' ? EMBEDDED_API_KEY : '';
+      webappInput.value = '';
+      tournamentInput.value = '';
+      show('Saved key, URL, and tournament address cleared from localStorage.');
+    });
+
+    function getEffectiveApiKey() {
+      if (EMBEDDED_API_KEY && EMBEDDED_API_KEY !== 'REPLACE_WITH_REAL_KEY') return EMBEDDED_API_KEY;
+      const v = (apiInput.value || '').trim();
+      if (v) return v;
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored || '';
+    }
+
+    function getWebAppUrl() {
+      return (webappInput.value || '').trim();
+    }
+
+    function getTournamentAddress() {
+      return (tournamentInput.value || '').trim();
+    }
+
+    // Phantom / wallet helpers
+    function isPhantomAvailable() {
+      return !!window.solana && window.solana.isPhantom;
+    }
+
+    async function connectPhantom() {
+      if (!isPhantomAvailable()) {
+        show('Phantom not found. Install Phantom or use a supported wallet.');
+        return null;
+      }
+      try {
+        const resp = await window.solana.connect();
+        show({ connected: true, publicKey: resp.publicKey.toString() });
+        return resp.publicKey;
+      } catch (e) {
+        show('Connect cancelled or failed: ' + String(e));
+        return null;
+      }
+    }
+
+    connectBtn.addEventListener('click', async () => {
+      await connectPhantom();
+    });
+
+    // Build and send a SystemProgram transfer using @solana/web3.js
+    sendBtn.addEventListener('click', async () => {
+      out.textContent = 'Preparing transaction...';
+      try {
+        if (!isPhantomAvailable()) { show('Phantom not available'); return; }
+        const pk = await connectPhantom();
+        if (!pk) return;
+
+        const tournament = getTournamentAddress();
+        if (!tournament) { show('Tournament address is required'); return; }
+
+        const amount = parseFloat((amountInput.value || '').trim()) || 0;
+        if (!amount || amount <= 0) { show('Enter a positive SOL amount to send'); return; }
+
+        const network = networkSelect.value;
+        const rpc = network === 'devnet' ? 'https://api.devnet.solana.com' : 'https://api.mainnet-beta.solana.com';
+        const conn = new solanaWeb3.Connection(rpc, 'confirmed');
+
+        // create transfer transaction
+        const fromPubkey = window.solana.publicKey;
+        const toPubkey = new solanaWeb3.PublicKey(tournament);
+        const tx = new solanaWeb3.Transaction().add(
+          solanaWeb3.SystemProgram.transfer({
+            fromPubkey,
+            toPubkey,
+            lamports: Math.round(amount * 1e9),
+          })
+        );
+
+        // set recent blockhash and fee payer
+        tx.feePayer = fromPubkey;
+        tx.recentBlockhash = (await conn.getRecentBlockhash()).blockhash;
+
+        // sign and send via Phantom provider
+        out.textContent = 'Requesting signature in Phantom...';
+        const signed = await window.solana.signTransaction(tx);
+        // send raw transaction
+        const raw = signed.serialize();
+        const sendResult = await conn.sendRawTransaction(raw, { skipPreflight: false, preflightCommitment: 'finalized' });
+        // wait for confirmation (finalized)
+        out.textContent = 'Transaction sent, awaiting confirmation... ' + sendResult;
+        await conn.confirmTransaction(sendResult, 'finalized');
+
+        const txSig = sendResult;
+        show({ sent: true, txSig });
+
+        // auto-submit signature to Apps Script
+        await submitSignature(txSig, network);
+      } catch (err) {
+        show('Send error: ' + String(err));
+      }
+    });
+
+    // If you already have a tx signature, submit it to the Apps Script
+    submitBtn.addEventListener('click', async () => {
+      const tx = (txInput.value || '').trim();
+      const network = networkSelect.value;
+      if (!tx) { show('Paste or send a transaction first'); return; }
+      await submitSignature(tx, network);
+    });
+
+    async function submitSignature(txSig, network) {
+      resultArea.innerHTML = '';
+      out.textContent = 'Submitting signature to Apps Script...';
+      const webapp = getWebAppUrl();
+      const apiKey = getEffectiveApiKey();
+      const tournament = getTournamentAddress();
+      const message = (messageInput.value || '').trim();
+
+      if (!webapp) { show('Web App URL required'); return; }
+      if (!apiKey) { show('API key required; set EMBEDDED_API_KEY or save the key locally'); return; }
+      if (!tournament) { show('Tournament address required'); return; }
+
+      const payload = { apiKey, tx: txSig, network, message, processedBy: 'WalletUI' };
+
+      try {
+        const resp = await fetch(webapp, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          redirect: 'follow'
+        });
+
+        const text = await resp.text();
+        try {
+          const j = JSON.parse(text);
+          show({ status: resp.status, ok: resp.ok, body: j });
+          if (j.appended) {
+            resultArea.innerHTML = buildTable(j.appended);
+          } else if (j.finalRunningBalance !== undefined) {
+            resultArea.innerHTML = `<div class="note">Final Running Balance: ${j.finalRunningBalance}</div>`;
+          } else if (j.ok === false && j.error) {
+            resultArea.innerHTML = `<div class="note">Error: ${j.error}</div>`;
+          }
+        } catch (e) {
+          show({ status: resp.status, ok: resp.ok, bodyText: text.slice(0,2000) });
+        }
+      } catch (err) {
+        show('Network or fetch error: ' + String(err));
+      }
+    }
+
+    function buildTable(appended) {
+      if (!appended || appended.length === 0) return '<div class="note">No rows appended.</div>';
+      let html = '<table><thead><tr><th>Type</th><th>Amount SOL</th><th>Note</th><th>Explorer</th><th>RunningBalanceSOL</th></tr></thead><tbody>';
+      for (const a of appended) {
+        const r = a.row;
+        const type = r[1], amount = r[4], note = r[14] || '', explorer = r[12] || '', rb = r[13];
+        html += `<tr><td>${type}</td><td>${amount}</td><td>${note}</td><td><a href="${explorer}" target="_blank" rel="noopener">view</a></td><td>${rb}</td></tr>`;
+      }
+      html += '</tbody></table>';
+      return html;
+    }
+
+    // Allow Enter to trigger submit when focused on tx input
+    txInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitBtn.click(); }
+    });
+  </script>
+</body>
+</html>
