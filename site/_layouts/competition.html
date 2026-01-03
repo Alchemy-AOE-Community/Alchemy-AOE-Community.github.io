@@ -24,6 +24,12 @@ layout: default
   <div class="container">
     <div class="flex-container">
       <div class="flex-content half page">
+
+        {% if page.image_path %}
+          {% assign image_path = "/resources/" | append: page.competition_name | append: "/" | append: page.image_path %}
+          <img src="{{ image_path | relative_url }}" alt="{{ page.title }}" class="competition-image">
+        {% endif %}
+
         {% if page.maps %}
         <h2> Maps per round </h2>
         <table class="table-auto border-collapse border border-gray-400">
@@ -55,6 +61,7 @@ layout: default
       <div class="flex-content half page competition-information">
 
         {% if page.show_definitions %}
+        <h2>Definitions</h2>
         <div id="definitions-container"></div>
         {% endif %}
 
@@ -91,9 +98,7 @@ layout: default
 
               <div class="sprint-information__links">
                 {% if sprint.registration_sheet %} <a href="{{ sprint.registration_sheet }}" class="">Registration</a>{% endif%}
-                {% if sprint.seeding_summary_sheet %} <a href="{{ sprint.seeding_summary_sheet }}" class="">Seeding Summary</a> {% endif %}
-                {% if sprint.seeding_apparent_sheet %} <a href="{{ sprint.seeding_apparent_sheet }}" class="">Seeding Apparent</a> {% endif %}
-                {% if sprint.seeding_full_sheet %} <a href="{{ sprint.seeding_full_sheet }}" class="">Seeding Full</a>{% endif %}
+                {% if sprint.seeding_sheet %} <a href="{{ sprint.seeding_sheet }}" class="">Seeding</a>{% endif %}
                 {% if sprint.round_sheet %} <a href="{{ sprint.round_sheet }}" class="">Roundwise</a> {% endif %}
                 {% if sprint.live_scoreboard_sheet %} <a href="{{ sprint.live_scoreboard_sheet }}" class="">Live Scoreboard</a> {% endif %}
                 {% if sprint.results_sheet %} <a href="{{ sprint.results_sheet }}" class="">Results</a> {% endif %}
@@ -149,7 +154,7 @@ async function initDataLoaders() {
 {% for sprint in page.sprints %}
   {% if sprint.show_players %}
   let playerLinks{{ sprint.sprint_name }} = await loadPlayerLinks('{{ page.competition_name }}', '{{ sprint.sprint_name }}');
-  await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Seeding_Full.ods`, 'seeding-container-{{ forloop.index }}', 'Seed Number', 2, 0, Infinity, playerLinks{{ sprint.sprint_name }});
+  await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Seeding.ods`, 'seeding-container-{{ forloop.index }}', 'Seed Number', 2, 0, Infinity, playerLinks{{ sprint.sprint_name }});
   {% endif %}
   {% if sprint.show_results %}
   await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Results.ods`, 'results-container-{{ forloop.index }}', 'Rank', 1, {{ sprint.prize_ineligibles }}, {{ sprint.prize_winners }}, playerLinks{{ sprint.sprint_name }});

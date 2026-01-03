@@ -1,5 +1,5 @@
 function initDefinitions(season) {
-  fetch(`/resources/${season}/definitions-hierarchy.svg`)
+  fetch(`/resources/${season}/definitions.svg`)
     .then(res => res.text())
     .then(async svgText => {
       const container = document.getElementById("definitions-container");
@@ -30,6 +30,8 @@ function initDefinitions(season) {
         // create anchor + image + title
         const link = document.createElementNS(SVG_NS, "a");
         link.setAttributeNS(XLINK_NS, "href", getImageLink(fullLabel));
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
 
         const img = document.createElementNS(SVG_NS, "image");
         // set local coordinates (these are in the same coordinate system as the path)
@@ -75,15 +77,56 @@ function initDefinitions(season) {
             const imgX = bbox.x + (bbox.width - imgW) / 2;
             const imgY = bbox.y + (bbox.height - imgH) / 2;
 
-            item.img.setAttribute("x", String(imgX));
-            item.img.setAttribute("y", String(imgY));
-            item.img.setAttribute("width", String(imgW));
-            item.img.setAttribute("height", String(imgH));
+            item.img.setAttribute("x", imgX);
+            item.img.setAttribute("y", imgY);
+            item.img.setAttribute("width", imgW);
+            item.img.setAttribute("height", imgH);
 
-            // If path has an element-level transform that changed, re-copy it:
-            if (item.path.hasAttribute("transform")) {
-              item.img.setAttribute("transform", item.path.getAttribute("transform"));
+            const transform = item.path.getAttribute("transform");
+            if (transform && transform.startsWith("matrix")) {
+              const values = transform
+                .match(/matrix\(([^)]+)\)/)[1]
+                .split(/[ ,]+/)
+                .map(Number);
+
+              const [a, b] = values;
+
+              // rotation angle in degrees
+              const angle = Math.atan2(b, a) * (180 / Math.PI);
+
+              const cx = imgX + imgW / 2;
+              const cy = imgY + imgH / 2;
+
+              // Apply original transform + counter-rotation
+              item.img.setAttribute(
+                "transform",
+                `${transform} rotate(${-angle} ${cx} ${cy})`
+              );
+
+              // If path has an element-level transform that changed, re-copy it:
+              // Disable these lines when clipping works
+              if (item.path.hasAttribute("transform")) {
+                item.img.setAttribute("transform", item.path.getAttribute("transform"));
+              }
             }
+
+            // Clip the image to the path's outline
+            const clipId = `clip-${item.path.id}`;
+            if (!document.getElementById(clipId)) {
+              const clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+              clipPath.setAttribute("id", clipId);
+
+              // Clone the path WITH transform
+              const pathClone = item.path.cloneNode(true);
+              clipPath.appendChild(pathClone);
+
+              item.path.ownerSVGElement.querySelector("defs").appendChild(clipPath);
+            
+            }
+
+            // Clipping doesn't work correctly so we ignore it for now
+            // item.img.setAttribute("clip-path", `url(#${clipId})`);
+
           } catch (err) {
             // getBBox can throw if SVG not rendered yet — ignore harmlessly
             console.warn("repositionImages error:", err);
@@ -140,8 +183,8 @@ function initDefinitions(season) {
         // Step 3: Build the map name → image URL dictionary
         const mapEntries = links.map(link => {
           const parts = link.split('/');
-          const mapName = parts[parts.length - 1].replace(/\.[^/.]+$/, ''); // remove .rms or other extension
-          const folderUrl = link; // .substring(0, link.lastIndexOf('/'));
+          const mapName = parts[parts.length - 1].replace(/\.[^/.]+$/, '');
+          const folderUrl = link;
           const imageUrl = `${folderUrl}/${mapName}.png`
           .replace('https://github.com/', 'https://raw.githubusercontent.com/')
           .replace('/tree/', '/refs/heads/');
@@ -187,8 +230,6 @@ function initDefinitions(season) {
         window.addEventListener("resize", debounce(repositionImages, 120));
       });
 
-      // expose for debugging / manual re-render
-      // e.g. call window.repositionDefinitions() from console or after dynamic changes
       window.repositionDefinitions = repositionImages;
     })
     .catch(err => console.error("Error loading SVG:", err));
