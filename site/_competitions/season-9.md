@@ -20,7 +20,7 @@ information: |
 show_definitions: true
 
 map_contest_results:
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS8_Resources/Map_Archive.zip
+map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Map_Archive.zip
 
 sign_up_form:  https://forms.gle/1LDUBw6x2HS1QMfJA
 sign_up_sheet: https://docs.google.com/spreadsheets/d/1KHb05yNB0YNEbGDsBED-Vku-Cs1ZVmdQr6I52ZegNEQ/edit?usp=sharing
