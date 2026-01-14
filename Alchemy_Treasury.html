@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Alchemy Treasury Submit (safe)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:24px;background:#f6f8fa;color:#111}
+    .card{max-width:900px;margin:0 auto;background:#fff;padding:18px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+    label{display:block;margin-top:12px;font-size:13px;color:#333}
+    input,textarea,select{width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin-top:6px;box-sizing:border-box}
+    .row{display:flex;gap:12px;margin-top:12px}
+    button{padding:10px 14px;border-radius:8px;border:0;background:#0366d6;color:#fff;cursor:pointer}
+    button.secondary{background:#e6edf8;color:#0b3a66}
+    pre{background:#0f1724;color:#ecfeff;padding:12px;border-radius:6px;overflow:auto;margin-top:12px}
+    .note{font-size:12px;color:#6b7280}
+    a.small{font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Alchemy Treasury Submit (secure)</h2>
+    <div class="note">This page does not contain your Apps Script API key. Use Option A or Option B (advanced) below to submit signatures into GitHub Actions which will forward them to your Apps Script.</div>
+
+    <label>Repository (owner/repo)</label>
+    <input id="repo" placeholder="owner/repo" value="YOUR_GITHUB_USER/YOUR_REPO" />
+
+    <label>Workflow file name</label>
+    <input id="workflow" placeholder=".github/workflows/treasury-poller.yml" value="treasury-poller.yml" />
+
+    <label>Signature (tx)</label>
+    <input id="tx" placeholder="Paste tx signature here" />
+
+    <label>Network</label>
+    <select id="network">
+      <option value="mainnet">mainnet</option>
+      <option value="devnet">devnet</option>
+    </select>
+
+    <label>Message (optional)</label>
+    <textarea id="message" placeholder="Optional message to appear in the ledger row"></textarea>
+
+    <div class="row">
+      <button id="optionA">Option A: Open GitHub Run UI (no token)</button>
+      <button id="optionB" class="secondary">Option B: Trigger workflow via API (requires PAT)</button>
+    </div>
+
+    <div class="row">
+      <label style="flex:1">If using Option B, paste a PAT here (do not commit it)</label>
+      <input id="pat" placeholder="ghp_..." />
+    </div>
+
+    <pre id="output">Output will appear here</pre>
+
+    <div style="margin-top:12px" class="note">
+      Quick recommended flow: copy tx signature here, click Option A → GitHub opens the workflow dispatch page prefilled (you click Run workflow). This keeps secrets out of the browser and repo.
+    </div>
+  </div>
+
+<script>
+  // Utility
+  function show(msg){ document.getElementById('output').textContent = (typeof msg === 'string') ? msg : JSON.stringify(msg, null, 2); }
+
+  // Elements
+  const repoInput = document.getElementById('repo');
+  const wfInput = document.getElementById('workflow');
+  const txInput = document.getElementById('tx');
+  const netInput = document.getElementById('network');
+  const msgInput = document.getElementById('message');
+  const patInput = document.getElementById('pat');
+
+  // Option A: open the GitHub workflow_dispatch page with the inputs prefilled (no token required)
+  document.getElementById('optionA').addEventListener('click', () => {
+    const repo = (repoInput.value||'').trim();
+    const workflow = (wfInput.value||'').trim();
+    const tx = (txInput.value||'').trim();
+    const network = netInput.value;
+    const message = (msgInput.value||'').trim();
+    if (!repo || !workflow || !tx) { show('repo, workflow, and tx are required for Option A'); return; }
+
+    // Build URL to open GitHub Actions manual-run UI
+    // Format: https://github.com/{owner}/{repo}/actions/workflows/{workflow}/dispatches
+    const parts = repo.split('/');
+    if (parts.length !== 2) { show('repo must be owner/repo'); return; }
+    const url = `https://github.com/${parts[0]}/${parts[1]}/actions/workflows/${encodeURIComponent(workflow)}/dispatches`;
+
+    // Prepare message to help user prefill inputs in the GitHub UI
+    const instructions = [
+      'Opening GitHub workflow dispatch UI in a new tab.',
+      'In the GitHub "Run workflow" UI you will be able to enter inputs. Paste these values:',
+      `tx: ${tx}`,
+      `network: ${network}`,
+      `message: ${message || '<empty>'}`
+    ].join('\n');
+
+    // Open the dispatch page in a new tab and show instructions
+    window.open(url, '_blank');
+    show(instructions);
+  });
+
+  // Option B: call the GitHub REST API to trigger workflow_dispatch (requires PAT).
+  // NOTE: PAT must have repo:workflow permission to trigger workflow_dispatch.
+  document.getElementById('optionB').addEventListener('click', async () => {
+    const repo = (repoInput.value||'').trim();
+    const workflow = (wfInput.value||'').trim();
+    const tx = (txInput.value||'').trim();
+    const network = netInput.value;
+    const message = (msgInput.value||'').trim();
+    const pat = (patInput.value||'').trim();
+
+    if (!repo || !workflow || !tx) { show('repo, workflow, and tx are required for Option B'); return; }
+    if (!pat) { show('Option B requires a PAT. Do not commit it.'); return; }
+
+    const parts = repo.split('/');
+    if (parts.length !== 2) { show('repo must be owner/repo'); return; }
+    const owner = parts[0], repoName = parts[1];
+
+    const apiUrl = `https://api.github.com/repos/${owner}/${repoName}/actions/workflows/${encodeURIComponent(workflow)}/dispatches`;
+
+    const body = {
+      ref: 'main', // change to your default branch if different
+      inputs: { tx, network, message }
+    };
+
+    try {
+      const r = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'token ' + pat,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      if (r.status === 204) {
+        show('Workflow dispatch accepted by GitHub (204). The workflow will run shortly. Check Actions tab in repo.');
+      } else {
+        const txt = await r.text();
+        show({ status: r.status, body: txt });
+      }
+    } catch (e) {
+      show('Network error: ' + String(e));
+    }
+  });
+</script>
+</body>
+</html>
