@@ -1,0 +1,177 @@
+---
+layout: default
+---
+<article class="content competition-page">
+
+  <div class="container page header">
+    {% if page.previous.url %}
+      <a class="header-navigation header-navigation-previous" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+    {% else %}
+      <span class="header-navigation header-navigation-placeholder"></span>
+    {% endif %}
+
+    <h1>{{ page.title | escape }}</h1>
+
+    {% if page.next.url %}
+      <a class="header-navigation header-navigation-next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+    {% else %}
+      <span class="header-navigation header-navigation-placeholder"></span>
+    {% endif %}
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="container">
+    <div class="flex-container">
+      <div class="flex-content half page">
+
+        {% if page.image_path %}
+          {% assign image_path = "/resources/" | append: page.competition_name | append: "/" | append: page.image_path %}
+          <img src="{{ image_path | relative_url }}" alt="{{ page.title }}" class="competition-image">
+        {% endif %}
+
+        {% if page.maps %}
+        <h2> Maps per round </h2>
+        <table class="table-auto border-collapse border border-gray-400">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border px-4 py-2">Round</th>
+              <th class="border px-4 py-2">Featured Map</th>
+              <th class="border px-4 py-2">Creator</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for map in page.maps %}
+            <tr>
+              <td class="border px-4 py-2">{{ map.round }}</td>
+              <td class="border px-4 py-2">{{ map.featured_map }}</td>
+              <td class="border px-4 py-2">{{ map.creator }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+        <div class="spacer"></div>
+        <div class="competition-information__links">
+          {% if page.map_contest_results %} <a href="{{ page.map_contest_results }}">Map Contest Results</a> {% endif %}
+          {% if page.map_archive %} <a href="{{ page.map_archive }}">Map Archive</a> {% endif %}
+        </div>
+      </div>
+
+      <div class="flex-content half page competition-information">
+
+        {% if page.show_definitions %}
+        <h2>Definitions</h2>
+        <div id="definitions-container"></div>
+        {% endif %}
+
+        {% if page.information %}
+        <h2>Information</h2>
+        {{ page.information | markdownify }}
+        {% endif %}
+
+        <div class="competition-information__links">
+          {% if page.sign_up_form %} <a href="{{ page.sign_up_form }}">Sign Up</a> {% endif %}
+          {% if page.sign_up_sheet %} <a href="{{ page.sign_up_sheet }}">View Sign Ups</a> {% endif %}
+          {% if page.draft_maps %} <a href="{{ page.draft_maps }}">Map Draft</a> {% endif %}
+          {% if page.draft_civs %} <a href="{{ page.draft_civs }}">Civ Draft</a> {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="container sprint-container tabs">
+    <div class="tabs-nav">
+      {% for sprint in page.sprints %}
+      <button class="tab-button" data-tab="tab-{{ forloop.index }}" data-group="sprints">
+        {{ sprint.name }}
+      </button>
+      {% endfor %}
+    </div>
+    <div class="tabs-content">
+      {% for sprint in page.sprints %}
+      <div class="tab-pane" id="tab-{{ forloop.index }}" data-group="sprints">
+        <div class="tab-container">
+              {% include block.html title="Notes" content=sprint.notes height="auto" %}
+
+              <div class="sprint-information__links">
+                {% if sprint.registration_sheet %} <a href="{{ sprint.registration_sheet }}" class="">Registration</a>{% endif%}
+                {% if sprint.seeding_sheet %} <a href="{{ sprint.seeding_sheet }}" class="">Seeding</a>{% endif %}
+                {% if sprint.round_sheet %} <a href="{{ sprint.round_sheet }}" class="">Roundwise</a> {% endif %}
+                {% if sprint.live_scoreboard_sheet %} <a href="{{ sprint.live_scoreboard_sheet }}" class="">Live Scoreboard</a> {% endif %}
+                {% if sprint.results_sheet %} <a href="{{ sprint.results_sheet }}" class="">Results</a> {% endif %}
+              </div>
+            </div>
+
+
+          <div class="tabs-nav">
+            {% if sprint.live_scoreboard_frame %}
+              <button class="tab-button" data-tab="tab-{{ forloop.index }}-scoreboard" data-group="sprint-info-{{ forloop.index }}">Scoreboard</button>
+            {% endif %}
+            <button class="tab-button" data-tab="tab-{{ forloop.index }}-seeding" data-group="sprint-info-{{ forloop.index }}">Seeding</button>
+            <button class="tab-button" data-tab="tab-{{ forloop.index }}-results" data-group="sprint-info-{{ forloop.index }}">Results</button>
+          </div>
+
+          <div class="tabs-content">
+            <div class="tab-pane" id="tab-{{ forloop.index }}-seeding" data-group="sprint-info-{{ forloop.index }}">
+              <div class="sprint-seeding" id="seeding-container-{{ forloop.index }}">
+                Seeding not yet available 
+              </div>
+            </div>
+            {% if sprint.live_scoreboard_frame %}
+            <div class="tab-pane" id="tab-{{ forloop.index }}-scoreboard" data-group="sprint-info-{{ forloop.index }}">
+              <iframe 
+                src="{{ sprint.live_scoreboard_frame }}" 
+                width="100%" 
+                height="2000px" 
+                frameborder="0" 
+                title="Live Scoreboard"
+                style="display:block;">
+              </iframe>
+            </div>
+            {% endif %}
+            <div class="tab-pane" id="tab-{{ forloop.index }}-results" data-group="sprint-info-{{ forloop.index }}">
+              <div class="sprint-results" id="results-container-{{ forloop.index }}">
+                Results not yet calculated
+              </div>
+            </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>
+
+
+<script src="{% link assets/js/tab-control.js %}"></script>
+<script src="{% link assets/js/data-loader.js %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+async function initDataLoaders() {
+{% for sprint in page.sprints %}
+  {% if sprint.show_players %}
+  let playerLinks{{ sprint.sprint_name }} = await loadPlayerLinks('{{ page.competition_name }}', '{{ sprint.sprint_name }}');
+  await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Seeding.ods`, 'seeding-container-{{ forloop.index }}', 'Seed Number', 2, 0, Infinity, playerLinks{{ sprint.sprint_name }});
+  {% endif %}
+  {% if sprint.show_results %}
+  await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Results.ods`, 'results-container-{{ forloop.index }}', 'Rank', 1, {{ sprint.prize_ineligibles }}, {{ sprint.prize_winners }}, playerLinks{{ sprint.sprint_name }});
+  {% endif %}
+  {% endfor %}
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDataLoaders();
+});
+</script>
+{% if page.show_definitions %}
+<script src="{% link assets/js/definitions-handler.js %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initDefinitions('{{ page.competition_name }}');
+});
+</script>
+{% endif %}
