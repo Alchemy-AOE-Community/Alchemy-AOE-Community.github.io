@@ -34,16 +34,17 @@ function initDefinitions(season) {
         link.setAttribute("rel", "noopener noreferrer");
 
         const img = document.createElementNS(SVG_NS, "image");
+        const imgPath = getImagePath(prefix, season, fullLabel)
         // set local coordinates (these are in the same coordinate system as the path)
         img.setAttribute("x", String(localImgX));
         img.setAttribute("y", String(localImgY));
         img.setAttribute("width", String(localImgW));
         img.setAttribute("height", String(localImgH));
-        img.setAttributeNS(XLINK_NS, "href", getImagePath(prefix, season, fullLabel));
-        img.setAttribute("href", getImagePath(prefix, season, fullLabel));
+        img.setAttributeNS(XLINK_NS, "href", imgPath);
+        img.setAttribute("href", imgPath);
 
         img.addEventListener("error", () => {
-          const fallback = "/assets/images/Question_Mark.jpg";
+          const fallback = '/assets/images/Question_Mark.jpg';
 
           img.setAttributeNS(XLINK_NS, "href", fallback);
           img.setAttribute("href", fallback);
