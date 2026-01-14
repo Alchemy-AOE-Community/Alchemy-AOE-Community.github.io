@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!--
+    RedirectLatest.html
+    -------------------
+    Purpose:
+      Redirects to the “latest” PDF in a subfolder whose name matches the
+      ?file=PREFIX query‐parameter.  Fits inside the
+      Alchemy-AOE-Community.github.io Pages site.
+
+    Usage (for Writer/PDF links):
+      https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=PREFIX
+
+    Example:
+      To point at the latest CHEM-HDBK-L2 file, use
+         https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-HDBK-L2
+
+    Notes:
+      • PREFIX must exactly match the subfolder name under
+        CHEM-Published-Specifications (branch download-to-click-links).
+      • The script will fetch GitHub’s API, sort names, and auto-redirect
+        clients to the raw.githubusercontent.com URL of the newest file.
+  -->
+
+  <title>Redirecting to latest PDF…</title>
+<script>
+(async () => {
+  // 1) Grab the caller’s prefix
+  const prefix = new URLSearchParams(location.search).get('file');
+  if (!prefix) {
+    document.body.textContent = 'Error: no “?file=” parameter provided.';
+    return;
+  }
+
+  // 2) Repo info
+  const owner  = 'Alchemy-AOE-Community';
+  const repo   = 'CHEM-Published-Specifications';
+  const branch = 'download-to-click-links';
+  const folder = encodeURIComponent(prefix);
+
+  // 3) Fetch folder listing
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}?ref=${branch}`;
+  let dir;
+  try {
+    const res = await fetch(apiUrl);
+    if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+    dir = await res.json();
+  } catch (e) {
+    document.body.textContent = `Error fetching folder “${prefix}”: ${e}`;
+    return;
+  }
+
+  // 4) Filter TO PDF files only, then natural-sort by name
+  const pdfNames = dir
+    .filter(item => item.type === 'file')                            // only real files
+    .map(item => item.name)
+    .filter(name => 
+      name.toLowerCase().startsWith(prefix.toLowerCase()) &&         // prefix match
+      name.toLowerCase().endsWith('.pdf')                            // .pdf extension
+    )
+    .sort((a, b) => 
+      a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+    );
+
+  if (!pdfNames.length) {
+    document.body.textContent = `No PDF files beginning with “${prefix}” found.`;
+    return;
+  }
+
+  // 5) Redirect to the latest
+  const latestPdf = pdfNames.pop();
+  const targetUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${folder}/${latestPdf}`;
+  window.location.replace(targetUrl);
+})();
+</script>
+
+</body>
+</html>

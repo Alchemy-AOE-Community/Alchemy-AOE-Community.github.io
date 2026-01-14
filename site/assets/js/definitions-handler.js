@@ -156,7 +156,7 @@ function initDefinitions(season) {
       }
 
       function getImageLink(label, season) {
-        return 'https://Alchemy-AOE-Community.github.io/RedirectLatest.html?file=CHEM-' + label;
+        return '/RedirectLatest.html?file=CHEM-' + label;
       }
 
       function getImageMapByNumber(obj, code) {
