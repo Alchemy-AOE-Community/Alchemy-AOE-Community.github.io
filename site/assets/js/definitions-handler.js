@@ -41,6 +41,14 @@ function initDefinitions(season) {
         img.setAttribute("height", String(localImgH));
         img.setAttributeNS(XLINK_NS, "href", getImagePath(prefix, season, fullLabel));
         img.setAttribute("href", getImagePath(prefix, season, fullLabel));
+
+        img.addEventListener("error", () => {
+          const fallback = "/assets/images/Question_Mark.jpg";
+
+          img.setAttributeNS(XLINK_NS, "href", fallback);
+          img.setAttribute("href", fallback);
+        }, { once: true });
+
         img.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
         // copy the path's transform (if any) to the image so element-level transforms match
