@@ -31,7 +31,7 @@ async function loadPlayerLinks(season, sprint) {
     }
 }
 
-async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, skipRows = 0, maxRankDisplay = Infinity, playerMap = {}) {
+async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, skipRows = 0, maxRankDisplay = Infinity, playerMap = {}, sheetName = 0) {
   try {
     const element = document.getElementById(containerId);
 
@@ -50,8 +50,11 @@ async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, s
         return;
     }
 
-    const firstSheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[firstSheetName];
+    if (sheetName === 0) {
+      sheetName = workbook.SheetNames[0]
+    }
+
+    const worksheet = workbook.Sheets[sheetName];
     const html = sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay, playerMap);
     element.innerHTML = '<div style="overflow-x: auto;">' + html + '</div>';
     autoSizeColumns(containerId);

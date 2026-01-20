@@ -154,7 +154,7 @@ async function initDataLoaders() {
 {% for sprint in page.sprints %}
   {% if sprint.show_players %}
   let playerLinks{{ sprint.sprint_name }} = await loadPlayerLinks('{{ page.competition_name }}', '{{ sprint.sprint_name }}');
-  await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Seeding.ods`, 'seeding-container-{{ forloop.index }}', 'Seed Number', 2, 0, Infinity, playerLinks{{ sprint.sprint_name }});
+  await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Seeding.ods`, 'seeding-container-{{ forloop.index }}', 'Seed Number', 2, 0, Infinity, playerLinks{{ sprint.sprint_name }}, "Seeding_Summary");
   {% endif %}
   {% if sprint.show_results %}
   await loadODS(`/resources/{{ page.competition_name }}/{{ sprint.sprint_name }}/Results.ods`, 'results-container-{{ forloop.index }}', 'Rank', 1, {{ sprint.prize_ineligibles }}, {{ sprint.prize_winners }}, playerLinks{{ sprint.sprint_name }});
