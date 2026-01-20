@@ -53,8 +53,8 @@ layout: default
         {% endif %}
         <div class="spacer"></div>
         <div class="competition-information__links">
-          {% if page.map_contest_results %} <a href="{{ page.map_contest_results }}">Map Contest Results</a> {% endif %}
-          {% if page.map_archive %} <a href="{{ page.map_archive }}">Map Archive</a> {% endif %}
+          {% if page.map_contest_results %} <a href="{{ page.map_contest_results }}" target="_blank">Map Contest Results</a> {% endif %}
+          {% if page.map_archive %} <a href="{{ page.map_archive }}" target="_blank">Map Archive</a> {% endif %}
         </div>
       </div>
 
@@ -71,10 +71,10 @@ layout: default
         {% endif %}
 
         <div class="competition-information__links">
-          {% if page.sign_up_form %} <a href="{{ page.sign_up_form }}">Sign Up</a> {% endif %}
-          {% if page.sign_up_sheet %} <a href="{{ page.sign_up_sheet }}">View Sign Ups</a> {% endif %}
-          {% if page.draft_maps %} <a href="{{ page.draft_maps }}">Map Draft</a> {% endif %}
-          {% if page.draft_civs %} <a href="{{ page.draft_civs }}">Civ Draft</a> {% endif %}
+          {% if page.sign_up_form %} <a href="{{ page.sign_up_form }}" target="_blank">Sign Up</a> {% endif %}
+          {% if page.sign_up_sheet %} <a href="{{ page.sign_up_sheet }}" target="_blank">View Sign Ups</a> {% endif %}
+          {% if page.draft_maps %} <a href="{{ page.draft_maps }}" target="_blank">Map Draft</a> {% endif %}
+          {% if page.draft_civs %} <a href="{{ page.draft_civs }}" target="_blank">Civ Draft</a> {% endif %}
         </div>
       </div>
     </div>
@@ -97,11 +97,11 @@ layout: default
               {% include block.html title="Notes" content=sprint.notes height="auto" %}
 
               <div class="sprint-information__links">
-                {% if sprint.registration_sheet %} <a href="{{ sprint.registration_sheet }}" class="">Registration</a>{% endif%}
-                {% if sprint.seeding_sheet %} <a href="{{ sprint.seeding_sheet }}" class="">Seeding</a>{% endif %}
-                {% if sprint.round_sheet %} <a href="{{ sprint.round_sheet }}" class="">Roundwise</a> {% endif %}
-                {% if sprint.live_scoreboard_sheet %} <a href="{{ sprint.live_scoreboard_sheet }}" class="">Live Scoreboard</a> {% endif %}
-                {% if sprint.results_sheet %} <a href="{{ sprint.results_sheet }}" class="">Results</a> {% endif %}
+                {% if sprint.registration_sheet %} <a href="{{ sprint.registration_sheet }}" target="_blank">Registration</a>{% endif%}
+                {% if sprint.seeding_sheet %} <a href="{{ sprint.seeding_sheet }}" target="_blank">Seeding</a>{% endif %}
+                {% if sprint.round_sheet %} <a href="{{ sprint.round_sheet }}" target="_blank">Roundwise</a> {% endif %}
+                {% if sprint.live_scoreboard_sheet %} <a href="{{ sprint.live_scoreboard_sheet }}" target="_blank">Live Scoreboard</a> {% endif %}
+                {% if sprint.results_sheet %} <a href="{{ sprint.results_sheet }}" target="_blank">Results</a> {% endif %}
               </div>
             </div>
 
