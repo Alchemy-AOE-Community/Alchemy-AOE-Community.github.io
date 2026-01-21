@@ -65,7 +65,7 @@ sprints:
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vTvlsM1PKva5GtEtSMl-N_clMz1xuDmHnv8yoZnz7Yu_nejeLOvW1Wo9t2YG3ebTHXhXC9o0kaCAap9/pubhtml?gid=0&single=true
     results_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint1/Results.ods
     prize_winners: 8
-    prize_ineligibles: 2
+    prize_ineligibles: 0
     show_players: true
     show_results: true
 
@@ -80,7 +80,7 @@ sprints:
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vTvlsM1PKva5GtEtSMl-N_clMz1xuDmHnv8yoZnz7Yu_nejeLOvW1Wo9t2YG3ebTHXhXC9o0kaCAap9/pubhtml?gid=0&single=true
     results_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/Results.ods
     prize_winners: 8
-    prize_ineligibles: 2
+    prize_ineligibles: 0
     show_players: true
     show_results: true
 
