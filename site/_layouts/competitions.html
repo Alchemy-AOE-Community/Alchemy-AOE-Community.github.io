@@ -2,12 +2,9 @@
 layout: default
 ---
 <article class="content competitions-page">
-
-  
   <div class="page page-content">
     <h1>{{ page.title }}</h1>
     {{ content }}
-
     <div class="competition-list">
       {%- for competition in site.competitions -%}
       <div class="competition-list__link">
@@ -25,5 +22,4 @@ layout: default
       {%- endfor -%}
       </div>
   </div>
-
 </article>

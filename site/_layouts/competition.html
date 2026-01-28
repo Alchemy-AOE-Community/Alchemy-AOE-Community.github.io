@@ -99,12 +99,10 @@ layout: default
               <div class="sprint-information__links">
                 {% if sprint.registration_sheet %} <a href="{{ sprint.registration_sheet }}" target="_blank">Registration</a>{% endif%}
                 {% if sprint.seeding_sheet %} <a href="{{ sprint.seeding_sheet }}" target="_blank">Seeding</a>{% endif %}
-                {% if sprint.round_sheet %} <a href="{{ sprint.round_sheet }}" target="_blank">Roundwise</a> {% endif %}
                 {% if sprint.live_scoreboard_sheet %} <a href="{{ sprint.live_scoreboard_sheet }}" target="_blank">Live Scoreboard</a> {% endif %}
                 {% if sprint.results_sheet %} <a href="{{ sprint.results_sheet }}" target="_blank">Results</a> {% endif %}
               </div>
             </div>
-
 
           <div class="tabs-nav">
             {% if sprint.live_scoreboard_frame %}
@@ -143,7 +141,6 @@ layout: default
     </div>
   </div>
 </article>
-
 
 <script src="{% link assets/js/tab-control.js %}"></script>
 <script src="{% link assets/js/data-loader.js %}"></script>
