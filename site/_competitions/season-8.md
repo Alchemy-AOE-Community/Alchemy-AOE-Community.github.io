@@ -19,7 +19,7 @@ information: |
 show_definitions: true
 
 map_contest_results:
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS8_Resources/Map_Archive.zip
+map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS8/Map_Archive.zip
 
 sign_up_form:  https://forms.gle/ZBxGQufXkSEELcSZ6
 sign_up_sheet: https://docs.google.com/spreadsheets/d/1HfdG7YO-ql1TjHx37bGE6BMf6OTyuVJlTcMh9l7DlpQ/edit?resourcekey=&gid=993490506#gid=993490506
@@ -71,8 +71,8 @@ sprints:
     notes: | 
       - Participant "theNagraj" registered but ineligible for prize due to lack of sufficient ranked 1v1s (46/100).
       - Participant "ShiXo" granted exception to schedule and complete Round 4 at any time during the Sprint.
-    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS8_Resources/Sprint1/Registration.ods
-    seeding_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS8_Resources/Sprint1/Seeding.ods
+    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS8/Sprint1/Registration.ods
+    seeding_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS8/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1F3gzSUl2kwcCXdFy2f6TumgPIwRg4_K_Q3JjaGJW7OU/edit?gid=807253230#gid=807253230
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vTywVx5DskPrejThabjiHuGYLU841gOIe0bsxqGb3SPKbHgLWXUF7X_S2zkPfCgOyDBBUL8t5d2Vjyv/pubhtml?gid=807253230&single=true
     results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS8/Sprint1/Sprint1/Results.ods
@@ -86,11 +86,11 @@ sprints:
     notes: | 
       - Participant "theNagraj" registered but ineligible for prize due to lack of sufficient ranked 1v1s (46/100).
 
-    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS8_Resources/Sprint2/Registration.ods
-    seeding_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS8_Resources/Sprint2/Seeding.ods
+    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS8/Sprint2/Registration.ods
+    seeding_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS8/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1F3gzSUl2kwcCXdFy2f6TumgPIwRg4_K_Q3JjaGJW7OU/edit?gid=1044429528#gid=1044429528
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vTywVx5DskPrejThabjiHuGYLU841gOIe0bsxqGb3SPKbHgLWXUF7X_S2zkPfCgOyDBBUL8t5d2Vjyv/pubhtml?gid=1044429528&single=true
-    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS8_Resources/Sprint2/Results.ods
+    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS8/Sprint2/Results.ods
     prize_winners: 8
     prize_ineligibles: 0
     show_players: true

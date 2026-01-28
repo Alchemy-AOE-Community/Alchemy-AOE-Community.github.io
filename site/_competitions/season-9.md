@@ -20,7 +20,7 @@ information: |
 show_definitions: true
 
 map_contest_results:
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Map_Archive.zip
+map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Map_Archive.zip
 
 sign_up_form:  https://forms.gle/1LDUBw6x2HS1QMfJA
 sign_up_sheet: https://docs.google.com/spreadsheets/d/1KHb05yNB0YNEbGDsBED-Vku-Cs1ZVmdQr6I52ZegNEQ/edit?usp=sharing
@@ -67,11 +67,11 @@ sprints:
       - Sprint originally intended to be 3 rounds, but it was dicovered at the last minute that odd-numbers of rounds only "work" when there is an even number of players. Even Round count works almost unconditionally. 
       - Participant "theNagraj" lacked minimum required games to register (API discovered 42/100). Exception granted due to returning player, and aoe2.gg web interface indicating 52 games at time of registration. Player may compete for prize. 
       - Participant "Belkross" lacked minimum required games to register (API discovered 12/100). Exception granted due to referral, and aoe2.gg web interface indicated 87 games at time of registration. Player may compete for prize.
-    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint1/Registration.ods
-    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint1/Seeding.ods
+    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Registration.ods
+    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?gid=807253230#gid=807253230
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=807253230&single=true&widget=true&headers=false
-    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint1/Results.ods
+    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Results.ods
     prize_winners: 8
     prize_ineligibles: 0
     show_players: true
@@ -81,8 +81,8 @@ sprints:
     sprint_name: Sprint2
     notes: | 
       - TBD
-    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint2/Registration.ods
-    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint2/Seeding.ods
+    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Registration.ods
+    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Seeding.ods
     live_scoreboard_sheet: 
     live_scoreboard_frame: 
     results_sheet:         
