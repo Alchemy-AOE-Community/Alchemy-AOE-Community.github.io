@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article class="page">
+  <header class="page-header">
+    <h1 class="page-title">{{ page.title | escape }}</h1>
+  </header>
+  <div class="page-content">
+    {{ content }}
+  </div>
+  <div id="trophy-wall"></div>
+</article>
+
+<script src="{% link assets/js/tab-control.js %}"></script>
+<script src="{% link assets/js/data-loader.js %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+async function initDataLoaders() {
+  await loadTrophyWall(`https://docs.google.com/spreadsheets/d/1gbpxrHsj7NA-if3PZyvcvyEQ9MS3W6Hz8jpKFrzINOM/export?format=ods`, 'trophy-wall');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDataLoaders();
+});
+</script>

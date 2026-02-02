@@ -6,7 +6,7 @@ async function loadPlayerLinks(season, sprint) {
             console.log(file);
         }; // Silent fail
         const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        const workbook = XLSX.read(arrayBuffer, { type: 'array', cellStyles: true, cellHTML: true });
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         const range = XLSX.utils.decode_range(worksheet['!ref']);
         let nameCol = -1, linkCol = 2; // Hardcode linkCol to column 3 (0-indexed: 2)
@@ -31,23 +31,55 @@ async function loadPlayerLinks(season, sprint) {
     }
 }
 
+async function getWorkbook(containerId, filePath) {
+  const response = await fetch(filePath);
+  if (!response.ok) {
+    throw new Error('Failed to load ODS file');
+  }
+  const arrayBuffer = await response.arrayBuffer();
+  const workbook = XLSX.read(arrayBuffer, { type: 'array', cellStyles: true, cellHTML: true });
+
+  if (!workbook) {
+      throw new Error('Failed to read ODS file');;
+  }
+
+  return workbook;
+}
+
+async function loadTrophyWall(filePath, containerId) {
+  try {
+    const element = document.getElementById(containerId);
+    if (element === null) {
+     return;
+    }
+
+    const workbook = await getWorkbook(element, filePath);
+    if (!workbook) {
+      return
+    }
+
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+
+    console.log(worksheet['A3']);
+
+    const html = sheetToHtmlWithStyles(worksheet, '', 0, 1, 0, {}, true, 5);
+    element.innerHTML = '<div style="overflow-x: auto;">' + html + '</div>';
+    autoSizeColumns(containerId);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, skipRows = 0, maxRankDisplay = Infinity, playerMap = {}, sheetName = 0) {
   try {
     const element = document.getElementById(containerId);
-
     if (element === null) {
-        return;
+     return;
     }
-
-    const response = await fetch(filePath);
-    if (!response.ok) {
-      throw new Error('Failed to load ODS file');
-    }
-    const arrayBuffer = await response.arrayBuffer();
-    const workbook = XLSX.read(arrayBuffer, { type: 'array', cellStyles: true });
-
+    
+    const workbook = await getWorkbook(element, filePath);
     if (!workbook) {
-        return;
+      return
     }
 
     if (sheetName === 0) {
@@ -63,8 +95,7 @@ async function loadODS(filePath, containerId, leftColumnLabel, headerRows = 2, s
   }
 }
 
-
-function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay, playerMap) {
+function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows, maxRankDisplay, playerMap, skipRankDisplay = false, maxColumns = 0) {
   if (!worksheet || !worksheet['!ref']) return '<table></table>';
   const range = XLSX.utils.decode_range(worksheet['!ref']);
   const merges = worksheet['!merges'] || [];
@@ -98,12 +129,18 @@ function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows,
         html += `<td${rowspanAttr} style="background-color: #cccccc; text-align: center; white-space: normal; word-wrap: break-word;">${leftColumnLabel}</td>`;
       }
     } else {
-      let displayRank = (rank > maxRankDisplay) ? '~' : rank;
-      html += `<td style="text-align: center;">${displayRank}</td>`;
-      rank++;
+      if (!skipRankDisplay) {
+        let displayRank = (rank > maxRankDisplay) ? '~' : rank;
+        html += `<td style="text-align: center;">${displayRank}</td>`;
+        rank++;
+      }
     }
 
-    for (let col = range.s.c; col <= range.e.c; col++) {
+    if (maxColumns === 0) {
+      maxColumns = range.e.c
+    } 
+
+    for (let col = range.s.c; col <= maxColumns; col++) {
       const cellAddress = { r: row, c: col };
       const cellRef = XLSX.utils.encode_cell(cellAddress);
 
@@ -124,7 +161,16 @@ function sheetToHtmlWithStyles(worksheet, leftColumnLabel, headerRows, skipRows,
       if (isMerged) continue;
 
       const cell = worksheet[cellRef];
-      let cellValue = cell ? XLSX.utils.format_cell(cell) : '';
+      let cellValue = '';
+
+      if (cell) {
+        if (cell.h) {
+          cellValue = cell.h;
+        } else {
+          cellValue = XLSX.utils.format_cell(cell);
+        }
+      }
+
       let style = '';
       if (cell && cell.s && cell.s.fill && cell.s.fill.fgColor && cell.s.fill.fgColor.rgb) {
         style = `background-color: #${cell.s.fill.fgColor.rgb};`;
