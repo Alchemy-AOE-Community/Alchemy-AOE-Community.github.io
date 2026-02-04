@@ -45,6 +45,10 @@
     &:not(:last-child) {
       margin-right: 20px;
     }
+
+    &.page-link__active {
+      font-weight: bold;
+    }
   }
 
   @include media-query($on-palm) {
