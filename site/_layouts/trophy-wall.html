@@ -8,7 +8,9 @@ layout: default
   <div class="page-content">
     {{ content }}
   </div>
-  <div id="trophy-wall"></div>
+  <div id="trophy-wall">
+    {% include loader.html %}
+  </div>
 </article>
 
 <script src="{% link assets/js/tab-control.js %}"></script>

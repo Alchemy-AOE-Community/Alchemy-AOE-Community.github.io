@@ -62,7 +62,9 @@ layout: default
 
         {% if page.show_definitions %}
         <h2>Definitions</h2>
-        <div id="definitions-container"></div>
+        <div id="definitions-container">
+          {% include loader.html %}
+        </div>
         {% endif %}
 
         {% if page.information %}
