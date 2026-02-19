@@ -26,7 +26,7 @@ sign_up_form:  https://forms.gle/1LDUBw6x2HS1QMfJA
 sign_up_sheet: https://docs.google.com/spreadsheets/d/1KHb05yNB0YNEbGDsBED-Vku-Cs1ZVmdQr6I52ZegNEQ/edit?usp=sharing
 
 draft_maps: 
-draft_civs: https://aoe2cm.net/draft/pqupw
+draft_civs: https://aoe2cm.net/preset/YDtwn
 
 maps: 
   - round: 1
