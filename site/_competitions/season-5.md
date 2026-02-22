@@ -13,6 +13,7 @@ information: |
     - Player Winnings Calculated From Amalgamation of Skill, Performance, Participation, etc.
     - Standard Victory Conditions 
     - Theme: Space
+    - This season used an a transitionary scoring system accounting for win rate, but unplayed sets were still recorded as 1-1 rather than 0-0.
 
 show_definitions: true
 
@@ -74,7 +75,7 @@ sprints:
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS5/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1jyq98-16FxFnZrWrn4svUZS8_knureaU11DrRwE3oLA/edit?gid=344058519#gid=344058519
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQidT3xw2j_bHWuKGw6vuKtJ8ya0YZblGTmrCc4qVLcjR1e3xFB9sFXhHcgrX0tZVyET6QzkdKJ8o-a/pubhtml?gid=344058519&amp;single=true&amp;widget=true&amp;headers=false
-    results_sheet:         
+    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS5/Sprint2/Results.ods 
     prize_winners: 8
     prize_ineligibles: 0
     show_players: true

@@ -15,6 +15,7 @@ information: |
   - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill
   - Standard Victory Condition, With Antiquity Mode On
   - Open Map Contest, Community Creations
+  - First season to use the new scoring system, (comparing win rates) with unplayed sets recorded as 0-0 rather than historical 1-1.
 
 show_definitions: true
 

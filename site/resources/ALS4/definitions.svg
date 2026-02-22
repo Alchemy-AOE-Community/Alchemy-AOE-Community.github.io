@@ -27,8 +27,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="8"
-     inkscape:cx="64.375"
-     inkscape:cy="46"
+     inkscape:cx="68.4375"
+     inkscape:cy="37.5"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
      inkscape:window-x="0"
@@ -1143,25 +1143,6 @@
        hide_knots="false" />
     <marker
        style="overflow:visible"
-       id="marker121-0-8"
-       refX="0"
-       refY="0"
-       orient="auto-start-reverse"
-       inkscape:stockid="Stylized triangle arrow"
-       markerWidth="0.5"
-       markerHeight="0.5"
-       viewBox="0 0 1 1"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.5)"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
-         d="m 6,0 c -3,1 -7,3 -9,5 0,0 0,-4 2,-5 -2,-1 -2,-5 -2,-5 2,2 6,4 9,5 z"
-         id="path121-62-8" />
-    </marker>
-    <marker
-       style="overflow:visible"
        id="marker121-1-4"
        refX="0"
        refY="0"
@@ -1213,25 +1194,6 @@
        apply_with_radius="true"
        only_selected="false"
        hide_knots="false" />
-    <marker
-       style="overflow:visible"
-       id="marker121-7"
-       refX="0"
-       refY="0"
-       orient="auto-start-reverse"
-       inkscape:stockid="Stylized triangle arrow"
-       markerWidth="0.5"
-       markerHeight="0.5"
-       viewBox="0 0 1 1"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.5)"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
-         d="m 6,0 c -3,1 -7,3 -9,5 0,0 0,-4 2,-5 -2,-1 -2,-5 -2,-5 2,2 6,4 9,5 z"
-         id="path121-71" />
-    </marker>
     <inkscape:path-effect
        effect="fillet_chamfer"
        id="path-effect123-0-4-3-1"
@@ -1266,25 +1228,6 @@
        apply_with_radius="true"
        only_selected="false"
        hide_knots="false" />
-    <marker
-       style="overflow:visible"
-       id="marker121-1-7"
-       refX="0"
-       refY="0"
-       orient="auto-start-reverse"
-       inkscape:stockid="Stylized triangle arrow"
-       markerWidth="0.5"
-       markerHeight="0.5"
-       viewBox="0 0 1 1"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.5)"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
-         d="m 6,0 c -3,1 -7,3 -9,5 0,0 0,-4 2,-5 -2,-1 -2,-5 -2,-5 2,2 6,4 9,5 z"
-         id="path121-8-6" />
-    </marker>
   </defs>
   <line
      x1="57.395973"
@@ -1610,18 +1553,10 @@
   <line
      x1="78.758034"
      y1="25.188736"
-     x2="93.509773"
+     x2="86.294411"
      y2="25.188736"
      class="hierarchy-line"
      id="line93-1"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1" />
-  <line
-     x1="86.110016"
-     y1="48.4179"
-     x2="100.86176"
-     y2="48.4179"
-     class="hierarchy-line"
-     id="line93-9-4"
      style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1" />
   <line
      x1="86.115791"
@@ -1632,22 +1567,6 @@
      id="line94-92"
      style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker121-30)" />
   <line
-     x1="93.509773"
-     y1="25.006861"
-     x2="93.509773"
-     y2="37.183792"
-     class="hierarchy-arrow"
-     id="line103-06"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker121-30)" />
-  <line
-     x1="93.448082"
-     y1="44.820099"
-     x2="93.448082"
-     y2="47.274368"
-     class="hierarchy-arrow"
-     id="line94-6-26"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker121-0-8)" />
-  <line
      x1="86.110016"
      y1="34.960785"
      x2="86.110016"
@@ -1655,30 +1574,6 @@
      class="hierarchy-arrow"
      id="line103-7-64"
      style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.483913;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker121-1-4)" />
-  <line
-     x1="93.452217"
-     y1="25.188736"
-     x2="101.11104"
-     y2="25.188736"
-     class="hierarchy-line"
-     id="line93-7"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1" />
-  <line
-     x1="100.80997"
-     y1="25.330462"
-     x2="100.80997"
-     y2="27.784731"
-     class="hierarchy-arrow"
-     id="line94-65"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker121-7)" />
-  <line
-     x1="100.80421"
-     y1="34.960785"
-     x2="100.80421"
-     y2="47.137718"
-     class="hierarchy-arrow"
-     id="line103-7-1"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.483913;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker121-1-7)" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-8"
@@ -1738,31 +1633,7 @@
      inkscape:path-effect="#path-effect123-0-4-2"
      d="m 61.309242,53.344917 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="GSRM-SPC-1" />
-  <path
-     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
-     id="PSRM-1-9-8-27-94"
-     width="6.25"
-     height="6.25"
-     x="97.679199"
-     y="28.951836"
-     sodipodi:type="rect"
-     inkscape:path-effect="#path-effect123-0-4-9-5"
-     d="m 97.679199,28.951836 h 6.250001 v 6.25 h -6.250001 z"
-     ry="0"
-     inkscape:label="CSRM-SPC-11" />
-  <path
-     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
-     id="PSRM-1-9-8-12-8"
-     width="6.25"
-     height="6.25"
-     x="90.323082"
-     y="38.414711"
-     sodipodi:type="rect"
-     inkscape:path-effect="#path-effect123-0-4-3-8"
-     d="m 90.323082,38.414711 h 6.25 v 6.25 h -6.25 z"
-     ry="0"
-     inkscape:label="CSRM-SPC-10" />
+     inkscape:label="GSRM-AK-002" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-27-9"
@@ -1774,7 +1645,7 @@
      inkscape:path-effect="#path-effect123-0-4-9-6"
      d="m 82.985016,28.951836 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-09" />
+     inkscape:label="CSRM-AK-09" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-12-4"
@@ -1786,7 +1657,7 @@
      inkscape:path-effect="#path-effect123-0-4-3-4"
      d="m 75.542061,38.414711 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-08" />
+     inkscape:label="CSRM-AK-08" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-27-7"
@@ -1798,7 +1669,7 @@
      inkscape:path-effect="#path-effect123-0-4-9-7"
      d="m 68.203995,28.951838 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-07" />
+     inkscape:label="CSRM-AK-07" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-12-63"
@@ -1810,7 +1681,7 @@
      inkscape:path-effect="#path-effect123-0-4-3-9"
      d="m 60.814831,38.414711 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-06" />
+     inkscape:label="CSRM-AK-06" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-27-2"
@@ -1822,7 +1693,7 @@
      inkscape:path-effect="#path-effect123-0-4-9-4"
      d="m 53.476765,28.951838 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-05" />
+     inkscape:label="CSRM-AK-05" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-12-6"
@@ -1834,7 +1705,7 @@
      inkscape:path-effect="#path-effect123-0-4-3-2"
      d="m 46.063084,38.414711 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-04" />
+     inkscape:label="CSRM-AK-04" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-27-1"
@@ -1846,7 +1717,7 @@
      inkscape:path-effect="#path-effect123-0-4-9-3"
      d="m 38.725018,28.951838 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-03" />
+     inkscape:label="CSRM-AK-03" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-12"
@@ -1858,7 +1729,7 @@
      inkscape:path-effect="#path-effect123-0-4-3"
      d="m 31.561342,38.414711 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-02" />
+     inkscape:label="CSRM-AK-02" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-27"
@@ -1870,7 +1741,7 @@
      inkscape:path-effect="#path-effect123-0-4-9"
      d="m 24.223274,28.951838 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="CSRM-SPC-01" />
+     inkscape:label="CSRM-AK-01" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-5"
@@ -1930,7 +1801,7 @@
      inkscape:path-effect="#path-effect123"
      d="m 16.883789,16.776863 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="PSRM-SPC-1" />
+     inkscape:label="GSRM-AK-001" />
   <path
      style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:0.5;stroke-dasharray:none;stroke-opacity:1"
      id="PSRM-1-9-8-11"
@@ -1942,5 +1813,5 @@
      inkscape:path-effect="#path-effect123-0-4-7"
      d="m 54.270973,3.58459 h 6.25 v 6.25 h -6.25 z"
      ry="0"
-     inkscape:label="HDBK-L005" />
+     inkscape:label="HDBK-L004" />
 </svg>
