@@ -89,7 +89,7 @@ sprints:
     prize_winners: 6
     prize_ineligibles: 0
     show_players: true
-    show_results: false
+    show_results: true
 
   - name: Sprint 3
     sprint_name: Sprint3
