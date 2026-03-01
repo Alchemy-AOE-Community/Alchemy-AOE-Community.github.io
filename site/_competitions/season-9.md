@@ -94,11 +94,11 @@ sprints:
   - name: Sprint 3
     sprint_name: Sprint3
     notes: | 
-      - TBD
+      - Sprint originally intended to be 5 rounds, but it was dicovered at the last minute that odd-numbers of rounds only "work" when there is an even number of players. Even Round count works almost unconditionally. 
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint3/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint3/Seeding.ods
-    live_scoreboard_sheet: 
-    live_scoreboard_frame: 
+    live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?pli=1&gid=1154810208#gid=1154810208
+    live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=1154810208&amp;single=true&amp;widget=true&amp;headers=false
     results_sheet:         
     prize_winners: 12
     prize_ineligibles: 0
