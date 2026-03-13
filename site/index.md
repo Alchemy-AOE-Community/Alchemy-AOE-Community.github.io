@@ -3,7 +3,7 @@ layout: home
 
 content_about: | 
     The Alchemy AOE Community is a free and non-profit organization of random map scripters, tournament hosts, content creators, and skilled players dedicated to the advancement of custom random maps in Age of Empires II: Definitive Edition.
-    We are independent from the official Age of Empires developers, allowing us to prioritize creativity and free expression over marketing returns.
+    We are independent from the official Age of Empires developers.
 
 content_mission: | 
     The Alchemy AOE Community publishes quality standards for custom random maps, curating the finished products to feature in thematic competitions.
@@ -11,7 +11,7 @@ content_mission: |
     Join us to help Age of Empires II reach its full potential.
 
 content_documents: |
-    [Charter](#)
+    [Charter](https://github.com/Alchemy-AOE-Community/CHEM-Charter){:target="_blank"}
     [Specifications](https://github.com/Alchemy-AOE-Community/CHEM-Published-Specifications){:target="_blank"}
 
 content_maps: |
