@@ -67,6 +67,7 @@ sprints:
       - Sprint originally intended to be 3 rounds, but it was dicovered at the last minute that odd-numbers of rounds only "work" when there is an even number of players. Even Round count works almost unconditionally. 
       - Participant "theNagraj" lacked minimum required games to register (API discovered 42/100). Exception granted due to returning player, and aoe2.gg web interface indicating 52 games at time of registration. Player may compete for prize. 
       - Participant "Belkross" lacked minimum required games to register (API discovered 12/100). Exception granted due to referral, and aoe2.gg web interface indicated 87 games at time of registration. Player may compete for prize.
+      - Participant "Metalmania" (Profile ID 9097311) accidentally signed up for ALS9 using the Profile ID for "Empire" (4394494). Error remained undetected this sprint, but "Empire's" statistics were applied both places.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?gid=807253230#gid=807253230
@@ -80,7 +81,8 @@ sprints:
   - name: Sprint 2
     sprint_name: Sprint2
     notes: | 
-      - Sprint originally intended to be 3 rounds, but it was dicovered at the last minute that odd-numbers of rounds only "work" when there is an even number of players. Even Round count works almost unconditionally. 
+      - Sprint originally intended to be 3 rounds, but it was dicovered at the last minute that odd-numbers of rounds only "work" when there is an even number of players. Even Round count works almost unconditionally.
+      - Participant "Metalmania" (Profile ID 9097311) accidentally signed up for ALS9 using the Profile ID for "Empire" (4394494). Error remained undetected this sprint, but "Empire's" statistics were applied both places. 
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?pli=1&gid=1044429528#gid=1044429528
@@ -94,7 +96,8 @@ sprints:
   - name: Sprint 3
     sprint_name: Sprint3
     notes: | 
-      - Sprint originally intended to be 5 rounds, but it was dicovered at the last minute that odd-numbers of rounds only "work" when there is an even number of players. Even Round count works almost unconditionally. 
+      - Sprint originally intended to be 5 rounds, but it was dicovered at the last minute that odd-numbers of rounds only "work" when there is an even number of players. Even Round count works almost unconditionally.
+      - Participant "Metalmania" (Profile ID 9097311) accidentally signed up for ALS9 using the Profile ID for "Empire" (4394494). Error remained undetected until halfway through the sprint, but "Empire's" statistics were applied both places.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint3/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint3/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?pli=1&gid=1154810208#gid=1154810208
