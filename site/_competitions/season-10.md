@@ -64,11 +64,11 @@ sprints:
     sprint_name: Sprint1
     notes: | 
       - TBD
-    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Registration.ods
-    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Seeding.ods
+    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Registration.ods
+    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?gid=807253230#gid=807253230
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=807253230&single=true&widget=true&headers=false
-    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint1/Results.ods
+    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Results.ods
     prize_winners: 4
     prize_ineligibles: 0
     show_players: false
@@ -78,8 +78,8 @@ sprints:
     sprint_name: Sprint2
     notes: | 
       - TBD
-    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Registration.ods
-    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Seeding.ods
+    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Registration.ods
+    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?pli=1&gid=1044429528#gid=1044429528
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=1044429528&amp;single=true&amp;widget=true&amp;headers=false
     results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Results.ods        
@@ -92,8 +92,8 @@ sprints:
     sprint_name: Sprint3
     notes: | 
       - TBD
-    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint3/Registration.ods
-    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS9_Resources/Sprint3/Seeding.ods
+    registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint3/Registration.ods
+    seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint3/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?pli=1&gid=1154810208#gid=1154810208
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=1154810208&amp;single=true&amp;widget=true&amp;headers=false
     results_sheet:         
