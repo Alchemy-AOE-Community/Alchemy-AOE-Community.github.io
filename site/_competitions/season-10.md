@@ -21,8 +21,8 @@ show_definitions: true
 map_contest_results:
 map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Map_Archive.zip
 
-sign_up_form:  https://forms.gle/1LDUBw6x2HS1QMfJA
-sign_up_sheet: https://docs.google.com/spreadsheets/d/1KHb05yNB0YNEbGDsBED-Vku-Cs1ZVmdQr6I52ZegNEQ/edit?usp=sharing
+sign_up_form:  https://forms.gle/dA4PunkWFp5D9aWh9
+sign_up_sheet: https://docs.google.com/spreadsheets/d/1o-O3vtjasl0vwz6x_slX3UDSvoOfd7VZKd8JtkMkXTk/edit?resourcekey=&gid=110444171#gid=110444171
 
 draft_maps: 
 draft_civs: https://aoe2cm.net/preset/YDtwn
@@ -66,8 +66,8 @@ sprints:
       - TBD
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Seeding.ods
-    live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?gid=807253230#gid=807253230
-    live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=807253230&single=true&widget=true&headers=false
+    live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=807253230#gid=807253230
+    live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vR--yTrP3B9oJhcMaKryD71Hkolb-wJ9tyqo6rTQTbAv9V65K4e3W9nLTQy5Zq2nd1OT7QfHpwjzo_g/pubhtml?gid=807253230&amp;single=true&amp;widget=true&amp;headers=false
     results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Results.ods
     prize_winners: 4
     prize_ineligibles: 0
@@ -80,8 +80,8 @@ sprints:
       - TBD
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Seeding.ods
-    live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?pli=1&gid=1044429528#gid=1044429528
-    live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=1044429528&amp;single=true&amp;widget=true&amp;headers=false
+    live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=1813358294#gid=1813358294
+    live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vR--yTrP3B9oJhcMaKryD71Hkolb-wJ9tyqo6rTQTbAv9V65K4e3W9nLTQy5Zq2nd1OT7QfHpwjzo_g/pubhtml?gid=1813358294&amp;single=true&amp;widget=true&amp;headers=false
     results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Results.ods        
     prize_winners: 8
     prize_ineligibles: 0
@@ -94,8 +94,8 @@ sprints:
       - TBD
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint3/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint3/Seeding.ods
-    live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/13AghNzsmjMC5XDxC5CbCQSZD3G6EQtyjteD9k2glyNk/edit?pli=1&gid=1154810208#gid=1154810208
-    live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqNQjjrwzdsMecjAqElLaIdL8SmsWN426zcqXdPsjgQsfZyfWTNCOX0Rrunrj7sxg9to1uw5MW2XJ/pubhtml?gid=1154810208&amp;single=true&amp;widget=true&amp;headers=false
+    live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=1154810208#gid=1154810208
+    live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vR--yTrP3B9oJhcMaKryD71Hkolb-wJ9tyqo6rTQTbAv9V65K4e3W9nLTQy5Zq2nd1OT7QfHpwjzo_g/pubhtml?gid=1154810208&amp;single=true&amp;widget=true&amp;headers=false
     results_sheet:         
     prize_winners: 8
     prize_ineligibles: 0
