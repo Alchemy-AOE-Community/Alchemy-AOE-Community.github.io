@@ -21,8 +21,8 @@ content_maps: |
 
 content_rms_references: |
     [Scripting Guide](https://docs.google.com/document/d/1jnhZXoeL9mkRUJxcGlKnO98fIwFKStP_OBozpr0CHXo/){:target="_blank"}
-    [Constants List](https://docs.google.com/spreadsheets/d/1llyn7FWKEtmss_WE-6hinMItpsV-h-6qsY8xBlkxUzw/"){:target="_blank"}
-    [Terrain List](https://docs.google.com/spreadsheets/d/1Fg4BM8dY0FoJ5yoQtL5S4f9LEcMIrYbH0skrFBnrS14/"){:target="_blank"}
+    [Constants List](https://docs.google.com/spreadsheets/d/1llyn7FWKEtmss_WE-6hinMItpsV-h-6qsY8xBlkxUzw/){:target="_blank"}
+    [Terrain List](https://docs.google.com/spreadsheets/d/1Fg4BM8dY0FoJ5yoQtL5S4f9LEcMIrYbH0skrFBnrS14/){:target="_blank"}
     [Game Mechanics](https://ugc.aoe2.rocks/general/)
     [Icon Creator](https://ca2map.streamlit.app/)
 
