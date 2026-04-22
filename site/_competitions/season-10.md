@@ -18,7 +18,7 @@ information: |
 
 show_definitions: true
 
-map_contest_results: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Map_Contest.ods
+map_contest_results: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Contest_Results.ods
 map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Map_Archive.zip
 
 sign_up_form:  https://forms.gle/dA4PunkWFp5D9aWh9
