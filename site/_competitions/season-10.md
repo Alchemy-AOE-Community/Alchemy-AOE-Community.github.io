@@ -15,6 +15,7 @@ information: |
     - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
     - Standard Victory Conditions
     - Theme: Open Contest
+    - [Promotional Showmatch](https://www.youtube.com/watch?v=s649bWhFwtI)
 
 show_definitions: true
 
@@ -29,17 +30,17 @@ draft_civs: https://aoe2cm.net/preset/YDtwn
 
 maps: 
   - round: 1
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Crater_of_Doom"
+    creator: Jasouki
   - round: 2
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Conflagration"
+    creator: Welcometorapture
   - round: 3
     featured_map: "TBD"
     creator: TBD
   - round: 4
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Conflagration"
+    creator: Welcometorapture
   - round: 5
     featured_map: "TBD"
     creator: TBD
@@ -47,8 +48,8 @@ maps:
     featured_map: "TBD"
     creator: TBD
   - round: 7
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Crater_of_Doom"
+    creator: Jasouki
   - round: 8
     featured_map: "TBD"
     creator: TBD
