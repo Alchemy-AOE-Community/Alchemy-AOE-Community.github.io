@@ -36,8 +36,8 @@ maps:
     featured_map: "Conflagration"
     creator: Welcometorapture
   - round: 3
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Bluegill_V2"
+    creator: TechChariot
   - round: 4
     featured_map: "Conflagration"
     creator: Welcometorapture
@@ -45,8 +45,8 @@ maps:
     featured_map: "TBD"
     creator: TBD
   - round: 6
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Shogun"
+    creator: Biscuits
   - round: 7
     featured_map: "Crater_of_Doom"
     creator: Jasouki
