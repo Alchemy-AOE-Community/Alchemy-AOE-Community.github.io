@@ -42,8 +42,8 @@ maps:
     featured_map: "Conflagration"
     creator: Welcometorapture
   - round: 5
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Emigration"
+    creator: Mercy
   - round: 6
     featured_map: "Shogun"
     creator: Biscuits
