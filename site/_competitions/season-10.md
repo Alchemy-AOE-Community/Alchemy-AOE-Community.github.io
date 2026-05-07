@@ -54,11 +54,11 @@ maps:
     featured_map: "Bear Valley"
     creator: Zetnus
   - round: 9
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Kubu_V4"
+    creator: Superhero55
   - round: 10
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: "Spring_Hills"
+    creator: Jasuni
 
 sprints:
   - name: Sprint 1
