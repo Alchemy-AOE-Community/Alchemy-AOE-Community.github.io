@@ -83,7 +83,7 @@ sprints:
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=1813358294#gid=1813358294
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vR--yTrP3B9oJhcMaKryD71Hkolb-wJ9tyqo6rTQTbAv9V65K4e3W9nLTQy5Zq2nd1OT7QfHpwjzo_g/pubhtml?gid=1813358294&amp;single=true&amp;widget=true&amp;headers=false
-    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Sprint2/Results.ods        
+    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Results.ods        
     prize_winners: 8
     prize_ineligibles: 0
     show_players: false
