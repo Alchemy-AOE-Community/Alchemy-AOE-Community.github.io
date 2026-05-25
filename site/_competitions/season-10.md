@@ -78,7 +78,7 @@ sprints:
   - name: Sprint 2
     sprint_name: Sprint2
     notes: | 
-      - TBD
+      - Exception granted for Maxymczech to participate eligible for prizes, despite no credited games in Sprint 1. Previous experience with this player indicates high interest in Alchemy League participation, with unplayed qualifier attributed to bad luck, rather than lazy shortcuts.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=1813358294#gid=1813358294
@@ -86,7 +86,7 @@ sprints:
     results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint2/Results.ods        
     prize_winners: 8
     prize_ineligibles: 0
-    show_players: false
+    show_players: true
     show_results: false
 
   - name: Sprint 3
