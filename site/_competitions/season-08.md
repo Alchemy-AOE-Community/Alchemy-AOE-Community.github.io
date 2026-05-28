@@ -94,6 +94,6 @@ sprints:
     prize_winners: 8
     prize_ineligibles: 0
     show_players: true
-    show_results: false
+    show_results: true
 
 ---
