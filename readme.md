@@ -3,7 +3,7 @@
 ## Get the site running locally 
 This project is build with jekyll 
 
-First install jekyll locally. See the [https://jekyllrb.com/docs/installation/](Jekyll installation guides)
+First install jekyll locally. See the [Jekyll installation guides](https://jekyllrb.com/docs/installation/)
 
 Once you have installed jekyll you can get the site running locally with the following commands: 
 `cd ./site/`
