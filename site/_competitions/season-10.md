@@ -64,7 +64,7 @@ sprints:
   - name: Sprint 1
     sprint_name: Sprint1
     notes: | 
-      - Exception granted for for Jasuni (77/100) games due to participation in numerous previous seasons of Alchemy League.
+      - Exception granted for Jasuni (77/100) games due to participation in numerous previous seasons of Alchemy League.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=807253230#gid=807253230
@@ -92,15 +92,15 @@ sprints:
   - name: Sprint 3
     sprint_name: Sprint3
     notes: | 
-      - TBD
+      - Exception granted for RAY to participate prize-eligible, despite triggering programmatic flag "ranked elo tanking". Tournament elo for this player was calculated based on previous league performance only, future ranked activity may be considered after stabilization.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint3/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint3/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=1154810208#gid=1154810208
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vR--yTrP3B9oJhcMaKryD71Hkolb-wJ9tyqo6rTQTbAv9V65K4e3W9nLTQy5Zq2nd1OT7QfHpwjzo_g/pubhtml?gid=1154810208&amp;single=true&amp;widget=true&amp;headers=false
-    results_sheet:         
+    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint3/Results.ods
     prize_winners: 8
     prize_ineligibles: 0
-    show_players: false
+    show_players: true
     show_results: false
 
 ---
