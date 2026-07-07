@@ -87,7 +87,7 @@ layout: default
   <div class="container sprint-container tabs">
     <div class="tabs-nav">
       {% for sprint in page.sprints %}
-      <button class="tab-button" data-tab="tab-{{ forloop.index }}" data-group="sprints">
+      <button class="tab-button" data-tab="tab-{{ forloop.index }}" {% if sprint.sprint_name == page.active_sprint %} data-tab-active="true"{% endif %} data-group="sprints">
         {{ sprint.name }}
       </button>
       {% endfor %}

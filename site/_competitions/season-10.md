@@ -60,6 +60,8 @@ maps:
     featured_map: "Spring_Hills"
     creator: Jasuni
 
+active_sprint: Sprint3
+
 sprints:
   - name: Sprint 1
     sprint_name: Sprint1

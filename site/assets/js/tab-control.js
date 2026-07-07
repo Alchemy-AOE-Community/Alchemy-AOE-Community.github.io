@@ -27,7 +27,15 @@ document.addEventListener("DOMContentLoaded", function() {
   // Initialize each group
   const groups = [...new Set(Array.from(buttons).map(btn => btn.dataset.group))];
   groups.forEach(group => {
+    const active = document.querySelector(`.tab-button[data-group="${group}"][data-tab-active="true"]`)
+    if (active) {
+      activateTab(group, active.dataset.tab);
+      return;
+    }
+
     const first = document.querySelector(`.tab-button[data-group="${group}"]`);
-    if (first) activateTab(group, first.dataset.tab);
+    if (first) {
+      activateTab(group, first.dataset.tab);
+    }
   });
 });
