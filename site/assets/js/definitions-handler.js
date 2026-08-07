@@ -16,9 +16,14 @@ function initDefinitions(season) {
         const fullLabel = path.getAttribute("inkscape:label") || "";
 
         // Extract prefix and number from CSRM-PRE-XX
-        const parts = fullLabel.split("-");
-        const prefix = parts.slice(0, parts.length - 1).join("-"); // CSRM-PRE
-        const number = parts[parts.length - 1]; // XX
+        // Remove the leading "CSRM-" so we can accept FIW-12.png
+        const labelWithoutCSRM = fullLabel.startsWith("CSRM-")
+          ? fullLabel.substring(5) // remove "CSRM-"
+          : fullLabel;
+
+        const parts = labelWithoutCSRM.split("-");
+        const prefix = parts.slice(0, parts.length - 1).join("-"); // FIW
+        const number = parts[parts.length - 1]; // 12
 
         const bbox = localBBox(path);
 
@@ -34,7 +39,7 @@ function initDefinitions(season) {
 
         const img = document.createElementNS(SVG_NS, "image");
 
-        // Build correct thumbnail path
+        // Build correct thumbnail path: FIW-12.png
         const imgPath = getImagePath(prefix, number, season);
 
         img.setAttribute("x", String(localImgX));
@@ -124,14 +129,8 @@ function initDefinitions(season) {
         });
       }
 
-      // NEW: Correct thumbnail path builder
+      // NEW: Accept thumbnails WITHOUT the CSRM prefix
       function getImagePath(prefix, number, season) {
-        // Non-CSRM icons still use old behavior
-        if (!prefix.startsWith("CSRM")) {
-          return `/resources/icons/${prefix}.jpg`;
-        }
-
-        // Build correct filename: CSRM-PRE-XX.png
         return `/resources/${season}/CSRM_thumbnails/${prefix}-${number}.png`;
       }
 
