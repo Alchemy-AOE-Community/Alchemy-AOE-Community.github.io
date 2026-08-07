@@ -18,21 +18,25 @@ function initDefinitions(season) {
         const fullLabel = path.getAttribute("inkscape:label") || "";
         const prefix = fullLabel.split("-")[0] || fullLabel;
 
+        // compute local bbox immediately (local coords)
         const bbox = localBBox(path);
 
+        // choose how big and where inside the rect the icon should go
         const localImgX = bbox.x + bbox.width / 4;
         const localImgY = bbox.y + bbox.height / 4;
         const localImgW = bbox.width / 2;
         const localImgH = bbox.height / 2;
 
+        // create anchor + image + title
         const link = document.createElementNS(SVG_NS, "a");
-        link.setAttributeNS(XLINK_NS, "href", getImageLink(fullLabel));
+        link.setAttributeNS(XLINK_NS, "href", getImageLink(fullLabel, season));
         link.setAttribute("target", "_blank");
         link.setAttribute("rel", "noopener noreferrer");
 
         const img = document.createElementNS(SVG_NS, "image");
-        const imgPath = await getImagePath(prefix, season, fullLabel);
+        const imgPath = getImagePath(prefix, season, fullLabel);
 
+        // set local coordinates (these are in the same coordinate system as the path)
         img.setAttribute("x", String(localImgX));
         img.setAttribute("y", String(localImgY));
         img.setAttribute("width", String(localImgW));
@@ -42,28 +46,36 @@ function initDefinitions(season) {
 
         img.addEventListener("error", () => {
           const fallback = '/assets/images/Question_Mark.jpg';
+
           img.setAttributeNS(XLINK_NS, "href", fallback);
           img.setAttribute("href", fallback);
         }, { once: true });
 
         img.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
+        // copy the path's transform (if any) to the image so element-level transforms match
+        // (we do NOT remove the transform from the path)
         if (path.hasAttribute("transform")) {
           img.setAttribute("transform", path.getAttribute("transform"));
         }
 
+        // add tooltip
         const title = document.createElementNS(SVG_NS, "title");
         title.textContent = fullLabel;
 
         link.appendChild(img);
         link.appendChild(title);
 
+        // append the link (image) as a sibling after the path so it inherits ancestor transforms
+        // and sits above the path visually. If you'd like it behind, insertBefore.
         const parent = path.parentNode;
         parent.appendChild(link);
 
+        // remember so we can reposition if needed
         placed.push({ path, img, link });
       });
 
+      // reposition function (recomputes local bbox and updates image x/y/size)
       function repositionImages() {
         placed.forEach(item => {
           try {
@@ -88,72 +100,113 @@ function initDefinitions(season) {
                 .map(Number);
 
               const [a, b] = values;
+
+              // rotation angle in degrees
               const angle = Math.atan2(b, a) * (180 / Math.PI);
 
               const cx = imgX + imgW / 2;
               const cy = imgY + imgH / 2;
 
+              // Apply original transform + counter-rotation
               item.img.setAttribute(
                 "transform",
                 `${transform} rotate(${-angle} ${cx} ${cy})`
               );
 
+              // If path has an element-level transform that changed, re-copy it:
+              // Disable these lines when clipping works
               if (item.path.hasAttribute("transform")) {
                 item.img.setAttribute("transform", item.path.getAttribute("transform"));
               }
             }
 
+            // Clip the image to the path's outline
             const clipId = `clip-${item.path.id}`;
             if (!document.getElementById(clipId)) {
               const clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
               clipPath.setAttribute("id", clipId);
 
+              // Clone the path WITH transform
               const pathClone = item.path.cloneNode(true);
               clipPath.appendChild(pathClone);
 
               item.path.ownerSVGElement.querySelector("defs").appendChild(clipPath);
             }
 
+            // Clipping doesn't work correctly so we ignore it for now
+            // item.img.setAttribute("clip-path", `url(#${clipId})`);
+
           } catch (err) {
+            // getBBox can throw if SVG not rendered yet — ignore harmlessly
             console.warn("repositionImages error:", err);
           }
         });
       }
 
-      // ⭐ UPDATED: Local thumbnail loader using fullLabel
-      async function getImagePath(label, season, fullLabel) {
+      function getImagePath(label, season, fullLabel) {
+        // Non-CSRM icons: unchanged behavior
         if (label !== 'CSRM') {
           return `/resources/icons/${label}.jpg`;
         }
-        return await getImageMapByNumber(season, fullLabel);
-      }
 
-      // ⭐ UPDATED: Prefix + number → PRE-YY.png with existence check
-      async function getImageMapByNumber(season, fullLabel) {
-        const match = fullLabel.match(/(\d+)$/);
-        if (!match) return '/assets/images/Question_Mark.jpg';
-
-        const number = match[1].padStart(2, "0");
-        const prefix = fullLabel.split('-')[0];
-
-        const path = `/resources/${season}/CSRM_thumbnails/${prefix}-${number}.png`;
-
-        try {
-          const res = await fetch(path, { method: 'HEAD' });
-          if (res.ok) return path;
-        } catch (err) {
-          console.warn(`Thumbnail missing: ${path}`);
-        }
-
-        return '/assets/images/Question_Mark.jpg';
+        // CSRM thumbnails: use local season folder and naming convention PRE-YY.png
+        return getImageMapByNumber(season, fullLabel);
       }
 
       function getImageLink(label, season) {
         return '/RedirectLatest.html?file=CHEM-' + label;
       }
 
+      function getImageMapByNumber(season, fullLabel) {
+        // Extract trailing number from fullLabel (e.g., "CSRM-23")
+        const match = fullLabel.match(/(\d+)$/);
+        if (!match) return '/assets/images/Question_Mark.jpg';
+
+        const number = match[1].padStart(2, "0");
+
+        // Extract prefix (letters-only part before the dash)
+        const prefix = fullLabel.split('-')[0];
+
+        // Build local thumbnail path: /resources/ALSX/CSRM_thumbnails/PRE-YY.png
+        const path = `/resources/${season}/CSRM_thumbnails/${prefix}-${number}.png`;
+
+        // We do NOT async-check existence here; the <image> onerror handler will swap to fallback
+        return path;
+      }
+
       async function getMapImages(season) {
-        return {}; // no longer used for thumbnails
+        const base = 'https://raw.githubusercontent.com/Alchemy-AOE-Community/CHEM-Competition-Map-Packs/refs/heads/main/';
+        const url = `${base}${season}.md`;
+        const currentSeasonUrl = `${base}ALCS.md`;
+
+        // Step 1: Try to fetch the markdown file
+        let response = await fetch(url);
+        if (!response.ok) {
+          console.warn(`Season "${season}" not found, falling back to ALCS.md`);
+          response = await fetch(currentSeasonUrl);
+          if (!response.ok) throw new Error('Could not load current season markdown.');
+        }
+
+        const markdown = await response.text();
+
+        // Step 2: Extract all links (e.g., https://github.com/.../folder/file.rms)
+        const linkRegex = /\bhttps?:\/\/[^\s)]+/g;
+        const links = markdown.match(linkRegex) || [];
+
+        // Step 3: Build the map name → image URL dictionary
+        const mapEntries = links.map(link => {
+          const parts = link.split('/');
+          const mapName = parts[parts.length - 1].replace(/\.[^/.]+$/, '');
+          const folderUrl = link;
+          const imageUrl = `${folderUrl}/${mapName}.png`
+            .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+            .replace('/tree/', '/refs/heads/');
+
+          return { [mapName]: imageUrl };
+        });
+
+        // Step 4: Convert to JSON object
+        return Object.assign({}, ...mapEntries);
       }
 
       function localBBox(el) {
@@ -175,6 +228,7 @@ function initDefinitions(season) {
         }
       }
 
+      // helper debounce
       function debounce(fn, wait = 120) {
         let t = null;
         return (...args) => {
@@ -183,6 +237,7 @@ function initDefinitions(season) {
         };
       }
 
+      // ensure we compute after layout — run once on next frame, and wire up resize
       requestAnimationFrame(() => {
         repositionImages();
         window.addEventListener("resize", debounce(repositionImages, 120));
@@ -192,3 +247,4 @@ function initDefinitions(season) {
     })
     .catch(err => console.error("Error loading SVG:", err));
 }
+
