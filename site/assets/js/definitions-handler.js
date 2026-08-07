@@ -14,7 +14,11 @@ function initDefinitions(season) {
 
       svgRoot.querySelectorAll("path[inkscape\\:label]").forEach(path => {
         const fullLabel = path.getAttribute("inkscape:label") || "";
-        const prefix = fullLabel.split("-")[0] || fullLabel;
+
+        // Extract prefix and number from CSRM-PRE-XX
+        const parts = fullLabel.split("-");
+        const prefix = parts.slice(0, parts.length - 1).join("-"); // CSRM-PRE
+        const number = parts[parts.length - 1]; // XX
 
         const bbox = localBBox(path);
 
@@ -30,8 +34,8 @@ function initDefinitions(season) {
 
         const img = document.createElementNS(SVG_NS, "image");
 
-        // ⭐ FIXED: synchronous string return, no await
-        const imgPath = getImagePath(prefix, season, fullLabel);
+        // Build correct thumbnail path
+        const imgPath = getImagePath(prefix, number, season);
 
         img.setAttribute("x", String(localImgX));
         img.setAttribute("y", String(localImgY));
@@ -120,27 +124,19 @@ function initDefinitions(season) {
         });
       }
 
-      // ⭐ FIXED: synchronous, safe
-      function getImagePath(label, season, fullLabel) {
-        if (label !== 'CSRM') {
-          return `/resources/icons/${label}.jpg`;
+      // NEW: Correct thumbnail path builder
+      function getImagePath(prefix, number, season) {
+        // Non-CSRM icons still use old behavior
+        if (!prefix.startsWith("CSRM")) {
+          return `/resources/icons/${prefix}.jpg`;
         }
-        return getImageMapByNumber(season, fullLabel);
+
+        // Build correct filename: CSRM-PRE-XX.png
+        return `/resources/${season}/CSRM_thumbnails/${prefix}-${number}.png`;
       }
 
       function getImageLink(label) {
         return '/RedirectLatest.html?file=CHEM-' + label;
-      }
-
-      // ⭐ FIXED: synchronous, safe, no async/await
-      function getImageMapByNumber(season, fullLabel) {
-        const match = fullLabel.match(/(\d+)$/);
-        if (!match) return '/assets/images/Question_Mark.jpg';
-
-        const number = match[1].padStart(2, "0");
-        const prefix = fullLabel.split('-')[0];
-
-        return `/resources/${season}/CSRM_thumbnails/${prefix}-${number}.png`;
       }
 
       function localBBox(el) {
