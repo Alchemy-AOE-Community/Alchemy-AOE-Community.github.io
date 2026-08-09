@@ -12,25 +12,20 @@ function initDefinitions(season) {
       const XLINK_NS = "http://www.w3.org/1999/xlink";
       const placed = [];
 
+      let defs = svgRoot.querySelector("defs");
+      if (!defs) {
+        defs = document.createElementNS(SVG_NS, "defs");
+        svgRoot.insertBefore(defs, svgRoot.firstChild);
+      }
+
       svgRoot.querySelectorAll("path[inkscape\\:label]").forEach(path => {
         const fullLabel = path.getAttribute("inkscape:label") || "";
+        const isCSRM = fullLabel.startsWith("CSRM-") || fullLabel.includes("CSRM-");
 
-        // Extract prefix and number from CSRM-PRE-XX
-        // Remove the leading "CSRM-" so we can accept FIW-12.png
-        const labelWithoutCSRM = fullLabel.startsWith("CSRM-")
-          ? fullLabel.substring(5) // remove "CSRM-"
-          : fullLabel;
-
-        const parts = labelWithoutCSRM.split("-");
-        const prefix = parts.slice(0, parts.length - 1).join("-"); // FIW
-        const number = parts[parts.length - 1]; // 12
-
-        const bbox = localBBox(path);
-
-        const localImgX = bbox.x + bbox.width / 4;
-        const localImgY = bbox.y + bbox.height / 4;
-        const localImgW = bbox.width / 2;
-        const localImgH = bbox.height / 2;
+        // Hide the original rectangular stroke for CSRM nodes
+        if (isCSRM) {
+          path.style.stroke = "none";
+        }
 
         const link = document.createElementNS(SVG_NS, "a");
         link.setAttributeNS(XLINK_NS, "href", getImageLink(fullLabel));
@@ -38,104 +33,129 @@ function initDefinitions(season) {
         link.setAttribute("rel", "noopener noreferrer");
 
         const img = document.createElementNS(SVG_NS, "image");
+        const imgPath = getImagePath(fullLabel, season);
 
-        // Build correct thumbnail path: FIW-12.png
-        const imgPath = getImagePath(prefix, number, season);
-
-        img.setAttribute("x", String(localImgX));
-        img.setAttribute("y", String(localImgY));
-        img.setAttribute("width", String(localImgW));
-        img.setAttribute("height", String(localImgH));
         img.setAttributeNS(XLINK_NS, "href", imgPath);
         img.setAttribute("href", imgPath);
-
-        img.addEventListener("error", () => {
-          const fallback = '/assets/images/Question_Mark.jpg';
-          img.setAttributeNS(XLINK_NS, "href", fallback);
-          img.setAttribute("href", fallback);
-        }, { once: true });
-
         img.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
-        if (path.hasAttribute("transform")) {
-          img.setAttribute("transform", path.getAttribute("transform"));
-        }
+        img.addEventListener("error", () => {
+          const fallback = "/assets/images/Question_Mark.jpg";
+          img.setAttributeNS(XLINK_NS, "href", fallback);
+          img.setAttribute("href", fallback);
+          requestAnimationFrame(() => repositionImages());
+        }, { once: true });
 
         const title = document.createElementNS(SVG_NS, "title");
         title.textContent = fullLabel;
 
         link.appendChild(img);
         link.appendChild(title);
+        path.parentNode.appendChild(link);
 
-        const parent = path.parentNode;
-        parent.appendChild(link);
-
-        placed.push({ path, img, link });
+        placed.push({ path, img, link, label: fullLabel, isCSRM });
       });
 
       function repositionImages() {
         placed.forEach(item => {
           try {
             const bbox = localBBox(item.path);
-            const scale = 0.95;
 
+            // Fill completely
+            const scale = 1.0;
             const imgW = bbox.width * scale;
             const imgH = bbox.height * scale;
             const imgX = bbox.x + (bbox.width - imgW) / 2;
             const imgY = bbox.y + (bbox.height - imgH) / 2;
 
-            item.img.setAttribute("x", imgX);
-            item.img.setAttribute("y", imgY);
-            item.img.setAttribute("width", imgW);
-            item.img.setAttribute("height", imgH);
+            item.img.setAttribute("x", String(imgX));
+            item.img.setAttribute("y", String(imgY));
+            item.img.setAttribute("width", String(imgW));
+            item.img.setAttribute("height", String(imgH));
 
-            const transform = item.path.getAttribute("transform");
-            if (transform && transform.startsWith("matrix")) {
-              const values = transform
-                .match(/matrix\(([^)]+)\)/)[1]
-                .split(/[ ,]+/)
-                .map(Number);
-
-              const [a, b] = values;
-              const angle = Math.atan2(b, a) * (180 / Math.PI);
-
-              const cx = imgX + imgW / 2;
-              const cy = imgY + imgH / 2;
-
-              item.img.setAttribute(
-                "transform",
-                `${transform} rotate(${-angle} ${cx} ${cy})`
-              );
-
-              if (item.path.hasAttribute("transform")) {
-                item.img.setAttribute("transform", item.path.getAttribute("transform"));
-              }
+            // Preserve translation if present
+            const pathTransform = item.path.getAttribute("transform") || "";
+            const translateMatch = pathTransform.match(/translate\s*\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/);
+            if (translateMatch) {
+              item.img.setAttribute("transform", `translate(${translateMatch[1]},${translateMatch[2]})`);
+            } else {
+              item.img.removeAttribute("transform");
             }
 
-            const clipId = `clip-${item.path.id}`;
-            if (!document.getElementById(clipId)) {
-              const clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+            const cx = bbox.x + bbox.width / 2;
+            const cy = bbox.y + bbox.height / 2;
+            const hw = bbox.width / 2;
+            const hh = bbox.height / 2;
+
+            // ----- Clip + border for CSRM (diamond) -----
+            const clipId = `clip-${item.path.id || Math.random().toString(36).slice(2)}`;
+            let clipPath = document.getElementById(clipId);
+
+            if (!clipPath) {
+              clipPath = document.createElementNS(SVG_NS, "clipPath");
               clipPath.setAttribute("id", clipId);
 
-              const pathClone = item.path.cloneNode(true);
-              clipPath.appendChild(pathClone);
+              if (item.isCSRM) {
+                // Diamond clip
+                const diamond = document.createElementNS(SVG_NS, "polygon");
+                diamond.setAttribute("points", [
+                  `${cx},${cy - hh}`,
+                  `${cx + hw},${cy}`,
+                  `${cx},${cy + hh}`,
+                  `${cx - hw},${cy}`
+                ].join(" "));
+                clipPath.appendChild(diamond);
 
-              item.path.ownerSVGElement.querySelector("defs").appendChild(clipPath);
+                // Also draw a visible diamond border
+                const border = document.createElementNS(SVG_NS, "polygon");
+                border.setAttribute("points", [
+                  `${cx},${cy - hh}`,
+                  `${cx + hw},${cy}`,
+                  `${cx},${cy + hh}`,
+                  `${cx - hw},${cy}`
+                ].join(" "));
+                border.setAttribute("fill", "none");
+                border.setAttribute("stroke", "#000000");
+                border.setAttribute("stroke-width", "0.5");
+                border.setAttribute("stroke-linejoin", "round");
+                item.path.parentNode.appendChild(border);
+              } else {
+                // Stock nodes keep original shape
+                const pathClone = item.path.cloneNode(true);
+                pathClone.removeAttribute("transform");
+                clipPath.appendChild(pathClone);
+              }
+
+              defs.appendChild(clipPath);
             }
 
+            item.img.setAttribute("clip-path", `url(#${clipId})`);
           } catch (err) {
             console.warn("repositionImages error:", err);
           }
         });
       }
 
-      // NEW: Accept thumbnails WITHOUT the CSRM prefix
-      function getImagePath(prefix, number, season) {
-        return `/resources/${season}/CSRM_thumbnails/${prefix}-${number}.png`;
+      function getImagePath(fullLabel, season) {
+        if (fullLabel.startsWith("CSRM-") || fullLabel.includes("CSRM-")) {
+          const core = fullLabel.replace(/^CSRM-?/i, "");
+          const normalized = core.replace(/-/g, "_");
+          return `/resources/${season}/CSRM_thumbnails/${normalized}.png`;
+        }
+
+        const prefix = fullLabel.split(/[-_]/)[0].toUpperCase();
+        const stockMap = {
+          HDBK: "/assets/images/spec_type/Handbook.jpg",
+          GSRM: "/assets/images/spec_type/General_Spec.jpg",
+          MTHD: "/assets/images/spec_type/Method.jpg",
+          PSRM: "/assets/images/spec_type/Procurement_Spec.jpg",
+          STND: "/assets/images/spec_type/Standard.jpg"
+        };
+        return stockMap[prefix] || "/assets/images/Question_Mark.jpg";
       }
 
       function getImageLink(label) {
-        return '/RedirectLatest.html?file=CHEM-' + label;
+        return `/RedirectLatest.html?file=CHEM-${label}`;
       }
 
       function localBBox(el) {
@@ -151,10 +171,8 @@ function initDefinitions(season) {
             width: parseFloat(el.getAttribute("width")),
             height: parseFloat(el.getAttribute("height"))
           };
-        } else {
-          const b = el.getBBox();
-          return { x: b.x, y: b.y, width: b.width, height: b.height };
         }
+        return el.getBBox();
       }
 
       function debounce(fn, wait = 120) {
@@ -167,6 +185,7 @@ function initDefinitions(season) {
 
       requestAnimationFrame(() => {
         repositionImages();
+        setTimeout(repositionImages, 300);
         window.addEventListener("resize", debounce(repositionImages, 120));
       });
 
@@ -174,4 +193,3 @@ function initDefinitions(season) {
     })
     .catch(err => console.error("Error loading SVG:", err));
 }
-
