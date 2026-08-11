@@ -1,0 +1,19 @@
+{
+  "HDBK": "Handbook: Describes a tournament hosted by the Alchemy AOE Community",  
+  "PSRM": "(P)rocurement (S)pecification for (R)andom (M)ap: Authorizes a map list for competition use",
+  "MTHD-002": "A method for calculating average ranked elo",
+  "MTHD-003": "A method for applying handicap to high skill-gap matches",
+  "MTHD-004": "A method for applying administrative penalties in round robin tournaments",
+  "MTHD-005": "A method for selecting winners of round robin tournaments",
+  "MTHD-006": "A method for dividing prizes among round-robin tournament winners",
+  "MTHD-007": "A method for structuring single division stack leagues",
+  "MTHD-009": "A method for adjusting seeding based on previous tournament performance",
+  "MTHD-010": "A method for disbursing earnings using public cryptocurrency wallets",
+  "CSRM": "(C)omponent (S)pecification for (R)andom (M)ap: Defines unique layouts and characteristics of a featured map",
+  "GSRM": "(G)eneral (S)pecification for (R)andom (M)ap: Defines common characteristics of featured maps",
+  "STND-001": "A standard for procuring custom random maps",
+  "STND-002": "A standard for general custom map requirements",
+  "STND-003": "A standard for ensuring custom maps are competitive",
+  "STND-004": "A standard for ensuring custom maps can be sponsored by Alchemy",
+  "STND-005": "A standard for general competition rules"
+}
