@@ -7,7 +7,7 @@ competition_name: ALS11
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Three Independently-Scored Sprints with 2, 4, and 4 Round Each. Each Round is Play-All-Two or Play-All-Three (Player-Choice)
+    - Three Independently-Scored Sprints with 2, 4, and 4 Round Each. Each Round is Play-All-Two, Play-All-Three, or Play-All-Four (Player-Choice)
     - Sprint 1 Has 14% of Total Prize Pool, Remaining Prize Split Between Sprints 2 & 3 
     - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
     - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate
