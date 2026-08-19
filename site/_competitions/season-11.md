@@ -53,11 +53,11 @@ maps:
     featured_map: "TBD"
     creator: TBD
   - round: 9
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-08 "Oswego"
+    creator: Jasouki
   - round: 10
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: Lower seed choice of FIW-05 "Monongahela" or FIW-12 "Shawangunk"
+    creator: Jasuni (FIW-05), Thire7 (FIW-12)
 
 sprints:
   - name: Sprint 1
