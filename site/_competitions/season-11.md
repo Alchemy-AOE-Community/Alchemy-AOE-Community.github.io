@@ -29,29 +29,29 @@ draft_civs:
 
 maps: 
   - round: 1
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-01 "Oswego"
+    creator: Jasouki
   - round: 2
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-12 "Shawangunk"
+    creator: Thire7
   - round: 3
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-05 "Monongahela"
+    creator: Jasuni
   - round: 4
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-07 "Horican"
+    creator: TechChariot
   - round: 5
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-20 "Susquehanna"
+    creator: DesAnderes
   - round: 6
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-06 "Ticonderoga"
+    creator: Biscuits
   - round: 7
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-11 "Youghiogheny"
+    creator: TechChariot
   - round: 8
-    featured_map: "TBD"
-    creator: TBD
+    featured_map: FIW-01 "Kebec"
+    creator: TechChariot
   - round: 9
     featured_map: FIW-08 "Oswego"
     creator: Jasouki
