@@ -15,6 +15,7 @@ information: |
     - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
     - Standard Victory Conditions
     - Theme: French & Indian War
+    - [Promotional Showmatch](https://www.youtube.com/watch?v=-TOxDKDCbyU)
 
 show_definitions: true
 
@@ -25,7 +26,7 @@ sign_up_form:  https://forms.gle/RM2FF1fhMwGNjMo68
 sign_up_sheet: https://docs.google.com/spreadsheets/d/1_JdK4fVwqKA0esYv99ESvn-9c1FS1P_ex5P-me_b1hA/edit?resourcekey=&gid=986565802#gid=986565802
 
 draft_maps: 
-draft_civs: 
+draft_civs: https://aoe2cm.net/preset/PcjrK
 
 maps: 
   - round: 1
