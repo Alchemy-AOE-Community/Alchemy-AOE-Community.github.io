@@ -65,7 +65,10 @@ sprints:
   - name: Sprint 1
     sprint_name: Sprint1
     notes: | 
-      - TBD
+      - Exception granted for Jasuni (77/100) games due to participation in numerous previous seasons of Alchemy League.
+      - Exception granted for TheNagraj (52/100) games due to participation in previous seasons of Alchemy League.
+      - Exception granted for Rogar (88/100) games, with rationale being: 1) Close to threshold, 2) Calculated low-risk player statistics, and 3) Sprint 1 only two Rounds.
+      - TeK/TeKarino appears in signup list but was not registered. This player respectably signed up 3 days before the deadline, but did not complete the captcha required for server participation. Multiple attempts to contact failed. We apologize for the inconvenience and invite participation in future seasons of Alchemy League.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint1/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1w8JCEGQHWulqkmfDdkYSdk6SobIqX5pf57ZOh8mxKNw/edit?gid=807253230#gid=807253230
@@ -73,7 +76,7 @@ sprints:
     results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint1/Results.ods
     prize_winners: 4
     prize_ineligibles: 0
-    show_players: false
+    show_players: true
     show_results: false
 
   - name: Sprint 2
