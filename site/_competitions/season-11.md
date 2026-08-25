@@ -31,7 +31,7 @@ draft_civs: https://aoe2cm.net/preset/PcjrK
 
 maps: 
   - round: 1
-    featured_map: FIW-01 "Oswego"
+    featured_map: FIW-08 "Oswego"
     creator: Jasouki
   - round: 2
     featured_map: FIW-12 "Shawangunk"
