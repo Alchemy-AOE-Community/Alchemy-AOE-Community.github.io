@@ -15,6 +15,7 @@ information: |
     - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
     - Standard Victory Conditions
     - Theme: French & Indian War
+    - Unamakik and Scaroon (though included in definitions) were not ready in time
     - [Promotional Showmatch](https://www.youtube.com/watch?v=-TOxDKDCbyU)
 
 show_definitions: true

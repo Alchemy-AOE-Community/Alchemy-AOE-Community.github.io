@@ -15,6 +15,7 @@ information: |
   - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill
   - Standard Victory Condition, With Antiquity Mode On
   - Custom Map Pool, Reworked Ensemble Studios Original Maps
+  - Reworked Sherwood Forest (though included in definitions) was not ready in time
 
 show_definitions: true
 
@@ -29,28 +30,28 @@ draft_civs: https://aoe2cm.net/preset/EjvqT
 
 maps: 
   - round: 1
-    featured_map: ESR_02 "Graveyards"
+    featured_map: ESR-02 "Graveyards"
     creator: Jasouki
   - round: 2
-    featured_map: ESR_09 "Team_Glaciers"
+    featured_map: ESR-09 "Team_Glaciers"
     creator: welcometorapture
   - round: 3
-    featured_map: ESR_03 "Moats"
+    featured_map: ESR-03 "Moats"
     creator: Zetnus
   - round: 4
-    featured_map: ESR_08 "Shipwreck"
+    featured_map: ESR-08 "Shipwreck"
     creator: TechChariot
   - round: 5
-    featured_map: ESR_04 "Paradise_Island"
+    featured_map: ESR-04 "Paradise_Island"
     creator: Magico
   - round: 6
-    featured_map: ESR_06 "Seasons"
+    featured_map: ESR-06 "Seasons"
     creator: Biscuits
   - round: 7
-    featured_map: ESR_05 "Prairie"
+    featured_map: ESR-05 "Prairie"
     creator: TechChariot
   - round: 8
-    featured_map: ESR_01 "Canals"
+    featured_map: ESR-01 "Canals"
     creator: Zetnus
 
 sprints:

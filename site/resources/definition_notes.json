@@ -9,7 +9,7 @@
   "MTHD-007": "A method for structuring single division stack leagues",
   "MTHD-009": "A method for adjusting seeding based on previous tournament performance",
   "MTHD-010": "A method for disbursing earnings using public cryptocurrency wallets",
-  "CSRM": "(C)omponent (S)pecification for (R)andom (M)ap: Defines unique layouts and characteristics of a featured map",
+  "CSRM": "(C)omponent (S)pecification for (R)andom (M)ap: Defines unique layouts and characteristics of this featured map",
   "GSRM": "(G)eneral (S)pecification for (R)andom (M)ap: Defines common characteristics of featured maps",
   "STND-001": "A standard for procuring custom random maps",
   "STND-002": "A standard for general custom map requirements",

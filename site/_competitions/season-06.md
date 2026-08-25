@@ -39,13 +39,13 @@ maps:
     featured_map: "Shimmerpool"
     creator: TechChariot
   - round: 4
-    featured_map: "Lagoon Forest"
+    featured_map: "Lagoon_Forest"
     creator: Zetnus
   - round: 5
-    featured_map: "The Thaw"
+    featured_map: "The_Thaw"
     creator: Jasouki
   - round: 6
-    featured_map: "Shattered Plains"
+    featured_map: "Shattered_Plains"
     creator: Welcometorapture
   - round: 7
     featured_map: "Ruoergai"

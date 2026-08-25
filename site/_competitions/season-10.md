@@ -51,7 +51,7 @@ maps:
     featured_map: "Crater_of_Doom"
     creator: Jasouki
   - round: 8
-    featured_map: "Bear Valley"
+    featured_map: "Bear_Valley"
     creator: Zetnus
   - round: 9
     featured_map: "Kubu_V4"
