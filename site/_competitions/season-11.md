@@ -26,7 +26,7 @@ map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE
 sign_up_form:  https://forms.gle/RM2FF1fhMwGNjMo68
 sign_up_sheet: https://docs.google.com/spreadsheets/d/1_JdK4fVwqKA0esYv99ESvn-9c1FS1P_ex5P-me_b1hA/edit?resourcekey=&gid=986565802#gid=986565802
 
-draft_maps: 
+draft_maps: https://aoe2cm.net/preset/aQLCw
 draft_civs: https://aoe2cm.net/preset/PcjrK
 
 maps: 
