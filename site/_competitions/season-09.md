@@ -14,8 +14,8 @@ information: |
     - Winner Selection Independent of Skill, Depends Only On Participation and Performance
     - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
     - Standard Victory Conditions
-    - Theme: SUPER RANDOM (Hyperrandom)
-    - BiomeBlitz and PocketRandom (though included in definitions) were not ready in time
+    - Custom Map Pool Theme: SUPER RANDOM Style Maps.
+    - RAND-03 "BiomeBlitz" and RAND-03 "PocketRandom" (though included in definitions) were not ready in time
 
 show_definitions: true
 

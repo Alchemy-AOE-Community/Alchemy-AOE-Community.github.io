@@ -14,7 +14,7 @@ information: |
     - Winner Selection Independent of Skill, Depends Only On Participation and Performance
     - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
     - Standard Victory Conditions
-    - Theme: Open Contest
+    - Custom Map Pool Theme: Open Contest (Community Goody-bag).
     - [Promotional Showmatch](https://www.youtube.com/watch?v=s649bWhFwtI)
 
 show_definitions: true

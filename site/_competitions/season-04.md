@@ -7,13 +7,15 @@ competition_name: ALS4
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two 
-    - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively
-    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
+    - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two. 
+    - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively.
+    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
     - Player Winnings Calculated From Amalgamation of Skill, Performance, Participation, etc.
     - Standard Victory Conditions 
-    - Theme: Alaska
+    - Custom Map Pool Theme: Alaska
     - This season used an old scoring system (before win rate), whereby ties and unplayed sets were recorded as 1-1 rather than 0-0.
+    - PSRMs had not been "invented" yet, thus a triple-digit GSRM took its place.
+    - AK-05 "Aleutian_Islands" (though included in definitions) was not ready in time to be played in final event.
 
 show_definitions: true
 
@@ -79,6 +81,6 @@ sprints:
     prize_winners: 8
     prize_ineligibles: 0
     show_players: true
-    show_results: false
+    show_results: true
 
 ---

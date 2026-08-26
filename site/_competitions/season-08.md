@@ -7,14 +7,14 @@ competition_name: ALS8
 information: |
   - Duel (1v1)
   - Unique Round Robin System
-  - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two
-  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool
-  - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
-  - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate
-  - Winner Selection Independent of Skill, Depends Only On Participation and Performance
-  - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill
-  - Standard Victory Condition, With Antiquity Mode On
-  - Theme "A Million Ways to Die in the Middle Ages"
+  - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two.
+  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool.
+  - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
+  - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
+  - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
+  - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill.
+  - Standard Victory Condition, With Antiquity Mode On.
+  - Custom Map Pool Theme: "A Million Ways to Die in the Middle Ages" (added extra win conditions).
 
 show_definitions: true
 

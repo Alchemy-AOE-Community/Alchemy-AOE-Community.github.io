@@ -14,8 +14,8 @@ information: |
     - Winner Selection Independent of Skill, Depends Only On Participation and Performance
     - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
     - Standard Victory Conditions
-    - Theme: French & Indian War
-    - Unamakik and Scaroon (though included in definitions) were not ready in time
+    - Custom Map Pool Theme: French & Indian War.
+    - FIW-03 "Unamakik" and FIW-18 "Scaroon" (though included in definitions) were not ready in time
     - [Promotional Showmatch](https://www.youtube.com/watch?v=-TOxDKDCbyU)
 
 show_definitions: true

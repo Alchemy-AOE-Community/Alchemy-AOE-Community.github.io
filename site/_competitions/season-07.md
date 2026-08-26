@@ -7,15 +7,15 @@ competition_name: ALS7
 information: |
   - Duel (1v1)
   - Unique Round Robin System
-  - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two
-  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool
-  - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
-  - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate
-  - Winner Selection Independent of Skill, Depends Only On Participation and Performance
-  - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill
-  - Standard Victory Condition, With Antiquity Mode On
-  - Custom Map Pool, Reworked Ensemble Studios Original Maps
-  - Reworked Sherwood Forest (though included in definitions) was not ready in time
+  - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two.
+  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool.
+  - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
+  - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
+  - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
+  - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill.
+  - Standard Victory Condition, With Antiquity Mode On.
+  - Custom Map Pool Theme: Reworked Ensemble Studios Original Maps.
+  - Reworked ESR-07 "Sherwood_Forest" (though included in definitions) was not ready in time to be played in final event.
 
 show_definitions: true
 
@@ -58,7 +58,7 @@ sprints:
   - name: Sprint 1
     sprint_name: Sprint1
     notes: | 
-      - Participant "cerasito" lacked minimum required games to register (84/100). Exception granted due to being close to target with normal win rate. Player may compete for prize."
+      - Participant "cerasito" lacked minimum required games to register (84/100). Exception granted due to being close to target with normal win rate. Player may compete for prize.
     registration_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Sprint1/Registration.ods
     seeding_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w
@@ -72,7 +72,7 @@ sprints:
   - name: Sprint 2
     sprint_name: Sprint2
     notes: | 
-      - Participant "cerasito" lacked minimum required games to register (94/100). Exception granted due to being close to target with normal win rate. Player may compete for prize."
+      - Participant "cerasito" lacked minimum required games to register (94/100). Exception granted due to being close to target with normal win rate. Player may compete for prize.
     registration_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/ALS7_Resources/Sprint2/Registration.ods
     seeding_sheet: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1ytlURpxM8D7gZumt6dKuoAHMSD3z-lRZRLEzTAGaG8w

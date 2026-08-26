@@ -7,14 +7,14 @@ competition_name: ALS6
 information: |
   - Duel (1v1)
   - Unique Round Robin System
-  - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two
-  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool
-  - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
-  - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate
-  - Winner Selection Independent of Skill, Depends Only On Participation and Performance
-  - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill
-  - Standard Victory Condition, With Antiquity Mode On
-  - Open Map Contest, Community Creations
+  - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two.
+  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool.
+  - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
+  - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
+  - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
+  - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill.
+  - Standard Victory Condition, With Antiquity Mode On.
+  - Custom Map Pool Theme: Open Contest (Community Goody-bag)
   - First season to use the new scoring system, (comparing win rates) with unplayed sets recorded as 0-0 rather than historical 1-1.
 
 show_definitions: true

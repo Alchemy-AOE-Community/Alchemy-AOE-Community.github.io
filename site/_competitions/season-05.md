@@ -7,13 +7,14 @@ competition_name: ALS5
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two 
-    - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively
-    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
+    - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two. 
+    - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively.
+    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
     - Player Winnings Calculated From Amalgamation of Skill, Performance, Participation, etc.
     - Standard Victory Conditions 
-    - Theme: Space
+    - Custom Map Pool Theme: Space
     - This season used an a transitionary scoring system accounting for win rate, but unplayed sets were still recorded as 1-1 rather than 0-0.
+    - SPC-02 "Collision" and SPC-09 "Nebula" (though included in definitions) were not ready in time to be played in final event.
 
 show_definitions: true
 
@@ -79,6 +80,6 @@ sprints:
     prize_winners: 8
     prize_ineligibles: 0
     show_players: true
-    show_results: false
+    show_results: true
 
 ---
