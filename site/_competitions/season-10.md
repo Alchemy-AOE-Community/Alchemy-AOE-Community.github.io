@@ -29,34 +29,44 @@ draft_maps: https://aoe2cm.net/preset/oxgLd
 draft_civs: https://aoe2cm.net/preset/PcjrK
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: "Crater_of_Doom"
     creator: Jasouki
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: "Conflagration"
     creator: Welcometorapture
-  - round: 3
+  - sprint: 2
+    round:  1
     featured_map: "Bluegill_V2"
     creator: TechChariot
-  - round: 4
+  - sprint: 2
+    round:  2
     featured_map: "Conflagration"
     creator: Welcometorapture
-  - round: 5
+  - sprint: 2
+    round:  3
     featured_map: "Emigration"
     creator: Mercy
-  - round: 6
+  - sprint: 2
+    round:  4
     featured_map: "Shogun"
     creator: Biscuits
-  - round: 7
+  - sprint: 3
+    round:  1
     featured_map: "Crater_of_Doom"
     creator: Jasouki
-  - round: 8
+  - sprint: 3
+    round:  2
     featured_map: "Bear_Valley"
     creator: Zetnus
-  - round: 9
+  - sprint: 3
+    round:  3
     featured_map: "Kubu_V4"
     creator: Superhero55
-  - round: 10
+  - sprint: 3
+    round:  4
     featured_map: "Spring_Hills"
     creator: Jasuni
 

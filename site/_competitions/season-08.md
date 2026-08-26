@@ -28,40 +28,52 @@ draft_maps: https://aoe2cm.net/preset/dXKEr
 draft_civs: https://aoe2cm.net/preset/EjvqT
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: "MWDMA_Oasis"
     creator: TechChariot
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: "MWDMA_Highland"
     creator: Jasouki
-  - round: 3
+  - sprint: 1
+    round:  3
     featured_map: "MWDMA_Arena"
     creator: TechChariot
-  - round: 4
+  - sprint: 1
+    round:  4
     featured_map: "MWDMA_Salt_Marsh"
     creator: Jasouki
-  - round: 5
+  - sprint: 2
+    round:  1
     featured_map: "MWDMA_Archipelago"
     creator: TechChariot
-  - round: 6
+  - sprint: 2
+    round:  2
     featured_map: "MWDMA_Gold_Rush"
     creator: TechChariot
-  - round: 7
+  - sprint: 2
+    round:  3
     featured_map: "MWDMA_Continental"
     creator: TechChariot
-  - round: 8
+  - sprint: 2
+    round:  4
     featured_map: "MWDMA_Rivers"
     creator: TechChariot
-  - round: '-'
+  - sprint: '-'
+    round:  '-'
     featured_map: "MWDMA_Black_Forest"
     creator: TechChariot
-  - round: '-'
+  - sprint: '-'
+    round:  '-'
     featured_map: "MWDMA_Arabia"
     creator: TechChariot
-  - round: '-'
+  - sprint: '-'
+    round:  '-'
     featured_map: "MWDMA_Mongolia"
     creator: TechChariot
-  - round: '-'
+  - sprint: '-'
+    round:  '-'
     featured_map: "MWDMA_Yucatan"
     creator: TechChariot
 

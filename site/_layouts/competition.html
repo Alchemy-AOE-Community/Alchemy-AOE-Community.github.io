@@ -35,6 +35,7 @@ layout: default
         <table class="table-auto border-collapse border border-gray-400">
           <thead>
             <tr class="bg-gray-100">
+              <th class="border px-4 py-2">Sprint</th>
               <th class="border px-4 py-2">Round</th>
               <th class="border px-4 py-2">Featured Map</th>
               <th class="border px-4 py-2">Creator</th>
@@ -43,6 +44,7 @@ layout: default
           <tbody>
             {% for map in page.maps %}
             <tr>
+              <td class="border px-4 py-2">{{ map.sprint }}</td>
               <td class="border px-4 py-2">{{ map.round }}</td>
               <td class="border px-4 py-2">{{ map.featured_map }}</td>
               <td class="border px-4 py-2">{{ map.creator }}</td>

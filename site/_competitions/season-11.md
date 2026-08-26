@@ -30,34 +30,44 @@ draft_maps: https://aoe2cm.net/preset/aQLCw
 draft_civs: https://aoe2cm.net/preset/PcjrK
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: FIW-08 "Oswego"
     creator: Jasouki
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: FIW-12 "Shawangunk"
     creator: Thire7
-  - round: 3
+  - sprint: 2
+    round:  1
     featured_map: FIW-05 "Monongahela"
     creator: Jasuni
-  - round: 4
+  - sprint: 2
+    round:  2
     featured_map: FIW-07 "Horican"
     creator: TechChariot
-  - round: 5
+  - sprint: 2
+    round:  3
     featured_map: FIW-20 "Susquehanna"
     creator: DesAnderes
-  - round: 6
+  - sprint: 2
+    round:  4
     featured_map: FIW-06 "Ticonderoga"
     creator: Biscuits
-  - round: 7
+  - sprint: 3
+    round:  1
     featured_map: FIW-11 "Youghiogheny"
     creator: TechChariot
-  - round: 8
+  - sprint: 3
+    round:  2
     featured_map: FIW-01 "Kebec"
     creator: TechChariot
-  - round: 9
+  - sprint: 3
+    round:  3
     featured_map: FIW-08 "Oswego"
     creator: Jasouki
-  - round: 10
+  - sprint: 3
+    round:  4
     featured_map: Lower seed choice of FIW-05 "Monongahela" or FIW-12 "Shawangunk"
     creator: Jasuni (FIW-05), Thire7 (FIW-12)
 

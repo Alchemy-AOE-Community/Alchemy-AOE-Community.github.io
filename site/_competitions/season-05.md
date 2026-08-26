@@ -28,28 +28,36 @@ draft_maps: https://aoe2cm.net/preset/PXfoO
 draft_civs: https://aoe2cm.net/preset/CsEAg
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: SPC-08 "Syzygy"
     creator: Jasuni
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: SPC-07 "Singularity"
     creator: Zetnus
-  - round: 3
+  - sprint: 1
+    round:  3
     featured_map: SPC-03 "Jupiter"
     creator: TechChariot
-  - round: 4
+  - sprint: 1
+    round:  4
     featured_map: SPC-04 "Mars"
     creator: TechChariot
-  - round: 5
+  - sprint: 2
+    round:  1
     featured_map: SPC-05 "Neptune"
     creator: TechChariot
-  - round: 6
+  - sprint: 2
+    round:  2
     featured_map: SPC-01 "Asteroid Belt"
     creator: TechChariot
-  - round: 7
+  - sprint: 2
+    round:  3
     featured_map: SPC-06 "Saturn"
     creator: TechChariot
-  - round: 8
+  - sprint: 2
+    round:  3
     featured_map: SPC-10 "Cataclysm"
     creator: TechChariot
 

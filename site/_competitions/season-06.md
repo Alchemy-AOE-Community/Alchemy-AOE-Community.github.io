@@ -29,28 +29,36 @@ draft_maps: https://aoe2cm.net/preset/xPOVD
 draft_civs: https://aoe2cm.net/preset/YdEkP
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: "Kroraina"
     creator: XingXing
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: "Gugong"
     creator: Biscuits
-  - round: 3
+  - sprint: 1
+    round:  3
     featured_map: "Shimmerpool"
     creator: TechChariot
-  - round: 4
+  - sprint: 1
+    round:  4
     featured_map: "Lagoon_Forest"
     creator: Zetnus
-  - round: 5
+  - sprint: 2
+    round:  1
     featured_map: "The_Thaw"
     creator: Jasouki
-  - round: 6
+  - sprint: 2
+    round:  2
     featured_map: "Shattered_Plains"
     creator: Welcometorapture
-  - round: 7
+  - sprint: 2
+    round:  3
     featured_map: "Ruoergai"
     creator: XingXing
-  - round: 8
+  - sprint: 2
+    round:  4
     featured_map: "Confluence"
     creator: Jasuni
 

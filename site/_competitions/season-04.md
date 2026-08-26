@@ -29,28 +29,36 @@ draft_maps: https://aoe2cm.net/preset/Xwjvy
 draft_civs: https://aoe2cm.net/preset/lNtNW
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: AK-04 "Utqiagvik"
     creator: Huehuecoyotl22
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: AK-07 "Chandalar Lake"
     creator: Zetnus
-  - round: 3
+  - sprint: 1
+    round:  3
     featured_map: AK-03 "Kodiak"
     creator: CookiePirate
-  - round: 4
+  - sprint: 1
+    round:  4
     featured_map: AK-02 "Chena Hot Springs"
     creator: XingXing
-  - round: 5
+  - sprint: 2
+    round:  1
     featured_map: AK-09 "Columbia"
     creator: TechChariot
-  - round: 6
+  - sprint: 2
+    round:  2
     featured_map: AK-08 "Kenai Peninsula"
     creator: QFilip
-  - round: 7
+  - sprint: 2
+    round:  3
     featured_map: AK-01 "Denali"
     creator: TechChariot
-  - round: 8
+  - sprint: 2
+    round:  4
     featured_map: AK-06 "Yukon Gold Rush"
     creator: Jasuni
 

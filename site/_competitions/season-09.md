@@ -29,34 +29,44 @@ draft_maps:
 draft_civs: https://aoe2cm.net/preset/YDtwn
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 3
+  - sprint: 2
+    round:  1
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 4
+  - sprint: 2
+    round:  2
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 5
+  - sprint: 3
+    round:  1
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 6
+  - sprint: 3
+    round:  2
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 7
+  - sprint: 3
+    round:  3
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 8
+  - sprint: 3
+    round:  4
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 9
+  - sprint: 3
+    round:  5
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
-  - round: 10
+  - sprint: 3
+    round:  6
     featured_map: RAND-01 "Hyperrandom"
     creator: Zetnus
 

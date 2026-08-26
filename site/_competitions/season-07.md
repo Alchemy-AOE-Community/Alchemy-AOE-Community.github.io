@@ -29,28 +29,36 @@ draft_maps: https://aoe2cm.net/preset/nOxHA
 draft_civs: https://aoe2cm.net/preset/EjvqT
 
 maps: 
-  - round: 1
+  - sprint: 1
+    round:  1
     featured_map: ESR-02 "Graveyards"
     creator: Jasouki
-  - round: 2
+  - sprint: 1
+    round:  2
     featured_map: ESR-09 "Team_Glaciers"
     creator: welcometorapture
-  - round: 3
+  - sprint: 1
+    round:  3
     featured_map: ESR-03 "Moats"
     creator: Zetnus
-  - round: 4
+  - sprint: 1
+    round:  4
     featured_map: ESR-08 "Shipwreck"
     creator: TechChariot
-  - round: 5
+  - sprint: 2
+    round:  1
     featured_map: ESR-04 "Paradise_Island"
     creator: Magico
-  - round: 6
+  - sprint: 2
+    round:  2
     featured_map: ESR-06 "Seasons"
     creator: Biscuits
-  - round: 7
+  - sprint: 2
+    round:  3
     featured_map: ESR-05 "Prairie"
     creator: TechChariot
-  - round: 8
+  - sprint: 2
+    round:  4
     featured_map: ESR-01 "Canals"
     creator: Zetnus
 
