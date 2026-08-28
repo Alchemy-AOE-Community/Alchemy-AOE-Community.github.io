@@ -7,7 +7,7 @@ competition_name: ALS7
 information: |
   - Duel (1v1)
   - Unique Round Robin System
-  - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two.
+  - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two.
   - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool.
   - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
   - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
@@ -16,17 +16,44 @@ information: |
   - Standard Victory Condition, With Antiquity Mode On.
   - Custom Map Pool Theme: Reworked Ensemble Studios Original Maps.
   - Reworked ESR-07 "Sherwood_Forest" (though included in definitions) was not ready in time to be played in final event.
+  - [Civilization Draft](https://aoe2cm.net/preset/EjvqT)
 
 show_definitions: true
 
-map_contest_results: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Map_Contest.ods
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Map_Archive.zip
+registration:
+  - name:               "Sprint 1"
+    sign_up_form:       "https://docs.google.com/forms/d/e/1FAIpQLSfhK2aKf_JDuexuSibfBlqUvwG6RRAgC171BdIu9tVs3bvj2Q/viewform?usp=sharing"
+    view_registrations: "https://docs.google.com/spreadsheets/d/1EICIfO41B5PudTbgvwgBbc4u1sjhVu6il4vDXiX9Ses/edit?resourcekey=&gid=1866421962#gid=1866421962"
+    
+map_links:
 
-sign_up_form: https://docs.google.com/forms/d/e/1FAIpQLSfhK2aKf_JDuexuSibfBlqUvwG6RRAgC171BdIu9tVs3bvj2Q/viewform?usp=sharing
-sign_up_sheet: https://docs.google.com/spreadsheets/d/1EICIfO41B5PudTbgvwgBbc4u1sjhVu6il4vDXiX9Ses/edit?resourcekey=&gid=1866421962#gid=1866421962
+  - categ: "Player Resources"
+    name:  "Map Draft"
+    url:   "https://aoe2cm.net/preset/nOxHA"
 
-draft_maps: https://aoe2cm.net/preset/nOxHA
-draft_civs: https://aoe2cm.net/preset/EjvqT
+  - categ: "Player Resources"
+    name:  "Map Archive"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Map_Archive.zip"
+
+  - categ: "Map Contest"
+    name:  "Gallery"
+    # url:   ""
+
+  - categ: "Map Contest"
+    name:  "Vote"
+    # url:   ""
+
+  - categ: "Map Contest"
+    name:  "Results"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Map_Contest.ods"
+
+  # - categ: "Development Notes"
+    # name:  "Idea Board"
+    # url:   ""
+
+  # - categ: "Development Notes"
+    # name:  "Competitivity"
+    # url:   ""
 
 maps: 
   - sprint: 1

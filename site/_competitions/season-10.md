@@ -7,26 +7,54 @@ competition_name: ALS10
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Three Independently-Scored Sprints with 2, 4, and 4 Round Each. Each Round is Play-All-Two or Play-All-Three (Player-Choice)
-    - Sprint 1 Has 14% of Total Prize Pool, Remaining Prize Split Between Sprints 2 & 3 
-    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
-    - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate
-    - Winner Selection Independent of Skill, Depends Only On Participation and Performance
-    - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
+    - Three Independently-Scored Sprints with 2, 4, and 4 Rounds Each. Each Round is Play-All-Two or Play-All-Three (Player-Choice).
+    - Sprint 1 Has 14% of Total Prize Pool, Remaining Prize Split Between Sprints 2 & 3.
+    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
+    - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
+    - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
+    - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation.
     - Standard Victory Conditions
     - Custom Map Pool Theme: Open Contest (Community Goody-bag).
     - [Promotional Showmatch](https://www.youtube.com/watch?v=s649bWhFwtI)
+    - [Civilization Draft](https://aoe2cm.net/preset/PcjrK)
 
 show_definitions: true
 
-map_contest_results: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Contest_Results.ods
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Map_Archive.zip
+registration:
+  - name:               "Sprint 1"
+    sign_up_form:       "https://forms.gle/dA4PunkWFp5D9aWh9"
+    view_registrations: "https://docs.google.com/spreadsheets/d/1o-O3vtjasl0vwz6x_slX3UDSvoOfd7VZKd8JtkMkXTk/edit?resourcekey=&gid=110444171#gid=110444171"
+    
+map_links:
 
-sign_up_form:  https://forms.gle/dA4PunkWFp5D9aWh9
-sign_up_sheet: https://docs.google.com/spreadsheets/d/1o-O3vtjasl0vwz6x_slX3UDSvoOfd7VZKd8JtkMkXTk/edit?resourcekey=&gid=110444171#gid=110444171
+  - categ: "Player Resources"
+    name:  "Map Draft"
+    url:   "https://aoe2cm.net/preset/oxgLd"
 
-draft_maps: https://aoe2cm.net/preset/oxgLd
-draft_civs: https://aoe2cm.net/preset/PcjrK
+  - categ: "Player Resources"
+    name:  "Map Archive"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Map_Archive.zip"
+
+  - categ: "Map Contest"
+    name:  "Gallery"
+    url:   "https://drive.google.com/file/d/1OXLB0Pmcg2HyM5VtkQO9UjROLF12IAn_/view?usp=drive_link"
+
+  - categ: "Map Contest"
+    name:  "Vote"
+    url:   "https://forms.gle/HYG6WhzxwepTGDXT7"
+
+  - categ: "Map Contest"
+    name:  "Results"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Contest_Results.ods"
+
+  - categ: "Development Notes"
+    name:  "Idea Board"
+    # url:   ""
+
+  - categ: "Development Notes"
+    name:  "Competitivity"
+    url:   "https://drive.google.com/drive/folders/1pJ6mUNuXXm1fsgMze0AhpE95ax3KC3Ss"
+
 
 maps: 
   - sprint: 1
@@ -76,7 +104,7 @@ sprints:
   - name: Sprint 1
     sprint_name: Sprint1
     notes: | 
-      - Exception granted for Jasuni (77/100) games due to participation in numerous previous seasons of Alchemy League.
+      - Exception granted for Jasuni (77/100) games due to participation in numerous previous seasons of Alchemy League. Player may compete for prize.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS10/Sprint1/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1L5vCWXincNypTxYi-GrQg9l9cm6_6v-x1wXI-dUEYI0/edit?gid=807253230#gid=807253230

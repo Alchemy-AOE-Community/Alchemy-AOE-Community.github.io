@@ -23,7 +23,7 @@ layout: default
 
   <div class="container">
     <div class="flex-container">
-      <div class="flex-content half page">
+      <div class="flex-content half page" style="display: flex; flex-direction: column;">
 
         {% if page.image_path %}
           {% assign image_path = "/resources/" | append: page.competition_name | append: "/" | append: page.image_path %}
@@ -53,14 +53,50 @@ layout: default
           </tbody>
         </table>
         {% endif %}
+
+        <!-- UNIFIED RELATIONAL MAP DESK MATRIX -->
+        {% if page.map_links %}
+           <div style="margin-top: auto; width: 100%;">
+            
+            <div class="matrix-signup-hub" style="display: table; width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0,0,0,0.15); border-radius: 6px; padding: 12px; margin-top: 15px; box-sizing: border-box;">
+              <span style="display: block; font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; color: #777;">Map Links</span>
+              
+              {% assign categories = page.map_links | map: "categ" | compact | uniq %}
+              {% for current_category in categories %}
+                <div class="matrix-row" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; {% unless forloop.last %}border-bottom: 1.5px dotted rgba(0,0,0,0.25);{% endunless %}">
+                  
+                  <strong style="font-size: 0.95em; color: inherit; padding-right: 40px; flex: 1; white-space: nowrap;">{{ current_category }}</strong>
+                  
+                  <div style="display: flex; gap: 8px; flex-shrink: 0; justify-content: flex-end;">
+                    {% for button in page.map_links %}
+                      {% if button.categ == current_category %}
+                        {% if button.url %}
+                          <a href="{{ button.url }}" target="_blank" style="margin: 0; padding: 4px 10px; font-size: 0.85em; background: #ffffff; color: #000000; border: 1px solid #000000; border-radius: 4px; text-decoration: none; white-space: nowrap; text-align: center; min-width: 90px; font-family: inherit; font-weight: normal; display: inline-block;">
+                            {{ button.name | default: "Link" }}
+                          </a>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+
+                </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        {% endif %}
+
+<!-- 
         <div class="spacer"></div>
         <div class="competition-information__links">
           {% if page.map_contest_results %} <a href="{{ page.map_contest_results }}" target="_blank">Map Contest Results</a> {% endif %}
           {% if page.map_archive %} <a href="{{ page.map_archive }}" target="_blank">Map Archive</a> {% endif %}
-        </div>
+        </div> -->
+
       </div>
 
-      <div class="flex-content half page competition-information">
+      <!-- Updated the class style inline to handle vertical pushing -->
+      <div class="flex-content half page competition-information" style="display: flex; flex-direction: column;">
 
         {% if page.show_definitions %}
         <h2>Definitions</h2>
@@ -74,13 +110,39 @@ layout: default
         {{ page.information | markdownify }}
         {% endif %}
 
-        <div class="competition-information__links">
-          {% if page.sign_up_form %} <a href="{{ page.sign_up_form }}" target="_blank">Sign Up</a> {% endif %}
-          {% if page.sign_up_sheet %} <a href="{{ page.sign_up_sheet }}" target="_blank">View Sign Ups</a> {% endif %}
-          {% if page.draft_maps %} <a href="{{ page.draft_maps }}" target="_blank">Map Draft</a> {% endif %}
-          {% if page.draft_civs %} <a href="{{ page.draft_civs }}" target="_blank">Civ Draft</a> {% endif %}
+        <div class="competition-information__links" style="margin-top: auto; width: 100%;">
+          {% if page.registration %}
+            <!-- DYNAMIC REGISTRATION DESK MATRIX (Now anchored to the bottom) -->
+            <div class="matrix-signup-hub" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0,0,0,0.15); border-radius: 6px; padding: 12px; margin-top: 10px; width: 100%;">
+              <span style="display: block; font-weight: bold; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; color: #777;">Registration Desk</span>
+              
+              {% for item in page.registration %}
+                <div class="matrix-row" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; {% unless forloop.last %}border-bottom: 1.5px dotted rgba(0,0,0,0.25);{% endunless %}">
+                  <strong style="font-size: 0.95em; color: inherit; padding-right: 10px;">{{ item.name }}</strong>
+                  
+                  <div style="display: flex; gap: 8px; flex-shrink: 0; justify-content: flex-end; width: auto;">
+                    
+                    {% if item.sign_up_form %}
+                      <a href="{{ item.sign_up_form }}" target="_blank" style="margin: 0; padding: 4px 10px; font-size: 0.85em; background: #ffffff; color: #000000; border: 1px solid #000000; border-radius: 4px; text-decoration: none; white-space: nowrap; text-align: center; min-width: 90px; font-family: inherit; font-weight: normal; display: inline-block;">
+                        Sign Up
+                      </a>
+                    {% endif %}
+
+                    {% if item.view_registrations %}
+                      <a href="{{ item.view_registrations }}" target="_blank" style="margin: 0; padding: 4px 10px; font-size: 0.85em; background: #ffffff; color: #000000; border: 1px solid #000000; border-radius: 4px; text-decoration: none; white-space: nowrap; text-align: center; min-width: 90px; font-family: inherit; font-weight: normal; display: inline-block;">
+                        View Signups
+                      </a>
+                    {% endif %}
+                    
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
+
       </div>
+    
     </div>
   </div>
 

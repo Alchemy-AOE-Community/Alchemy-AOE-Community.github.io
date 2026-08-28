@@ -7,7 +7,7 @@ competition_name: ALS5
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two. 
+    - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two. 
     - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively.
     - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
     - Player Winnings Calculated From Amalgamation of Skill, Performance, Participation, etc.
@@ -15,17 +15,45 @@ information: |
     - Custom Map Pool Theme: Space
     - This season used an a transitionary scoring system accounting for win rate, but unplayed sets were still recorded as 1-1 rather than 0-0.
     - SPC-02 "Collision" and SPC-09 "Nebula" (though included in definitions) were not ready in time to be played in final event.
+    - [Civilization Draft](https://aoe2cm.net/preset/CsEAg)
 
 show_definitions: true
 
-map_contest_results:
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS5/Map_Archive.zip
+registration:
+  - name:               "Sprint 1"
+    sign_up_form:       "https://forms.gle/2i68xBCrBmkV4cnN7"
+    view_registrations: "https://docs.google.com/spreadsheets/d/1lqWmuXAeawQTB3udY8zNh6HMNW-6zkEj3DlG2WWBTAs/edit?resourcekey=&gid=1878940162#gid=1878940162"
+    
+map_links:
 
-sign_up_form:  https://forms.gle/2i68xBCrBmkV4cnN7
-sign_up_sheet: https://docs.google.com/spreadsheets/d/1lqWmuXAeawQTB3udY8zNh6HMNW-6zkEj3DlG2WWBTAs/edit?resourcekey=&gid=1878940162#gid=1878940162
+  - categ: "Player Resources"
+    name:  "Map Draft"
+    url:   "https://aoe2cm.net/preset/PXfoO"
 
-draft_maps: https://aoe2cm.net/preset/PXfoO
-draft_civs: https://aoe2cm.net/preset/CsEAg
+  - categ: "Player Resources"
+    name:  "Map Archive"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS5/Map_Archive.zip"
+
+  # - categ: "Map Contest"
+    # name:  "Gallery"
+    # url:   ""
+
+  # - categ: "Map Contest"
+    # name:  "Vote"
+    # url:   ""
+
+  # - categ: "Map Contest"
+    # name:  "Results"
+    # url:   ""
+
+  # - categ: "Development Notes"
+    # name:  "Idea Board"
+    # url:   ""
+
+  # - categ: "Development Notes"
+    # name:  "Competitivity"
+    # url:   ""
+
 
 maps: 
   - sprint: 1

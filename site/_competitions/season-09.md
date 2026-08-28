@@ -7,7 +7,7 @@ competition_name: ALS9
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Three Independently-Scored Sprints with 2, 2, and 6 Round Each. Each Round is Play-All-Two or Play-All-Three (Player-Choice)
+    - Three Independently-Scored Sprints with 2, 2, and 6 Rounds Each. Each Round is Play-All-Two or Play-All-Three (Player-Choice)
     - Sprints 1 & 2 Have 14% and 20% of Total Prize Pool, Respectively
     - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
     - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate
@@ -16,17 +16,45 @@ information: |
     - Standard Victory Conditions
     - Custom Map Pool Theme: SUPER RANDOM Style Maps.
     - RAND-03 "BiomeBlitz" and RAND-03 "PocketRandom" (though included in definitions) were not ready in time
+    - [Civilization Draft](https://aoe2cm.net/preset/YDtwn)
+
 
 show_definitions: true
 
-map_contest_results:
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Map_Archive.zip
+registration:
+  - name:               "Sprint 1"
+    sign_up_form:       "https://forms.gle/1LDUBw6x2HS1QMfJA"
+    view_registrations: "https://docs.google.com/spreadsheets/d/1KHb05yNB0YNEbGDsBED-Vku-Cs1ZVmdQr6I52ZegNEQ/edit?usp=sharing"
+    
+map_links:
 
-sign_up_form:  https://forms.gle/1LDUBw6x2HS1QMfJA
-sign_up_sheet: https://docs.google.com/spreadsheets/d/1KHb05yNB0YNEbGDsBED-Vku-Cs1ZVmdQr6I52ZegNEQ/edit?usp=sharing
+  - categ: "Player Resources"
+    name:  "Map Draft"
+    # url:   ""
 
-draft_maps: 
-draft_civs: https://aoe2cm.net/preset/YDtwn
+  - categ: "Player Resources"
+    name:  "Map Archive"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS9/Map_Archive.zip"
+
+  # - categ: "Map Contest"
+    # name:  "Gallery"
+    # url:   ""
+
+  # - categ: "Map Contest"
+    # name:  "Vote"
+    # url:   ""
+
+  # - categ: "Map Contest"
+    # name:  "Results"
+    # url:   ""
+
+  # - categ: "Development Notes"
+    # name:  "Idea Board"
+    # url:   ""
+
+  # - categ: "Development Notes"
+    # name:  "Competitivity"
+    # url:   ""
 
 maps: 
   - sprint: 1

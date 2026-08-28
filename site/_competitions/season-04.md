@@ -7,7 +7,7 @@ competition_name: ALS4
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Two Independently-Scored Sprints with 4 Round Each. Each Round is Play-All-Two. 
+    - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two. 
     - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively.
     - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
     - Player Winnings Calculated From Amalgamation of Skill, Performance, Participation, etc.
@@ -16,17 +16,45 @@ information: |
     - This season used an old scoring system (before win rate), whereby ties and unplayed sets were recorded as 1-1 rather than 0-0.
     - PSRMs had not been "invented" yet, thus a triple-digit GSRM took its place.
     - AK-05 "Aleutian_Islands" (though included in definitions) was not ready in time to be played in final event.
+    - [Civilization Draft](https://aoe2cm.net/preset/lNtNW)
 
 show_definitions: true
 
-map_contest_results:
-map_archive: https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS4/Map_Archive.zip
+registration:
+  - name:               "Sprint 1"
+    sign_up_form:       "https://forms.gle/fWnNJonPhNEK7MxA7"
+    view_registrations: "https://docs.google.com/spreadsheets/d/1tWwoBF4ICApiAUigjUjYOO2GCprDbkkzV7wiuXddZn4/edit?resourcekey=&gid=1698466258#gid=1698466258"
+    
+map_links:
 
-sign_up_form:  https://forms.gle/fWnNJonPhNEK7MxA7
-sign_up_sheet: https://docs.google.com/spreadsheets/d/1tWwoBF4ICApiAUigjUjYOO2GCprDbkkzV7wiuXddZn4/edit?resourcekey=&gid=1698466258#gid=1698466258
+  - categ: "Player Resources"
+    name:  "Map Draft"
+    url:   "https://aoe2cm.net/preset/Xwjvy"
 
-draft_maps: https://aoe2cm.net/preset/Xwjvy
-draft_civs: https://aoe2cm.net/preset/lNtNW
+  - categ: "Player Resources"
+    name:  "Map Archive"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS4/Map_Archive.zip"
+
+  # - categ: "Map Contest"
+    # name:  "Gallery"
+    # url:   ""
+
+  # - categ: "Map Contest"
+    # name:  "Vote"
+    # url:   ""
+
+  # - categ: "Map Contest"
+    # name:  "Results"
+    # url:   ""
+
+  # - categ: "Development Notes"
+    # name:  "Idea Board"
+    # url:   ""
+
+  # - categ: "Development Notes"
+    # name:  "Competitivity"
+    # url:   ""
+
 
 maps: 
   - sprint: 1
