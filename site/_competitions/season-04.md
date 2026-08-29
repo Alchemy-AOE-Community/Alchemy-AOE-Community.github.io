@@ -7,8 +7,8 @@ competition_name: ALS4
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two. 
-    - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively.
+    - Two Independently-Scored Sprints with 4 Rounds Each. Each Round Play-All-Two. 
+    - Sprints 1 & 2 with 33% and 67% of Total Prize Pool, respectively.
     - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
     - Player Winnings Calculated From Amalgamation of Skill, Performance, Participation, etc.
     - Standard Victory Conditions 
@@ -35,25 +35,25 @@ map_links:
     name:  "Map Archive"
     url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS4/Map_Archive.zip"
 
-  # - categ: "Map Contest"
-    # name:  "Gallery"
-    # url:   ""
+  - categ: "Map Contest"
+    name:  "Gallery"
+    url:   "https://drive.google.com/file/d/1pD7paxWNn4e99Bj63SMO-E4gruqBHQL5/view?usp=sharing"
 
-  # - categ: "Map Contest"
-    # name:  "Vote"
-    # url:   ""
+  - categ: "Map Contest"
+    name:  "Vote"
+    url:   "https://forms.gle/PKa9eHBTj6shMndo6"
 
-  # - categ: "Map Contest"
-    # name:  "Results"
-    # url:   ""
+  - categ: "Map Contest"
+    name:  "Results"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS4/Map_Contest.png"
 
-  # - categ: "Development Notes"
-    # name:  "Idea Board"
-    # url:   ""
+  - categ: "Development Notes"
+    name:  "Idea Board"
+    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS4/Idea_Board.png"
 
-  # - categ: "Development Notes"
-    # name:  "Competitivity"
-    # url:   ""
+  - categ: "Development Notes"
+    name:  "Competitivity"
+    url:   "https://drive.google.com/drive/folders/1ojUj_v2U6A4_33AI_iZuN3Xdir9qInpS"
 
 
 maps: 

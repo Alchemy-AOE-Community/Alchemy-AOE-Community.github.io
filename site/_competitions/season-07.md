@@ -7,8 +7,8 @@ competition_name: ALS7
 information: |
   - Duel (1v1)
   - Unique Round Robin System
-  - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two.
-  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool.
+  - Two Independently-Scored Sprints with 4 Rounds Each. Each Round Play-All-Two.
+  - Sprints 1 & 2 with 33% and 67% of Total Prize Pool, respectively.
   - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
   - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
   - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
@@ -37,23 +37,23 @@ map_links:
 
   - categ: "Map Contest"
     name:  "Gallery"
-    # url:   ""
+    url:   "https://docs.google.com/presentation/d/11pj76PkjauUi5aFxWn-gKCykpXJCu6h4Gz7IxRmkpec"
 
   - categ: "Map Contest"
     name:  "Vote"
-    # url:   ""
+    url:   "https://docs.google.com/forms/d/e/1FAIpQLSezI-hNgfy8yhBYRU7YBi0w5-u5-KCFC8xH0q8ZB-kEO1OUyA/viewform?usp=sharing&ouid=100450116736277085906"
 
   - categ: "Map Contest"
     name:  "Results"
     url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS7/Map_Contest.ods"
 
-  # - categ: "Development Notes"
-    # name:  "Idea Board"
-    # url:   ""
+  - categ: "Development Notes"
+    name:  "Idea Board"
+    url:   "https://docs.google.com/spreadsheets/d/1Ai63iJpMBmXWOyjDONjrrLtARxbfMCLYzSqNBqdr6HQ/edit?gid=1567254468#gid=1567254468"
 
-  # - categ: "Development Notes"
-    # name:  "Competitivity"
-    # url:   ""
+  - categ: "Development Notes"
+    name:  "Competitivity"
+    url:   "https://drive.google.com/drive/folders/1TgT7Ur7AKC213pRyXbhlY4Xtt53ZYz8U"
 
 maps: 
   - sprint: 1

@@ -7,7 +7,7 @@ competition_name: ALS12
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Four Independently-Scored Sprints with 2, 6, 2, and 6 Rounds Each. Each Round is Play-All-Two, Play-All-Three, or Play-All-Four (Player-Choice).
+    - Four Independently-Scored Sprints with 2, 6, 2, and 6 Rounds Each. Each Round Play-All-Two, Play-All-Three, or Play-All-Four (Player-Choice).
     - Mid-Season Registration Available (after the second round).
     - Estimated Prize Breakdown (by Sprint): [10, 40, 10, 40]%.
     - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
@@ -33,7 +33,7 @@ map_links:
 
   - categ: "Player Resources"
     name:  "Map Draft"
-    url:   "https://aoe2cm.net/preset/aQLCw"
+    url:   ""
 
   - categ: "Player Resources"
     name:  "Map Archive"

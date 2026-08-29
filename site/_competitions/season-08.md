@@ -7,14 +7,15 @@ competition_name: ALS8
 information: |
   - Duel (1v1)
   - Unique Round Robin System
-  - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two.
-  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool.
+  - Two Independently-Scored Sprints with 4 Rounds Each. Each Round Play-All-Two.
+  - Sprints 1 & 2 with 33% and 67% of Total Prize Pool, respectively.
   - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
   - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
   - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
   - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill.
   - Standard Victory Condition, With Antiquity Mode On.
-  - Custom Map Pool Theme: "A Million Ways to Die in the Middle Ages" (added extra win conditions).
+  - Custom Map Pool Theme: "A Million Ways to Die in the Middle Ages" (added extra win conditions -- including regicide, sudden death, and a secondary fortified tower objective).
+  - Seasonal theme selected as emergency backup to abandonment from original map organizer of a different, themed location. Due to time constraints, many proven quality steps were abandoned, resulting in uncompetitive maps that were easy to "cheese". With better planning, concepts of this season could be improved upon.
   - [Civilization Draft](https://aoe2cm.net/preset/EjvqT)
 
 show_definitions: true

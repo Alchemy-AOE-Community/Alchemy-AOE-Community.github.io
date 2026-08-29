@@ -7,8 +7,8 @@ competition_name: ALS5
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two. 
-    - Sprints 1 & 2 Have 33% and 67% of Total Prize Pool, Respectively.
+    - Two Independently-Scored Sprints with 4 Rounds Each. Each Round Play-All-Two. 
+    - Sprints 1 & 2 with 33% and 67% of Total Prize Pool, respectively.
     - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
     - Player Winnings Calculated From Amalgamation of Skill, Performance, Participation, etc.
     - Standard Victory Conditions 
@@ -34,9 +34,9 @@ map_links:
     name:  "Map Archive"
     url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS5/Map_Archive.zip"
 
-  # - categ: "Map Contest"
-    # name:  "Gallery"
-    # url:   ""
+  - categ: "Map Contest"
+    name:  "Gallery"
+    url:   "https://x.com/techariot/status/1871292194746978431"
 
   # - categ: "Map Contest"
     # name:  "Vote"
@@ -46,13 +46,13 @@ map_links:
     # name:  "Results"
     # url:   ""
 
-  # - categ: "Development Notes"
-    # name:  "Idea Board"
-    # url:   ""
+  - categ: "Development Notes"
+    name:  "Idea Board"
+    url:   "https://docs.google.com/document/d/1KED3xTYT-4jds2NnsPTHKc5mmCqKhaJu9lbN0kiWxzs/edit?tab=t.0#heading=h.p8wdiipakw2b"
 
-  # - categ: "Development Notes"
-    # name:  "Competitivity"
-    # url:   ""
+  - categ: "Development Notes"
+    name:  "Competitivity"
+    url:   "https://drive.google.com/drive/folders/1oJeAjvUbq3lwZzc6DWIxbu8tU_Ve8ObI"
 
 
 maps: 

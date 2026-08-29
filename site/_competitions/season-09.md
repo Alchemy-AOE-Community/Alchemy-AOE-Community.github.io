@@ -7,15 +7,16 @@ competition_name: ALS9
 information: |
     - Duel (1v1)
     - Unique Round Robin System
-    - Three Independently-Scored Sprints with 2, 2, and 6 Rounds Each. Each Round is Play-All-Two or Play-All-Three (Player-Choice)
-    - Sprints 1 & 2 Have 14% and 20% of Total Prize Pool, Respectively
-    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap
-    - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate
-    - Winner Selection Independent of Skill, Depends Only On Participation and Performance
-    - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation
+    - Three Independently-Scored Sprints with 2, 2, and 6 Rounds Each. Each Round Play-All-Two or Play-All-Three (Player-Choice).
+    - Sprints 1 & 2 with 14% and 20% of Total Prize Pool, Respectively.
+    - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
+    - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
+    - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
+    - Payout Calculation to Winners Depends on Performance, With Bias Toward Higher Skill & Higher Participation.
     - Standard Victory Conditions
     - Custom Map Pool Theme: SUPER RANDOM Style Maps.
-    - RAND-03 "BiomeBlitz" and RAND-03 "PocketRandom" (though included in definitions) were not ready in time
+    - RAND-03 "BiomeBlitz" and RAND-03 "PocketRandom" (though included in definitions) were not ready in time.
+    - Other maps besides RAND-01 "Hyperrandom" abandoned early in development, no in-house competitivity check required. Remaining map presumed competitive due to similarity with versions that appeared in other high-level tournaments.
     - [Civilization Draft](https://aoe2cm.net/preset/YDtwn)
 
 

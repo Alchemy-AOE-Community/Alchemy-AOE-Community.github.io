@@ -7,8 +7,8 @@ competition_name: ALS6
 information: |
   - Duel (1v1)
   - Unique Round Robin System
-  - Two Independently-Scored Sprints with 4 Rounds Each. Each Round is Play-All-Two.
-  - Sprint 1 Has 1/3 Player Prize Pool, Sprint 2 Has 2/3 Player Prize Pool.
+  - Two Independently-Scored Sprints with 4 Rounds Each. Each Round Play-All-Two.
+  - Sprints 1 & 2 with 33% and 67% of Total Prize Pool, respectively.
   - Players Matched Against Nearest Available Opponents, Minimizing Skill Gap.
   - Player Performance Calculated by Comparing Actual Win Rate Against Theoretical Win Rate.
   - Winner Selection Independent of Skill, Depends Only On Participation and Performance.
@@ -37,11 +37,11 @@ map_links:
 
   - categ: "Map Contest"
     name:  "Gallery"
-    # url:   ""
+    url:   "https://drive.google.com/file/d/1CF1BAKem1PKtbj6z21KwNFDASAFBBnn5/view?usp=sharing"
 
   - categ: "Map Contest"
     name:  "Vote"
-    # url:   ""
+    url:   "https://forms.gle/VRjN1au9HqbbGWW47"
 
   - categ: "Map Contest"
     name:  "Results"
@@ -51,9 +51,9 @@ map_links:
     # name:  "Idea Board"
     # url:   ""
 
-  # - categ: "Development Notes"
-    # name:  "Competitivity"
-    # url:   ""
+  - categ: "Development Notes"
+    name:  "Competitivity"
+    url:   "https://drive.google.com/drive/folders/1pu_hFGzOQWfXYYvN4Cf_YyHaN2fckVE6"
 
 maps: 
   - sprint: 1
