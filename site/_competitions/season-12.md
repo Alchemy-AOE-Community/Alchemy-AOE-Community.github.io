@@ -37,7 +37,7 @@ map_links:
 
   - categ: "Player Resources"
     name:  "Map Archive"
-    url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS12/Map_Archive.zip"
+    # url:   "https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS12/Map_Archive.zip"
 
   - categ: "Map Contest"
     name:  "Gallery"
