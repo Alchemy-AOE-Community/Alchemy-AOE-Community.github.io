@@ -16,8 +16,8 @@ content_documents: |
 
 content_maps: |
     [League Collections](https://github.com/Alchemy-AOE-Community/CHEM-Competition-Map-Packs){:target="_blank"}
-    [Autodownloader (Windows)](site/resources/alchemy_map_downloader_windows.bat)
-    [Autodownloader (Linux)](site/resources/alchemy_map_downloader_linux.sh)
+    [Autodownloader (Windows)](resources/alchemy_map_downloader_windows.bat)
+    [Autodownloader (Linux)](resources/alchemy_map_downloader_linux.sh)
     [Repository](https://github.com/Alchemy-AOE-Community/CHEM-Random-Map-Scripts/tree/_About_){:target="_blank"}
 
 content_rms_references: |
