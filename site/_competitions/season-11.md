@@ -30,7 +30,7 @@ map_links:
 
   - categ: "Player Resources"
     name:  "Map Draft"
-    url:   "https://aoe2cm.net/preset/aQLCw"
+    url:   "https://aoe2cm.net/preset/hIMtt"
 
   - categ: "Player Resources"
     name:  "Map Archive"
