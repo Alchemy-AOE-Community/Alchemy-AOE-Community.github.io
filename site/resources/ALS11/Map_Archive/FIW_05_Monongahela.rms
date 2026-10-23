@@ -1,0 +1,1308 @@
+/*
+Map name: FIW-05-Monongahela
+Creator: Jasuni
+Date created: June 2026
+Map may be used for Alchemy League
+Specification: https://alchemy-aoe-community.github.io/RedirectLatest.html?file=CHEM-CSRM-FIW-05
+Credit: thumbnail made by DesAnderes
+
+TODO: adjust seasons, forest mixtures, terrain masking, add trade restriction
+
+conclusions from talk with FlyingMouse: reduce neutral forests, reduce neutral foods, ice in tunnel in winter season, reduce width of tunnel trees. Game pretty much always ends in imp, and is prone to being a boom-fest and sometimes a slog-fest.
+TODO look into neutral ice in winter
+
+*/
+<PLAYER_SETUP>
+grouped_by_team
+behavior_version 2
+
+#const PHT1 33
+#const PHT2 34
+#const PHT3 38
+#const PHT4 39
+#const PHT5 43
+#const PHT6 44
+#const PHT7 61
+#const PHT8 62
+#const PHT9 103
+#const PHT10 47
+
+/*
+#define ENABLE_THEMES */
+
+#const PLACEHOLDER 1543
+
+
+#define RANDOM_FOREST_LINE_WIDTH
+#define ALCHEMY_LEAGUE
+
+#const PUNK_BEAR 822
+#const DEAD_BOAR 356
+if ALCHEMY_LEAGUE
+    if LOW_RESOURCES
+        #define DISABLE_TRADE
+    endif
+
+    /* Configuring Camp Barracks */
+    #const FORT 1870
+    effect_percent SET_ATTRIBUTE FORT ATTR_RADIUS_1 150
+    effect_percent SET_ATTRIBUTE FORT ATTR_RADIUS_2 150
+    effect_amount SET_ATTRIBUTE FORT ATTR_STANDING_GRAPHIC 16891
+    effect_amount SET_ATTRIBUTE FORT ATTR_STANDING2_GRAPHIC 16891
+    effect_amount SET_ATTRIBUTE FORT ATTR_DYING_GRAPHIC 16890
+    effect_amount SET_ATTRIBUTE FORT ATTR_NAME_ID 421114
+    effect_amount SET_ATTRIBUTE FORT ATTR_ICON_ID 2
+    effect_amount SET_ATTRIBUTE FORT ATTR_GARRISON_TYPE 63
+    effect_amount SET_ATTRIBUTE FORT ATTR_GARRISON_CAPACITY 10
+    effect_amount SET_ATTRIBUTE FORT ATTR_STORAGE_VALUE 10
+    effect_amount SET_ATTRIBUTE FORT ATTR_STORAGE2_VALUE 10
+
+/* Black Bear
+ */
+    effect_amount GAIA_SET_ATTRIBUTE DEAD_BOAR ATTR_STANDING_GRAPHIC 13136
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_ATTACK_GRAPHIC 13134
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_ATTACK2_GRAPHIC 13140
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_STANDING_GRAPHIC 13136
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_STANDING2_GRAPHIC 13136
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_DYING_GRAPHIC 13135
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_UNDEAD_GRAPHIC 13135
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_WALKING_GRAPHIC 13138
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_RUNNING_GRAPHIC 13139
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_NAME_ID 21227
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_ICON_ID 151
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_HERO_STATUS 64
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_LINE_OF_SIGHT 5
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_COMBAT_ABILITY 0
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_STORAGE_VALUE 340
+    effect_percent GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_MOVE_SPEED 80
+    effect_percent GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_REGENERATION_RATE 3000
+    effect_percent GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_DAMAGE_REFLECTION 050
+    effect_percent GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_RELOAD_TIME 100
+    effect_amount GAIA_SET_ATTRIBUTE PUNK_BEAR ATTR_HITPOINTS 23
+    /* Iroquois Scout */
+    #const IROQUOIS_SCOUT 2329
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_TRAITS 16
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_ATTACK_GRAPHIC 1408
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_STANDING_GRAPHIC 1414
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_STANDING2_GRAPHIC 1414
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_DYING_GRAPHIC 1411
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_WALKING_GRAPHIC 1418
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_RUNNING_GRAPHIC 1418
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_NAME_ID 5011
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_CREATE_SDESC_ID 105011
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_ICON_ID 297
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_DEAD_ID 1375
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_HERO_STATUS 64
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_HITPOINTS 22
+    effect_percent SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_MOVE_SPEED 90
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_LINE_OF_SIGHT 8
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_RELOAD_TIME 4
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_FORMATION_CATEGORY 0
+    effect_amount MUL_ATTRIBUTE IROQUOIS_SCOUT ATTR_POPULATION 0
+    effect_amount ENABLE_OBJECT IROQUOIS_SCOUT ATTR_ENABLE 0
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_TRAIN_LOCATION FORT
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_FOOD_COST 0
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_GOLD_COST 75
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_TRAIN_BUTTON 1
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_CREATION_TIME 15
+    effect_amount SET_ATTRIBUTE IROQUOIS_SCOUT ATTR_BUTTON_ID 0
+
+    /* Constant Chief Hut Properties */
+    #const CHIEF_HUT 84
+    effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_NAME_ID 14897
+    effect_percent GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_RADIUS_1 150
+    effect_percent GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_RADIUS_2 150
+    effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_HERO_STATUS 4
+    effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_HITPOINTS 500
+    /* Tribal Village Variation */
+    start_random
+        percent_chance 33
+            /* Random Chief Hut Properties */
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_STANDING_GRAPHIC 4334
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DYING_GRAPHIC 4333
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_ICON_ID 81
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DEAD_ID 1447
+            /* Random Supporting Hut Properties */
+            #const HUT1 713
+            #const HUT2 714
+            #const HUT3 715
+            #const HUT4 649
+        percent_chance 33
+            /* Random Chief Hut Properties */
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_STANDING_GRAPHIC 4348
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DYING_GRAPHIC 4347
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_ICON_ID 79
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DEAD_ID 1454
+            /* Random Supporting Hut Properties */
+            #const HUT1 716
+            #const HUT2 717
+            #const HUT3 718
+            #const HUT4 649
+        percent_chance 34
+            /* Random Chief Hut Properties */
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_STANDING_GRAPHIC 12687
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DYING_GRAPHIC 12688
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_ICON_ID 91
+            effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DEAD_ID 1535
+            /* Random Supporting Hut Properties */
+            #const HUT1 1832
+            #const HUT2 1833
+            #const HUT3 1834
+            #const HUT4 2033
+            #define NEW_SKINS
+    end_random
+    /* Constant Supporting Hut Properties */
+    effect_amount GAIA_SET_ATTRIBUTE HUT1 ATTR_HERO_STATUS 4
+    effect_amount GAIA_SET_ATTRIBUTE HUT1 ATTR_HITPOINTS 100
+    effect_amount GAIA_SET_ATTRIBUTE HUT2 ATTR_HERO_STATUS 4
+    effect_amount GAIA_SET_ATTRIBUTE HUT2 ATTR_HITPOINTS 100
+    effect_amount GAIA_SET_ATTRIBUTE HUT3 ATTR_HERO_STATUS 4
+    effect_amount GAIA_SET_ATTRIBUTE HUT3 ATTR_HITPOINTS 100
+    effect_amount GAIA_SET_ATTRIBUTE HUT4 ATTR_HERO_STATUS 4
+    effect_amount GAIA_SET_ATTRIBUTE HUT4 ATTR_HITPOINTS 100
+    /* Optional Object Groups */
+    if NEW_SKINS
+    create_object_group HUT_GROUP
+    {
+    add_object HUT1 25
+    add_object HUT2 25
+    add_object HUT3 25
+    add_object HUT4 25
+    }
+    else
+    create_object_group HUT_GROUP
+    {
+    add_object HUT1 33
+    add_object HUT2 33
+    add_object HUT3 34
+    }
+    endif
+endif
+
+if DISABLE_TRADE
+/* Removing Trade for Multi-team Games, as per Alchemy requirements.  */
+  #const TRADE_CART_ENABLER 161
+  #const TRADE_COG_ENABLER 180
+  #const TRADE_CARAVAN_ENABLER 48
+  #const HINDU_CARAVANSERAI_ENABLER 518
+  #const PERSIAN_CARAVANSERAI_ENABLER 552  
+  #const SILK_ROAD 499
+  effect_amount DISABLE_TECH TRADE_COG_ENABLER ATTR_DISABLE 180
+  effect_amount DISABLE_TECH TRADE_CART_ENABLER ATTR_DISABLE 161
+  effect_amount DISABLE_TECH TRADE_CARAVAN_ENABLER ATTR_DISABLE 48
+  effect_amount DISABLE_TECH HINDU_CARAVANSERAI_ENABLER ATTR_DISABLE 518
+  effect_amount DISABLE_TECH PERSIAN_CARAVANSERAI_ENABLER ATTR_DISABLE 552
+  effect_amount DISABLE_TECH SILK_ROAD ATTR_DISABLE 499  
+  /* #define CORNER_RELICS an option here, but I think I'll just leave the neutral markets sitting uselessly in the corners. */
+endif
+
+start_random
+    percent_chance 33 #define WINTER_THEME
+    percent_chance 33 #define SPRING_THEME
+    /* else SUMMER_THEME */
+end_random
+#const BUILDING 1639
+effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_1 50 /* make it a 1x1 object */
+effect_percent SET_ATTRIBUTE BUILDING ATTR_RADIUS_2 50 /* make it a 1x1 object */
+effect_amount SET_ATTRIBUTE BUILDING ATTR_FOUNDATION_TERRAIN 10 /* FOREST */
+if WINTER_THEME
+    #const TUNNEL_TERRAIN 72 /* 34 GRASS_SNOW */
+    /* #define UNLAYERABLE_TUNNEL_TERRAIN might not appear any different, but seems to still be layered for purposes of object generation */
+
+    #const MAIN_TERRAIN 126 /* SNOW_SOFT_STRONG */
+    #const STRAGGLER_TREE 1249 /* DLC_AUTUMNSNOWTREE */
+    effect_amount SET_ATTRIBUTE BUILDING ATTR_FOUNDATION_TERRAIN 21
+    #const TERRAIN_MASK_A 72 /* Underbrush, snow */
+    #const TERRAIN_MASK_B 3 /* DIRT3 TODO decide what this should be */
+    
+    #const VILLAGE_TERRAIN 125 /* SNOW_SOFT_LIGHT */
+
+    #const BRADDOCK_ROAD 38
+
+    /* Tree Objects */
+    #const OTREE0 1250
+    #const OTREE1 1250
+    #const OTREE2 1250
+    #const OTREE3 1250
+    #const OTREE4 413
+    #const ITREE0 1350
+    #const ITREE1 1350
+    #const ITREE2 1350
+    #const ITREE3 1054
+    #const ITREE4 1054
+
+    #const MAIN_FOREST 21
+    effect_amount GAIA_SET_ATTRIBUTE SNOWPINETREE ATTR_TERRAIN_ID 13
+
+elseif SPRING_THEME
+    #const TUNNEL_TERRAIN 5 /* LEAVES */
+    #const MAIN_TERRAIN 0 /* GRASS */
+    #const STRAGGLER_TREE 411 /* FOREST_TREE */
+    effect_amount SET_ATTRIBUTE BUILDING ATTR_FOUNDATION_TERRAIN 10 /* FOREST */
+    #const TERRAIN_MASK_A 122 /* GRASS_FLOWERS_1 */
+    #const TERRAIN_MASK_B 123 /* GRASS_FLOWERS_2 */
+    
+    #const VILLAGE_TERRAIN 12 /* GRASS2 */
+
+    #const BRADDOCK_ROAD 76
+
+    /* Forest Terrains and Tree Objects */
+    #const OTREE0 1250
+    #const OTREE1 2027
+    #const OTREE2 1250
+    #const OTREE3 1250
+    #const OTREE4 350
+    #const ITREE0 1350
+    #const ITREE1 1350
+    #const ITREE2 1350
+    #const ITREE3 1053
+    #const ITREE4 302
+
+    #const MAIN_FOREST 18
+    effect_amount GAIA_SET_ATTRIBUTE BAMBOO_TREE ATTR_TERRAIN_ID 19
+
+else /* SUMMER THEME */
+    #const TUNNEL_TERRAIN 5 /* LEAVES */
+    #const MAIN_TERRAIN 0 /* GRASS */
+    #const STRAGGLER_TREE 411 /* FOREST_TREE */
+    effect_amount SET_ATTRIBUTE BUILDING ATTR_FOUNDATION_TERRAIN 10 /* FOREST */
+    #const TERRAIN_MASK_A 9 /* GRASS3 */
+    #const TERRAIN_MASK_B 100 /* DLC_DRYGRASS */
+
+    #const VILLAGE_TERRAIN 12 /* GRASS2 */
+
+    #const BRADDOCK_ROAD 6
+
+    /* Forest Terrains and Tree Objects */
+    #const OTREE0 349
+    #const OTREE1 2027
+    #const OTREE2 2567
+    #const OTREE3 1717
+    #const OTREE4 350
+    #const ITREE0 1350
+    #const ITREE1 1350
+    #const ITREE2 1350
+    #const ITREE3 1053
+    #const ITREE4 302
+
+    #const MAIN_FOREST 18
+    effect_amount GAIA_SET_ATTRIBUTE BAMBOO_TREE ATTR_TERRAIN_ID 19
+
+endif
+
+
+
+#const PLAYER_FOREST 10
+effect_amount SET_ATTRIBUTE FOREST_TREE ATTR_TERRAIN_ID 9
+
+
+#const ON_GRID 278
+effect_amount GAIA_SET_ATTRIBUTE ON_GRID ATTR_STORAGE_VALUE 0
+
+/* Configuring Building Blocker */
+#const BLOCKER 1654
+effect_percent GAIA_SET_ATTRIBUTE BLOCKER ATTR_TERRAIN_ID 0
+effect_percent GAIA_SET_ATTRIBUTE BLOCKER ATTR_RADIUS_1 50
+effect_percent GAIA_SET_ATTRIBUTE BLOCKER ATTR_RADIUS_2 50
+effect_percent GAIA_MOD_RESOURCE AMOUNT_BUILDING_TRICKLE_WOOD  ATTR_SET 0
+effect_percent GAIA_MOD_RESOURCE AMOUNT_BUILDING_TRICKLE_FOOD  ATTR_SET 0
+effect_percent GAIA_MOD_RESOURCE AMOUNT_BUILDING_TRICKLE_GOLD  ATTR_SET 0
+effect_percent GAIA_MOD_RESOURCE AMOUNT_BUILDING_TRICKLE_STONE ATTR_SET 0
+
+
+
+/* 11 is DIRT2, 3 is DIRT3 which causes issues due to it matching the player terrain, 5 is leaves */
+
+<LAND_GENERATION>
+base_terrain MAIN_FOREST
+create_player_lands {
+    terrain_type TUNNEL_TERRAIN
+    circle_radius rnd(35,40) 1
+    base_size 19
+    land_percent 100
+    if RANDOM_FOREST_LINE_WIDTH
+        start_random
+            percent_chance 10 other_zone_avoidance_distance rnd(2,5)
+            percent_chance 70 other_zone_avoidance_distance rnd(1,3)
+            percent_chance 20 other_zone_avoidance_distance rnd(1,2)
+        end_random
+    else
+        other_zone_avoidance_distance 4 /* TODO reduce down to a single tile as specs say? decide later */
+    endif
+}
+if ALCHEMY_LEAGUE /* TODO integrate into map - currently is surrounded by forest, but may be able to remove that with some trickery
+    start_random 
+        percent_chance 50 #define HORIZONTAL_VILLAGES
+    end_random */
+    /* TODO add in 
+    if HORIZONTAL_VILLAGES
+    else
+    endif
+    */
+    create_land {
+        terrain_type VILLAGE_TERRAIN
+        land_position 0 0
+        land_percent 0
+        base_size 4
+        land_id 1
+    }  
+    create_land {
+        terrain_type VILLAGE_TERRAIN
+        land_position 99 99
+        land_percent 0
+        base_size 4
+        land_id 2
+    }  
+    create_land {
+        terrain_type VILLAGE_TERRAIN
+        land_position 0 99
+        land_percent 0
+        base_size 4
+        land_id 3
+    }  
+    create_land {
+        terrain_type VILLAGE_TERRAIN
+        land_position 99 0
+        land_percent 0
+        base_size 4
+        land_id 4
+    }  
+endif
+/*
+#define CONNECT_TO_CENTER_LAND
+*/
+if CONNECT_TO_CENTER_LAND 
+    create_land {
+        terrain_type MAIN_FOREST /* or TUNNEL_TERRAIN */
+        land_percent 0
+        land_position 50 50
+        zone 1
+    }
+endif
+<ELEVATION_GENERATION> /* TODO */
+create_elevation 2 {
+    base_terrain MAIN_FOREST
+    number_of_tiles 36
+    if AT_MOST_MEDIUM
+        number_of_clumps 4 
+    elseif AT_LEAST_HUGE
+        number_of_clumps 16 
+    else
+        number_of_clumps 8 /* TODO test these a fair bit more */
+    endif
+    set_scale_by_size
+    enable_balanced_elevation
+}
+create_elevation 2 {
+    base_terrain TUNNEL_TERRAIN
+    number_of_tiles 360
+    if AT_MOST_MEDIUM
+        number_of_clumps 16 
+    elseif AT_LEAST_HUGE
+        number_of_clumps 64 
+    else
+        number_of_clumps 32 /* TODO test these a fair bit more */
+    endif
+    set_scale_by_size
+    enable_balanced_elevation
+    spacing 2
+}
+<TERRAIN_GENERATION>
+/* #const PLAYER_AREA_RADIUS rnd(17,19) */
+#const PLAYER_AREA_RADIUS 25 /* does get used later on */
+#const PLAYER_FOREST_SIZE 50
+#define PLAYER_FORESTS_CHARIOT
+if PLAYER_FORESTS_CHARIOT
+    /* Outer Boundary Application */
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 25 }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 25 }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 25 }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 25 }
+    /* Placeholder Smoothing */
+    create_terrain PHT1 { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups spacing_to_other_terrain_types 2 }
+    create_terrain PHT1 { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups spacing_to_other_terrain_types 2 }
+    create_terrain PHT1 { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups spacing_to_other_terrain_types 2 }
+    create_terrain PHT1 { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups spacing_to_other_terrain_types 2 }
+    /* Absorb Rough Part */
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 1 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 2 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 3 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 4 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 5 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 6 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 7 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Player 8 Forests */
+    create_terrain PHT10 { base_terrain PHT1 land_percent 100 number_of_clumps 1 }
+    create_terrain PHT6 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 }
+    create_terrain PHT7 { base_terrain PHT10 clumping_factor 25 number_of_tiles PLAYER_FOREST_SIZE number_of_clumps 1 set_avoid_player_start_areas 16 spacing_to_specific_terrain PHT9 18 spacing_to_specific_terrain PHT6 18 }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT6 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PHT9 { base_terrain PHT7 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain TUNNEL_TERRAIN { base_terrain PHT10 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+
+    /* Player Forest Transformation (TechChariot Added) */
+    create_terrain PLAYER_FOREST { base_terrain PHT9 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PLAYER_FOREST { base_terrain PHT9 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PLAYER_FOREST { base_terrain PHT9 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain PLAYER_FOREST { base_terrain PHT9 land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    
+    /* Scallops for Connection Encouragement */
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 13 spacing_to_specific_terrain PLAYER_FOREST 8 }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 13 spacing_to_specific_terrain PLAYER_FOREST 8 }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 13 spacing_to_specific_terrain PLAYER_FOREST 8 }
+    create_terrain MAIN_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups set_avoid_player_start_areas 13 spacing_to_specific_terrain PLAYER_FOREST 8 }
+
+    /* Player Forest Masking */
+    create_terrain TERRAIN_MASK_A { base_terrain PLAYER_FOREST land_percent 100 number_of_clumps 9320 set_scale_by_groups terrain_mask 1 }
+    create_terrain TERRAIN_MASK_A { base_terrain PLAYER_FOREST land_percent 100 number_of_clumps 9320 set_scale_by_groups terrain_mask 1 }
+    create_terrain TERRAIN_MASK_A { base_terrain PLAYER_FOREST land_percent 100 number_of_clumps 9320 set_scale_by_groups terrain_mask 1 }
+    create_terrain TERRAIN_MASK_A { base_terrain PLAYER_FOREST land_percent 100 number_of_clumps 9320 set_scale_by_groups terrain_mask 1 }
+
+endif
+
+#define JASUNI_ORIGINAL_TERRAINS
+if JASUNI_ORIGINAL_TERRAINS
+    /* Origin of Player Land Minimap Illumination */
+    create_terrain VILLAGE_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain VILLAGE_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain VILLAGE_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    create_terrain VILLAGE_TERRAIN { base_terrain TUNNEL_TERRAIN land_percent 100 number_of_clumps 9320 set_scale_by_groups }
+    /* Neutral Forests */
+    create_terrain MAIN_FOREST { base_terrain MAIN_TERRAIN land_percent rnd(13,18) number_of_clumps rnd(30,50) set_scale_by_groups spacing_to_specific_terrain PHT9 8 spacing_to_specific_terrain VILLAGE_TERRAIN 8 }
+
+    /* Terrain Mixing */
+    create_terrain TERRAIN_MASK_A {
+        base_terrain MAIN_TERRAIN
+        land_percent 10
+        number_of_clumps 30
+        terrain_mask 1 /* over */
+    }
+    create_terrain TERRAIN_MASK_B {
+        base_terrain MAIN_TERRAIN
+        land_percent 25
+        number_of_clumps 50
+        terrain_mask 1 /* over */
+    }
+    create_terrain TERRAIN_MASK_A {
+        base_terrain MAIN_TERRAIN
+        land_percent 33
+        number_of_clumps 99
+        terrain_mask 1 /* over */
+    }
+
+endif
+
+if JASUNI_MYSTERIES
+    #define FULL_FOREST_LINE
+    if FULL_FOREST_LINE
+    else
+        create_terrain VILLAGE_TERRAIN {
+            base_terrain MAIN_FOREST 
+            land_percent 2
+            number_of_clumps rnd(10,20)
+            terrain_mask 2
+        }
+    endif
+endif
+
+<CONNECTION_GENERATION>
+/* potential changes: could make a land in the center that the lands connect to: might be better that way even. If I need to add a corner village, than corner lands would need to be on a terrain with a terrain cost of 0.
+*/
+
+accumulate_connections
+
+create_connect_all_players_land 
+{
+    replace_terrain MAIN_TERRAIN MAIN_FOREST 
+    terrain_cost PLAYER_FOREST 0
+    terrain_cost MAIN_TERRAIN 4
+    terrain_cost VILLAGE_TERRAIN 15
+    terrain_size MAIN_TERRAIN 6 0
+}
+create_connect_all_players_land 
+{
+    replace_terrain MAIN_FOREST TUNNEL_TERRAIN 
+    terrain_cost MAIN_FOREST 4
+    terrain_cost MAIN_TERRAIN 0
+    terrain_cost VILLAGE_TERRAIN 15
+    terrain_size MAIN_FOREST 4 0
+}
+create_connect_all_players_land 
+{
+    replace_terrain TUNNEL_TERRAIN  BRADDOCK_ROAD
+    replace_terrain VILLAGE_TERRAIN BRADDOCK_ROAD
+    terrain_cost TUNNEL_TERRAIN 2
+    terrain_cost MAIN_FOREST 0
+    terrain_cost MAIN_TERRAIN 15
+    terrain_cost VILLAGE_TERRAIN 15
+}
+
+if JASUNI_MYSTERIES
+    if CONNECT_TO_CENTER_LAND
+        /* Currently non-functional - not working right.
+        */
+        create_connect_land_zone 1 -9 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_land_zone 1 -8 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_land_zone 1 -7 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_land_zone 1 -6 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_land_zone 1 -5 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_land_zone 1 -4 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_land_zone 1 -3 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_land_zone 1 -2 {
+            replace_terrain MAIN_TERRAIN MAIN_FOREST
+            terrain_size MAIN_TERRAIN 4 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+        create_connect_to_nonplayer_land {
+            replace_terrain MAIN_FOREST TUNNEL_TERRAIN
+            terrain_size MAIN_FOREST 2 0
+            terrain_cost MAIN_TERRAIN 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+    else
+    create_connect_all_lands {
+        replace_terrain MAIN_TERRAIN MAIN_FOREST
+        replace_terrain FOREST_B MAIN_FOREST 
+        terrain_size FOREST_B 4 0
+        terrain_size MAIN_TERRAIN 4 0
+        terrain_cost VILLAGE_TERRAIN 0
+    }
+    create_connect_all_lands {
+        replace_terrain MAIN_FOREST TUNNEL_TERRAIN
+        if ALCHEMY_LEAGUE
+            terrain_size MAIN_FOREST 3 0
+        else
+            terrain_size MAIN_FOREST 2 0
+        endif
+        terrain_cost MAIN_TERRAIN 0
+        terrain_cost VILLAGE_TERRAIN 0
+    }
+    /* Might be usable, but will need to fix a few things - like blocking the terrain to ensure things place correctly
+    if WINTER_THEME
+        create_connect_all_lands {
+            replace_terrain TUNNEL_TERRAIN ICE
+            terrain_size TUNNEL_TERRAIN 0 0
+            terrain_cost MAIN_TERRAIN 0
+            terrain_cost VILLAGE_TERRAIN 0
+        }
+    endif
+    */
+endif
+endif
+
+<OBJECTS_GENERATION>
+create_object_group OTG 
+{
+  add_object OTREE0 20
+  add_object OTREE1 20
+  add_object OTREE2 20
+  add_object OTREE3 20
+  add_object OTREE4 20
+}
+create_object_group ITG 
+{
+  add_object ITREE0 20
+  add_object ITREE1 20
+  add_object ITREE2 20
+  add_object ITREE3 20
+  add_object ITREE4 20
+}
+create_object_group HERDABLE {
+    add_object SHEEP 50
+    add_object TURKEY 5 /* turkey and then geese are the most likely here */
+    add_object DLC_GOAT 50
+    add_object DLC_GOOSE 20
+    add_object DLC_PIG 50
+}
+create_object_group HARES {
+    add_object HARE_A 50
+    add_object HARE_B 50
+}
+
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on PLAYER_FOREST
+temp_min_distance_group_placement 4
+second_object OTREE4
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on PLAYER_FOREST
+temp_min_distance_group_placement 3
+second_object OTREE3
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on PLAYER_FOREST
+temp_min_distance_group_placement 2
+second_object OTREE2
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on PLAYER_FOREST
+temp_min_distance_group_placement 1
+second_object OTREE1
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on PLAYER_FOREST
+second_object OTREE0
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on MAIN_FOREST
+temp_min_distance_group_placement 4
+min_distance_to_players 20
+set_circular_placement
+second_object OTREE4
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on MAIN_FOREST
+temp_min_distance_group_placement 3
+min_distance_to_players 20
+set_circular_placement
+second_object OTREE3
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on MAIN_FOREST
+temp_min_distance_group_placement 2
+min_distance_to_players 20
+set_circular_placement
+second_object OTREE2
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on MAIN_FOREST
+temp_min_distance_group_placement 1
+min_distance_to_players 20
+set_circular_placement
+second_object OTREE1
+}
+create_object ON_GRID
+{
+set_gaia_object_only
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on MAIN_FOREST
+min_distance_to_players 20
+set_circular_placement
+second_object OTREE0
+}
+
+
+/* red fox, deer */
+create_object TOWN_CENTER {
+    set_place_for_every_player
+    max_distance_to_players 0
+}
+
+create_object BLOCKER
+{
+set_gaia_object_only
+set_gaia_unconvertible
+set_scaling_to_map_size
+terrain_to_place_on BRADDOCK_ROAD
+second_object GRAVE
+min_distance_to_players 32
+}
+
+create_object BLOCKER
+{
+set_gaia_object_only
+set_gaia_unconvertible
+number_of_groups 9320
+set_scaling_to_map_size
+terrain_to_place_on BRADDOCK_ROAD
+actor_area 9
+actor_area_radius 2
+}
+create_object VILLAGER {
+    set_place_for_every_player
+    min_distance_to_players 6
+    max_distance_to_players 7
+    set_circular_placement
+}
+#const MULE_CART 1808
+create_object MULE_CART {
+    set_place_for_every_player
+    min_distance_to_players 4
+    max_distance_to_players 9
+    set_circular_placement
+}
+if ALCHEMY_LEAGUE
+    create_object IROQUOIS_SCOUT {
+        set_place_for_every_player
+        min_distance_to_players 8
+        set_circular_placement
+        find_closest
+        min_distance_group_placement 1
+    }
+    create_object CHIEF_HUT {
+        set_gaia_object_only
+        set_gaia_unconvertible
+        place_on_specific_land_id 1
+        max_distance_to_players 0
+        min_distance_group_placement 3
+    }
+    create_object CHIEF_HUT {
+        set_gaia_object_only
+        set_gaia_unconvertible
+        place_on_specific_land_id 2
+        max_distance_to_players 0
+        min_distance_group_placement 3
+    }
+    create_object CHIEF_HUT {
+        set_gaia_object_only
+        set_gaia_unconvertible
+        place_on_specific_land_id 3
+        max_distance_to_players 0
+        min_distance_group_placement 3
+    }
+    create_object CHIEF_HUT {
+        set_gaia_object_only
+        set_gaia_unconvertible
+        place_on_specific_land_id 4
+        max_distance_to_players 0
+        min_distance_group_placement 3
+    }
+endif
+if REGICIDE
+    create_object KING {
+        set_place_for_every_player
+        min_distance_to_players 8
+        set_circular_placement
+        find_closest
+        min_distance_group_placement 1
+    }
+elseif ALCHEMY_LEAGUE
+else
+    create_object SCOUT {
+        set_place_for_every_player
+        min_distance_to_players 8
+        set_circular_placement
+        find_closest
+        min_distance_group_placement 1
+    }
+endif
+/* 4 herdables 2-3 tiles away */
+create_object HERDABLE {
+    set_place_for_every_player
+    min_distance_to_players 3
+    max_distance_to_players 4
+    set_circular_placement
+    number_of_objects 4
+}
+
+/*
+
+1 group of 6 forage bushes at least 10 tiles away
+1 group of 7 gold mines at least 10 tiles away
+1 group of 4 gold mines at least 18 tiles away
+1 group of 4 gold mines at least 21 tiles away
+1 group of 5 stone mines at least 12 tiles away
+1 group of 4 stone mines at least 16 tiles away
+1 group of 4 sheep at around 7 tiles (if cows/water buffalo, use 1 group of 3 instead)
+In tournament  maps, 1 or all of these often start under control of the player.
+2 groups of 2 sheep at a shared variable min distance (14-24) away (if cows/water buffalo, use 1 group of 3, or 2+1 instead)
+2 individual boar at least 16 tiles away
+1 group of either 3 or 4 deer at a variable min distance (14-24) away
+1 individual predator at least 34 tiles away
+2 individual trees at 4-5 tiles away
+3 individual trees at 6-8 tiles away
+*/
+create_object TURKEY {
+    min_distance_to_players 13
+    find_closest
+    set_circular_placement
+    number_of_groups 4
+    min_distance_group_placement 1
+    avoid_forest_zone 1
+    require_path 5
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 9
+}
+if ALCHEMY_LEAGUE
+create_object PUNK_BEAR 
+        {
+            min_distance_to_players 8
+            max_distance_to_players 14
+            set_circular_placement
+            min_distance_group_placement 1
+            avoid_forest_zone 2
+            require_path 3
+            set_place_for_every_player
+            set_gaia_object_only
+            avoid_actor_area 9
+        }
+else
+    create_object BOAR { /* TODO consider removing, reducing, and replacing with a more appropriate non-boar animal */
+        min_distance_to_players rnd(16,20)
+        find_closest
+        set_circular_placement
+        number_of_groups rnd(1,2)
+        min_distance_group_placement 1
+        temp_min_distance_group_placement 11
+        avoid_forest_zone 1
+        require_path 3
+        set_place_for_every_player
+        set_gaia_object_only
+        avoid_actor_area 9
+    }
+endif
+create_object GOLD {
+    min_distance_to_players rnd(12,18)
+    find_closest
+    set_circular_placement
+    number_of_objects rnd(6,7)
+    number_of_groups 2
+    avoid_forest_zone 3
+    require_path 2
+    temp_min_distance_group_placement 19
+    min_distance_group_placement 6
+    set_tight_grouping
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 9
+}
+create_object STONE {
+    min_distance_to_players rnd(12,18)
+    find_closest
+    set_circular_placement
+    number_of_objects rnd(4,5)
+    number_of_groups 2
+    avoid_forest_zone 3
+    require_path 2
+    temp_min_distance_group_placement 19
+    min_distance_group_placement 5
+    set_tight_grouping
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 9
+}
+create_object FORAGE {
+    min_distance_to_players 13
+    find_closest
+    set_circular_placement
+    number_of_objects rnd(3,8)
+    number_of_groups rnd(1,2)
+    avoid_forest_zone 4
+    require_path 3
+    temp_min_distance_group_placement 13
+    min_distance_group_placement 1
+    set_tight_grouping
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 9
+    actor_area 10
+    actor_area_radius 4
+}
+create_object HARES {
+    min_distance_to_players 12
+    find_closest
+    set_circular_placement
+    number_of_objects rnd(3,8)
+    avoid_forest_zone 1
+    require_path 4
+    min_distance_group_placement 4
+    set_tight_grouping
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 9
+    actor_area_to_place_in 10
+
+}
+/*
+if ALCHEMY_LEAGUE
+    create_object DEER {
+        set_circular_placement
+        number_of_objects rnd(3,5)
+        min_distance_group_placement 1
+        avoid_forest_zone 1
+        require_path 2
+        set_place_for_every_player
+        set_gaia_object_only
+        avoid_actor_area 9
+        actor_area_to_place_in 10
+    }
+endif
+*/
+/* add tree objects to block off holes in the path
+*/
+#define BLOCK_HOLES_ON_PATH
+if BLOCK_HOLES_ON_PATH
+    create_object PLACEHOLDER {
+        terrain_to_place_on TUNNEL_TERRAIN
+        avoid_forest_zone 1
+        number_of_objects 9320
+        min_distance_to_players PLAYER_AREA_RADIUS
+        actor_area 11
+        if ALCHEMY_LEAGUE
+            actor_area_radius 2
+        else
+            actor_area_radius 3
+        endif
+    }
+    create_object PLACEHOLDER {
+        terrain_to_place_on BRADDOCK_ROAD
+        avoid_forest_zone 1
+        number_of_objects 9320
+        min_distance_to_players PLAYER_AREA_RADIUS
+        actor_area 11
+        if ALCHEMY_LEAGUE
+            actor_area_radius 2
+        else
+            actor_area_radius 3
+        endif
+    }
+    create_object BUILDING {
+        terrain_to_place_on MAIN_TERRAIN
+        number_of_objects 9320
+        actor_area_to_place_in 11
+        min_distance_to_players 25
+        second_object OTG
+    }
+endif
+create_object RED_FOX {
+    min_distance_to_players PLAYER_AREA_RADIUS
+    find_closest
+    require_path 3
+    min_distance_group_placement 2 /* TODO change this to an actor area if I want to use building objects to change the forest terrain */
+    number_of_objects rnd(1,5)
+    set_place_for_every_player
+    set_gaia_object_only
+    terrain_to_place_on TUNNEL_TERRAIN
+    set_tight_grouping
+    avoid_forest_zone 1
+    avoid_actor_area 10
+    /*     second_object BUILDING */
+}
+create_object RED_FOX {
+    max_distance_to_players 30
+    find_closest_to_map_center
+    require_path 3
+    min_distance_group_placement 2
+    number_of_objects rnd(1,5)
+    set_place_for_every_player
+    set_gaia_object_only
+    terrain_to_place_on TUNNEL_TERRAIN
+    set_tight_grouping
+    avoid_forest_zone 1
+    avoid_actor_area 10
+    /*     second_object BUILDING */
+}
+/* TODO add player and neutral resources, including straggler trees - have straggler trees avoid the forest path - i.e. the leaves terrain 
+neutral resources: relics, gold, stone, forage, predators, straggler trees, foxes
+*/
+create_object WOLF {
+    terrain_to_place_on TUNNEL_TERRAIN
+    min_distance_to_players 23
+    number_of_groups 932
+    temp_min_distance_group_placement rnd(4,10)
+    /*     second_object BUILDING */
+}
+/* added to block path */
+create_object FELLED_TREE {
+    resource_delta -100 /* so should cease to exist immediately */
+    terrain_to_place_on TUNNEL_TERRAIN
+    number_of_groups 9320
+    set_scaling_to_map_size
+    min_distance_to_players 25
+    /*     second_object BUILDING - doesn't work here */
+}
+create_object FELLED_TREE {
+    resource_delta -100 /* so should cease to exist immediately */
+    terrain_to_place_on BRADDOCK_ROAD
+    ignore_terrain_restrictions
+    place_on_specific_land_id 1
+    number_of_groups 9320
+    set_scaling_to_map_size
+    min_distance_to_players 25
+    /*     second_object BUILDING - doesn't work here */
+}
+#const STUMP 415
+create_object STUMP { set_gaia_object_only terrain_to_place_on MAIN_FOREST number_of_groups 9320 set_scaling_to_map_size temp_min_distance_group_placement 1 avoid_forest_zone 1 }
+create_object GOLD {
+    min_distance_to_players 35
+    set_circular_placement
+    number_of_objects 2
+    number_of_groups 5
+    avoid_forest_zone 2
+    require_path 11 /* higher the value, more deviation allowed */
+    temp_min_distance_group_placement 19
+    min_distance_group_placement 6
+    set_tight_grouping
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 10
+}
+create_object RELIC {
+    number_of_objects rnd(2,3)
+    min_distance_to_players 32
+    set_circular_placement
+    avoid_forest_zone 1
+    require_path 11
+    temp_min_distance_group_placement 19
+    min_distance_group_placement 1
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 10
+
+}
+create_object FORAGE {
+    min_distance_to_players 25
+    number_of_objects rnd(3,5)
+    group_variance 1
+    number_of_groups 9320
+    set_tight_grouping
+    temp_min_distance_group_placement rnd(21,33) /* TODO may want to reduce from 11-21 if I'm going to add other food sources. */
+    min_distance_group_placement 6
+    avoid_forest_zone 2
+    avoid_actor_area 9 /* avoid forest path */
+    avoid_actor_area 10
+}
+create_object DEER {
+    min_distance_to_players 35
+    number_of_objects 3
+    group_variance 1
+    number_of_groups 9320
+    temp_min_distance_group_placement rnd(24,35) /* TODO may want to reduce if I'm going to add other food sources. */
+    min_distance_group_placement 6
+    avoid_actor_area 9 /* avoid forest path */
+    avoid_actor_area 10
+}
+create_object HARES {
+    min_distance_to_players 35
+    number_of_objects rnd(3,5)
+    group_variance 1
+    number_of_groups 9320
+    temp_min_distance_group_placement rnd(21,33) /* TODO may want to reduce if I'm going to add other food sources. */
+    min_distance_group_placement 1
+    avoid_actor_area 9 /* avoid forest path */
+    avoid_actor_area 10
+}
+create_object ITG {
+    number_of_objects 5
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_to_players 5
+    max_distance_to_players 8
+    set_circular_placement
+}
+create_object ITG {
+    number_of_groups 30
+    min_distance_to_players 19
+    set_scaling_to_map_size
+}
+/*
+create_object GOLD {
+    min_distance_to_players 30
+    number_of_objects rnd(2,3)
+    number_of_groups
+    temp_min_distance_group_placement 50
+}
+*/
+/*
+create_object GOLD {
+    min_distance_to_players rnd(12,18)
+    find_closest
+    set_circular_placement
+    number_of_objects rnd(6,7)
+    number_of_groups 2
+    avoid_forest_zone 3
+    require_path 1
+    temp_min_distance_group_placement 19
+    min_distance_group_placement 6
+    set_tight_grouping
+    set_place_for_every_player
+    set_gaia_object_only
+    avoid_actor_area 9
+} */
+create_object HAWK {
+    number_of_objects 2
+}
+#const OWL 2490
+create_object OWL {
+    number_of_objects 2
+}
+
+create_object SEA_ROCKS_1 { number_of_groups 9320 set_scaling_to_map_size min_distance_to_players 12 temp_min_distance_group_placement 12 }
+create_object SEA_ROCKS_2 { number_of_groups 9320 set_scaling_to_map_size min_distance_to_players 12 temp_min_distance_group_placement 12 }
+
+/*
+Non-trampled terrain within the Passage (§7.A.3) shall contain predators of significant density variation (typically 1 animal per 4 to 12 tiles). In this way the cost-benefit calculus of a convenient wall is random.
+*/

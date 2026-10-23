@@ -1,0 +1,3902 @@
+/* Shawangunk
+	By Thire
+	MAY 2026 to JUNE 2026
+	Map licensed for use in Alchemy League Season 11
+	https://alchemy-aoe-community.github.io/RedirectLatest.html?file=CHEM-CSRM-FIW-12
+
+*/
+
+/* player counting */
+	if 1_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#const	PLAYER_COUNT	1
+
+	elseif 2_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#define AT_LEAST_2_PLAYERS
+		#const	PLAYER_COUNT	2
+		if 0_TEAM_GAME
+			#define 1V1_GAME
+			#define AT_LEAST_1V1_GAME
+			#define COMMON_TEAMS
+		endif
+
+	elseif 3_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#define AT_LEAST_2_PLAYERS
+		#define AT_LEAST_3_PLAYERS
+		#const	PLAYER_COUNT	3
+
+	elseif 4_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#define AT_LEAST_2_PLAYERS
+		#define AT_LEAST_3_PLAYERS
+		#define AT_LEAST_4_PLAYERS
+		#const	PLAYER_COUNT	4
+		if 2_TEAM_GAME
+			if TEAM2_SIZE2
+				#define 2V2_GAME
+				#define AT_LEAST_2V2_GAME
+				#define AT_LEAST_1V1_GAME
+				#define COMMON_TEAMS
+			endif
+		endif
+
+	elseif 5_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#define AT_LEAST_2_PLAYERS
+		#define AT_LEAST_3_PLAYERS
+		#define AT_LEAST_4_PLAYERS
+		#define AT_LEAST_5_PLAYERS
+		#const	PLAYER_COUNT	5
+
+	elseif 6_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#define AT_LEAST_2_PLAYERS
+		#define AT_LEAST_3_PLAYERS
+		#define AT_LEAST_4_PLAYERS
+		#define AT_LEAST_5_PLAYERS
+		#define AT_LEAST_6_PLAYERS
+		#const	PLAYER_COUNT	6
+		if 2_TEAM_GAME
+			if TEAM2_SIZE3
+				#define 3V3_GAME
+				#define AT_LEAST_3V3_GAME
+				#define AT_LEAST_2V2_GAME
+				#define AT_LEAST_1V1_GAME
+				#define COMMON_TEAMS
+			endif
+		endif
+
+	elseif 7_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#define AT_LEAST_2_PLAYERS
+		#define AT_LEAST_3_PLAYERS
+		#define AT_LEAST_4_PLAYERS
+		#define AT_LEAST_5_PLAYERS
+		#define AT_LEAST_6_PLAYERS
+		#define AT_LEAST_7_PLAYERS
+		#const	PLAYER_COUNT	7
+
+	elseif 8_PLAYER_GAME
+		#define AT_LEAST_1_PLAYER
+		#define AT_LEAST_2_PLAYERS
+		#define AT_LEAST_3_PLAYERS
+		#define AT_LEAST_4_PLAYERS
+		#define AT_LEAST_5_PLAYERS
+		#define AT_LEAST_6_PLAYERS
+		#define AT_LEAST_7_PLAYERS
+		#define AT_LEAST_8_PLAYERS
+		#const	PLAYER_COUNT	8
+		if 2_TEAM_GAME
+			if TEAM2_SIZE4
+				#define 4V4_GAME
+				#define AT_LEAST_4V4_GAME /* unused? */
+				#define AT_LEAST_3V3_GAME
+				#define AT_LEAST_2V2_GAME
+				#define AT_LEAST_1V1_GAME
+				#define COMMON_TEAMS
+			endif
+		elseif 4_TEAM_GAME
+			#define 2V2V2V2_GAME
+			#define COMMON_TEAMS
+		endif
+	else /* debug case */
+		#const	PLAYER_COUNT	2
+	endif
+
+/* Land Assignment */
+	if 1V1_GAME
+		#define ASSIGN_AT_RANDOM
+		#const ASSIGN_TARGET AT_TEAM
+		#const ASSIGN_MODE	0
+	elseif COMMON_TEAMS
+		if TEAM_POSITIONS
+			#define ASSIGN_AT_COLOR
+			#const ASSIGN_TARGET AT_COLOR
+			#const ASSIGN_MODE	-1
+		else
+			#define ASSIGN_AT_TEAM
+			#const ASSIGN_TARGET AT_TEAM
+			#const ASSIGN_MODE	0
+		endif
+	else	/* unused? */
+		#define ASSIGN_AT_RANDOM
+		#const ASSIGN_TARGET AT_TEAM
+		#const ASSIGN_MODE	0
+	endif
+
+/* default sizes */
+	if MAPSIZE_MINI			#const MAPSIZE 80 /* */
+	elseif MAPSIZE_TINY		#const MAPSIZE 120 /* 2 */
+	elseif MAPSIZE_SMALL		#const MAPSIZE 144 /* 3 */
+	elseif MAPSIZE_MEDIUM		#const MAPSIZE 168 /* 4 */
+	elseif MAPSIZE_NORMAL		#const MAPSIZE 200 /* 6 */
+	elseif MAPSIZE_LARGE		#const MAPSIZE 220 /* 8 */
+	elseif MAPSIZE_HUGE		#const MAPSIZE 240 /* */
+	elseif MAPSIZE_GIANT		#const MAPSIZE 252 /* */
+	elseif MAPSIZE_MASSIVE		#const MAPSIZE 276 /* */
+	elseif MAPSIZE_ENORMOUS		#const MAPSIZE 300 /* */
+	elseif MAPSIZE_COLOSSAL		#const MAPSIZE 320 /* */
+	elseif MAPSIZE_INCREDIBLE	#const MAPSIZE 360 /* */
+	elseif MAPSIZE_MONSTROUS	#const MAPSIZE 400 
+	elseif MAPSIZE_LUDICROUS	#const MAPSIZE 480 
+	else				#const MAPSIZE 260 
+	endif
+/* AT_LEAST sizes */
+	if MAPSIZE_MINI		 /* */
+	elseif MAPSIZE_TINY		 /* 2 */
+	elseif MAPSIZE_SMALL		 /* 3 */
+	elseif MAPSIZE_MEDIUM		 /* 4 */
+		#define MAP_AT_LEAST_MEDIUM
+	elseif MAPSIZE_NORMAL		/* 6 */
+		#define MAP_AT_LEAST_MEDIUM
+		#define MAP_AT_LEAST_NORMAL
+	elseif MAPSIZE_LARGE		 /* 8 */
+		#define MAP_AT_LEAST_MEDIUM
+		#define MAP_AT_LEAST_NORMAL
+		#define MAP_AT_LEAST_LARGE
+	elseif MAPSIZE_HUGE		 /* */
+		#define MAP_AT_LEAST_MEDIUM
+		#define MAP_AT_LEAST_NORMAL
+		#define MAP_AT_LEAST_LARGE
+		#define MAP_AT_LEAST_HUGE
+	elseif MAPSIZE_GIANT		/* */
+		#define MAP_AT_LEAST_MEDIUM
+		#define MAP_AT_LEAST_NORMAL
+		#define MAP_AT_LEAST_LARGE
+		#define MAP_AT_LEAST_HUGE
+	else				
+		#define MAP_AT_LEAST_MEDIUM
+		#define MAP_AT_LEAST_NORMAL
+		#define MAP_AT_LEAST_LARGE
+		#define MAP_AT_LEAST_HUGE
+	endif
+
+/* for map scaling */
+	#const MAPAREA (MAPSIZE * MAPSIZE)
+	#const MAP_TILE_SIZE (100 / MAPSIZE)
+
+start_random
+	percent_chance 25
+		#define	SEASON_WINTER
+	percent_chance 25
+		#define	SEASON_SPRING
+	percent_chance 25
+		#define	SEASON_SUMMER
+	percent_chance 25
+		#define	SEASON_AUTUMN
+	end_random
+
+/* terrain constants */
+	/* fill terrains */
+		if SEASON_WINTER
+			start_random
+				percent_chance 50
+					#const TERR_BASE			SNOW
+					#const TERR_DELL_BASE	SNOW_SOFT
+				percent_chance 50
+					#const TERR_BASE			SNOW_SOFT
+					#const TERR_DELL_BASE	SNOW
+				end_random
+			start_random
+				percent_chance 50
+					#define DRY_WINTER
+				percent_chance 50
+					#define SNOWY_WINTER
+				end_random
+			if DRY_WINTER
+				start_random
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		SNOW_SOFT_LIGHT
+						#const MIXT_PLAINS_LAYER		73 /* Snow, light */
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		73 /* Snow, light */
+						#const MIXT_PLAINS_LAYER		SNOW_SOFT_LIGHT
+					end_random
+				start_random
+					percent_chance 33
+						#const TERR_HILLS_LOWER_FINAL	DLC_DRYGRASS
+						#const TERR_LOWER_PLAINS_BASE	GRASS3
+						#const TERR_PLAYER			GRASS
+						#const TERR_HILLS_BASE		SNOW_SOFT_LIGHT
+						#const TERR_PLAINS_HILLS		73 /* Snow, light */
+						#const MIXT_PLAYER			MIXT_PLAINS_LAYER
+						#const MIXT_HILLS_HILLS		DLC_DRYGRASS
+						#const MIXT_PLAINS_HILLS		GRASS3
+					percent_chance 33
+						#const TERR_HILLS_LOWER_FINAL	GRASS
+						#const TERR_LOWER_PLAINS_BASE	DLC_DRYGRASS
+						#const TERR_HILLS_BASE		GRASS3
+						#const TERR_PLAYER			73 /* Snow, light */
+						#const TERR_PLAINS_HILLS		SNOW_SOFT_LIGHT
+						#const MIXT_PLAYER			DLC_DRYGRASS
+						#const MIXT_HILLS_HILLS		MIXT_FOOTHILLS_LAYER
+						#const MIXT_PLAINS_HILLS		DLC_DRYGRASS
+					percent_chance 34
+						#const TERR_HILLS_LOWER_FINAL	GRASS3
+						#const TERR_LOWER_PLAINS_BASE	GRASS
+						#const TERR_PLAINS_HILLS		DLC_DRYGRASS
+						#const TERR_PLAYER			SNOW_SOFT_LIGHT
+						#const TERR_HILLS_BASE		73 /* Snow, light */
+						#const MIXT_PLAYER			GRASS
+						#const MIXT_HILLS_HILLS		GRASS3
+						#const MIXT_PLAINS_HILLS		MIXT_PLAINS_LAYER
+					end_random
+			else
+				start_random
+					percent_chance 50
+						#const TERR_HILLS_LOWER_FINAL	SNOW_SOFT_STRONG
+						#const TERR_LOWER_PLAINS_BASE	74 /* Snow, strong */
+					percent_chance 50
+						#const TERR_HILLS_LOWER_FINAL	74 /* Snow, strong */
+						#const TERR_LOWER_PLAINS_BASE	SNOW_SOFT_STRONG
+					end_random
+				start_random
+					percent_chance 50
+						#const	SELECT_WINTER_WET_GRASS	GRASS
+						#const MIXT_FOOTHILLS_LAYER		GRASS3
+						#const MIXT_PLAINS_LAYER		GRASS3
+					percent_chance 50
+						#const	SELECT_WINTER_WET_GRASS	GRASS3
+						#const MIXT_FOOTHILLS_LAYER		GRASS
+						#const MIXT_PLAINS_LAYER		GRASS
+					end_random
+				start_random
+					percent_chance 33
+						#const TERR_PLAYER			SELECT_WINTER_WET_GRASS
+						#const TERR_HILLS_BASE		73 /* Snow, light */
+						#const TERR_PLAINS_HILLS		SNOW_SOFT_LIGHT
+						#const MIXT_PLAYER			TERR_LOWER_PLAINS_BASE
+						#const MIXT_HILLS_HILLS		MIXT_FOOTHILLS_LAYER
+						#const MIXT_PLAINS_HILLS		MIXT_PLAINS_LAYER
+					percent_chance 33
+						#const TERR_HILLS_BASE		SELECT_WINTER_WET_GRASS
+						#const TERR_PLAYER			SNOW_SOFT_LIGHT
+						#const TERR_PLAINS_HILLS		73 /* Snow, light */
+						#const MIXT_PLAYER			MIXT_PLAINS_LAYER
+						#const MIXT_HILLS_HILLS		TERR_HILLS_LOWER_FINAL
+						#const MIXT_PLAINS_HILLS		MIXT_PLAINS_LAYER
+					percent_chance 34
+						#const TERR_PLAINS_HILLS		SELECT_WINTER_WET_GRASS
+						#const TERR_PLAYER			73 /* Snow, light */
+						#const TERR_HILLS_BASE		SNOW_SOFT_LIGHT
+						#const MIXT_PLAYER			MIXT_PLAINS_LAYER
+						#const MIXT_HILLS_HILLS		MIXT_FOOTHILLS_LAYER
+						#const MIXT_PLAINS_HILLS		TERR_LOWER_PLAINS_BASE
+					end_random
+			endif
+		elseif SEASON_SPRING
+			start_random
+				percent_chance 33
+					#define WET_SPRING
+					#const TERR_PLAYER			76 /* Dirt, Mud */
+				percent_chance 33
+					#define DRY_SPRING
+					#const TERR_PLAYER			GRASS2
+				percent_chance 34
+					#const TERR_PLAYER			GRASS2
+				end_random
+			if WET_SPRING
+				#const SELECT_HILL_TERR_1		GRASS
+				#const SELECT_HILL_TERR_2		GRASS3
+				#const SELECT_PLAINS_TERR_1		DLC_JUNGLEGRASS
+				#const SELECT_PLAINS_TERR_2		83 /* Grass, Jungle rainforest */
+			elseif DRY_SPRING
+				#const SELECT_HILL_TERR_1		DLC_JUNGLEGRASS
+				#const SELECT_HILL_TERR_2		83 /* Grass, Jungle rainforest */
+				#const SELECT_PLAINS_TERR_1		GRASS
+				#const SELECT_PLAINS_TERR_2		GRASS3
+			else
+				start_random
+					percent_chance 50
+						#const SELECT_HILL_TERR_1		GRASS
+						#const SELECT_HILL_TERR_2		GRASS3
+						#const SELECT_PLAINS_TERR_1		DLC_JUNGLEGRASS
+						#const SELECT_PLAINS_TERR_2		83 /* Grass, Jungle rainforest */
+					percent_chance 50
+						#const SELECT_HILL_TERR_1		DLC_JUNGLEGRASS
+						#const SELECT_HILL_TERR_2		83 /* Grass, Jungle rainforest */
+						#const SELECT_PLAINS_TERR_1		GRASS
+						#const SELECT_PLAINS_TERR_2		GRASS3
+					end_random
+			endif
+			if WET_SPRING
+				#const TERR_HILLS_LOWER_FINAL	GRASS2
+				#const TERR_HILLS_BASE		SELECT_HILL_TERR_1
+			else
+				start_random
+					percent_chance 50
+						#const TERR_HILLS_BASE		SELECT_HILL_TERR_1
+						#const TERR_HILLS_LOWER_FINAL	SELECT_HILL_TERR_2
+					percent_chance 50
+						#const TERR_HILLS_BASE		SELECT_HILL_TERR_2
+						#const TERR_HILLS_LOWER_FINAL	SELECT_HILL_TERR_1
+					end_random
+			endif
+			start_random
+				percent_chance 50
+					#const TERR_LOWER_PLAINS_BASE	SELECT_PLAINS_TERR_1
+					#const TERR_PLAINS_HILLS		SELECT_PLAINS_TERR_2
+				percent_chance 50
+					#const TERR_LOWER_PLAINS_BASE	SELECT_PLAINS_TERR_2
+					#const TERR_PLAINS_HILLS		SELECT_PLAINS_TERR_1
+				end_random
+			/* ideas DRY_SPRING LATE_SNOW */
+			start_random
+				percent_chance 35
+					#define SPRING_SNOW
+					#const MIXT_SPRING_SNOW	73 /* Snow, light */
+				percent_chance 65
+				end_random
+			
+			#const TERR_BASE			GRASS_FLOWERS_1
+			#const TERR_DELL_BASE	GRASS_FLOWERS_2
+			if WET_SPRING
+				start_random
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		SELECT_PLAINS_TERR_1
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		SELECT_PLAINS_TERR_2
+					end_random
+				#const MIXT_FOOTHILLS_LAYER_B	76 /* Dirt, Mud */
+				#const MIXT_PLAINS_LAYER		76 /* Dirt, Mud */
+			elseif DRY_SPRING
+				start_random
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		SELECT_PLAINS_TERR_1
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		SELECT_PLAINS_TERR_2
+					end_random
+				start_random
+					percent_chance 50
+						#const MIXT_PLAINS_LAYER		DIRT3
+					percent_chance 50
+						#const MIXT_PLAINS_LAYER		DLC_DRYGRASS
+					end_random
+			else
+				start_random
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		GRASS_FLOWERS_1
+					percent_chance 50
+						#const MIXT_FOOTHILLS_LAYER		GRASS_FLOWERS_2
+					end_random
+				#const MIXT_PLAINS_LAYER		GRASS2
+			endif
+
+
+		elseif SEASON_SUMMER
+			#const TERR_PLAYER	DIRT3
+			start_random
+				percent_chance 50
+					#const TERR_DELL_BASE		GRASS_FLOWERS_1
+					#const TERR_BASE				GRASS_FLOWERS_2
+				percent_chance 50
+					#const TERR_DELL_BASE		GRASS_FLOWERS_2
+					#const TERR_BASE				GRASS_FLOWERS_1
+				end_random
+
+			#const TERR_HILLS_BASE		DLC_DRYGRASS
+			#const TERR_HILLS_LOWER_FINAL		GRASS
+			#const TERR_LOWER_PLAINS_BASE		GRASS2
+			#const TERR_PLAINS_HILLS		GRASS3
+
+			#const MIXT_FOOTHILLS_LAYER		TERR_HILLS_BASE
+			#const MIXT_HILLS_HILLS		TERR_HILLS_LOWER_FINAL
+			#const MIXT_PLAINS_LAYER		TERR_PLAINS_HILLS
+
+		else /* SEASON_AUTUMN */
+			start_random
+				percent_chance 50
+					#define AUTUMN_SNOW
+				end_random
+			start_random
+				percent_chance 50
+					#const TERR_BASE				GRASS_FLOWERS_2
+					#const TERR_DELL_BASE		GRASS_FLOWERS_1
+				percent_chance 50
+					#const TERR_BASE				GRASS_FLOWERS_1
+					#const TERR_DELL_BASE		GRASS_FLOWERS_2
+				end_random
+			#const TERR_PLAYER				DIRT3
+			start_random
+				percent_chance 50
+					#const TERR_LOWER_PLAINS_BASE		GRASS
+					#const TERR_PLAINS_HILLS			GRASS2
+				percent_chance 50
+					#const TERR_LOWER_PLAINS_BASE		GRASS2
+					#const TERR_PLAINS_HILLS			GRASS
+				end_random
+			start_random
+				percent_chance 50
+					#const TERR_HILLS_LOWER_FINAL		DLC_DRYGRASS
+					#const TERR_HILLS_BASE			GRASS3
+				percent_chance 50
+					#const TERR_HILLS_LOWER_FINAL		GRASS3
+					#const TERR_HILLS_BASE			DLC_DRYGRASS
+				end_random
+			#const MIXT_FOOTHILLS_LAYER		TERR_HILLS_BASE
+			#const MIXT_HILLS_HILLS		TERR_HILLS_LOWER_FINAL
+			#const MIXT_PLAINS_LAYER		TERR_PLAINS_HILLS
+			#const MIXT_PLAINS_HILLS		TERR_LOWER_PLAINS_BASE
+			#const MIXT_AUTUMN_SNOW		SNOW_SOFT_LIGHT
+		endif
+	/* forest terrains */
+		#const OLD_FOREST_OBJECT	1350
+		#const TERR_FOREST_BASE		92 /* forest reeds */
+		if SEASON_WINTER
+			if DRY_WINTER
+				#const MIXT_FOREST_LAYER	73 /* Snow, light */
+			else
+				#const MIXT_FOREST_LAYER	74 /* Snow, strong */
+			endif
+		elseif AUTUMN_SNOW
+			#const MIXT_FOREST_LAYER	73 /* Snow, light */
+		elseif SPRING_SNOW
+			#const MIXT_FOREST_LAYER	73 /* Snow, light */
+		elseif SEASON_SPRING
+			#const MIXT_FOREST_LAYER	77 /* Underbrush, Jungle */
+		else
+			#const MIXT_FOREST_LAYER	71 /* Underbrush, Leaves */
+		endif
+		/* viable terrains 
+			DLC_FORESTAUTUMN, DLC_FORESTSNOWAUTUMN, BIRCH_FOREST, DLC_FORESTDEAD, FOREST, PINE_FOREST, SNOW_FOREST, 20
+			bushes:	89
+		*/
+
+	#const TERR_PLAYER_A		ROAD		/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_PLAYER_B		ROAD2		/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_PLAYER_C		38		/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_PLAYER_D		39		/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_PLAYER_E		DLC_DRYROAD	/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_PLAYER_F		DLC_JUNGLEROAD	/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_PLAYER_G		75		/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_PLAYER_H		78		/* the initial player terrain for select players to allow better forest generation */
+	#const TERR_CAVE_BASE		DLC_ROCK	/* 70 Gravel, default */
+	#const TERR_MOUNTAIN			BLACK_WALKABLE	/* DLC_ROCK */
+	#const TERR_CAVE_ICE			ICE
+	#const TERR_VILLAGE_BASE		DIRT2	/* used for trading villages */
+	
+	/* unused */
+		#const TERR_KILLS		WATER	/* 8 dead farm */
+		#const TERR_CROSSING		SHALLOW	/* 26 Ice, Navigable; SHALLOW */
+		#const TERR_BEACH_1		BEACH
+		#const TERR_BEACH_2		ICYSHORE
+	/* unused */
+		#const TERR_PLAINS_FOREST_MASK		LEAVES
+		#const TERR_PLAYER_FOREST_AREA		DIRT /* fully removed */
+		#const TERR_PLAYER_FOREST_DONE		DLC_BOGLAND
+		#const TERR_HILLS_FOREST_MASK		71 /* unused */
+	
+	/* fully removed temporary terrains */
+		#const TERR_HILLS_LOWER_LAYER		86 /* Moddable land, fully removed */
+		#const TERR_MOUNTAIN_TEMP1		84	/* Moddable land, fully removed  */
+		#const TERR_MOUNTAIN_TEMP2		85	/* Moddable land, fully removed */
+		#const TERR_HILLS_TEMP2		29	/* 29 farm 0, fully removed */
+		#const TERR_HILLS_TEMP3		87	/* Moddable land, fully removed */
+	
+	#const MIXT_S_MOUNTAIN_INNER	70	/* 70 Gravel, default; WARNING: controls some unit placement */
+
+/* seasonal forest trees */
+	if SEASON_WINTER
+		#const OBJ_TREE_PINE_MAIN	SNOWPINETREE
+		#const	OBJ_TREE_PINE_LESS	PINETREE
+	elseif SPRING_SNOW
+		#const OBJ_TREE_PINE_MAIN	PINETREE
+		#const	OBJ_TREE_PINE_LESS	SNOWPINETREE
+	elseif AUTUMN_SNOW
+		#const OBJ_TREE_PINE_MAIN	PINETREE
+		#const	OBJ_TREE_PINE_LESS	SNOWPINETREE
+	else
+		#const OBJ_TREE_PINE_MAIN	PINETREE
+		#const	OBJ_TREE_PINE_LESS	PINETREE
+	endif
+	if SEASON_WINTER
+		#const OBJ_TREE_OAK_A		DLC_DEADTREE
+		#const OBJ_TREE_OAK_B		DLC_DEADTREE
+	elseif AUTUMN_SNOW
+		#const OBJ_TREE_OAK_A		DLC_AUTUMNSNOWTREE
+		#const OBJ_TREE_OAK_B		DLC_AUTUMNTREE
+	elseif SEASON_AUTUMN
+		#const OBJ_TREE_OAK_A		DLC_AUTUMNTREE
+		#const OBJ_TREE_OAK_B		DLC_AUTUMNTREE
+	elseif SEASON_SPRING
+		#const OBJ_TREE_OAK_A		TREE_GREEN_OAK
+		#const OBJ_TREE_OAK_B		OAKTREE
+	else
+		#const OBJ_TREE_OAK_A		FOREST_TREE
+		#const OBJ_TREE_OAK_B		OAKTREE
+	endif
+	if SEASON_WINTER
+		#const OBJ_TREE_BIRCH_MAIN	DLC_DEADTREE
+		#const OBJ_TREE_BIRCH_LESS	BIRCH_TREE
+	elseif SPRING_SNOW
+		#const OBJ_TREE_BIRCH_MAIN	BIRCH_TREE
+		#const OBJ_TREE_BIRCH_LESS	DLC_DEADTREE
+	elseif AUTUMN_SNOW
+		#const OBJ_TREE_BIRCH_MAIN	BIRCH_TREE
+		#const OBJ_TREE_BIRCH_LESS	DLC_DEADTREE
+	else
+		#const OBJ_TREE_BIRCH_MAIN	BIRCH_TREE
+		#const OBJ_TREE_BIRCH_LESS	BIRCH_TREE
+	endif
+	if SEASON_WINTER
+		#const OBJ_TREE_BUSH		1054	/* Bush C */
+	elseif SPRING_SNOW
+		#const OBJ_TREE_BUSH		1054	/* Bush C */
+	elseif AUTUMN_SNOW
+		#const OBJ_TREE_BUSH		1054	/* Bush C */
+	else
+		start_random
+			percent_chance 50
+				#const OBJ_TREE_BUSH		302	/* Bush A */
+			percent_chance 50
+				#const OBJ_TREE_BUSH		1053	/* Bush B */
+			end_random
+	endif
+	if SEASON_WINTER
+		#const OBJ_TREE_WILLOW	DLC_DEADTREE
+	else
+		#const OBJ_TREE_WILLOW	WILLOW_TREE
+	endif
+	if SEASON_WINTER
+		#const OBJ_TREE_MAPLE	DLC_DEADTREE
+	elseif SEASON_AUTUMN
+		#const OBJ_TREE_MAPLE	ASIAN_MAPLE_AUTUMN_TREE
+	else
+		#const OBJ_TREE_MAPLE	ASIAN_MAPLE_GREEN_TREE
+	endif
+
+/* seasonal objects */
+	if SEASON_WINTER
+		#const OBJ_MOUNTAIN_A	DLC_MOUNTAIN_6
+		#const OBJ_MOUNTAIN_B	DLC_MOUNTAIN_8
+	elseif SPRING_SNOW
+		#const OBJ_MOUNTAIN_A	DLC_MOUNTAIN_6
+		#const OBJ_MOUNTAIN_B	DLC_MOUNTAIN_5
+	elseif AUTUMN_SNOW
+		#const OBJ_MOUNTAIN_A	DLC_MOUNTAIN_7
+		#const OBJ_MOUNTAIN_B	DLC_MOUNTAIN_5
+	else
+		#const OBJ_MOUNTAIN_A	MOUNTAIN1
+		#const OBJ_MOUNTAIN_B	MOUNTAIN2
+	endif
+	#const OBJ_ROCK_A		ROCK
+	#const OBJ_MOUNTAIN_TREE_A		OAKTREE
+	#const OBJ_MOUNTAIN_TREE_B		RUGS
+	#const OBJ_MOUNTAIN_TREE_C		CRATER
+	if SEASON_WINTER
+		#const OBJ_STRAGGLER_A	DLC_DEADTREE
+	elseif AUTUMN_SNOW
+		#const OBJ_STRAGGLER_A	DLC_AUTUMNSNOWTREE
+	elseif SEASON_AUTUMN
+		#const OBJ_STRAGGLER_A	DLC_AUTUMNTREE
+	elseif SEASON_SPRING
+		#const OBJ_STRAGGLER_A	TREE_GREEN_OAK
+	else
+		#const OBJ_STRAGGLER_A	OAKTREE
+	endif
+	if SEASON_WINTER
+		#const OBJ_STRAGGLER_B	DLC_DEADTREE
+		#const OBJ_STRAGGLER_C	SNOWPINETREE
+	else
+		#const OBJ_STRAGGLER_B	BIRCH_TREE
+		#const OBJ_STRAGGLER_C	PINETREE
+	endif
+
+<PLAYER_SETUP>
+direct_placement
+
+#define DISABLE_KILLS
+
+effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_A ATTR_RADIUS_1 2
+effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_A ATTR_RADIUS_2 2
+effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_B ATTR_RADIUS_1 2
+effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_B ATTR_RADIUS_2 2
+effect_amount GAIA_SET_ATTRIBUTE OBJ_ROCK_A ATTR_OCCLUSION_MODE 10
+effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_B ATTR_OCCLUSION_MODE 10
+effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_C ATTR_OCCLUSION_MODE 10
+
+if SEASON_WINTER
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_B ATTR_STANDING_GRAPHIC 5803
+else
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_B ATTR_STANDING_GRAPHIC 2310
+endif
+if SEASON_WINTER
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_C ATTR_STANDING_GRAPHIC 5803
+elseif SPRING_SNOW
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_C ATTR_STANDING_GRAPHIC 5803
+elseif AUTUMN_SNOW
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_C ATTR_STANDING_GRAPHIC 5803
+else
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_MOUNTAIN_TREE_C ATTR_STANDING_GRAPHIC 2310
+endif
+
+/* burned clusters setup */
+	#const OBJ_RUBBLE_2X2	2011
+	#const OBJ_RUBBLE_3X3	2012
+	#const OBJ_FURNACE		2510
+	#const OBJ_BONFIRE		304
+	#const SMOKE 1308
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_2X2 ATTR_CAN_BE_BUILT_ON 0
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_2X2 ATTR_STANDING_GRAPHIC 473
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_2X2 ATTR_RADIUS_1 0.9
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_2X2 ATTR_RADIUS_2 0.9
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_3X3 ATTR_CAN_BE_BUILT_ON 0
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_3X3 ATTR_STANDING_GRAPHIC 474
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_3X3 ATTR_RADIUS_1 1.5
+	effect_amount GAIA_SET_ATTRIBUTE OBJ_RUBBLE_3X3 ATTR_RADIUS_2 1.5
+
+effect_amount GAIA_SET_ATTRIBUTE OLD_FOREST_OBJECT ATTR_TERRAIN_ID 13
+
+/* FIW object mods */
+	/* Black Bear */
+		#const OBJ_FOOD_BEAR 822
+		#const OBJ_DEAD_BOAR 356
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_DEAD_BOAR ATTR_STANDING_GRAPHIC 13136
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_ATTACK_GRAPHIC 13134
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_ATTACK2_GRAPHIC 13140
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_STANDING_GRAPHIC 13136
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_STANDING2_GRAPHIC 13136
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_DYING_GRAPHIC 13135
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_UNDEAD_GRAPHIC 13135
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_WALKING_GRAPHIC 13138
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_RUNNING_GRAPHIC 13139
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_NAME_ID 21227
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_ICON_ID 151
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_HERO_STATUS 64
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_LINE_OF_SIGHT 5
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_COMBAT_ABILITY 0
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_STORAGE_VALUE 340
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_MOVE_SPEED 0.8
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_REGENERATION_RATE 30.00
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_DAMAGE_REFLECTION 0.50
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_RELOAD_TIME 1.00
+		effect_amount GAIA_SET_ATTRIBUTE OBJ_FOOD_BEAR ATTR_HITPOINTS 23
+
+	/* Iroquois Scout */
+		#const OBJ_IROQUOIS_SCOUT 2329
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_TRAITS 16
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_ATTACK_GRAPHIC 1408
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_STANDING_GRAPHIC 1414
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_STANDING2_GRAPHIC 1414
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_DYING_GRAPHIC 1411
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_WALKING_GRAPHIC 1418
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_RUNNING_GRAPHIC 1418
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_NAME_ID 5011
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_CREATE_SDESC_ID 105011
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_ICON_ID 297
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_DEAD_ID 1375
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_HERO_STATUS 64
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_HITPOINTS 22
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_MOVE_SPEED 0.90
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_LINE_OF_SIGHT 8
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_RELOAD_TIME 4
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_FORMATION_CATEGORY 0
+		effect_amount MUL_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_POPULATION 0
+		effect_amount ENABLE_OBJECT OBJ_IROQUOIS_SCOUT ATTR_ENABLE 0
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_TRAIN_LOCATION FORT
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_FOOD_COST 0
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_GOLD_COST 75
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_TRAIN_BUTTON 1
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_CREATION_TIME 15
+		effect_amount SET_ATTRIBUTE OBJ_IROQUOIS_SCOUT ATTR_BUTTON_ID 0
+	/* Villages */
+		/* Constant Chief Hut (trade building) Properties */
+			#const CHIEF_HUT	84
+			#const OBJ_TRADE_BUILDING	CHIEF_HUT
+			effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_NAME_ID 14897
+			effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_RADIUS_1 1.50
+			effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_RADIUS_2 1.50
+			effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_HERO_STATUS 4
+			effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_HITPOINTS 500
+		/* Tribal Village Variation */
+			start_random
+			percent_chance 33
+				/* Random Chief Hut Properties */
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_STANDING_GRAPHIC 4334
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DYING_GRAPHIC 4333
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_ICON_ID 81
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DEAD_ID 1447
+				/* Random Supporting Hut Properties */
+				#const HUT1 713
+				#const HUT2 714
+				#const HUT3 715
+				#const HUT4 649
+			percent_chance 33
+				/* Random Chief Hut Properties */
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_STANDING_GRAPHIC 4348
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DYING_GRAPHIC 4347
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_ICON_ID 79
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DEAD_ID 1454
+				/* Random Supporting Hut Properties */
+				#const HUT1 716
+				#const HUT2 717
+				#const HUT3 718
+				#const HUT4 649
+			percent_chance 34
+				/* Random Chief Hut Properties */
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_STANDING_GRAPHIC 12687
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DYING_GRAPHIC 12688
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_ICON_ID 91
+				effect_amount GAIA_SET_ATTRIBUTE CHIEF_HUT ATTR_DEAD_ID 1535
+				/* Random Supporting Hut Properties */
+				#const HUT1 1832
+				#const HUT2 1833
+				#const HUT3 1834
+				#const HUT4 2033
+				#define NEW_SKINS
+			end_random
+		/* Constant Supporting Hut Properties */
+			effect_amount GAIA_SET_ATTRIBUTE HUT1 ATTR_HERO_STATUS 4
+			effect_amount GAIA_SET_ATTRIBUTE HUT1 ATTR_HITPOINTS 100
+			effect_amount GAIA_SET_ATTRIBUTE HUT2 ATTR_HERO_STATUS 4
+			effect_amount GAIA_SET_ATTRIBUTE HUT2 ATTR_HITPOINTS 100
+			effect_amount GAIA_SET_ATTRIBUTE HUT3 ATTR_HERO_STATUS 4
+			effect_amount GAIA_SET_ATTRIBUTE HUT3 ATTR_HITPOINTS 100
+			effect_amount GAIA_SET_ATTRIBUTE HUT4 ATTR_HERO_STATUS 4
+			effect_amount GAIA_SET_ATTRIBUTE HUT4 ATTR_HITPOINTS 100
+
+if LOW_RESOURCES
+	#const TRADE_CART_ENABLER 161
+	#const TRADE_COG_ENABLER 180
+	#const TRADE_CARAVAN_ENABLER 48
+	#const HINDU_CARAVANSERAI_ENABLER 518
+	#const PERSIAN_CARAVANSERAI_ENABLER 552  
+	#const SILK_ROAD 499
+	effect_amount DISABLE_TECH TRADE_COG_ENABLER ATTR_DISABLE 180
+	effect_amount DISABLE_TECH TRADE_CART_ENABLER ATTR_DISABLE 161
+	effect_amount DISABLE_TECH TRADE_CARAVAN_ENABLER ATTR_DISABLE 48
+	effect_amount DISABLE_TECH HINDU_CARAVANSERAI_ENABLER ATTR_DISABLE 518
+	effect_amount DISABLE_TECH PERSIAN_CARAVANSERAI_ENABLER ATTR_DISABLE 552
+	effect_amount DISABLE_TECH SILK_ROAD ATTR_DISABLE 499    
+else
+endif
+
+<LAND_GENERATION>
+
+start_random
+	percent_chance 49
+		#define SWITCH_TEAMS
+		#const TEAM_A	2
+		#const TEAM_B	1
+		#const PLAYER_COLOR_A	2
+		#const PLAYER_COLOR_B	1
+		#const PLAYER_COLOR_C	4
+		#const PLAYER_COLOR_D	3
+		#const PLAYER_COLOR_E	6
+		#const PLAYER_COLOR_F	5
+		#const PLAYER_COLOR_G	8
+		#const PLAYER_COLOR_H	7
+	percent_chance 51
+		#const TEAM_A	1
+		#const TEAM_B	2
+		#const PLAYER_COLOR_A	1
+		#const PLAYER_COLOR_B	2
+		#const PLAYER_COLOR_C	3
+		#const PLAYER_COLOR_D	4
+		#const PLAYER_COLOR_E	5
+		#const PLAYER_COLOR_F	6
+		#const PLAYER_COLOR_G	7
+		#const PLAYER_COLOR_H	8
+	end_random
+
+/* kill setup, removed */
+
+/* player land positions, includes hill edge */
+	if 1V1_GAME
+		start_random
+			percent_chance 20
+				#const PLAYER_Y_RAND	-8
+			percent_chance 20
+				#const PLAYER_Y_RAND	-4
+			percent_chance 20
+				#const PLAYER_Y_RAND	0
+			percent_chance 20
+				#const PLAYER_Y_RAND	4
+			percent_chance 20
+				#const PLAYER_Y_RAND	8
+			end_random
+		start_random
+			percent_chance 25
+				#const 1_2_SPLIT	16
+			percent_chance 25
+				#const 1_2_SPLIT	21
+			percent_chance 25
+				#const 1_2_SPLIT	17
+			percent_chance 25
+				#const 1_2_SPLIT	32
+			end_random
+		#const PLAYER_Y_BASE	80
+		#const PLAYER_Y_1	(PLAYER_Y_BASE + PLAYER_Y_RAND)
+		#const HILLS_END	65
+	elseif 2V2_GAME
+		start_random
+			percent_chance 14
+				#const PLAYER_Y_RAND	-3
+			percent_chance 15
+				#const PLAYER_Y_RAND	-2
+			percent_chance 14
+				#const PLAYER_Y_RAND	-1
+			percent_chance 14
+				#const PLAYER_Y_RAND	0
+			percent_chance 14
+				#const PLAYER_Y_RAND	1
+			percent_chance 15
+				#const PLAYER_Y_RAND	2
+			percent_chance 14
+				#const PLAYER_Y_RAND	3
+			end_random
+		#const PLAYER_Y_BASE	86
+		#const PLAYER_Y_A_SHIFT	rnd(-2,2)
+		#const PLAYER_Y_B_SHIFT	rnd(-2,2)
+		
+		start_random
+			percent_chance 25
+				#const 1_2_SPLIT	32
+			percent_chance 25
+				#const 1_2_SPLIT	34
+			percent_chance 25
+				#const 1_2_SPLIT	37
+			percent_chance 25
+				#const 1_2_SPLIT	40
+			end_random
+		start_random
+			percent_chance 25
+				#const 3_4_SPLIT	12.5
+			percent_chance 25
+				#const 3_4_SPLIT	15
+			percent_chance 25
+				#const 3_4_SPLIT	17.5
+			percent_chance 25
+				#const 3_4_SPLIT	20
+			end_random
+		#const 5_6_SPLIT	10 /* unused in 2v2 */
+		#const 7_8_SPLIT	9 /* unused in 2v2 */
+		#const PLAYER_Y_1	(PLAYER_Y_RAND + PLAYER_Y_BASE + PLAYER_Y_A_SHIFT - 9) /* 83 */
+		#const PLAYER_Y_2	(PLAYER_Y_RAND + PLAYER_Y_BASE + PLAYER_Y_B_SHIFT) /* 90 */
+		#const PLAYER_Y_3	97 /* unused in 2v2 */
+		#const PLAYER_Y_4	98 /* unused in 2v2 */
+		#const HILLS_END	67
+	elseif 3V3_GAME
+		start_random
+			percent_chance	25
+				#const PLAYER_RADIUS	40
+			percent_chance	25
+				#const PLAYER_RADIUS	41.33
+			percent_chance	25
+				#const PLAYER_RADIUS	42.67
+			percent_chance	25
+				#const PLAYER_RADIUS	44
+			end_random
+		start_random
+			percent_chance	25
+				#const PLAYER_SIN_A	0.891007
+				#const PLAYER_COS_A	0.453990
+				#const HILLS_END	63
+			percent_chance	25
+				#const PLAYER_SIN_A	0.913545
+				#const PLAYER_COS_A	0.406737
+				#const HILLS_END	62
+			percent_chance	25
+				#const PLAYER_SIN_A	0.939693
+				#const PLAYER_COS_A	0.342020
+				#define 1_2_ON_HILL
+				#const HILLS_END	68
+			percent_chance	25
+				#const PLAYER_SIN_A	0.956305
+				#const PLAYER_COS_A	0.292372
+				#define 1_2_ON_HILL
+				#const HILLS_END	67
+			end_random
+		start_random
+			percent_chance	25
+				#const PLAYER_SIN_B	0.601815
+				#const PLAYER_COS_B	0.798636
+			percent_chance	25
+				#const PLAYER_SIN_B	0.642788
+				#const PLAYER_COS_B	0.766044
+			percent_chance	25
+				#const PLAYER_SIN_B	0.694658
+				#const PLAYER_COS_B	0.719340
+			percent_chance	25
+				#const PLAYER_SIN_B	0.731354
+				#const PLAYER_COS_B	0.681998
+			end_random
+		start_random
+			percent_chance	25
+				#const PLAYER_SIN_C	0.190809
+				#const PLAYER_COS_C	0.981627
+			percent_chance	25
+				#const PLAYER_SIN_C	0.241922
+				#const PLAYER_COS_C	0.970296
+			percent_chance	25
+				#const PLAYER_SIN_C	0.309017
+				#const PLAYER_COS_C	0.951057
+			percent_chance	25
+				#const PLAYER_SIN_C	0.358368
+				#const PLAYER_COS_C	0.933580
+			end_random
+		#const 1_2_SPLIT	(PLAYER_RADIUS * PLAYER_SIN_A)
+		#const 3_4_SPLIT	(PLAYER_RADIUS * PLAYER_SIN_B)
+		#const 5_6_SPLIT	(PLAYER_RADIUS * PLAYER_SIN_C)
+		/* #const 1_2_SPLIT	38
+		#const 3_4_SPLIT	24
+		#const 5_6_SPLIT	10 */
+		#const 7_8_SPLIT	9 /* unused in 3v3 */
+		/* #const PLAYER_Y_1	72 */
+		#const PLAYER_Y_1	(PLAYER_RADIUS * PLAYER_COS_A + 50)
+		#const PLAYER_Y_2	(PLAYER_RADIUS * PLAYER_COS_B + 50)
+		#const PLAYER_Y_3	(PLAYER_RADIUS * PLAYER_COS_C + 50)
+		/* #const PLAYER_Y_1	77
+		#const PLAYER_Y_2	85
+		#const PLAYER_Y_3	89 */
+		#const PLAYER_Y_4	98 /* unused in 3v3 */
+		/* #const HILLS_END	68 */
+		#define ADD_HILL_FORELAND
+		#const HILL_FORELAND_END	70
+	elseif 4V4_GAME
+		#define 1_2_ON_HILL
+		start_random
+			percent_chance	25
+				#const PLAYER_RADIUS	40
+			percent_chance	25
+				#const PLAYER_RADIUS	42
+			percent_chance	25
+				#const PLAYER_RADIUS	43
+			percent_chance	25
+				#const PLAYER_RADIUS	45
+			end_random
+		start_random
+			percent_chance	25
+				#const PLAYER_SIN_A	0.99619
+				#const PLAYER_COS_A	0.08715
+			percent_chance	25
+				#const PLAYER_SIN_A	0.99939
+				#const PLAYER_COS_A	0.03489
+			percent_chance	25
+				#const PLAYER_SIN_A	0.99939
+				#const PLAYER_COS_A	-0.03489
+			percent_chance	25
+				#const PLAYER_SIN_A	0.99619
+				#const PLAYER_COS_A	-0.08715
+			end_random
+		start_random
+			percent_chance	25
+				#const PLAYER_SIN_B	0.86602
+				#const PLAYER_COS_B	0.5
+			percent_chance	25
+				#const PLAYER_SIN_B	0.891006
+				#const PLAYER_COS_B	0.453990
+			percent_chance	25
+				#const PLAYER_SIN_B	0.920504
+				#const PLAYER_COS_B	0.390731
+			percent_chance	25
+				#const PLAYER_SIN_B	0.939692
+				#const PLAYER_COS_B	0.3420201
+			end_random
+		start_random
+			percent_chance	25
+				#const PLAYER_SIN_C	0.573576
+				#const PLAYER_COS_C	0.819152
+			percent_chance	25
+				#const PLAYER_SIN_C	0.615661
+				#const PLAYER_COS_C	0.788011
+			percent_chance	25
+				#const PLAYER_SIN_C	0.669131
+				#const PLAYER_COS_C	0.743145
+			percent_chance	25
+				#const PLAYER_SIN_C	0.707107
+				#const PLAYER_COS_C	0.707107
+			end_random
+		start_random
+			percent_chance	25
+				#const PLAYER_SIN_D	0.173648
+				#const PLAYER_COS_D	0.984808
+			percent_chance	25
+				#const PLAYER_SIN_D	0.224951
+				#const PLAYER_COS_D	0.974370
+			percent_chance	25
+				#const PLAYER_SIN_D	0.292372
+				#const PLAYER_COS_D	0.956305
+			percent_chance	25
+				#const PLAYER_SIN_D	0.342020
+				#const PLAYER_COS_D	0.939693
+			end_random
+		#const 1_2_SPLIT	(PLAYER_RADIUS * PLAYER_SIN_A)
+		#const 3_4_SPLIT	(PLAYER_RADIUS * PLAYER_SIN_B)
+		#const 5_6_SPLIT	(PLAYER_RADIUS * PLAYER_SIN_C)
+		#const 7_8_SPLIT	(PLAYER_RADIUS * PLAYER_SIN_D)
+		/* #const 1_2_SPLIT	39.5
+		#const 3_4_SPLIT	33
+		#const 5_6_SPLIT	21.5
+		#const 7_8_SPLIT	9 */
+		#const PLAYER_Y_1	(PLAYER_RADIUS * PLAYER_COS_A + 50)
+		#const PLAYER_Y_2	(PLAYER_RADIUS * PLAYER_COS_B + 50)
+		#const PLAYER_Y_3	(PLAYER_RADIUS * PLAYER_COS_C + 50)
+		#const PLAYER_Y_4	(PLAYER_RADIUS * PLAYER_COS_D + 50)
+		/* #const PLAYER_Y_1	66
+		#const PLAYER_Y_2	78
+		#const PLAYER_Y_3	86.5
+		#const PLAYER_Y_4	90.5 */
+		#const HILLS_END	63
+		#define ADD_HILL_FORELAND
+		#const HILL_FORELAND_END	75
+	elseif 2V2V2V2_GAME
+		#const 1_2_SPLIT	38 /* unused */
+		#const 3_4_SPLIT	32 /* unused */
+		#const 5_6_SPLIT	21 /* unused */
+		#const 7_8_SPLIT	9 /* unused */
+		#const PLAYER_Y_1	79
+		#const PLAYER_Y_2	91
+		#const PLAYER_Y_3	98 /* unused */
+		#const PLAYER_Y_4	99 /* unused */
+		#const HILLS_END	70
+	else
+		if COMMON_TEAMS
+		endif
+		#const 1_2_SPLIT	38 /* unused */
+		#const 3_4_SPLIT	32 /* unused */
+		#const 5_6_SPLIT	21 /* unused */
+		#const 7_8_SPLIT	9 /* unused */
+		#const PLAYER_Y_1	rnd(82,88)
+		#const PLAYER_Y_2	77 /* unused */
+		#const PLAYER_Y_3	86 /* unused */
+		#const PLAYER_Y_4	90 /* unused */
+		#const HILLS_END	73
+	endif
+	if 2V2V2V2_GAME
+		#const T1_X		12.5
+		#const T2_X		37.5
+		#const T3_X		62.5
+		#const T4_X		87.5
+	endif
+
+if MAP_AT_LEAST_LARGE
+	#define FOUR_CAVES
+	#define AT_LEAST_3_CAVES
+	#define AT_LEAST_4_CAVES
+	#const CAVE_COUNT	4
+elseif MAP_AT_LEAST_NORMAL
+	#define THIRD_CAVE
+	#define AT_LEAST_3_CAVES
+	#const CAVE_COUNT	3
+else
+	#const CAVE_COUNT	2
+endif
+
+/* discarded-no-time land forests idea, see old file for removed code */
+
+base_terrain TERR_BASE
+
+/* Land zones */
+	#const ZONE_LEFT_CAVE	2
+	#const ZONE_RIGHT_CAVE	3
+	#const ZONE_THIRD_CAVE	4
+	#const ZONE_FOURTH_CAVE	5
+	#const ZONE_MOUNTAIN		6
+	/* removed unused Kill zones */
+
+/* Land IDs */
+	#const L_ID_MOUNTAINS	2
+	#const L_ID_VILLAGES		3
+	#const L_ID_PRINT		9
+
+#const HILLS_BASE_ELEVATION	1
+
+/* debuger land */
+	if DEBUG
+		create_land
+		{
+			land_position	5 98
+			terrain_type	TERR_LOWER_PLAINS_BASE
+			base_size	1
+			number_of_tiles	0
+			land_id	L_ID_PRINT
+		}
+	endif
+/* player lands */
+	#const PLAYER_LAND_TILES	10
+	#const PLAYER_LAND_BASE_SIZE	11
+	#const PLAYER_LAND_CONFORMITY	99
+	#define PLAYER_LANDS_CONFORM
+	/* removed old 1v1 lands */
+	if AT_LEAST_1V1_GAME
+		create_land
+		{
+			terrain_type	TERR_PLAYER_A
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 - 1_2_SPLIT) PLAYER_Y_1
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_A 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_A ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if 4V4_GAME
+				base_elevation	HILLS_BASE_ELEVATION
+			elseif 1_2_ON_HILL
+				base_elevation	HILLS_BASE_ELEVATION
+			endif
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_B
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 + 1_2_SPLIT) PLAYER_Y_1
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_B 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_B ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if 4V4_GAME
+				base_elevation	HILLS_BASE_ELEVATION
+			elseif 1_2_ON_HILL
+				base_elevation	HILLS_BASE_ELEVATION
+			endif
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+	endif
+	if AT_LEAST_2V2_GAME
+		create_land
+		{
+			terrain_type	TERR_PLAYER_C
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 - 3_4_SPLIT) PLAYER_Y_2
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_C 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_A ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_D
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 + 3_4_SPLIT) PLAYER_Y_2
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_D 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_B ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+	endif
+	if AT_LEAST_3V3_GAME
+		create_land
+		{
+			terrain_type	TERR_PLAYER_E
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 - 5_6_SPLIT) PLAYER_Y_3
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_E 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_A ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_F
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 + 5_6_SPLIT) PLAYER_Y_3
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_F 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_B ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+	endif
+	if 4V4_GAME
+		create_land
+		{
+			terrain_type	TERR_PLAYER_G
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 - 7_8_SPLIT) PLAYER_Y_4
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_G 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_A ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_H
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(50 + 7_8_SPLIT) PLAYER_Y_4
+			if ASSIGN_AT_COLOR
+				assign_to ASSIGN_TARGET PLAYER_COLOR_H 0 0
+			elseif ASSIGN_AT_RANDOM 
+				assign_to ASSIGN_TARGET -10 ASSIGN_MODE 0
+			else
+				assign_to ASSIGN_TARGET TEAM_B ASSIGN_MODE 0
+			endif
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+	endif
+	if 2V2V2V2_GAME
+		/* in 2v2v2v2 games player are placed in lobby order, first by team, then individually */
+		create_land
+		{
+			terrain_type	TERR_PLAYER_A
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T1_X	PLAYER_Y_1
+			assign_to	AT_TEAM 1 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_B
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T1_X	PLAYER_Y_2
+			assign_to	AT_TEAM 1 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_C
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T2_X	PLAYER_Y_1
+			assign_to	AT_TEAM 2 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_D
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T2_X	PLAYER_Y_2
+			assign_to	AT_TEAM 2 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_E
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T3_X	PLAYER_Y_1
+			assign_to	AT_TEAM 3 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_F
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T3_X	PLAYER_Y_2
+			assign_to	AT_TEAM 3 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_G
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T4_X	PLAYER_Y_1
+			assign_to	AT_TEAM 4 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_H
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		T4_X	PLAYER_Y_2
+			assign_to	AT_TEAM 4 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+	endif
+	if COMMON_TEAMS
+	else
+		#const FFA_LEFT_X	(100 / PLAYER_COUNT / 2)
+		create_land
+		{
+			terrain_type	TERR_PLAYER_A
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 0 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_B
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 1 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_C
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 2 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_D
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 3 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_E
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 4 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_F
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 5 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_G
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 6 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_PLAYER_H
+			number_of_tiles	PLAYER_LAND_TILES
+			land_position		(100 / PLAYER_COUNT * 7 + FFA_LEFT_X)	PLAYER_Y_1
+			assign_to	AT_TEAM -10 -1 0
+			base_size	PLAYER_LAND_BASE_SIZE
+			set_circular_base
+			set_zone_by_team
+			if PLAYER_LANDS_CONFORM
+				land_conformity	PLAYER_LAND_CONFORMITY
+			endif
+		}
+
+	endif
+
+/* ice caves */
+	/* caves do not have enough segments for larger maps than 240. */
+	if MAPSIZE_TINY
+		#const TILES_PER_CAVE_SEGMENT	10
+	else
+		#const TILES_PER_CAVE_SEGMENT	15
+	endif
+	if MAP_AT_LEAST_HUGE
+		#define	SEVEN_SEGMENTS_PER_CAVE
+		#define	AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+		#define	AT_LEAST_SIX_SEGMENTS_PER_CAVE
+		#define	AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+		#const		SEGMENTS_PER_CAVE	7
+	elseif MAP_AT_LEAST_LARGE
+		#define	SIX_SEGMENTS_PER_CAVE
+		#define	AT_LEAST_SIX_SEGMENTS_PER_CAVE
+		#define	AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+		#const		SEGMENTS_PER_CAVE	6
+	elseif MAP_AT_LEAST_NORMAL
+		#define	FIVE_SEGMENTS_PER_CAVE
+		#define	AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+		#const		SEGMENTS_PER_CAVE	5
+	else
+		#define	FOUR_SEGMENTS_PER_CAVE
+		#const		SEGMENTS_PER_CAVE	4
+	endif
+	#const BACK_CAVE_ELEVATION		2
+	#const FRONT_CAVE_ELEVATION		1
+
+	if SEVEN_SEGMENTS_PER_CAVE
+		#const SEGMENT_THREE_NORMALIZER	(5 / 6)
+		#const SEGMENT_FOUR_NORMALIZER	(4 / 5)
+		#const SEGMENT_FIVE_NORMALIZER	(3 / 4)
+		#const SEGMENT_SIX_NORMALIZER	(2 / 3)
+		#const SEGMENT_SEVEN_NORMALIZER	(2 / 3)
+	elseif SIX_SEGMENTS_PER_CAVE
+		#const SEGMENT_THREE_NORMALIZER	(4 / 5)
+		#const SEGMENT_FOUR_NORMALIZER	(3 / 4)
+		#const SEGMENT_FIVE_NORMALIZER	(2 / 3)
+		#const SEGMENT_SIX_NORMALIZER	(2 / 3)
+		#const SEGMENT_SEVEN_NORMALIZER	1
+	elseif FIVE_SEGMENTS_PER_CAVE
+		#const SEGMENT_THREE_NORMALIZER	(3 / 4)
+		#const SEGMENT_FOUR_NORMALIZER	(2 / 3)
+		#const SEGMENT_FIVE_NORMALIZER	(2 / 3)
+		#const SEGMENT_SIX_NORMALIZER	1
+		#const SEGMENT_SEVEN_NORMALIZER	1
+	else /* four_segments_per_cave */
+		#const SEGMENT_THREE_NORMALIZER	(3 / 4)
+		#const SEGMENT_FOUR_NORMALIZER	(2 / 3)
+		#const SEGMENT_FIVE_NORMALIZER	1
+		#const SEGMENT_SIX_NORMALIZER	1
+		#const SEGMENT_SEVEN_NORMALIZER	1
+	endif
+	
+	/* #const	CAVE_Y_TOP		(MAPSIZE * 0.01 - 11 * -1) */
+	#const	CAVE_Y_TOP		10
+
+	if MAP_AT_LEAST_HUGE
+		#const CAVE_Y_SPACING	1.9
+	elseif MAP_AT_LEAST_LARGE
+		#const CAVE_Y_SPACING	2.1
+	elseif MAP_AT_LEAST_NORMAL
+		#const CAVE_Y_SPACING	2.5
+	elseif MAP_AT_LEAST_MEDIUM
+		#const CAVE_Y_SPACING	3.2
+	else
+		#const CAVE_Y_SPACING	3.5
+	endif
+
+	#const CAVE_SEGMENT_OFFSET_FACTOR	(MAPSIZE * 0.012)
+
+	/* left cave */
+		if FOUR_CAVES
+			#const LEFT_CAVE_X	rnd(15,22)
+			#const LEFT_CAVE_X_MIN	15
+			#const LEFT_CAVE_X_MAX	22
+		elseif THIRD_CAVE
+			#const LEFT_CAVE_X	rnd(20,29)
+			#const LEFT_CAVE_X_MIN	20
+			#const LEFT_CAVE_X_MAX	29
+		else
+			#const LEFT_CAVE_X	rnd(25,35)
+			#const LEFT_CAVE_X_MIN	25
+			#const LEFT_CAVE_X_MAX	35
+		endif
+
+		#const LEFT_CAVE_FIRST_OFFSET	rnd(-4,4)
+		#const LEFT_CAVE_SECOND_OFFSET	rnd(-4,4)
+		#const LEFT_CAVE_THIRD_OFFSET	rnd(-4,4)
+		#const LEFT_CAVE_FOURTH_OFFSET	rnd(-4,4)
+		#const LEFT_CAVE_FIFTH_OFFSET	rnd(-4,4)
+		#const LEFT_CAVE_SIXTH_OFFSET	rnd(-4,4)
+		/* rework to adjust by segment count
+			idea: replace normalizer values with set consts or math of segment count */
+		#const LEFT_CAVE_SECOND_SEGMENT_X	(LEFT_CAVE_FIRST_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + LEFT_CAVE_X)
+		#const LEFT_CAVE_THIRD_SEGMENT_X	(LEFT_CAVE_SECOND_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + LEFT_CAVE_SECOND_SEGMENT_X - LEFT_CAVE_X * SEGMENT_THREE_NORMALIZER + LEFT_CAVE_X)
+		#const LEFT_CAVE_FOURTH_SEGMENT_X	(LEFT_CAVE_THIRD_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + LEFT_CAVE_THIRD_SEGMENT_X - LEFT_CAVE_X * SEGMENT_FOUR_NORMALIZER + LEFT_CAVE_X)
+		#const LEFT_CAVE_FIFTH_SEGMENT_X	(LEFT_CAVE_FOURTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + LEFT_CAVE_FOURTH_SEGMENT_X - LEFT_CAVE_X * SEGMENT_FIVE_NORMALIZER + LEFT_CAVE_X)
+		#const LEFT_CAVE_SIXTH_SEGMENT_X	(LEFT_CAVE_FIFTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + LEFT_CAVE_FIFTH_SEGMENT_X - LEFT_CAVE_X * SEGMENT_SIX_NORMALIZER + LEFT_CAVE_X)
+		#const LEFT_CAVE_SEVENTH_SEGMENT_X	(LEFT_CAVE_SIXTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + LEFT_CAVE_SIXTH_SEGMENT_X - LEFT_CAVE_X * SEGMENT_SEVEN_NORMALIZER + LEFT_CAVE_X)
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		LEFT_CAVE_X CAVE_Y_TOP
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_LEFT_CAVE
+			base_elevation	BACK_CAVE_ELEVATION
+		}
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		LEFT_CAVE_SECOND_SEGMENT_X (CAVE_Y_SPACING + CAVE_Y_TOP)
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_LEFT_CAVE 
+			base_elevation	BACK_CAVE_ELEVATION
+		}
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		LEFT_CAVE_THIRD_SEGMENT_X (CAVE_Y_SPACING * 2 + CAVE_Y_TOP)
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_LEFT_CAVE 
+			if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+				base_elevation	BACK_CAVE_ELEVATION
+			else
+				base_elevation	FRONT_CAVE_ELEVATION
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		LEFT_CAVE_FOURTH_SEGMENT_X (CAVE_Y_SPACING * 3 + CAVE_Y_TOP)
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_LEFT_CAVE 
+			if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+				base_elevation	BACK_CAVE_ELEVATION
+			else
+				base_elevation	FRONT_CAVE_ELEVATION
+			endif
+		}
+		if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		LEFT_CAVE_FIFTH_SEGMENT_X (CAVE_Y_SPACING * 4 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_LEFT_CAVE 
+				base_elevation	FRONT_CAVE_ELEVATION
+			}
+		endif
+		if AT_LEAST_SIX_SEGMENTS_PER_CAVE
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		LEFT_CAVE_SIXTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_LEFT_CAVE 
+				base_elevation	FRONT_CAVE_ELEVATION
+			}
+		endif
+		if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		LEFT_CAVE_SEVENTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_LEFT_CAVE 
+				base_elevation	FRONT_CAVE_ELEVATION
+			}
+		endif
+	/* right cave */
+		if FOUR_CAVES
+			#const RIGHT_CAVE_X	rnd(78,85)
+			#const RIGHT_CAVE_X_MIN	78
+			#const RIGHT_CAVE_X_MAX	85
+		elseif THIRD_CAVE
+			#const RIGHT_CAVE_X	rnd(71,80)
+			#const RIGHT_CAVE_X_MIN	71
+			#const RIGHT_CAVE_X_MAX	80
+		else
+			#const RIGHT_CAVE_X	rnd(65,75)
+			#const RIGHT_CAVE_X_MIN	65
+			#const RIGHT_CAVE_X_MAX	75
+		endif
+
+		#const RIGHT_CAVE_FIRST_OFFSET	rnd(-4,4)
+		#const RIGHT_CAVE_SECOND_OFFSET	rnd(-4,4)
+		#const RIGHT_CAVE_THIRD_OFFSET	rnd(-4,4)
+		#const RIGHT_CAVE_FOURTH_OFFSET	rnd(-4,4)
+		#const RIGHT_CAVE_FIFTH_OFFSET	rnd(-4,4)
+		#const RIGHT_CAVE_SIXTH_OFFSET	rnd(-4,4)
+			
+		#const RIGHT_CAVE_SECOND_SEGMENT_X	(RIGHT_CAVE_FIRST_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + RIGHT_CAVE_X)
+		#const RIGHT_CAVE_THIRD_SEGMENT_X	(RIGHT_CAVE_SECOND_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + RIGHT_CAVE_SECOND_SEGMENT_X - RIGHT_CAVE_X * SEGMENT_THREE_NORMALIZER + RIGHT_CAVE_X)
+		#const RIGHT_CAVE_FOURTH_SEGMENT_X	(RIGHT_CAVE_THIRD_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + RIGHT_CAVE_THIRD_SEGMENT_X - RIGHT_CAVE_X * SEGMENT_FOUR_NORMALIZER + RIGHT_CAVE_X)
+		#const RIGHT_CAVE_FIFTH_SEGMENT_X	(RIGHT_CAVE_FOURTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + RIGHT_CAVE_FOURTH_SEGMENT_X - RIGHT_CAVE_X * SEGMENT_FIVE_NORMALIZER + RIGHT_CAVE_X)
+		#const RIGHT_CAVE_SIXTH_SEGMENT_X	(RIGHT_CAVE_FIFTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + RIGHT_CAVE_FIFTH_SEGMENT_X - RIGHT_CAVE_X * SEGMENT_SIX_NORMALIZER + RIGHT_CAVE_X)
+		#const RIGHT_CAVE_SEVENTH_SEGMENT_X	(RIGHT_CAVE_SIXTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + RIGHT_CAVE_SIXTH_SEGMENT_X - RIGHT_CAVE_X * SEGMENT_SEVEN_NORMALIZER + RIGHT_CAVE_X)
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		RIGHT_CAVE_X CAVE_Y_TOP
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_RIGHT_CAVE
+			base_elevation	BACK_CAVE_ELEVATION
+		}
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		RIGHT_CAVE_SECOND_SEGMENT_X (CAVE_Y_SPACING + CAVE_Y_TOP)
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_RIGHT_CAVE 
+			base_elevation	BACK_CAVE_ELEVATION
+		}
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		RIGHT_CAVE_THIRD_SEGMENT_X (CAVE_Y_SPACING * 2 + CAVE_Y_TOP)
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_RIGHT_CAVE 
+			if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+				base_elevation	BACK_CAVE_ELEVATION
+			else
+				base_elevation	FRONT_CAVE_ELEVATION
+			endif
+		}
+		create_land
+		{
+			terrain_type	TERR_CAVE_BASE
+			land_position		RIGHT_CAVE_FOURTH_SEGMENT_X (CAVE_Y_SPACING * 3 + CAVE_Y_TOP)
+			number_of_tiles		TILES_PER_CAVE_SEGMENT
+			base_size			2
+			zone			ZONE_RIGHT_CAVE 
+			if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+				base_elevation	BACK_CAVE_ELEVATION
+			else
+				base_elevation	FRONT_CAVE_ELEVATION
+			endif
+		}
+		if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		RIGHT_CAVE_FIFTH_SEGMENT_X (CAVE_Y_SPACING * 4 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_RIGHT_CAVE 
+				base_elevation	FRONT_CAVE_ELEVATION
+			}
+		endif	
+		if AT_LEAST_SIX_SEGMENTS_PER_CAVE
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		RIGHT_CAVE_SIXTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_RIGHT_CAVE 
+				base_elevation	FRONT_CAVE_ELEVATION
+			}
+		endif
+		if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		RIGHT_CAVE_SEVENTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_RIGHT_CAVE 
+				base_elevation	FRONT_CAVE_ELEVATION
+			}
+		endif
+	/* third cave */
+		if THIRD_CAVE
+			#const THIRD_CAVE_X	rnd(47,53)
+			#const THIRD_CAVE_X_MIN	47
+			#const THIRD_CAVE_X_MAX	53
+		elseif FOUR_CAVES
+			#const	THIRD_CAVE_X	rnd(36,43) /* center-left */
+			#const THIRD_CAVE_X_MIN	36
+			#const THIRD_CAVE_X_MAX	43
+		else
+			#const THIRD_CAVE_X		50  /* unused */
+			#const THIRD_CAVE_X_MIN	50  /* unused */
+			#const THIRD_CAVE_X_MAX	50  /* unused */
+		endif
+
+		#const THIRD_CAVE_FIRST_OFFSET	rnd(-4,4)
+		#const THIRD_CAVE_SECOND_OFFSET	rnd(-4,4)
+		#const THIRD_CAVE_THIRD_OFFSET	rnd(-4,4)
+		#const THIRD_CAVE_FOURTH_OFFSET	rnd(-4,4)
+		#const THIRD_CAVE_FIFTH_OFFSET	rnd(-4,4)
+		#const THIRD_CAVE_SIXTH_OFFSET	rnd(-4,4)
+
+		#const THIRD_CAVE_SECOND_SEGMENT_X	(THIRD_CAVE_FIRST_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + THIRD_CAVE_X)
+		#const THIRD_CAVE_THIRD_SEGMENT_X	(THIRD_CAVE_SECOND_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + THIRD_CAVE_SECOND_SEGMENT_X - THIRD_CAVE_X * SEGMENT_THREE_NORMALIZER + THIRD_CAVE_X)
+		#const THIRD_CAVE_FOURTH_SEGMENT_X	(THIRD_CAVE_THIRD_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + THIRD_CAVE_THIRD_SEGMENT_X - THIRD_CAVE_X * SEGMENT_FOUR_NORMALIZER + THIRD_CAVE_X)
+		#const THIRD_CAVE_FIFTH_SEGMENT_X	(THIRD_CAVE_FOURTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + THIRD_CAVE_FOURTH_SEGMENT_X - THIRD_CAVE_X * SEGMENT_FIVE_NORMALIZER + THIRD_CAVE_X)
+		#const THIRD_CAVE_SIXTH_SEGMENT_X	(THIRD_CAVE_FIFTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + THIRD_CAVE_FIFTH_SEGMENT_X - THIRD_CAVE_X * SEGMENT_SIX_NORMALIZER + THIRD_CAVE_X)
+		#const THIRD_CAVE_SEVENTH_SEGMENT_X	(THIRD_CAVE_SIXTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + THIRD_CAVE_SIXTH_SEGMENT_X - THIRD_CAVE_X * SEGMENT_SIX_NORMALIZER + THIRD_CAVE_X)
+		if AT_LEAST_3_CAVES
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		THIRD_CAVE_X CAVE_Y_TOP
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_THIRD_CAVE
+				base_elevation	BACK_CAVE_ELEVATION
+			}
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		THIRD_CAVE_SECOND_SEGMENT_X (CAVE_Y_SPACING + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_THIRD_CAVE 
+				base_elevation	BACK_CAVE_ELEVATION
+			}
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		THIRD_CAVE_THIRD_SEGMENT_X (CAVE_Y_SPACING * 2 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_THIRD_CAVE 
+				if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+					base_elevation	BACK_CAVE_ELEVATION
+				else
+					base_elevation	FRONT_CAVE_ELEVATION
+				endif
+			}
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		THIRD_CAVE_FOURTH_SEGMENT_X (CAVE_Y_SPACING * 3 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_THIRD_CAVE 
+				if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+					base_elevation	BACK_CAVE_ELEVATION
+				else
+					base_elevation	FRONT_CAVE_ELEVATION
+				endif
+			}
+			if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+				create_land
+				{
+					terrain_type	TERR_CAVE_BASE
+					land_position		THIRD_CAVE_FIFTH_SEGMENT_X (CAVE_Y_SPACING * 4 + CAVE_Y_TOP)
+					number_of_tiles		TILES_PER_CAVE_SEGMENT
+					base_size			2
+					zone			ZONE_THIRD_CAVE 
+					base_elevation	FRONT_CAVE_ELEVATION
+				}
+			endif
+			if AT_LEAST_SIX_SEGMENTS_PER_CAVE
+				create_land
+				{
+					terrain_type	TERR_CAVE_BASE
+					land_position		THIRD_CAVE_SIXTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+					number_of_tiles		TILES_PER_CAVE_SEGMENT
+					base_size			2
+					zone			ZONE_THIRD_CAVE 
+					base_elevation	FRONT_CAVE_ELEVATION
+				}
+			endif
+			if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+				create_land
+				{
+					terrain_type	TERR_CAVE_BASE
+					land_position		THIRD_CAVE_SEVENTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+					number_of_tiles		TILES_PER_CAVE_SEGMENT
+					base_size			2
+					zone			ZONE_THIRD_CAVE 
+					base_elevation	FRONT_CAVE_ELEVATION
+				}
+			endif
+		endif
+	/* fourth cave */
+		if FOUR_CAVES
+			#const	FOURTH_CAVE_X	rnd(57,64) /* center-right */
+			#const FOURTH_CAVE_X_MIN	57
+			#const FOURTH_CAVE_X_MAX	64
+		else
+			#const FOURTH_CAVE_X	50  /* unused */
+		endif
+
+		#const FOURTH_CAVE_FIRST_OFFSET	rnd(-4,4)
+		#const FOURTH_CAVE_SECOND_OFFSET	rnd(-4,4)
+		#const FOURTH_CAVE_THIRD_OFFSET	rnd(-4,4)
+		#const FOURTH_CAVE_FOURTH_OFFSET	rnd(-4,4)
+		#const FOURTH_CAVE_FIFTH_OFFSET	rnd(-4,4)
+		#const FOURTH_CAVE_SIXTH_OFFSET	rnd(-4,4)
+
+		#const FOURTH_CAVE_SECOND_SEGMENT_X	(FOURTH_CAVE_FIRST_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + FOURTH_CAVE_X)
+		#const FOURTH_CAVE_THIRD_SEGMENT_X	(FOURTH_CAVE_SECOND_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + FOURTH_CAVE_SECOND_SEGMENT_X - FOURTH_CAVE_X * SEGMENT_THREE_NORMALIZER + FOURTH_CAVE_X)
+		#const FOURTH_CAVE_FOURTH_SEGMENT_X	(FOURTH_CAVE_THIRD_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + FOURTH_CAVE_THIRD_SEGMENT_X - FOURTH_CAVE_X * SEGMENT_FOUR_NORMALIZER + FOURTH_CAVE_X)
+		#const FOURTH_CAVE_FIFTH_SEGMENT_X	(FOURTH_CAVE_FOURTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + FOURTH_CAVE_FOURTH_SEGMENT_X - FOURTH_CAVE_X * SEGMENT_FIVE_NORMALIZER + FOURTH_CAVE_X)
+		#const FOURTH_CAVE_SIXTH_SEGMENT_X	(FOURTH_CAVE_FIFTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + FOURTH_CAVE_FIFTH_SEGMENT_X - FOURTH_CAVE_X * SEGMENT_SIX_NORMALIZER + FOURTH_CAVE_X)
+		#const FOURTH_CAVE_SEVENTH_SEGMENT_X	(FOURTH_CAVE_SIXTH_OFFSET / CAVE_SEGMENT_OFFSET_FACTOR + FOURTH_CAVE_SIXTH_SEGMENT_X - FOURTH_CAVE_X * SEGMENT_SEVEN_NORMALIZER + FOURTH_CAVE_X)
+		if AT_LEAST_4_CAVES
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		FOURTH_CAVE_X CAVE_Y_TOP
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_FOURTH_CAVE
+				base_elevation	BACK_CAVE_ELEVATION
+			}
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		FOURTH_CAVE_SECOND_SEGMENT_X (CAVE_Y_SPACING + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_FOURTH_CAVE 
+				base_elevation	BACK_CAVE_ELEVATION
+			}
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		FOURTH_CAVE_THIRD_SEGMENT_X (CAVE_Y_SPACING * 2 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_FOURTH_CAVE 
+				if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+					base_elevation	BACK_CAVE_ELEVATION
+				else
+					base_elevation	FRONT_CAVE_ELEVATION
+				endif
+			}
+			create_land
+			{
+				terrain_type	TERR_CAVE_BASE
+				land_position		FOURTH_CAVE_FOURTH_SEGMENT_X (CAVE_Y_SPACING * 3 + CAVE_Y_TOP)
+				number_of_tiles		TILES_PER_CAVE_SEGMENT
+				base_size			2
+				zone			ZONE_FOURTH_CAVE 
+				if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+					base_elevation	BACK_CAVE_ELEVATION
+				else
+					base_elevation	FRONT_CAVE_ELEVATION
+				endif
+			}
+			if AT_LEAST_FIVE_SEGMENTS_PER_CAVE
+				create_land
+				{
+					terrain_type	TERR_CAVE_BASE
+					land_position		FOURTH_CAVE_FIFTH_SEGMENT_X (CAVE_Y_SPACING * 4 + CAVE_Y_TOP)
+					number_of_tiles		TILES_PER_CAVE_SEGMENT
+					base_size			2
+					zone			ZONE_FOURTH_CAVE 
+					base_elevation	FRONT_CAVE_ELEVATION
+				}
+			endif
+			if AT_LEAST_SIX_SEGMENTS_PER_CAVE
+				create_land
+				{
+					terrain_type	TERR_CAVE_BASE
+					land_position		FOURTH_CAVE_SIXTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+					number_of_tiles		TILES_PER_CAVE_SEGMENT
+					base_size			2
+					zone			ZONE_FOURTH_CAVE 
+					base_elevation	FRONT_CAVE_ELEVATION
+				}
+			endif
+			if AT_LEAST_SEVEN_SEGMENTS_PER_CAVE
+				create_land
+				{
+					terrain_type	TERR_CAVE_BASE
+					land_position		FOURTH_CAVE_SEVENTH_SEGMENT_X (CAVE_Y_SPACING * 5 + CAVE_Y_TOP)
+					number_of_tiles		TILES_PER_CAVE_SEGMENT
+					base_size			2
+					zone			ZONE_FOURTH_CAVE 
+					base_elevation	FRONT_CAVE_ELEVATION
+				}
+			endif
+		endif
+
+/* mountains */
+	
+	#const MOUNTAIN_BASE_ELEVATION	3
+	#const MOUNTAIN_BORDER_X_PADDING	8
+	#const MOUNTAIN_TOP_BORDER		10
+	#const MOUNTAIN_BOTTOM_BORDER		80
+	if MAPSIZE_TINY
+		#const MOUNTAIN_BORDER_FUZZINESS		30
+	elseif MAPSIZE_SMALL
+		#const MOUNTAIN_BORDER_FUZZINESS		20
+	elseif MAPSIZE_MEDIUM
+		#const MOUNTAIN_BORDER_FUZZINESS		18
+	else
+		#const MOUNTAIN_BORDER_FUZZINESS		16
+	endif
+
+	create_land
+	{
+		terrain_type	TERR_MOUNTAIN
+		land_position		10 15
+		land_percent		15
+		/* left_border  0
+		right_border  (100 - LEFT_CAVE_X - MOUNTAIN_BORDER_X_PADDING) */
+		top_border		MOUNTAIN_TOP_BORDER
+		bottom_border		MOUNTAIN_BOTTOM_BORDER
+		border_fuzziness	MOUNTAIN_BORDER_FUZZINESS
+		base_elevation	MOUNTAIN_BASE_ELEVATION
+		zone 		ZONE_MOUNTAIN
+		land_id	L_ID_MOUNTAINS
+	}
+	create_land
+	{
+		terrain_type	TERR_MOUNTAIN
+		if AT_LEAST_4_CAVES
+			land_position		29 15
+		elseif AT_LEAST_3_CAVES
+			land_position		38 15
+		else
+			land_position		50 15
+		endif
+		land_percent		15
+		/* left_border  (LEFT_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+		if AT_LEAST_3_CAVES
+			right_border  (100 - THIRD_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+		else
+			right_border  (100 - RIGHT_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+		endif */
+		top_border		MOUNTAIN_TOP_BORDER
+		bottom_border		MOUNTAIN_BOTTOM_BORDER
+		border_fuzziness	MOUNTAIN_BORDER_FUZZINESS
+		base_elevation	MOUNTAIN_BASE_ELEVATION
+		zone 		ZONE_MOUNTAIN
+		land_id	L_ID_MOUNTAINS
+	}
+	if AT_LEAST_3_CAVES
+		create_land
+		{
+			terrain_type	TERR_MOUNTAIN
+			if AT_LEAST_4_CAVES
+				land_position		50 15
+			else /* AT_LEAST_3_CAVES */
+				land_position		62 15
+			endif
+			land_percent		15
+			/* left_border  (THIRD_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+			if AT_LEAST_4_CAVES
+				right_border  (100 - FOURTH_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+			else
+				right_border  (100 - RIGHT_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+			endif */
+			top_border		MOUNTAIN_TOP_BORDER
+			bottom_border		MOUNTAIN_BOTTOM_BORDER
+			border_fuzziness	MOUNTAIN_BORDER_FUZZINESS
+			base_elevation	MOUNTAIN_BASE_ELEVATION
+			zone 		ZONE_MOUNTAIN
+			land_id	L_ID_MOUNTAINS
+		}
+	endif
+	if AT_LEAST_4_CAVES
+		create_land
+		{
+			terrain_type	TERR_MOUNTAIN
+			land_position		71 15
+			land_percent		15
+			/* left_border  (FOURTH_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+			right_border  (100 - RIGHT_CAVE_X - MOUNTAIN_BORDER_X_PADDING) */
+			top_border		MOUNTAIN_TOP_BORDER
+			bottom_border		MOUNTAIN_BOTTOM_BORDER
+			border_fuzziness	MOUNTAIN_BORDER_FUZZINESS
+			base_elevation	MOUNTAIN_BASE_ELEVATION
+			zone 		ZONE_MOUNTAIN
+			land_id	L_ID_MOUNTAINS
+		}
+	endif
+	create_land
+	{
+		terrain_type	TERR_MOUNTAIN
+		land_position		90 15
+		land_percent		15
+		/* left_border  (RIGHT_CAVE_X - MOUNTAIN_BORDER_X_PADDING)
+		right_border  0 */
+		top_border		MOUNTAIN_TOP_BORDER
+		bottom_border		MOUNTAIN_BOTTOM_BORDER
+		border_fuzziness	MOUNTAIN_BORDER_FUZZINESS
+		base_elevation	MOUNTAIN_BASE_ELEVATION
+		zone 		ZONE_MOUNTAIN
+		land_id	L_ID_MOUNTAINS
+	}
+	
+/* Dell */
+	#const HIDDEN_PLAINS_ELEVATION 2
+	create_land
+	{
+		terrain_type	TERR_DELL_BASE
+		base_size		3
+		land_percent		100
+		land_position		50 5
+		bottom_border		92
+		border_fuzziness	50
+		base_elevation	HIDDEN_PLAINS_ELEVATION
+	}
+
+/* Foothills (mostly just region defining) */
+	create_land
+	{
+		terrain_type	TERR_HILLS_BASE
+		land_percent	100
+		land_position		50 50
+		top_border		17.5
+		bottom_border		(100 - HILLS_END)
+		base_elevation	HILLS_BASE_ELEVATION
+	}
+	if ADD_HILL_FORELAND
+		create_land
+		{
+			terrain_type	TERR_HILLS_BASE
+			land_percent	100
+			land_position		50 (HILL_FORELAND_END - 10)
+			top_border		50
+			bottom_border		(100 - HILL_FORELAND_END)
+			left_border		25
+			right_border		25
+			base_elevation	HILLS_BASE_ELEVATION
+		}
+	endif
+
+/* Trading villages sources */
+	#const MARKET_AREA_RADIUS	(MAPSIZE * 0.01 + 2)
+	create_land
+	{
+		terrain_type	TERR_VILLAGE_BASE
+		base_size	MARKET_AREA_RADIUS
+		number_of_tiles	(MAPSIZE * 0.1)
+		land_position		0.5 (MAP_TILE_SIZE * -2.0 + 100)
+		land_id	L_ID_VILLAGES
+	}
+	create_land
+	{
+		terrain_type	TERR_VILLAGE_BASE
+		base_size	MARKET_AREA_RADIUS
+		number_of_tiles	(MAPSIZE * 0.1)
+		land_position		(MAP_TILE_SIZE * -2.5 + 100) (MAP_TILE_SIZE * -2.5 + 100)
+		land_id	L_ID_VILLAGES
+	}
+	
+<ELEVATION_GENERATION>
+	create_elevation		5
+	{
+		base_terrain		TERR_MOUNTAIN
+		number_of_tiles	(MAPAREA * 0.1)
+		number_of_clumps	(MAPAREA * 0.001)
+		enable_balanced_elevation
+	}
+	create_elevation		4
+	{
+		base_terrain		TERR_HILLS_BASE
+		number_of_tiles	(MAPAREA * 0.06)
+		number_of_clumps	(MAPAREA * 0.0015)
+		enable_balanced_elevation
+		spacing		2
+	}
+	create_elevation		4
+	{
+		base_terrain		TERR_DELL_BASE
+		number_of_tiles	(MAPAREA * 0.013)
+		if MAPSIZE_TINY
+			number_of_clumps	(MAPAREA * 0.0009)
+		else
+			number_of_clumps	(MAPAREA * 0.0004)
+		endif
+		enable_balanced_elevation
+		spacing		2
+	}
+	create_elevation		3 /* for Lower_Plains */
+	{
+		base_terrain		TERR_BASE
+		number_of_tiles	(MAPAREA * 0.013)
+		if MAPSIZE_TINY
+			number_of_clumps	(MAPAREA * 0.0009)
+		else
+			number_of_clumps	(MAPAREA * 0.0003)
+		endif
+		enable_balanced_elevation
+		spacing		2
+	}
+<TERRAIN_GENERATION>
+
+/* prepare for Lower_Plains to be a different terrain */
+	create_terrain	TERR_LOWER_PLAINS_BASE
+	{
+		base_terrain	TERR_BASE
+		number_of_tiles	(MAPAREA * 0.31)
+		number_of_clumps	(MAPAREA * 0.008)
+		spacing_to_specific_terrain		TERR_MOUNTAIN 15
+		spacing_to_specific_terrain		TERR_HILLS_BASE 2
+		/* height_limits		0 0 */
+	}
+	create_terrain	TERR_HILLS_BASE
+	{
+		base_terrain	TERR_BASE
+		number_of_tiles	(MAPAREA * 0.02)
+		number_of_clumps	(MAPAREA * 0.02)
+		height_limits		1 1
+	} 
+	create_terrain	TERR_LOWER_PLAINS_BASE
+	{
+		base_terrain	TERR_BASE
+		number_of_tiles	(MAPAREA * 0.31)
+		number_of_clumps	(MAPAREA * 0.008)
+		spacing_to_specific_terrain		TERR_MOUNTAIN 15
+		/* height_limits		0 0 */
+	}
+	create_terrain	TERR_LOWER_PLAINS_BASE
+	{
+		base_terrain	TERR_BASE
+		number_of_tiles	(MAPAREA * 0.03)
+		number_of_clumps	(MAPAREA * 0.006)
+		spacing_to_specific_terrain		TERR_MOUNTAIN 15
+		height_limits		0 0
+	}
+	create_terrain	TERR_LOWER_PLAINS_BASE
+	{
+		base_terrain	TERR_BASE
+		number_of_tiles	(MAPAREA * 0.001)
+		number_of_clumps	(MAPAREA * 0.001)
+		spacing_to_specific_terrain		TERR_MOUNTAIN 15
+		height_limits		0 0
+	}
+/* player forests */
+	#const PLAYER_FOREST_TILES	65
+	#const PLAYER_FOREST_CLUMPS	3
+	#const PLAYER_FOREST_DISTANCE	9	/* note: name also used in discarded land forests */
+	#const FOREST_MASK_AVOID	0
+	#const FOREST_DONE_TILES	500
+	#const FOREST_DONE_CLUMPS	50
+	#const FOREST_DONE_B_TILES	5
+	#const FOREST_DONE_B_CLUMPS	5
+	#const PLAYER_AREA_TILES	250
+	#const PLAYER_AREA_CLUMPS	50
+	#const PLAYER_AREA_TILES_B	10
+	#const PLAYER_AREA_CLUMPS_B	10
+	#const FOREST_FOOTHILL_AVOID	2
+	#const FOREST_AREA_TILES	500
+	
+	/* create forests */
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_A
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_B
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_C
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_D
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_E
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_F
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_G
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_PLAYER_H
+			number_of_tiles	PLAYER_FOREST_TILES
+			number_of_clumps	PLAYER_FOREST_CLUMPS
+			spacing_to_other_terrain_types	FOREST_MASK_AVOID
+			set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+		}
+	/* cleanup */
+		/* part 1 */
+			if 1_2_ON_HILL
+				/* player 1 */
+					create_terrain	TERR_HILLS_BASE
+					{
+						base_terrain	TERR_PLAYER_A
+						number_of_tiles	FOREST_DONE_TILES
+						number_of_clumps	FOREST_DONE_CLUMPS
+						set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+					}
+					create_terrain	TERR_HILLS_BASE
+					{
+						base_terrain	TERR_PLAYER_A
+						number_of_tiles	FOREST_DONE_B_TILES
+						number_of_clumps	FOREST_DONE_B_CLUMPS
+						set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+					}
+				/* player 2 */
+					create_terrain	TERR_HILLS_BASE
+					{
+						base_terrain	TERR_PLAYER_B
+						number_of_tiles	FOREST_DONE_TILES
+						number_of_clumps	FOREST_DONE_CLUMPS
+						set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+					}
+					create_terrain	TERR_HILLS_BASE
+					{
+						base_terrain	TERR_PLAYER_B
+						number_of_tiles	FOREST_DONE_B_TILES
+						number_of_clumps	FOREST_DONE_B_CLUMPS
+						set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+					}
+			else
+				/* player 1 */
+					create_terrain	TERR_LOWER_PLAINS_BASE
+					{
+						base_terrain	TERR_PLAYER_A
+						number_of_tiles	FOREST_DONE_TILES
+						number_of_clumps	FOREST_DONE_CLUMPS
+						set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+					}
+					create_terrain	TERR_LOWER_PLAINS_BASE
+					{
+						base_terrain	TERR_PLAYER_A
+						number_of_tiles	FOREST_DONE_B_TILES
+						number_of_clumps	FOREST_DONE_B_CLUMPS
+						set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+					}
+				/* player 2 */
+					create_terrain	TERR_LOWER_PLAINS_BASE
+					{
+						base_terrain	TERR_PLAYER_B
+						number_of_tiles	FOREST_DONE_TILES
+						number_of_clumps	FOREST_DONE_CLUMPS
+						set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+					}
+					create_terrain	TERR_LOWER_PLAINS_BASE
+					{
+						base_terrain	TERR_PLAYER_B
+						number_of_tiles	FOREST_DONE_B_TILES
+						number_of_clumps	FOREST_DONE_B_CLUMPS
+						set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+					}
+			endif
+			/* player 3 */
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_C
+					number_of_tiles	FOREST_DONE_TILES
+					number_of_clumps	FOREST_DONE_CLUMPS
+					set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+				}
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_C
+					number_of_tiles	FOREST_DONE_B_TILES
+					number_of_clumps	FOREST_DONE_B_CLUMPS
+					set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+				}
+			/* player 4 */
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_D
+					number_of_tiles	FOREST_DONE_TILES
+					number_of_clumps	FOREST_DONE_CLUMPS
+					set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+				}
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_D
+					number_of_tiles	FOREST_DONE_B_TILES
+					number_of_clumps	FOREST_DONE_B_CLUMPS
+					set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+				}
+			/* player 5 */
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_E
+					number_of_tiles	FOREST_DONE_TILES
+					number_of_clumps	FOREST_DONE_CLUMPS
+					set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+				}
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_E
+					number_of_tiles	FOREST_DONE_B_TILES
+					number_of_clumps	FOREST_DONE_B_CLUMPS
+					set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+				}
+			/* player 6 */
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_F
+					number_of_tiles	FOREST_DONE_TILES
+					number_of_clumps	FOREST_DONE_CLUMPS
+					set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+				}
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_F
+					number_of_tiles	FOREST_DONE_B_TILES
+					number_of_clumps	FOREST_DONE_B_CLUMPS
+					set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+				}
+			/* player 7 */
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_G
+					number_of_tiles	FOREST_DONE_TILES
+					number_of_clumps	FOREST_DONE_CLUMPS
+					set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+				}
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_G
+					number_of_tiles	FOREST_DONE_B_TILES
+					number_of_clumps	FOREST_DONE_B_CLUMPS
+					set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+				}
+			/* player 8 */
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_H
+					number_of_tiles	FOREST_DONE_TILES
+					number_of_clumps	FOREST_DONE_CLUMPS
+					set_avoid_player_start_areas	(PLAYER_FOREST_DISTANCE + 1)
+				}
+				create_terrain	TERR_LOWER_PLAINS_BASE
+				{
+					base_terrain	TERR_PLAYER_H
+					number_of_tiles	FOREST_DONE_B_TILES
+					number_of_clumps	FOREST_DONE_B_CLUMPS
+					set_avoid_player_start_areas	PLAYER_FOREST_DISTANCE
+				}
+		/* part 2 */
+			/* player 1 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_A
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_A
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+			/* player 2 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_B
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_B
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+			/* player 3 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_C
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_C
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+			/* player 4 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_D
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_D
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+			/* player 5 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_E
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_E
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+			/* player 6 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_F
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_F
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+			/* player 7 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_G
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_G
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+			/* player 8 */
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_H
+					number_of_tiles	PLAYER_AREA_TILES
+					number_of_clumps	PLAYER_AREA_CLUMPS
+				}
+				create_terrain	TERR_PLAYER
+				{
+					base_terrain	TERR_PLAYER_H
+					number_of_tiles	PLAYER_AREA_TILES_B
+					number_of_clumps	PLAYER_AREA_CLUMPS_B
+				}
+	/* */
+/* pre-forest Foothills */
+	create_terrain	TERR_HILLS_LOWER_LAYER
+	{
+		base_terrain	TERR_HILLS_BASE
+		number_of_tiles	(MAPAREA * 0.5)
+		number_of_clumps	(MAPAREA * 0.01)
+		/* terrain_mask		1 */
+		set_flat_terrain_only
+		spacing_to_other_terrain_types	1
+		height_limits		1 1
+	}
+	create_terrain	TERR_HILLS_LOWER_LAYER
+	{
+		base_terrain	TERR_HILLS_BASE
+		number_of_tiles	(MAPAREA * 0.01)
+		number_of_clumps	(MAPAREA * 0.01)
+		/* terrain_mask		1 */
+		set_flat_terrain_only
+		spacing_to_other_terrain_types	1
+		height_limits		1 1
+	}
+
+/* plains hills */ 
+	create_terrain TERR_HILLS_TEMP2
+	{
+		base_terrain	TERR_LOWER_PLAINS_BASE
+		number_of_tiles	(MAPAREA * 0.25)
+		number_of_clumps	(MAPAREA * 0.03)
+		spacing_to_other_terrain_types	1
+		set_flat_terrain_only
+		height_limits	0 0
+	}
+	create_terrain TERR_HILLS_TEMP3
+	{
+		base_terrain		TERR_LOWER_PLAINS_BASE
+		number_of_tiles	(MAPAREA * 0.10)
+		number_of_clumps	(MAPAREA * 0.06)
+		spacing_to_specific_terrain		TERR_PLAYER 2
+	}
+	create_terrain TERR_LOWER_PLAINS_BASE
+	{
+		base_terrain		TERR_HILLS_TEMP2
+		number_of_tiles	(MAPAREA * 0.25)
+		number_of_clumps	(MAPAREA * 0.03)
+	}
+	create_terrain TERR_LOWER_PLAINS_BASE
+	{
+		base_terrain		TERR_HILLS_TEMP2
+		number_of_tiles	(MAPAREA * 0.01)
+		number_of_clumps	(MAPAREA * 0.01)
+	}
+	create_terrain TERR_HILLS_TEMP2
+	{
+		base_terrain		TERR_HILLS_BASE
+		number_of_tiles	(MAPAREA * 0.25)
+		number_of_clumps	(MAPAREA * 0.03)
+		spacing_to_specific_terrain		TERR_HILLS_TEMP3 2
+	}
+	create_terrain TERR_HILLS_LOWER_LAYER
+	{
+		base_terrain		TERR_HILLS_BASE
+		number_of_tiles	(MAPAREA * 0.01)
+		number_of_clumps	(MAPAREA * 0.01)
+		terrain_mask	1
+	}
+	create_terrain TERR_HILLS_BASE
+	{
+		base_terrain		TERR_HILLS_LOWER_LAYER
+		number_of_tiles	(MAPAREA * 0.5)
+		number_of_clumps	(MAPAREA * 0.06)
+		terrain_mask	2
+	}
+	create_terrain TERR_HILLS_BASE
+	{
+		base_terrain		TERR_HILLS_LOWER_LAYER
+		number_of_tiles	(MAPAREA * 0.01)
+		number_of_clumps	(MAPAREA * 0.01)
+		terrain_mask	2
+	}
+	create_terrain TERR_HILLS_BASE
+	{
+		base_terrain		TERR_HILLS_TEMP2
+		number_of_tiles	(MAPAREA * 0.25)
+		number_of_clumps	(MAPAREA * 0.03)
+	}
+	create_terrain TERR_HILLS_BASE
+	{
+		base_terrain		TERR_HILLS_TEMP2
+		number_of_tiles	(MAPAREA * 0.005)
+		number_of_clumps	(MAPAREA * 0.005)
+	}
+
+/* map forests */
+	/* lower plains */
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_LOWER_PLAINS_BASE
+			number_of_tiles	(MAPAREA * 0.005)
+			number_of_clumps	(MAPAREA * 0.0007)
+			set_avoid_player_start_areas	20
+		}
+	/* foothills */
+		if 1V1_GAME
+			#const FOOTHILL_FOREST_TOTAL	(MAPAREA * 0.065)
+		elseif 2V2_GAME
+			#const FOOTHILL_FOREST_TOTAL	(MAPAREA * 0.07)
+		elseif 3V3_GAME
+			#const FOOTHILL_FOREST_TOTAL	(MAPAREA * 0.08)
+		else
+			#const FOOTHILL_FOREST_TOTAL	(MAPAREA * 0.1)
+		endif
+		if 1V1_GAME
+			#const FOOTHILL_FOREST_AVOID	30
+		elseif 2V2_GAME
+			#const FOOTHILL_FOREST_AVOID	30
+		elseif 3V3_GAME
+			#const FOOTHILL_FOREST_AVOID	25
+		else
+			#const FOOTHILL_FOREST_AVOID	20
+		endif
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_HILLS_BASE
+			number_of_tiles	(FOOTHILL_FOREST_TOTAL * 0.4)
+			number_of_clumps	(FOOTHILL_FOREST_TOTAL * 0.007)
+			set_avoid_player_start_areas	FOOTHILL_FOREST_AVOID
+			spacing_to_specific_terrain		TERR_LOWER_PLAINS_BASE	8
+			clumping_factor	25
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_HILLS_BASE
+			number_of_tiles	(FOOTHILL_FOREST_TOTAL * 0.4)
+			number_of_clumps	(FOOTHILL_FOREST_TOTAL * 0.007)
+			set_avoid_player_start_areas	FOOTHILL_FOREST_AVOID
+			spacing_to_specific_terrain		TERR_LOWER_PLAINS_BASE	5
+			clumping_factor	25
+		}
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_HILLS_BASE
+			number_of_tiles	(FOOTHILL_FOREST_TOTAL * 0.2)
+			number_of_clumps	(FOOTHILL_FOREST_TOTAL * 0.005)
+			set_avoid_player_start_areas	(FOOTHILL_FOREST_AVOID - 5)
+			spacing_to_specific_terrain		TERR_LOWER_PLAINS_BASE	5
+			clumping_factor	5
+		}
+	/* Dell */
+		create_terrain	TERR_FOREST_BASE
+		{
+			base_terrain	TERR_DELL_BASE
+			number_of_tiles	(MAPAREA * 0.01)
+			number_of_clumps	(MAPAREA * 0.00035)
+			spacing_to_specific_terrain		TERR_MOUNTAIN	2
+		}
+/* mountains */
+	/* clearing cave blockages */
+		create_terrain	TERR_MOUNTAIN_TEMP1
+		{
+			base_terrain	TERR_MOUNTAIN
+			number_of_tiles	(MAPAREA * 0.2)
+			number_of_clumps	(MAPAREA * 0.02)
+			spacing_to_specific_terrain		TERR_CAVE_BASE 2
+		}
+		create_terrain	TERR_MOUNTAIN_TEMP2
+		{
+			base_terrain	TERR_MOUNTAIN
+			number_of_tiles	(MAPAREA * 0.008)
+			number_of_clumps	(MAPAREA * 0.004)
+			spacing_to_specific_terrain		TERR_MOUNTAIN_TEMP1 2
+		}
+		create_terrain	TERR_MOUNTAIN
+		{
+			base_terrain	TERR_MOUNTAIN_TEMP2
+			number_of_tiles	(MAPAREA * 0.008)
+			number_of_clumps	(MAPAREA * 0.004)
+			spacing_to_specific_terrain		TERR_HILLS_BASE 3
+			spacing_to_specific_terrain		TERR_DELL_BASE 3
+		}
+		create_terrain	TERR_MOUNTAIN
+		{
+			base_terrain	TERR_MOUNTAIN_TEMP1
+			number_of_tiles	(MAPAREA * 0.2)
+			number_of_clumps	(MAPAREA * 0.02)
+		}
+		create_terrain	TERR_MOUNTAIN
+		{
+			base_terrain	TERR_MOUNTAIN_TEMP1
+			number_of_tiles	(MAPAREA * 0.02)
+			number_of_clumps	(MAPAREA * 0.02)
+		}
+		create_terrain	TERR_BASE
+		{
+			base_terrain	TERR_MOUNTAIN_TEMP2
+			number_of_tiles	(MAPAREA * 0.008)
+			number_of_clumps	(MAPAREA * 0.004)
+		}
+	/* mountain object limiter */
+		create_terrain	MIXT_S_MOUNTAIN_INNER
+		{
+			base_terrain	TERR_MOUNTAIN
+			number_of_tiles	(MAPAREA * 0.2)
+			number_of_clumps	(MAPAREA * 0.02)
+			if MAP_AT_LEAST_MEDIUM
+				spacing_to_other_terrain_types	2
+			else
+				spacing_to_other_terrain_types	1
+			endif
+			terrain_mask	1
+		}
+/* hills */
+	create_terrain TERR_HILLS_LOWER_FINAL
+	{
+		base_layer	TERR_HILLS_LOWER_LAYER
+		number_of_tiles	(MAPAREA * 0.5)
+		number_of_clumps	(MAPAREA * 0.01)
+	}
+	create_terrain TERR_HILLS_LOWER_FINAL
+	{
+		base_layer	TERR_HILLS_LOWER_LAYER
+		number_of_tiles	(MAPAREA * 0.02)
+		number_of_clumps	(MAPAREA * 0.02)
+	}
+	create_terrain TERR_HILLS_LOWER_FINAL
+	{
+		base_layer	TERR_HILLS_LOWER_LAYER
+		number_of_tiles	(MAPAREA * 0.001)
+		number_of_clumps	(MAPAREA * 0.001)
+	}
+	create_terrain TERR_PLAINS_HILLS
+	{
+		base_terrain	TERR_HILLS_TEMP3
+		number_of_tiles	(MAPAREA * 0.10)
+		number_of_clumps	(MAPAREA * 0.02)
+	}
+	create_terrain TERR_PLAINS_HILLS
+	{
+		base_terrain	TERR_HILLS_TEMP3
+		number_of_tiles	(MAPAREA * 0.003)
+		number_of_clumps	(MAPAREA * 0.003)
+	}
+/* ice caves */
+	#const	CAVE_TILE_COUNT	(TILES_PER_CAVE_SEGMENT + 25 * SEGMENTS_PER_CAVE * CAVE_COUNT)
+	create_terrain TERR_CAVE_ICE
+	{
+		base_terrain	TERR_CAVE_BASE
+		number_of_tiles	(CAVE_TILE_COUNT * 0.15)
+		number_of_clumps	(CAVE_TILE_COUNT * 0.032)
+	}
+	create_terrain TERR_CAVE_ICE
+	{
+		base_terrain	TERR_CAVE_BASE
+		number_of_tiles	(CAVE_TILE_COUNT * 0.25)
+		number_of_clumps	(CAVE_TILE_COUNT * 0.032)
+		terrain_mask	1
+	}
+
+/* terrain layering */
+	/* forest mixing */
+		create_terrain MIXT_FOREST_LAYER
+		{
+			base_terrain	TERR_FOREST_BASE
+			if SPRING_SNOW
+				number_of_tiles	(MAPAREA * 0.03)
+			elseif AUTUMN_SNOW
+				number_of_tiles	(MAPAREA * 0.03)
+			elseif SEASON_WINTER
+				number_of_tiles	(MAPAREA * 0.04)
+			else
+				number_of_tiles	(MAPAREA * 0.05)
+			endif
+			number_of_clumps	(MAPAREA * 0.014)
+			terrain_mask			1
+		}
+
+	if SEASON_WINTER
+		create_terrain MIXT_FOOTHILLS_LAYER
+		{
+			base_terrain	TERR_HILLS_LOWER_FINAL
+			number_of_tiles	(MAPAREA * 0.11)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+		create_terrain MIXT_PLAINS_LAYER
+		{
+			base_terrain	TERR_LOWER_PLAINS_BASE
+			number_of_tiles	(MAPAREA * 0.1)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+		create_terrain MIXT_PLAYER
+		{
+			base_terrain	TERR_PLAYER
+			number_of_tiles	(PLAYER_COUNT * 110)
+			number_of_clumps	(PLAYER_COUNT * 9)
+			terrain_mask	1
+		}
+		create_terrain MIXT_HILLS_HILLS
+		{
+			base_terrain	TERR_HILLS_BASE
+			number_of_tiles	(MAPAREA * 0.08)
+			number_of_clumps	(MAPAREA * 0.0065)
+			terrain_mask	1
+		}
+		create_terrain MIXT_PLAINS_HILLS
+		{
+			base_terrain	TERR_PLAINS_HILLS
+			number_of_tiles	(MAPAREA * 0.08)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+	elseif SEASON_SPRING
+		if SPRING_SNOW
+			start_random
+				percent_chance 50
+					create_terrain MIXT_SPRING_SNOW
+					{
+						base_terrain	TERR_PLAINS_HILLS
+						number_of_tiles	(MAPAREA * 0.03)
+						number_of_clumps	(MAPAREA * 0.003)
+						terrain_mask	1
+					}
+				end_random
+			start_random
+				percent_chance 50
+					create_terrain MIXT_SPRING_SNOW
+					{
+						base_terrain	TERR_HILLS_BASE
+						number_of_tiles	(MAPAREA * 0.05)
+						number_of_clumps	(MAPAREA * 0.005)
+						terrain_mask	1
+					}
+				end_random
+			create_terrain MIXT_SPRING_SNOW
+			{
+				base_terrain	TERR_HILLS_LOWER_FINAL
+				number_of_tiles	(MAPAREA * 0.08)
+				number_of_clumps	(MAPAREA * 0.008)
+				terrain_mask	1
+			}
+			create_terrain MIXT_SPRING_SNOW
+			{
+				base_terrain	TERR_LOWER_PLAINS_BASE
+				number_of_tiles	(MAPAREA * 0.05)
+				number_of_clumps	(MAPAREA * 0.005)
+				terrain_mask	1
+			}
+			create_terrain MIXT_SPRING_SNOW
+			{
+				base_terrain	TERR_PLAYER
+				number_of_tiles	(PLAYER_COUNT * 90)
+				number_of_clumps	(PLAYER_COUNT * 15)
+				terrain_mask	1
+			}
+			create_terrain MIXT_SPRING_SNOW
+			{
+				base_terrain	TERR_DELL_BASE
+				number_of_tiles	(MAPAREA * 0.02)
+				number_of_clumps	(MAPAREA * 0.002)
+				terrain_mask	1
+			}
+		endif
+		if WET_SPRING
+			create_terrain MIXT_FOOTHILLS_LAYER_B
+			{
+				base_terrain	TERR_HILLS_LOWER_FINAL
+				number_of_tiles	(MAPAREA * 0.04)
+				number_of_clumps	(MAPAREA * 0.0017)
+				terrain_mask	1
+			}
+		endif
+		create_terrain MIXT_FOOTHILLS_LAYER
+		{
+			base_terrain	TERR_HILLS_LOWER_FINAL
+			number_of_tiles	(MAPAREA * 0.11)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+		create_terrain MIXT_PLAINS_LAYER
+		{
+			base_terrain	TERR_LOWER_PLAINS_BASE
+			number_of_tiles	(MAPAREA * 0.1)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+	elseif SEASON_SUMMER
+		create_terrain MIXT_FOOTHILLS_LAYER
+		{
+			base_terrain	TERR_HILLS_LOWER_FINAL
+			number_of_tiles	(MAPAREA * 0.07)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+		create_terrain MIXT_PLAINS_LAYER
+		{
+			base_terrain	TERR_LOWER_PLAINS_BASE
+			number_of_tiles	(MAPAREA * 0.1)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+		create_terrain MIXT_HILLS_HILLS
+		{
+			base_terrain	TERR_HILLS_BASE
+			number_of_tiles	(MAPAREA * 0.08)
+			number_of_clumps	(MAPAREA * 0.0065)
+			terrain_mask	1
+		}
+	else /* SEASON_AUTUMN */
+		if AUTUMN_SNOW
+			start_random
+				percent_chance 50
+					create_terrain MIXT_AUTUMN_SNOW
+					{
+						base_terrain	TERR_PLAINS_HILLS
+						number_of_tiles	(MAPAREA * 0.03)
+						number_of_clumps	(MAPAREA * 0.003)
+						terrain_mask	1
+					}
+				end_random
+			start_random
+				percent_chance 50
+					create_terrain MIXT_AUTUMN_SNOW
+					{
+						base_terrain	TERR_HILLS_BASE
+						number_of_tiles	(MAPAREA * 0.08)
+						number_of_clumps	(MAPAREA * 0.008)
+						terrain_mask	1
+					}
+				end_random
+			create_terrain MIXT_AUTUMN_SNOW
+			{
+				base_terrain	TERR_HILLS_LOWER_FINAL
+				number_of_tiles	(MAPAREA * 0.08)
+				number_of_clumps	(MAPAREA * 0.008)
+				terrain_mask	1
+			}
+			create_terrain MIXT_AUTUMN_SNOW
+			{
+				base_terrain	TERR_LOWER_PLAINS_BASE
+				number_of_tiles	(MAPAREA * 0.05)
+				number_of_clumps	(MAPAREA * 0.005)
+				terrain_mask	1
+			}
+			create_terrain MIXT_AUTUMN_SNOW
+			{
+				base_terrain	TERR_PLAYER
+				number_of_tiles	(PLAYER_COUNT * 90)
+				number_of_clumps	(PLAYER_COUNT * 15)
+				terrain_mask	1
+			}
+		endif
+		create_terrain MIXT_FOOTHILLS_LAYER
+		{
+			base_terrain	TERR_HILLS_LOWER_FINAL
+			number_of_tiles	(MAPAREA * 0.11)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+		create_terrain MIXT_PLAINS_LAYER
+		{
+			base_terrain	TERR_LOWER_PLAINS_BASE
+			number_of_tiles	(MAPAREA * 0.1)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+		create_terrain MIXT_HILLS_HILLS
+		{
+			base_terrain	TERR_HILLS_BASE
+			number_of_tiles	(MAPAREA * 0.08)
+			number_of_clumps	(MAPAREA * 0.0065)
+			terrain_mask	1
+		}
+		create_terrain MIXT_PLAINS_HILLS
+		{
+			base_terrain	TERR_PLAINS_HILLS
+			number_of_tiles	(MAPAREA * 0.08)
+			number_of_clumps	(MAPAREA * 0.008)
+			terrain_mask	1
+		}
+	endif
+<OBJECTS_GENERATION>
+
+/* object definitions */
+	#const OBJ_VILL_MALE	1810
+	#const OBJ_VILL_FEM	293
+	#const OBJ_SCOUT	OBJ_IROQUOIS_SCOUT
+
+	#const OBJ_FORAGE	FORAGE_BUSH
+	start_random
+		percent_chance 33
+			#const OBJ_HERDABLE_A	DLC_PIG
+		percent_chance 33
+			#const OBJ_HERDABLE_A	DLC_GOAT
+		percent_chance 34
+			#const OBJ_HERDABLE_A	SHEEP
+		end_random
+	start_random
+		percent_chance 50
+			#const OBJ_HERDABLE_B	TURKEY
+		percent_chance 50
+			#const OBJ_HERDABLE_B	DLC_GOOSE
+		end_random
+	/* Placeholder objects */
+		#const PH_ON_GENERIC	1543
+
+/* Actor areas */
+	/*	1-10		player objects
+		100-199	player and loose resources
+		200-299	positional controls
+		400-499	supplemental areas
+		1000-9999	other */
+	
+	#const ACT_A_TC	1
+	#const ACT_A_VILLS_A	2
+	#const ACT_A_VILLS_B	3
+	#const ACT_A_SCOUT	4
+	#const ACT_R_TC	2
+	#const ACT_R_VILLS_A	3
+	#const ACT_R_VILLS_B	3
+	#const ACT_R_SCOUT	3
+	
+	#const ACT_A_HERD_A	101
+	#const ACT_R_HERD_A	3
+	#const ACT_A_FORAGE	102
+	#const ACT_R_FORAGE	3
+	#const ACT_A_GOLD_A	103
+	#const ACT_R_GOLD_A	5
+	#const ACT_A_STONE_A	104
+	#const ACT_R_STONE_A	5
+	#const ACT_A_HERD_B	106
+	#const ACT_R_HERD_B	3
+	#const ACT_A_GOLD_B	107
+	#const ACT_R_GOLD_B	5
+	#const ACT_A_STONE_B	108
+	#const ACT_R_STONE_B	5
+	#const ACT_A_HUNT	109
+	#const ACT_R_HUNT	3
+	#const ACT_A_LURE	110
+	#const ACT_R_LURE	7
+
+	/* #const ACT_A_ICECAVE	200
+	#const ACT_R_ICECAVE	4 */
+	#const ACT_A_DIVIDER_L	201
+	#const ACT_A_DIVIDER_M	202
+	#const ACT_A_DIVIDER_S	203
+	if 1V1_GAME
+		#const ACT_R_DIVIDER_L	12
+		#const ACT_R_DIVIDER_M	5
+		#const ACT_R_DIVIDER_S	3
+	else
+		#const ACT_R_DIVIDER_L	9
+		#const ACT_R_DIVIDER_M	4
+		#const ACT_R_DIVIDER_S	2
+	endif
+	#const ACT_A_LEFT_HALF	205
+	#const ACT_A_RIGHT_HALF	206
+	#const ACT_R_LEFT_HALF	(MAPSIZE * 0.25)
+	#const ACT_R_RIGHT_HALF	(MAPSIZE * 0.25)
+	#const ACT_A_VERTICAL_DIV	207
+	#const ACT_R_VERTICAL_DIV	(MAPSIZE * 0.05)
+
+	#const ACT_A_MOUNTAIN	1000
+	#const ACT_R_MOUNTAIN	5
+	#const ACT_A_MAP_OBJECTS	1001
+	#const ACT_R_MAP_OBJECTS	3
+	#const ACT_A_RELICS	1002
+	#const ACT_R_RELICS	15
+	#const ACT_A_TRADE_BUILDING	1003
+	#const ACT_R_TRADE_BUILDING	(MAPSIZE * 0.03 + 1)
+	#const ACT_A_TRADE_VILLAGES	1004
+	#const ACT_R_TRADE_VILLAGES	(MAPSIZE * 0.07 + 15)
+	#const ACT_A_BURNED_CENTER	1010
+	#const ACT_R_BURNED_CENTER	2
+	#const ACT_A_RUBBLE_3X3	1011
+	#const ACT_R_RUBBLE_3X3	1
+
+/* group definitions */
+	create_object_group	GROUP_IDLE_VILLAGER
+	{
+		add_object	OBJ_VILL_MALE		50
+		add_object	OBJ_VILL_FEM		50
+	}
+	create_object_group GROUP_HUNTABLE
+	{
+		add_object	DEER			100
+	}
+	create_object_group GROUP_LURABLE
+	{
+		add_object	OBJ_FOOD_BEAR		100
+	}
+	create_object_group GROUP_MOUNTAIN_TREE
+	{
+		add_object	OBJ_MOUNTAIN_TREE_B		33
+		add_object	OBJ_MOUNTAIN_TREE_C		33
+		add_object	PH_ON_GENERIC		33
+		add_object	PH_ON_GENERIC		33
+	}
+	create_object_group	GROUP_STRAGGLER_TREE
+	{
+		add_object	OBJ_STRAGGLER_A	33
+		add_object	OBJ_STRAGGLER_B	33
+		add_object	OBJ_STRAGGLER_C	33
+	}
+	create_object_group	GROUP_PINE_TREE
+	{
+		add_object	OBJ_TREE_PINE_MAIN	33
+		add_object	OBJ_TREE_PINE_MAIN	33
+		add_object	OBJ_TREE_PINE_LESS	33
+	}
+	create_object_group	GROUP_BIRCH_TREE
+	{
+		add_object	OBJ_TREE_BIRCH_MAIN	33
+		add_object	OBJ_TREE_BIRCH_MAIN	33
+		add_object	OBJ_TREE_BIRCH_LESS	33
+	}
+	create_object_group	GROUP_OAK_TREE
+	{
+		add_object	OBJ_TREE_OAK_A	50
+		add_object	OBJ_TREE_OAK_B	50
+	}
+	if NEW_SKINS
+	create_object_group	GROUP_VILLAGE_HUT
+	{
+		add_object	HUT1	25
+		add_object	HUT2	25
+		add_object	HUT3	25
+		add_object	HUT4	25
+	}
+	else
+	create_object_group	GROUP_VILLAGE_HUT
+	{
+		add_object	HUT1	34
+		add_object	HUT2	34
+		add_object	HUT3	34
+	}
+	endif
+
+/* actor areas */
+	if COMMON_TEAMS
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_L * -1 + MAPSIZE) ACT_A_DIVIDER_L ACT_R_DIVIDER_L
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_L * -3 + MAPSIZE) ACT_A_DIVIDER_L ACT_R_DIVIDER_L
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_L * -5 + MAPSIZE) ACT_A_DIVIDER_L ACT_R_DIVIDER_L
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_L * -7 + MAPSIZE) ACT_A_DIVIDER_L ACT_R_DIVIDER_L
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_L * -9 + MAPSIZE) ACT_A_DIVIDER_L ACT_R_DIVIDER_L
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_L * -11 + MAPSIZE) ACT_A_DIVIDER_L ACT_R_DIVIDER_L
+
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_M * -1 + MAPSIZE) ACT_A_DIVIDER_M ACT_R_DIVIDER_M
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_M * -3 + MAPSIZE) ACT_A_DIVIDER_M ACT_R_DIVIDER_M
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_M * -5 + MAPSIZE) ACT_A_DIVIDER_M ACT_R_DIVIDER_M
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_M * -7 + MAPSIZE) ACT_A_DIVIDER_M ACT_R_DIVIDER_M
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_M * -9 + MAPSIZE) ACT_A_DIVIDER_M ACT_R_DIVIDER_M
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_M * -11 + MAPSIZE) ACT_A_DIVIDER_M ACT_R_DIVIDER_M
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_M * -13 + MAPSIZE) ACT_A_DIVIDER_M ACT_R_DIVIDER_M
+
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -1 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -3 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -5 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -7 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -9 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -11 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -13 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -15 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -17 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_DIVIDER_S * -19 + MAPSIZE) ACT_A_DIVIDER_S ACT_R_DIVIDER_S
+	endif
+	/* left right halves */
+		create_actor_area (MAPSIZE * 0.245) (MAPSIZE * 0.25) ACT_A_LEFT_HALF ACT_R_LEFT_HALF
+		create_actor_area (MAPSIZE * 0.245) (MAPSIZE * 0.75) ACT_A_LEFT_HALF ACT_R_LEFT_HALF
+		create_actor_area (MAPSIZE * 0.755) (MAPSIZE * 0.25) ACT_A_RIGHT_HALF ACT_R_RIGHT_HALF
+		create_actor_area (MAPSIZE * 0.755) (MAPSIZE * 0.75) ACT_A_RIGHT_HALF ACT_R_RIGHT_HALF
+	/* vertical divider */
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 1) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 3) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 5) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 7) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 9) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 11) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 13) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 15) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 17) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+		create_actor_area (MAPSIZE * 0.5) (ACT_R_VERTICAL_DIV * 19) ACT_A_VERTICAL_DIV ACT_R_VERTICAL_DIV
+
+/* forest trees */
+	create_object	OBJ_TREE_WILLOW
+	{
+		number_of_objects	(MAPAREA * 0.01)
+		temp_min_distance_group_placement	4
+		set_circular_placement
+		terrain_to_place_on	TERR_FOREST_BASE
+		min_distance_to_players 7
+	}
+	create_object	OBJ_TREE_MAPLE
+	{
+		number_of_objects	(MAPAREA * 0.01)
+		temp_min_distance_group_placement	2
+		terrain_to_place_on	TERR_FOREST_BASE
+		min_distance_to_players 7
+	}
+	create_object	GROUP_OAK_TREE
+	{
+		number_of_objects	2
+		number_of_groups	(MAPAREA * 0.01)
+		set_tight_grouping
+		temp_min_distance_group_placement	2
+		terrain_to_place_on	TERR_FOREST_BASE
+		min_distance_to_players 7
+	}
+	create_object	GROUP_BIRCH_TREE
+	{
+		number_of_objects	2
+		number_of_groups	(MAPAREA * 0.015)
+		set_tight_grouping
+		temp_min_distance_group_placement	2
+		terrain_to_place_on	TERR_FOREST_BASE
+		min_distance_to_players 7
+	}
+	create_object	GROUP_PINE_TREE
+	{
+		number_of_objects	(MAPAREA * 0.015)
+		temp_min_distance_group_placement	2
+		terrain_to_place_on	TERR_FOREST_BASE
+		min_distance_to_players 7
+	}
+	create_object	OBJ_TREE_BUSH
+	{
+		number_of_objects	(MAPAREA * 0.015)
+		temp_min_distance_group_placement	1
+		terrain_to_place_on	TERR_FOREST_BASE
+		min_distance_to_players 7
+	}
+	create_object	GROUP_OAK_TREE
+	{
+		number_of_objects	(MAPAREA * 0.03)
+		terrain_to_place_on	TERR_FOREST_BASE
+		min_distance_to_players 7
+	}
+
+/* player objects */
+	create_object TOWN_CENTER
+	{
+		number_of_objects		1
+		max_distance_to_players	0
+		set_place_for_every_player
+		actor_area		ACT_A_TC
+		actor_area_radius	ACT_R_TC
+	}
+
+	create_object GROUP_IDLE_VILLAGER
+	{
+		number_of_objects		2
+		set_place_for_every_player
+		min_distance_to_players	5
+		max_distance_to_players	7
+		set_circular_placement
+		find_closest
+		enable_tile_shuffling
+		temp_min_distance_group_placement	7
+		avoid_actor_area			ACT_A_TC
+		avoid_forest_zone		2
+		actor_area			ACT_A_VILLS_A
+		actor_area_radius		ACT_R_VILLS_A
+	}
+	create_object GROUP_IDLE_VILLAGER
+	{
+		number_of_objects		1
+		set_place_for_every_player
+		min_distance_to_players	4
+		max_distance_to_players	7
+		set_circular_placement
+		actor_area_to_place_in		ACT_A_VILLS_A
+		avoid_actor_area			ACT_A_TC
+		actor_area			ACT_A_VILLS_B
+		actor_area_radius		ACT_R_VILLS_B
+	}
+	create_object OBJ_SCOUT
+	{
+		number_of_objects		1
+		set_place_for_every_player
+		min_distance_to_players	7
+		set_circular_placement
+		find_closest
+		enable_tile_shuffling
+		avoid_actor_area	ACT_A_VILLS_A
+		avoid_actor_area	ACT_A_VILLS_B
+		avoid_forest_zone		1
+		actor_area			ACT_A_SCOUT
+		actor_area_radius		ACT_R_SCOUT
+	}
+	if REGICIDE
+		create_object KING
+		{
+			number_of_objects	1
+			set_place_for_every_player
+			min_distance_to_players	5
+			max_distance_to_players	7
+			set_circular_placement
+			find_closest
+			enable_tile_shuffling
+			avoid_forest_zone		1
+		}
+		create_object GROUP_IDLE_VILLAGER
+		{
+			number_of_objects		6
+			set_place_for_every_player
+			min_distance_to_players	4
+			max_distance_to_players	7
+			set_circular_placement
+			find_closest
+			enable_tile_shuffling
+			avoid_actor_area			ACT_A_TC
+			actor_area			ACT_A_VILLS_B
+			actor_area_radius		ACT_R_VILLS_B
+		}
+	endif
+	create_object OBJ_HERDABLE_A
+	{
+		number_of_objects			1
+		actor_area			ACT_A_HERD_A
+		actor_area_radius		ACT_R_HERD_A
+		avoid_actor_area		ACT_A_TC
+		avoid_actor_area		ACT_A_VILLS_A
+		set_place_for_every_player
+		min_distance_to_players			3
+		max_distance_to_players			12
+		set_circular_placement
+		find_closest
+		enable_tile_shuffling
+		require_path	5
+		avoid_forest_zone 2
+	}
+	create_object OBJ_HERDABLE_A
+	{
+		number_of_objects		3
+		actor_area_to_place_in	ACT_A_HERD_A
+		set_place_for_every_player
+		min_distance_to_players    2
+		set_circular_placement
+		require_path	5
+	}
+
+	create_object OBJ_FORAGE
+	{
+		number_of_objects		6
+		group_placement_radius	1
+		set_tight_grouping
+		set_gaia_object_only
+		set_place_for_every_player
+		min_distance_to_players	9
+		max_distance_to_players	20
+		find_closest
+		set_circular_placement
+		enable_tile_shuffling
+		min_distance_group_placement 2
+		require_path	5
+		avoid_forest_zone		3
+		actor_area			ACT_A_FORAGE
+		actor_area_radius		ACT_R_FORAGE
+	}
+	
+	/* main gold and stone */
+		create_object GOLD
+		{
+			number_of_objects			5
+			group_placement_radius		1
+			set_tight_grouping
+			set_gaia_object_only
+			set_place_for_every_player
+			min_distance_to_players		11
+			max_distance_to_players		18
+			find_closest
+			set_circular_placement
+			enable_tile_shuffling
+			require_path			5
+			avoid_forest_zone		3
+			avoid_actor_area		ACT_A_FORAGE
+			min_distance_group_placement 2
+			actor_area			ACT_A_GOLD_A
+			actor_area_radius		ACT_R_GOLD_A
+		}
+
+		create_object STONE
+		{
+			number_of_objects          6
+			group_placement_radius     2
+			set_tight_grouping 
+			set_gaia_object_only
+			set_place_for_every_player
+			min_distance_to_players    12
+			max_distance_to_players    18
+			find_closest
+			set_circular_placement
+			enable_tile_shuffling
+			require_path		5
+			avoid_forest_zone	2
+			avoid_actor_area	ACT_A_FORAGE
+			avoid_actor_area	ACT_A_GOLD_A
+			min_distance_group_placement	3
+			actor_area 			ACT_A_STONE_A
+			actor_area_radius		ACT_R_STONE_A
+		}
+	
+	create_object OBJ_HERDABLE_B
+	{
+		number_of_objects	2
+		number_of_groups	2
+		set_place_for_every_player
+		set_gaia_object_only
+		set_loose_grouping
+		if 1V1_GAME
+			min_distance_to_players	18
+			max_distance_to_players	28
+		elseif	COMMON_TEAMS
+			min_distance_to_players	14
+			max_distance_to_players	28
+		else
+			min_distance_to_players	14
+			max_distance_to_players	28
+		endif
+		temp_min_distance_group_placement	12
+		set_circular_placement
+		find_closest
+		enable_tile_shuffling
+		avoid_forest_zone	1
+		/* terrain_to_place_on		TERR_PLAYER */
+		actor_area 			ACT_A_HERD_B
+		actor_area_radius		ACT_R_HERD_B
+		avoid_actor_area		ACT_A_DIVIDER_L
+	}
+
+	/* secondary gold and stone */
+		create_object GOLD
+		{
+			number_of_objects		3
+			group_placement_radius	3
+			set_tight_grouping
+			set_gaia_object_only
+			set_place_for_every_player
+			if 1V1_GAME
+				min_distance_to_players	18
+				max_distance_to_players	26
+			else
+				min_distance_to_players	15
+				max_distance_to_players	26
+			endif
+			find_closest
+			set_circular_placement
+			enable_tile_shuffling
+			require_path		5
+			avoid_forest_zone	2
+			avoid_actor_area	ACT_A_FORAGE
+			avoid_actor_area	ACT_A_GOLD_A
+			/* avoid_actor_area	ACT_A_DIRT_B */
+			min_distance_group_placement 3
+			actor_area			ACT_A_GOLD_B
+			actor_area_radius		ACT_R_GOLD_B
+		}
+
+		create_object STONE
+		{
+			number_of_objects		4
+			group_placement_radius	2
+			set_tight_grouping
+			set_gaia_object_only
+			set_place_for_every_player
+			if 1V1_GAME
+				min_distance_to_players	19
+				max_distance_to_players	27
+			else
+				min_distance_to_players	16
+				max_distance_to_players	27
+			endif
+			find_closest
+			set_circular_placement
+			enable_tile_shuffling
+			require_path		5
+			avoid_forest_zone	2
+			avoid_actor_area	ACT_A_FORAGE
+			avoid_actor_area	ACT_A_GOLD_A
+			avoid_actor_area	ACT_A_GOLD_B
+			avoid_actor_area	ACT_A_STONE_A
+			/* avoid_actor_area	ACT_A_DIRT_B */
+			actor_area			ACT_A_STONE_B
+			actor_area_radius		ACT_R_STONE_B
+		}
+	
+	create_object GROUP_HUNTABLE
+	{
+		number_of_objects	rnd(3,4)
+		set_place_for_every_player
+		set_gaia_object_only
+			if 1V1_GAME
+				min_distance_to_players	18
+			else
+				min_distance_to_players	15
+			endif
+		set_circular_placement
+		find_closest
+		enable_tile_shuffling
+		set_loose_grouping
+		actor_area			ACT_A_HUNT
+		actor_area_radius		ACT_R_HUNT
+		avoid_forest_zone	2
+		min_distance_to_map_edge 	4
+		avoid_actor_area	ACT_A_FORAGE
+		avoid_actor_area	ACT_A_GOLD_A
+		avoid_actor_area	ACT_A_GOLD_B
+		avoid_actor_area	ACT_A_STONE_A
+		avoid_actor_area	ACT_A_DIVIDER_M
+		avoid_actor_area	ACT_A_HUNT
+		require_path		1
+	}
+	create_object GROUP_LURABLE
+	{
+		number_of_objects		2
+		set_place_for_every_player
+		set_gaia_object_only
+			if 1V1_GAME
+				min_distance_to_players	19
+				max_distance_to_players	34
+				temp_min_distance_group_placement		12
+			else
+				min_distance_to_players	15
+				max_distance_to_players	34
+				temp_min_distance_group_placement		4
+			endif
+		/* temp_min_distance_group_placement		12 */
+		set_circular_placement
+		find_closest
+		enable_tile_shuffling
+		require_path		5
+		avoid_forest_zone 1
+		avoid_actor_area	ACT_A_HERD_B
+		avoid_actor_area	ACT_A_DIVIDER_L
+		avoid_actor_area	ACT_A_LURE
+		min_distance_group_placement	1
+		actor_area			ACT_A_LURE
+		actor_area_radius		ACT_R_LURE
+	}
+	create_object GROUP_STRAGGLER_TREE
+	{
+		number_of_objects	3
+		set_gaia_object_only
+		set_place_for_every_player
+		min_distance_to_players	4
+		find_closest
+		set_circular_placement
+		enable_tile_shuffling
+		/* avoid_actor_area		ACT_A_TC */
+		temp_min_distance_group_placement	4
+	}
+
+/* mountain objects */
+	create_object OBJ_MOUNTAIN_A
+	{
+		number_of_objects	(MAPAREA * 0.01)
+		layer_to_place_on		MIXT_S_MOUNTAIN_INNER
+		temp_min_distance_group_placement	5
+		actor_area			ACT_A_MOUNTAIN
+		actor_area_radius		ACT_R_MOUNTAIN
+	}
+
+	create_object OBJ_MOUNTAIN_B
+	{
+		number_of_objects	(MAPAREA * 0.01)
+		layer_to_place_on		MIXT_S_MOUNTAIN_INNER
+		temp_min_distance_group_placement	2
+		actor_area			ACT_A_MOUNTAIN
+		actor_area_radius		ACT_R_MOUNTAIN
+	}
+
+	create_object OBJ_ROCK_A
+	{
+		number_of_objects	(MAPAREA * 0.1)
+		terrain_to_place_on	TERR_MOUNTAIN
+		second_object		GROUP_MOUNTAIN_TREE
+		actor_area			ACT_A_MOUNTAIN
+		actor_area_radius		ACT_R_MOUNTAIN
+	}
+
+/* map objects */
+	/* Village objects */
+		create_object OBJ_TRADE_BUILDING
+		{
+			terrain_to_place_on	TERR_VILLAGE_BASE
+			place_on_specific_land_id	L_ID_VILLAGES
+			max_distance_to_players	0
+			set_gaia_object_only
+			set_gaia_unconvertible
+			actor_area		ACT_A_TRADE_BUILDING
+			actor_area_radius	ACT_R_TRADE_BUILDING
+			min_distance_group_placement	3
+		}
+		create_object	GROUP_VILLAGE_HUT
+		{
+			number_of_objects	(MAPSIZE * 0.02 + 1)
+			place_on_specific_land_id	L_ID_VILLAGES
+			ignore_terrain_restrictions
+			find_closest
+			set_circular_placement
+			enable_tile_shuffling
+			set_gaia_object_only
+			set_gaia_unconvertible
+			min_distance_group_placement	2
+		}
+		create_object	PH_ON_GENERIC
+		{
+			place_on_specific_land_id	L_ID_VILLAGES
+			max_distance_to_players	0
+			actor_area		ACT_A_TRADE_VILLAGES
+			actor_area_radius	ACT_R_TRADE_VILLAGES
+		}
+	#const RELIC_COUNT	(PLAYER_COUNT + 3)
+		create_object	RELIC
+		{
+			terrain_to_place_on	TERR_DELL_BASE
+			number_of_objects	(RELIC_COUNT % 2)
+			temp_min_distance_group_placement	(MAPSIZE / RELIC_COUNT * 0.6)
+			set_circular_placement
+			avoid_actor_area			ACT_A_LEFT_HALF
+			avoid_actor_area			ACT_A_RIGHT_HALF
+			actor_area			ACT_A_RELICS
+			actor_area_radius		ACT_R_RELICS
+		}
+		create_object	RELIC
+		{
+			terrain_to_place_on	TERR_DELL_BASE
+			number_of_objects	(RELIC_COUNT * 0.499)
+			temp_min_distance_group_placement	(MAPSIZE / RELIC_COUNT * 0.6)
+			set_circular_placement
+			avoid_actor_area			ACT_A_RIGHT_HALF
+			avoid_actor_area			ACT_A_RELICS
+			actor_area			ACT_A_RELICS
+			actor_area_radius		ACT_R_RELICS
+		}
+		create_object	RELIC
+		{
+			terrain_to_place_on	TERR_DELL_BASE
+			number_of_objects	(RELIC_COUNT * 0.499)
+			temp_min_distance_group_placement	(MAPSIZE / RELIC_COUNT * 0.6)
+			set_circular_placement
+			avoid_actor_area			ACT_A_LEFT_HALF
+			avoid_actor_area			ACT_A_RELICS
+			actor_area			ACT_A_RELICS
+			actor_area_radius		ACT_R_RELICS
+		}
+	#const HILLS_GOLD_GROUPS (MAPAREA * 0.00042)
+		create_object GOLD
+		{
+			terrain_to_place_on	TERR_HILLS_LOWER_FINAL
+			number_of_objects	3
+			number_of_groups	(HILLS_GOLD_GROUPS * 0.4999)
+			min_distance_to_players	28
+			temp_min_distance_group_placement	16
+			set_circular_placement
+			avoid_actor_area			ACT_A_RIGHT_HALF
+			avoid_actor_area			ACT_A_VERTICAL_DIV
+			avoid_actor_area			ACT_A_MAP_OBJECTS
+			actor_area			ACT_A_MAP_OBJECTS
+			actor_area_radius		ACT_R_MAP_OBJECTS
+		}
+		create_object GOLD
+		{
+			terrain_to_place_on	TERR_HILLS_LOWER_FINAL
+			number_of_objects	3
+			number_of_groups	(HILLS_GOLD_GROUPS * 0.4999)
+			min_distance_to_players	28
+			temp_min_distance_group_placement	16
+			set_circular_placement
+			avoid_actor_area			ACT_A_LEFT_HALF
+			avoid_actor_area			ACT_A_VERTICAL_DIV
+			avoid_actor_area			ACT_A_MAP_OBJECTS
+			actor_area			ACT_A_MAP_OBJECTS
+			actor_area_radius		ACT_R_MAP_OBJECTS
+		}
+	#const DELL_GOLD_GROUPS (MAPSIZE * 0.02)
+		create_object GOLD
+		{
+			terrain_to_place_on	TERR_DELL_BASE
+			number_of_objects	2
+			number_of_groups	(DELL_GOLD_GROUPS * 0.4999)
+			min_distance_to_players	28
+			temp_min_distance_group_placement	30
+			set_circular_placement
+			avoid_actor_area			ACT_A_RIGHT_HALF
+			avoid_actor_area			ACT_A_VERTICAL_DIV
+			avoid_actor_area			ACT_A_MAP_OBJECTS
+			actor_area			ACT_A_MAP_OBJECTS
+			actor_area_radius		ACT_R_MAP_OBJECTS
+		}
+		create_object GOLD
+		{
+			terrain_to_place_on	TERR_DELL_BASE
+			number_of_objects	2
+			number_of_groups	(DELL_GOLD_GROUPS * 0.4999)
+			min_distance_to_players	28
+			temp_min_distance_group_placement	30
+			set_circular_placement
+			avoid_actor_area			ACT_A_LEFT_HALF
+			avoid_actor_area			ACT_A_VERTICAL_DIV
+			avoid_actor_area			ACT_A_MAP_OBJECTS
+			actor_area			ACT_A_MAP_OBJECTS
+			actor_area_radius		ACT_R_MAP_OBJECTS
+		}
+	#const FORAGE_GROUPS	(MAPAREA * 0.00018)
+		create_object OBJ_FORAGE
+		{
+			terrain_to_place_on	TERR_HILLS_LOWER_FINAL
+			number_of_objects	3
+			number_of_groups	(FORAGE_GROUPS * 0.4999)
+			set_tight_grouping
+			group_placement_radius	1
+			min_distance_to_players	30
+			temp_min_distance_group_placement	22
+			set_circular_placement
+			avoid_actor_area			ACT_A_RIGHT_HALF
+			avoid_actor_area			ACT_A_VERTICAL_DIV
+			avoid_actor_area			ACT_A_MAP_OBJECTS
+			actor_area			ACT_A_MAP_OBJECTS
+			actor_area_radius		ACT_R_MAP_OBJECTS
+		}
+		create_object OBJ_FORAGE
+		{
+			terrain_to_place_on	TERR_HILLS_LOWER_FINAL
+			number_of_objects	3
+			number_of_groups	(FORAGE_GROUPS * 0.4999)
+			set_tight_grouping
+			group_placement_radius	1
+			min_distance_to_players	30
+			temp_min_distance_group_placement	22
+			set_circular_placement
+			avoid_actor_area			ACT_A_LEFT_HALF
+			avoid_actor_area			ACT_A_VERTICAL_DIV
+			avoid_actor_area			ACT_A_MAP_OBJECTS
+			actor_area			ACT_A_MAP_OBJECTS
+			actor_area_radius		ACT_R_MAP_OBJECTS
+		}
+
+/* aesthetic objects */
+	/* ideas: Ice objects in the caves
+	an animal skeleton or two in the caves
+	a few villages, each around a bonfire
+	*/
+	#const RUBBLE_CLUSTERS	(MAPAREA / 7200 % 0)
+	create_object	PH_ON_GENERIC
+	{
+		number_of_groups	RUBBLE_CLUSTERS
+		set_gaia_object_only
+		min_distance_to_players	35
+		temp_min_distance_group_placement	40
+		avoid_actor_area			ACT_A_MOUNTAIN
+		avoid_actor_area			ACT_A_MAP_OBJECTS
+		avoid_actor_area			ACT_A_RELICS
+		avoid_actor_area			ACT_A_TRADE_VILLAGES
+		avoid_forest_zone		4
+		min_distance_to_map_edge	3
+		actor_area			ACT_A_BURNED_CENTER
+		actor_area_radius		ACT_R_BURNED_CENTER
+	}
+	create_object	OBJ_RUBBLE_3X3
+	{
+		number_of_objects		RUBBLE_CLUSTERS
+		actor_area_to_place_in		ACT_A_BURNED_CENTER
+		temp_min_distance_group_placement	10
+		actor_area			ACT_A_RUBBLE_3X3
+		actor_area_radius		ACT_R_RUBBLE_3X3
+		second_object SMOKE
+	}
+	create_object	OBJ_FURNACE
+	{
+		number_of_objects		RUBBLE_CLUSTERS
+		actor_area_to_place_in		ACT_A_RUBBLE_3X3
+		temp_min_distance_group_placement	10
+	}
+	create_object	OBJ_RUBBLE_2X2
+	{
+		number_of_objects		(RUBBLE_CLUSTERS * 2)
+		actor_area_to_place_in		ACT_A_BURNED_CENTER
+		temp_min_distance_group_placement	2
+		avoid_actor_area			ACT_A_RUBBLE_3X3
+		second_object SMOKE
+	}
+	create_object	OBJ_RUBBLE_2X2
+	{
+		number_of_objects		(RUBBLE_CLUSTERS * 3)
+		actor_area_to_place_in		ACT_A_BURNED_CENTER
+		temp_min_distance_group_placement	2
+		avoid_actor_area			ACT_A_RUBBLE_3X3
+		second_object SMOKE
+	}
+	create_object	OBJ_BONFIRE
+	{
+		number_of_objects		(RUBBLE_CLUSTERS * 5)
+		actor_area_to_place_in		ACT_A_BURNED_CENTER
+		temp_min_distance_group_placement	1
+	}
+
+	#const ICE_CHUNK 728
+	create_object SEA_ROCKS_1 { set_gaia_object_only number_of_groups 9320 set_scaling_to_map_size terrain_to_place_on DLC_ROCK temp_min_distance_group_placement 4 }
+	create_object SEA_ROCKS_2 { set_gaia_object_only number_of_groups 9320 set_scaling_to_map_size terrain_to_place_on DLC_ROCK temp_min_distance_group_placement 4 }
+	create_object ICE_CHUNK   { set_gaia_object_only number_of_groups 9320 set_scaling_to_map_size terrain_to_place_on DLC_ROCK temp_min_distance_group_placement 4 }
+	create_object SEA_ROCKS_1 { set_gaia_object_only number_of_groups 9320 set_scaling_to_map_size terrain_to_place_on DLC_ROCK temp_min_distance_group_placement 4 }
+	create_object SEA_ROCKS_2 { set_gaia_object_only number_of_groups 9320 set_scaling_to_map_size terrain_to_place_on DLC_ROCK temp_min_distance_group_placement 4 }
+	create_object ICE_CHUNK   { set_gaia_object_only number_of_groups 9320 set_scaling_to_map_size terrain_to_place_on DLC_ROCK temp_min_distance_group_placement 4 }
+
+
+
+	create_object WOLF { set_gaia_object_only number_of_groups 9320 set_scaling_to_map_size temp_min_distance_group_placement 24 min_distance_to_players 40 }
+
+	create_object HAWK { set_gaia_object_only number_of_groups 4 set_scaling_to_map_size temp_min_distance_group_placement 12 }
+
