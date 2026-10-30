@@ -126,11 +126,11 @@ sprints:
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint2/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1w8JCEGQHWulqkmfDdkYSdk6SobIqX5pf57ZOh8mxKNw/edit?gid=1813358294#gid=1813358294
     live_scoreboard_frame: https://docs.google.com/spreadsheets/d/e/2PACX-1vTWdmWwiu8g5VLYCGcNpG1oHudhcySnQd9-Kv3HpiOJmbhGlw7z0HLfQsj1s0d9T2u3JC-Ct0qilGwp/pubhtml?gid=1813358294&amp;single=true&amp;widget=true&amp;headers=false
-    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint2/Results.ods        
+    results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint2/Results.ods
     prize_winners: 8
     prize_ineligibles: 0
     show_players: true
-    show_results: false
+    show_results: true
 
   - name: Sprint 3
     sprint_name: Sprint3
