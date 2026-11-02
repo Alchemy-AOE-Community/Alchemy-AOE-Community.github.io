@@ -135,7 +135,8 @@ sprints:
   - name: Sprint 3
     sprint_name: Sprint3
     notes: | 
-      - TBD
+      - Exception granted for Jasuni (80/100) games due to participation in numerous previous seasons of Alchemy League. Player may compete for prize.
+      - Exception granted for TheNagraj (52/100) games due to participation in previous seasons of Alchemy League. Player may compete for prize.
     registration_sheet:    https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint3/Registration.ods
     seeding_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint3/Seeding.ods
     live_scoreboard_sheet: https://docs.google.com/spreadsheets/d/1w8JCEGQHWulqkmfDdkYSdk6SobIqX5pf57ZOh8mxKNw/edit?gid=1154810208#gid=1154810208
@@ -143,7 +144,7 @@ sprints:
     results_sheet:         https://raw.githubusercontent.com/Alchemy-AOE-Community/Alchemy-AOE-Community.github.io/main/site/resources/ALS11/Sprint3/Results.ods
     prize_winners: 8
     prize_ineligibles: 0
-    show_players: false
+    show_players: true
     show_results: false
 
 ---
