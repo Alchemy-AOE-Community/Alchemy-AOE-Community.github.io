@@ -9,7 +9,7 @@
 
 title: Alchemy AoE Community
 description: >- 
-  © 2025 Alchemy AOE Community. All rights reserved
+  © 2026 Alchemy AOE Community. All rights reserved
 baseurl: ""
 url: "https://alchemy-aoe-community.github.io"
 
@@ -45,3 +45,5 @@ collections:
     output: true
   people:
     output: false
+  roles:
+    output: true
